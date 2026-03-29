@@ -105,6 +105,19 @@ python ../arda_desktop/app.py
 | [`cloud_witness.py`](arda_os/backend/services/attestation/cloud_witness.py) | External truth attestation |
 | [`arda_physical_lsm.c`](arda_os/backend/services/bpf/arda_physical_lsm.c) | Kernel-level BPF LSM module |
 | [`SOVEREIGN_LOGIC_SEAL.md`](arda_os/SOVEREIGN_LOGIC_SEAL.md) | Latest 10/10 gauntlet seal |
+| [`THE_TRIAL_IX_X_DISCOVERY.md`](arda_os/THE_TRIAL_IX_X_DISCOVERY.md) | When the system remembered its own judgment |
+
+## 📖 The Trial IX-X Discovery
+
+During the final gauntlet session, something unexpected happened. Trial IX proved that the substrate vetoes red-line violations even when every AI witness is subverted. But in doing so, it wrote to the sovereign manifest — the system's memory. When Trial X ran next, it found the test binary was *already known*. The system had **remembered its own judgment** from a previous trial.
+
+The binary wasn't "unknown." The manifest — the system's own sovereign memory — carried forward.
+
+This was not a bug. It was the system exhibiting **continuity of state**. And it revealed the deepest insight of the architecture: *the AI doesn't need to be smart. It needs to be honest.* A 7-billion-parameter model can be wrong about everything, adversarially prompted, completely subverted — and the system's proofs still hold. Because the proofs are about the substrate being incorruptible, not the AI being correct.
+
+> The Ainur sing the Great Music, but Ilúvatar creates the reality. The AI proposes. The substrate disposes.
+
+📄 [Read the full account](arda_os/THE_TRIAL_IX_X_DISCOVERY.md)
 
 ## Built With AI
 
