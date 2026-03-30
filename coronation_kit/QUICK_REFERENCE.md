@@ -1,47 +1,68 @@
 # ARDA OS CORONATION — QUICK REFERENCE
 
 ## Before You Start (On Windows Machine)
-1. Download: https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current-live/amd64/iso-hybrid/
+1. Download Debian 12 Live (with firmware):
+   https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current-live/amd64/iso-hybrid/
    → Get `firmware-12.x.x-live-amd64-standard.iso`
 2. Flash to USB #1 with Rufus (GPT, FAT32)
-3. Copy `coronation_kit/` folder to USB #2
+3. Copy `coronation_kit/` folder to USB #2 (or use GitHub)
 
 ## At the Target Machine
 
 ### BIOS Setup
 - Enable TPM (Security → Trusted Computing / PTT / fTPM)
 - Boot order: USB first
-- Note Secure Boot status (either way is fine)
+- Note Secure Boot state
 
-### Boot & Run
-```
+### Boot Debian & Get the Kit
+```bash
 sudo -i
-mount /dev/sdX1 /mnt        # USB #2 with the kit
+
+# Option A: From USB #2
+mount /dev/sdX1 /mnt
 cd /mnt/coronation_kit
-chmod +x scripts/*.sh
-./scripts/00_coronation.sh   # THE BIG ONE
+
+# Option B: From GitHub (needs internet)
+apt update && apt install -y git
+git clone https://github.com/Byron2306/Integritas-Mechanicus.git
+cd Integritas-Mechanicus && git checkout arda-os-desktop
+cd coronation_kit
 ```
 
-### If BPF LSM Not Active
+### Run These THREE Scripts (In Order)
+
+```bash
+chmod +x scripts/*.sh
+
+# 1. INSTALL EVERYTHING (Python, Ollama, TPM tools, eBPF toolchain)
+sudo ./scripts/02_install_arda_stack.sh
+
+# 2. SILICON CORONATION (TPM proof + eBPF enforcement)
+sudo ./scripts/00_coronation.sh
+
+# 3. (If Gate 5 warns about BPF LSM)
+sudo ./scripts/01_enable_bpf_lsm.sh
+# Then reboot and re-run 00_coronation.sh
 ```
-# At GRUB menu, press 'e', find 'linux' line, add:
-# lsm=landlock,lockdown,yama,integrity,bpf
-# Press Ctrl+X to boot
-# Then re-run 00_coronation.sh
+
+### Launch the Live Desktop
+```bash
+sudo /opt/arda/launch_arda.sh
+# Open http://localhost:8080
+# Run the gauntlet with LIVE Qwen witnesses
 ```
 
 ### Collect Evidence
-```
+```bash
 cp -r evidence/ /mnt/coronation_evidence/
 # OR
 tar czf /tmp/arda_evidence.tar.gz evidence/
-# Copy to USB
 ```
 
-## Expected Gates
+## Expected Gates (00_coronation.sh)
 ```
-GATE 0: Hardware Census     → CPU, kernel, arch check
-GATE 1: TPM Verification    → tpm2_getcap, PCR read
+GATE 0: Hardware Census     → CPU, kernel, arch
+GATE 1: TPM Verification    → tpm2_getcap, PCR read (REAL SILICON)
 GATE 2: AK Enrollment       → Attestation Key creation
 GATE 3: Boot Quote           → Silicon-signed TPM quote
 GATE 4: eBPF Compilation    → clang → BPF object
@@ -52,4 +73,4 @@ GATE 7: Sovereign Seal      → Final document
 
 ## If Something Fails
 Document it. The failure IS evidence.
-Check evidence/ folder — partial bundles are saved.
+The `evidence/` folder always gets partial bundles.
