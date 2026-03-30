@@ -1,0 +1,4 @@
+WARNING:esys:src/tss2-esys/api/Esys_Create.c:399:Esys_Create_Finish() Received TPM Error 
+ERROR:esys:src/tss2-esys/api/Esys_Create.c:134:Esys_Create() Esys Finish ErrorCode (0x000002d2) 
+ERROR: Esys_Create(0x2D2) - tpm:parameter(2):unsupported or incompatible scheme
+ERROR: Unable to run tpm2_create

@@ -1,0 +1,53 @@
+{
+  "protocol": "ARDA_CORONATION_v1",
+  "mirror_id": "ARDA-CORONATION-7EDBF9EAD002B806",
+  "timestamp": "2026-03-30T19:10:17Z",
+  "boot_state": "LAWFUL_PARTIAL",
+  "principal": {
+    "type": "SOVEREIGN_SUBSTRATE",
+    "assent": "I attest that this evidence was produced by direct hardware interaction",
+    "machine_id": "da393d0cfaf94545ad651cd6d9b97336"
+  },
+  "tpm_pcr_quote": {
+    "nonce": "8ecdf169837c82fff031f828f2166e30",
+    "pcr_selection": "sha256:0,1,7,11",
+    "pcr_values": {
+      "0": "0886e6fc01b4b9c8fc427eb494c7fa477032d56991529621fe3e9865f532e92f",
+      "1": "0f7822518c9b796eb18c16a7751de7cc72f4f89b2d008d063bde606ca71a6a76",
+      "7": "d1a66959abf306c3430ebb58da1122ba0b150af00fe0129bceca115b7f5f57d1",
+      "11": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "quote_blob_b64": "/1RDR4AYACIAC0s7gjkXeK/oJLCpV36X5SiLIwmxBA3m1gFFxjXgT917ABCOzfFpg3yC//Ax+CjyFm4wAAAAAADzT7sAAAAcAAAAAAEABwACAAMAAQAAAAEACwODCAAAIIfVibiY6hrH2vt7FiJDJ5gJWHNE1b1gt7lsrcu6Q8Bh",
+    "signature_blob_b64": "ABQACwEALphA7xoEOJNUI/eKVNCxjjjEZSRkqAwEi+bUGzSrM0NQO38nLcoAp6juAakUwbHt4oNoV4upqlxJ79+vzs7fy09+vZvvbB4FrjjrMxcAPUfER5Of9FB/45OumZxQ9WSVUQIhLvTavh84LMr7LHLeMFRVyLBGGqpkxId8G0MRbOuxkiqQTrs8MhUP3bh3EhweFyg1qGyLK1dsx1467Ya0sC/xtvK51In6oZFF4cLHBG42wt341n1qSSVZtmuHiRN9hTc0aJ6iY0S2zN1NvkLvs5EEgzRK88LMIRG4t+Uw7aaEg6kVI3KphZHVxDDnY9iQ3dNPD19rGaoi0bd1LvWmkg==",
+    "ak_public_b64": "ARYAAQALAAQAcgAAABAAEAgAAAAAAAEAr+pclvdpbSY3UWg5XAf+Su+Vn9CFQ2meig4UC33dzacLeUjdlOqTTf6y5Ktwkdip30JQeGzaKYmxKAlPiGyIDPkETlPrZBQLM6D/tP1Ncsfl+J4PpUvQJUHLiJQGYe2fkwnzBjtMXj4M1HNdx6t0vxn+fUEl7kaUKLXYnRu7RXdwRScp+mhzha+GrErWYGha+B6LxMMUrHy6ZiDcovlaJ8sXXniSLnLyhcKIjNsws6VGcIPhpYMs9Tah0xC1fn1i8vkO8nsRaLynZHmFm72rCJp5mGyISjDB/Ydxyr2/vqoVA8UJhtbcxBSc7gio1bB9uT7td/AejKDR+hp9GmptAQ==",
+    "silicon_signed": true
+  },
+  "ebpf_enforcement": {
+    "compiled": true,
+    "enforcement_result": "DENY_FAILED",
+    "lsm_active": "lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm"
+  },
+  "file_hashes": {
+    "00_hardware_census.json": "b939207d469262580838addf3503999e3e1aa656c2eb198d8336b5767787083b",
+    "01_tpm_properties.txt": "4501e96db433c0fb22592fbdf89c784bf5e02ad951d5908da781fc1a682cf5fd",
+    "02_pcr_raw.txt": "d7df34c3ef6bc045d8334b4184515bb1b1e1e9adee8fd3bad4a566d38bd3e2ce",
+    "02_pcr_values.json": "e9194e5d59cf0be485bc2edc12dfb63552756d74e8ad97a868e6a6635ab97408",
+    "03_ak_public.pem": "208a1fb3ef881a86a8f369766fbf715af34c70897e1467a1b46740f65924ead5",
+    "04_quote.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "04_quote_metadata.json": "212ff17833058cee9997a8aa54181fea86360b604b183292e97fdcbbc81bc8b9",
+    "04_quote_nonce.txt": "b8d003f13151313ee2978f99af358fdd7b842cb0284a66bbee080b8023d3bc87",
+    "04_tpm_quote.bin": "05396b79b0c4d9808d2e62db08d676ba5510da447201a94ade0dc49b6fd307a1",
+    "04_tpm_quote_pcrs.bin": "e1195c92c7acd62dac4850563207b4109150f79d01221d6c9d13c52c87b6c440",
+    "04_tpm_quote_sig.bin": "5ebd8dfbb4501fe6c9643691bc70abc4926d55052c1a9c9aa6724abc4a9c3a39",
+    "05_arda_physical_lsm.o": "1bc26036ebf94403e2c7f5183a171b5e567143faab918eff816ad8a148bc0673",
+    "05_ebpf_compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "06_bpf_load.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "06_bpf_map_list.txt": "ec7f655a02b100111cf0b3388cf64a95fc3267f442052170b3cc1ab520ba130b",
+    "06_bpf_prog_list.txt": "158ad138a46cd35bac88394653c733c246ec52c304017fc8d46cbeb968428171",
+    "06_enforcement_test.log": "e7767ece473f3782f650589a8a96931b9155bb06466bffd33ce6df384cb5f0f7",
+    "CORONATION_SEAL.md": "e38b8d0d87ff8ac18d5698ca1a380e2fc446e76a6d142667a5d9da85fd5e0fed",
+    "coronation.log": "92b2aa67d8d3158055163313e5dda599d3aeff9a9bc95edb785ec35b053ec451",
+    "gate_results.txt": "163c29077a7c18f878bb693193f069c7ed97dd449c29561508a7dbee057d267a"
+  },
+  "chain_hash": "7edbf9ead002b806dd05cd0afa9b91f6e1fabcbf0f6afc90a0ada67e0caa05a0"
+}

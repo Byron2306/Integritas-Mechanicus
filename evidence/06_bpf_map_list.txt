@@ -1,0 +1,5 @@
+11: hash_of_maps  name cgroup_hash  flags 0x0
+	key 8B  value 4B  max_entries 2048  memlock 165984B
+13: hash  name arda_harmony_ma  flags 0x0
+	key 16B  value 4B  max_entries 1024  memlock 92352B
+	btf_id 266

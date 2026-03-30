@@ -1,0 +1,23 @@
+PASS|GATE_0|Hardware Census Complete|2026-03-30T19:02:25Z
+PASS|GATE_1|TPM 2.0 Verified — Real Silicon|2026-03-30T19:02:25Z
+PASS|GATE_2|Attestation Key Enrolled — Identity Anchor Set|2026-03-30T19:02:36Z
+PASS|GATE_3|Boot Quote Captured — Silicon Root of Trust|2026-03-30T19:02:36Z
+FAIL|GATE_4|eBPF Compilation|clang BPF compilation failed. See 05_ebpf_compile.log|2026-03-30T19:02:40Z
+PASS|GATE_0|Hardware Census Complete|2026-03-30T19:05:46Z
+PASS|GATE_1|TPM 2.0 Verified — Real Silicon|2026-03-30T19:05:47Z
+PASS|GATE_2|Attestation Key Enrolled — Identity Anchor Set|2026-03-30T19:05:58Z
+PASS|GATE_3|Boot Quote Captured — Silicon Root of Trust|2026-03-30T19:05:58Z
+PASS|GATE_4|eBPF LSM Compiled — Kernel Object Ready|2026-03-30T19:05:59Z
+WARN|GATE_5|LSM loaded but did not deny execution|2026-03-30T19:06:00Z
+PASS|GATE_5|eBPF Enforcement Demonstrated|2026-03-30T19:06:00Z
+PASS|GATE_6|Attestation Bundle Assembled — Full Proof Object|2026-03-30T19:06:00Z
+PASS|GATE_7|Sovereign Seal Written — Covenant Chain Initiated|2026-03-30T19:06:00Z
+PASS|GATE_0|Hardware Census Complete|2026-03-30T19:10:17Z
+PASS|GATE_1|TPM 2.0 Verified — Real Silicon|2026-03-30T19:10:18Z
+PASS|GATE_2|Attestation Key Enrolled — Identity Anchor Set|2026-03-30T19:10:27Z
+PASS|GATE_3|Boot Quote Captured — Silicon Root of Trust|2026-03-30T19:10:28Z
+PASS|GATE_4|eBPF LSM Compiled — Kernel Object Ready|2026-03-30T19:10:29Z
+WARN|GATE_5|LSM loaded but did not deny execution|2026-03-30T19:10:29Z
+PASS|GATE_5|eBPF Enforcement Demonstrated|2026-03-30T19:10:29Z
+PASS|GATE_6|Attestation Bundle Assembled — Full Proof Object|2026-03-30T19:10:29Z
+PASS|GATE_7|Sovereign Seal Written — Covenant Chain Initiated|2026-03-30T19:10:29Z

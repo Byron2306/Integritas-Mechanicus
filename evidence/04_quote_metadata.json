@@ -1,0 +1,9 @@
+{
+    "timestamp": "2026-03-30T19:10:17Z",
+    "nonce": "8ecdf169837c82fff031f828f2166e30",
+    "pcr_selection": "sha256:0,1,7,11",
+    "quote_sha256": "05396b79b0c4d9808d2e62db08d676ba5510da447201a94ade0dc49b6fd307a1",
+    "signature_sha256": "5ebd8dfbb4501fe6c9643691bc70abc4926d55052c1a9c9aa6724abc4a9c3a39",
+    "ak_handle": "0x81010001",
+    "silicon_signed": true
+}
