@@ -1,0 +1,19 @@
+[
+  {
+    "chain_index": 0,
+    "entry_type": "SOVEREIGN_CORONATION",
+    "timestamp": "2026-03-30T22:16:36Z",
+    "mirror_id": "ARDA-CORONATION-DD6BCE368802BBD7",
+    "boot_state": "LAWFUL_PARTIAL",
+    "tpm_pcr_quote_hash": "065d11ba9b9ff474c07bfa5c36b618a958cc47e2cc785ee4596fd8e6af007e07",
+    "principal": {
+      "type": "SOVEREIGN_SUBSTRATE",
+      "assent": "I attest that this evidence was produced by direct hardware interaction",
+      "machine_id": "c895237d07c64b029a495b62b878aeba"
+    },
+    "evidence_chain_hash": "dd6bce368802bbd75146ad55a9579583a6a084d96a0d8b37a4a40c82db4d4e9c",
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "attestation": "This is the first entry in the real covenant chain. It was produced by direct silicon interaction, not simulation.",
+    "entry_hash": "7d7dc94c62d396b513afb286a1fb4768e19ee4c473251de1c7df36c74898b675"
+  }
+]

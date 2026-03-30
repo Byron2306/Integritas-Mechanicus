@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-03-30T22:16:36Z",
+  "program_source": "reused",
+  "program_id": "46",
+  "enforcement_result": "DENY_FAILED",
+  "lsm_active": "lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm",
+  "test_dir": "/home/byron/Integritas-Mechanicus/evidence/gate5_test_OO28FH"
+}

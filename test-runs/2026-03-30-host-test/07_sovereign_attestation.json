@@ -1,0 +1,65 @@
+{
+  "protocol": "ARDA_CORONATION_v1",
+  "mirror_id": "ARDA-CORONATION-DD6BCE368802BBD7",
+  "timestamp": "2026-03-30T22:16:36Z",
+  "boot_state": "LAWFUL_PARTIAL",
+  "principal": {
+    "type": "SOVEREIGN_SUBSTRATE",
+    "assent": "I attest that this evidence was produced by direct hardware interaction",
+    "machine_id": "c895237d07c64b029a495b62b878aeba"
+  },
+  "tpm_pcr_quote": {
+    "nonce": "68716e739b73999aca577d8108807cc8",
+    "pcr_selection": "sha256:0,1,7,11",
+    "pcr_values": {
+      "0": "0886e6fc01b4b9c8fc427eb494c7fa477032d56991529621fe3e9865f532e92f",
+      "1": "9c2d3fc65c013a74ee1b357f6f857419e4fb3de8d26278e85c0cd9c334e358a7",
+      "7": "d1a66959abf306c3430ebb58da1122ba0b150af00fe0129bceca115b7f5f57d1",
+      "11": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "quote_blob_b64": "/1RDR4AYACIAC3Bo6iKX+EHPIC/lD7Tq3kP8oYm832gI+2J6by7kypmHABBocW5zm3OZmspXfYEIgHzIAAAAAAGcAFoAAAAkAAAAAAEABwACAAMAAQAAAAEACwODCAAAIBrQoo5Z2EBt2GuXE6IA88JCANngyObQ6iSyivhwEY6u",
+    "signature_blob_b64": "ABQACwEAUj9FMgZYt8Y8ZJROvCbHyl+xAnIj7QdX11usU4VcnFjwk5zobfN//KDHdI+rmMxHu6ijZp4fj0QMZIhs/NScdmgSIKZ4V0Ldizt8BqX2d62gsjAXd6ZlMutrU+Q/VjFDBjq3c2j81bODkFTiBLcAk0K2hM716ZEDvA+LcN3T89iATJHfa2qiQpjZVNdLEkQBOGnOVNuUe6q+zAKebLFWEqK0uGRHHCEYNp7xJEmlzUde17T1G1G40YHPRbTGS0TtbMsLt+lZ2TydFQYYnPDr3MxmvGr+aVs1/vIDJGWu8nwAfLl7gC2P16FigpSbmFNX0DPnWjrhT3YMwEQUm3OxPw==",
+    "ak_public_b64": "ARYAAQALAAQAcgAAABAAEAgAAAAAAAEA4qHmvzerI8y52itG6EvzTyR2+OMkJStxNriOAc2iz6CQAerXTxycpj0VCePQVhwCj9iIIGGP3Rdv9MLeBukoPk9r8O/2SKQJkJ4P7xEdS13ibYFS716OAlYRf4UJ2YKnvO2goytYavXUIknmK2q8/rmQ3ocn/8KDLYj7+Aibby4Zuh1WFjgqC8w98HSXBTxi1SRUfM2FLz28uQSgBZhQnN/yOXKNWhycFaMK8L+S9+8x8u4GqIMOiAYjabX5DOvXbxQOxrNo4EAjlYK65PNRGdM2rmiBbLJ/Ca3wVuBE7OF2gqi4txTguunAoq26mLSIE2GUwoN6u7BPN5ok3SxgGQ==",
+    "silicon_signed": true
+  },
+  "ebpf_enforcement": {
+    "compiled": true,
+    "lsm_loaded": true,
+    "program_id": "46",
+    "program_source": "reused",
+    "enforcement_result": "DENY_FAILED",
+    "lsm_active": "lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm"
+  },
+  "file_hashes": {
+    "00_hardware_census.json": "96c0bf2e8d28b8109f5744ebdb1d10af0fb6daa989ddaad5f0577ff1a7dc9e84",
+    "01_tpm_properties.txt": "4501e96db433c0fb22592fbdf89c784bf5e02ad951d5908da781fc1a682cf5fd",
+    "02_pcr_raw.txt": "616ecea7905cba0c9d20505e93e21792cf97bfa3d84f68c9fba9483413856d3f",
+    "02_pcr_values.json": "276dda2ec485d473bc22622aa3e56444e9bff00e0ab425c19297e3c205b772ec",
+    "03_ak_public.pem": "ee9cdc78f7e1928e897ff28842fdaeeeda483f6e48fcd8d6b28ceedc0e7acd22",
+    "04_quote.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "04_quote_metadata.json": "f0f45e26158dd643baeb720c09e9fcf301df94db5e500da9c0c932c060056ade",
+    "04_quote_nonce.txt": "2348478ef1f57b5a6b8122d91b5fd4c7dac4c2019f1d6591f9c031a1c46fbbd0",
+    "04_tpm_quote.bin": "ac3aa02e21da736e90ba6d0fcbd275928c993a00df3f276e54059edf8b756c7a",
+    "04_tpm_quote_pcrs.bin": "7cae342db7cdfdfe64b9641c2d26ea991f9afd8f3ed6a79c2618d2993426d768",
+    "04_tpm_quote_sig.bin": "1034e0256d6b76a9a1288911d7e8727fa7b65e788ec961fa53ba69b34a17a45e",
+    "05_arda_physical_lsm.o": "58b6d36f20a390a062514552bd9f7be4bd15b7220da3f6b4ed80b2d9820b6ef9",
+    "05_ebpf_compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "06_bpf_disassembly.txt": "0ec0618b16b1c36d44f9a62bad9fbfab4822a77f67f9f51e5297cfcc81158b31",
+    "06_bpf_fallback.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "06_bpf_load.log": "b290401a3199f9b16ad6ff2a08a6da73bf7f8f2eb97f4e1185d2c462ec71ad65",
+    "06_bpf_loadall.log": "c5645d39026844179906e587c916a20a22082380394051f9cf7e2c6222e48cdd",
+    "06_bpf_map_list.txt": "a33d0665479c99c78691a0a9b26f11d9c21c8bd8bce336ec8ef729f3ff7f3d31",
+    "06_bpf_object_info.txt": "2f0f7900ed622ded0abad8318530dccdecca1dc7d9bfc4c39a0b67f3e9788ee2",
+    "06_bpf_prog_list.txt": "b051dc34e65dc10d29376ea39e8ef08865d954e99c59d0d530f78ffee1626fb5",
+    "06_bpf_runtime_status.json": "374d436bb68b822907fca4eb5b61ce2f5ad2a9db6d315e52a7785807a281ea6a",
+    "06_enforcement_gap.md": "2692d71f4c6de1dd7cb82ba1a6150c46b8b8590f45741827dd94efab12a7d25c",
+    "06_enforcement_result.txt": "2f57d90408a996d043e1e26b6662b450a7f327eda667c66789b466733d3f6037",
+    "06_enforcement_test.log": "03b65dbd432c0dd52c96ee621cc0c536529c24213ba73876c64f882d46efc4ba",
+    "06_gcc_stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "06_gcc_stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "CORONATION_SEAL.md": "ce2b0c25bd214a0e662cb7f4cc43e7b348efe0e9d187e8e0ad193dc15d4a3f79",
+    "coronation.log": "c6d503644a28a2ebba079ecea9922e8167f1088801673feb52dd78d7aceab804",
+    "gate_results.txt": "9047c092d9fbf5112c207cdf523960e2cfcb867c0aa31c6a513d717163a697de"
+  },
+  "chain_hash": "dd6bce368802bbd75146ad55a9579583a6a084d96a0d8b37a4a40c82db4d4e9c"
+}
