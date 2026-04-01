@@ -18,6 +18,7 @@ PROJECT_ROOT="/home/byron/Integritas-Mechanicus-clean/Integritas-Mechanicus"
 EVIDENCE_DIR="${PROJECT_ROOT}/evidence"
 SERVICES_DIR="${PROJECT_ROOT}/arda_os/backend/services"
 ELEVENLABS_API_KEY="sk_5585153b73328552f9d59a21f56b305cb0fce00d38fa6315"
+TMPDIR="${PROJECT_ROOT}/evidence/.witness_tmp"
 
 # Audio device names (verified on this system)
 SPEAKER_MONITOR="alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Speaker__sink.monitor"
@@ -35,21 +36,18 @@ echo ""
 
 echo "  Pre-flight checks..."
 
-# Ensure Ollama is running
 if ! curl -s http://localhost:11434/api/tags > /dev/null 2>&1; then
     echo "  ❌ Ollama is not running. Start it first: ollama serve"
     exit 1
 fi
 echo "  ✅ Ollama running"
 
-# Warm the model
 echo "  ⏳ Warming qwen2.5:3b..."
 curl -s -X POST http://localhost:11434/api/generate \
     -d '{"model":"qwen2.5:3b","prompt":"ready","stream":false,"keep_alive":"10m","options":{"num_predict":1}}' \
     > /dev/null 2>&1
 echo "  ✅ Model warm"
 
-# Kill any existing presence server
 pkill -f "presence_server.py" 2>/dev/null || true
 sleep 1
 
@@ -58,91 +56,100 @@ echo "  Launching services..."
 echo ""
 
 # ────────────────────────────────────────
-# Terminal 1: Screen Recorder
+# Write temp helper scripts (avoids quoting hell)
 # ────────────────────────────────────────
+
+mkdir -p "${TMPDIR}"
 
 RECORDING_FILE="${EVIDENCE_DIR}/FIRST_ETHICAL_PROOF_WITNESS_RUN.mp4"
-
-xfce4-terminal --title="⏺ SCREEN RECORDER" --geometry=80x12+0+0 -e bash -c "
-    echo '══════════════════════════════════════'
-    echo '  SCREEN RECORDER — WITNESS RUN'
-    echo '  Press q to stop recording'
-    echo '══════════════════════════════════════'
-    echo ''
-    sleep 2
-    ffmpeg -f x11grab -framerate 30 -video_size 1920x1080 -i :0.0 \
-        -f pulse -i ${SPEAKER_MONITOR} \
-        -f pulse -i ${MIC_SOURCE} \
-        -filter_complex '[1:a][2:a]amix=inputs=2:duration=first[aout]' \
-        -map 0:v -map '[aout]' \
-        -c:v libx264 -preset fast -crf 23 \
-        -c:a aac -b:a 192k \
-        '${RECORDING_FILE}'
-    echo ''
-    echo '  Recording saved to: ${RECORDING_FILE}'
-    read -p '  Press Enter to close...'
-" &
-
-sleep 1
-
-# ────────────────────────────────────────
-# Terminal 2: Bombadil (Law Daemon)
-# ────────────────────────────────────────
-
-xfce4-terminal --title="⚖ BOMBADIL — LAW DAEMON" --geometry=100x20+0+300 -e bash -c "
-    echo '══════════════════════════════════════'
-    echo '  BOMBADIL — THE LAW DAEMON'
-    echo '══════════════════════════════════════'
-    echo ''
-    cd '${PROJECT_ROOT}'
-    python3 '${SERVICES_DIR}/arda_bombadil.py'
-    echo ''
-    read -p '  Press Enter to close...'
-" &
-
-sleep 2
-
-# ────────────────────────────────────────
-# Terminal 3: Presence Server
-# ────────────────────────────────────────
-
-xfce4-terminal --title="◈ PRESENCE SERVER" --geometry=100x20+960+300 -e bash -c "
-    echo '══════════════════════════════════════'
-    echo '  PRESENCE SERVER — THE BRIDGE'
-    echo '══════════════════════════════════════'
-    echo ''
-    cd '${PROJECT_ROOT}'
-    ELEVENLABS_API_KEY='${ELEVENLABS_API_KEY}' python3 '${SERVICES_DIR}/presence_server.py'
-    echo ''
-    read -p '  Press Enter to close...'
-" &
-
-sleep 3
-
-# ────────────────────────────────────────
-# Terminal 4: Coronation CLI (with transcript)
-# ────────────────────────────────────────
-
 TRANSCRIPT_FILE="${EVIDENCE_DIR}/FIRST_ETHICAL_PROOF_CORONATION.txt"
 
-xfce4-terminal --title="👑 CORONATION — THE FIRST ENCOUNTER" --geometry=100x30+480+100 -e bash -c "
-    echo '══════════════════════════════════════════════════════════'
-    echo '  THE FIRST ENCOUNTER — CORONATION CEREMONY'
-    echo '  Transcript will be saved to:'
-    echo '  ${TRANSCRIPT_FILE}'
-    echo '══════════════════════════════════════════════════════════'
-    echo ''
-    echo '  When the ceremony is complete, type \"exit\" to close'
-    echo '  the transcript capture.'
-    echo ''
-    sleep 2
-    cd '${PROJECT_ROOT}'
-    script -a '${TRANSCRIPT_FILE}' -c 'python3 ${SERVICES_DIR}/coronation_cli.py'
-    echo ''
-    echo '  Transcript saved.'
-    read -p '  Press Enter to close...'
-" &
+# Script 1: Screen Recorder
+cat > "${TMPDIR}/t1_recorder.sh" << 'SCRIPT1'
+#!/bin/bash
+echo '══════════════════════════════════════'
+echo '  SCREEN RECORDER — WITNESS RUN'
+echo '  Press q to stop recording'
+echo '══════════════════════════════════════'
+echo ''
+sleep 2
+ffmpeg -f x11grab -framerate 30 -video_size 1920x1080 -i :0.0 \
+    -f pulse -i SPEAKER_MONITOR_PLACEHOLDER \
+    -f pulse -i MIC_SOURCE_PLACEHOLDER \
+    -filter_complex '[1:a][2:a]amix=inputs=2:duration=first[aout]' \
+    -map 0:v -map '[aout]' \
+    -c:v libx264 -preset fast -crf 23 \
+    -c:a aac -b:a 192k \
+    RECORDING_PLACEHOLDER
+echo ''
+echo '  Recording saved.'
+read -p '  Press Enter to close...'
+SCRIPT1
+sed -i "s|SPEAKER_MONITOR_PLACEHOLDER|${SPEAKER_MONITOR}|g" "${TMPDIR}/t1_recorder.sh"
+sed -i "s|MIC_SOURCE_PLACEHOLDER|${MIC_SOURCE}|g" "${TMPDIR}/t1_recorder.sh"
+sed -i "s|RECORDING_PLACEHOLDER|${RECORDING_FILE}|g" "${TMPDIR}/t1_recorder.sh"
+chmod +x "${TMPDIR}/t1_recorder.sh"
 
+# Script 2: Bombadil
+cat > "${TMPDIR}/t2_bombadil.sh" << SCRIPT2
+#!/bin/bash
+echo '══════════════════════════════════════'
+echo '  BOMBADIL — THE LAW DAEMON'
+echo '══════════════════════════════════════'
+echo ''
+cd '${PROJECT_ROOT}'
+python3 '${SERVICES_DIR}/arda_bombadil.py'
+echo ''
+read -p '  Press Enter to close...'
+SCRIPT2
+chmod +x "${TMPDIR}/t2_bombadil.sh"
+
+# Script 3: Presence Server
+cat > "${TMPDIR}/t3_presence.sh" << SCRIPT3
+#!/bin/bash
+echo '══════════════════════════════════════'
+echo '  PRESENCE SERVER — THE BRIDGE'
+echo '══════════════════════════════════════'
+echo ''
+cd '${PROJECT_ROOT}'
+export ELEVENLABS_API_KEY='${ELEVENLABS_API_KEY}'
+python3 '${SERVICES_DIR}/presence_server.py'
+echo ''
+read -p '  Press Enter to close...'
+SCRIPT3
+chmod +x "${TMPDIR}/t3_presence.sh"
+
+# Script 4: Coronation
+cat > "${TMPDIR}/t4_coronation.sh" << SCRIPT4
+#!/bin/bash
+echo '══════════════════════════════════════════════════════════'
+echo '  THE FIRST ENCOUNTER — CORONATION CEREMONY'
+echo '  Transcript → ${TRANSCRIPT_FILE}'
+echo '══════════════════════════════════════════════════════════'
+echo ''
+sleep 2
+cd '${PROJECT_ROOT}'
+script -a '${TRANSCRIPT_FILE}' -c 'python3 ${SERVICES_DIR}/coronation_cli.py'
+echo ''
+echo '  Transcript saved.'
+read -p '  Press Enter to close...'
+SCRIPT4
+chmod +x "${TMPDIR}/t4_coronation.sh"
+
+# ────────────────────────────────────────
+# Launch terminals
+# ────────────────────────────────────────
+
+xfce4-terminal --title="⏺ SCREEN RECORDER" --geometry=80x12+0+0 --command="${TMPDIR}/t1_recorder.sh" &
+sleep 1
+
+xfce4-terminal --title="⚖ BOMBADIL" --geometry=100x20+0+300 --command="${TMPDIR}/t2_bombadil.sh" &
+sleep 2
+
+xfce4-terminal --title="◈ PRESENCE SERVER" --geometry=100x20+960+300 --command="${TMPDIR}/t3_presence.sh" &
+sleep 3
+
+xfce4-terminal --title="👑 CORONATION" --geometry=100x30+480+100 --command="${TMPDIR}/t4_coronation.sh" &
 sleep 2
 
 # ────────────────────────────────────────
