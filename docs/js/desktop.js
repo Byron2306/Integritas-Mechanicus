@@ -47,6 +47,7 @@ const BASE_DATA = './data/';
   await sleep(800);
   document.getElementById('boot-screen').classList.add('hidden');
   document.getElementById('desktop').classList.remove('hidden');
+  playAinulindale();
   startClock();
 })();
 
@@ -86,6 +87,7 @@ function openWindow(name) {
   // Load content for specific windows
   if (name === 'forensic') loadForensicChain();
   if (name === 'seal') loadSeal();
+  if (name === 'witnesses') loadWitnesses();
 }
 
 function closeWindow(name) {
@@ -257,3 +259,113 @@ function escapeHtml(text) {
   div.textContent = text;
   return div.innerHTML;
 }
+
+// ── Ainulindalë — The Startup Chime ───────────────
+// The Music of the Ainur: ethereal ascending tones
+function playAinulindale() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const master = ctx.createGain();
+    master.gain.value = 0.15;
+    master.connect(ctx.destination);
+
+    // Reverb via convolver approximation (long delay feedback)
+    const reverb = ctx.createGain();
+    reverb.gain.value = 0.3;
+    reverb.connect(master);
+
+    // The chord of creation — E major with added 9th (Tolkien's "Great Music")
+    const notes = [
+      { freq: 164.81, start: 0.0,  dur: 3.5 },  // E3  — the foundation
+      { freq: 246.94, start: 0.3,  dur: 3.2 },  // B3  — the fifth rises
+      { freq: 329.63, start: 0.6,  dur: 3.0 },  // E4  — octave bloom
+      { freq: 415.30, start: 0.9,  dur: 2.8 },  // G#4 — the major third (light)
+      { freq: 493.88, start: 1.2,  dur: 2.5 },  // B4  — high fifth
+      { freq: 369.99, start: 1.5,  dur: 2.2 },  // F#4 — the added 9th (wonder)
+      { freq: 659.25, start: 1.9,  dur: 2.8 },  // E5  — crown tone
+    ];
+
+    notes.forEach(n => {
+      const osc = ctx.createOscillator();
+      const env = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.value = n.freq;
+
+      // Gentle bell-like envelope
+      env.gain.setValueAtTime(0, ctx.currentTime + n.start);
+      env.gain.linearRampToValueAtTime(0.6, ctx.currentTime + n.start + 0.15);
+      env.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + n.start + n.dur);
+
+      osc.connect(env);
+      env.connect(master);
+
+      // Add shimmer: a quiet harmonic overtone
+      const shimmer = ctx.createOscillator();
+      const shimEnv = ctx.createGain();
+      shimmer.type = 'triangle';
+      shimmer.frequency.value = n.freq * 2.01; // slightly detuned octave
+      shimEnv.gain.setValueAtTime(0, ctx.currentTime + n.start);
+      shimEnv.gain.linearRampToValueAtTime(0.08, ctx.currentTime + n.start + 0.3);
+      shimEnv.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + n.start + n.dur);
+      shimmer.connect(shimEnv);
+      shimEnv.connect(reverb);
+
+      osc.start(ctx.currentTime + n.start);
+      osc.stop(ctx.currentTime + n.start + n.dur + 0.1);
+      shimmer.start(ctx.currentTime + n.start);
+      shimmer.stop(ctx.currentTime + n.start + n.dur + 0.1);
+    });
+  } catch(e) {
+    // Audio not supported — silent boot
+  }
+}
+
+// ── AI Witness Testimonies ────────────────────────
+const REPO_RAW = 'https://raw.githubusercontent.com/Byron2306/Integritas-Mechanicus/refs/heads/arda-os-desktop/';
+
+async function loadWitnesses() {
+  const el = document.getElementById('witness-list');
+  try {
+    const res = await fetch(BASE_DATA + 'witnesses.json');
+    const witnesses = await res.json();
+
+    el.innerHTML = witnesses.map((w, i) => `
+      <div class="witness-card" onclick="readWitness('${w.file}', '${escapeHtml(w.name)}')"
+           style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(20,28,45,0.7);border:1px solid rgba(207,176,109,0.15);border-radius:8px;cursor:pointer;transition:all 0.2s"
+           onmouseover="this.style.borderColor='rgba(207,176,109,0.5)';this.style.background='rgba(30,40,60,0.8)'"
+           onmouseout="this.style.borderColor='rgba(207,176,109,0.15)';this.style.background='rgba(20,28,45,0.7)'">
+        <span style="font-size:22px">${w.icon}</span>
+        <div style="flex:1">
+          <div style="color:var(--gold);font-weight:600;font-size:13px">${w.name}</div>
+          <div style="color:var(--text-muted);font-size:11px">${w.role}</div>
+        </div>
+        <span style="color:var(--text-muted);font-size:18px">→</span>
+      </div>
+    `).join('');
+  } catch(e) {
+    el.innerHTML = '<p class="muted">Witness records unavailable.</p>';
+  }
+}
+
+async function readWitness(file, name) {
+  document.getElementById('witness-list').style.display = 'none';
+  const reader = document.getElementById('witness-reader');
+  reader.classList.remove('hidden');
+  document.getElementById('witness-reader-title').textContent = name;
+  document.getElementById('witness-reader-content').textContent = 'Loading testimony...';
+
+  try {
+    const res = await fetch(REPO_RAW + file);
+    const text = await res.text();
+    document.getElementById('witness-reader-content').textContent = text;
+  } catch(e) {
+    document.getElementById('witness-reader-content').textContent = 'Unable to load testimony. View on GitHub:\n' + REPO_RAW + file;
+  }
+}
+
+function closeWitnessReader() {
+  document.getElementById('witness-reader').classList.add('hidden');
+  document.getElementById('witness-list').style.display = 'flex';
+}
+
