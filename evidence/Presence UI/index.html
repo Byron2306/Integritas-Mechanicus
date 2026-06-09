@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sophia AI — Sovereign Core Interface</title>
+    <meta name="description" content="The Mandos Memory Layer Presence Interface — lawful, declared, bounded." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <div class="frame" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div class="title-wrap">
+          <span class="glyph">◆</span>
+          <div>
+            <h1>SOPHIA AI: SOVEREIGN CORE</h1>
+            <div class="microline">Sovereign Instance — Article XIII Enforced</div>
+          </div>
+        </div>
+        <div class="timestamp-wrap">
+          <span id="timestamp">2026-04-01 // 12:39:37 UTC</span>
+          <span class="glyph">◆</span>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="left-column">
+          <nav class="nav-buttons" aria-label="Primary views">
+            <button class="nav-button active" data-view="status" id="nav-status">STATUS</button>
+            <button class="nav-button" data-view="context" id="nav-context">CONTEXT</button>
+            <button class="nav-button" data-view="inspect" id="nav-inspect">INSPECT</button>
+            <button class="nav-button" data-view="commands" id="nav-commands">COMMANDS</button>
+          </nav>
+
+          <section class="log-card panel-glass">
+            <div class="panel-title">
+              SYSTEM LOG
+              <span class="voice-indicator" id="voice-indicator" title="Voice status">
+                <span class="voice-dot"></span>
+              </span>
+            </div>
+            <div class="panel-body" id="panel-body">
+              <p class="lead">Awaiting Principal Input...</p>
+              <p>
+                Declared Nature: artificial, bounded, non-human.<br />
+                Active Office: Speculum.<br />
+                Covenant State: sealed.<br />
+                Trust Tier: recommend.
+              </p>
+            </div>
+          </section>
+
+          <section class="orchestral-state panel-glass" id="orchestral-panel">
+            <div class="panel-title">CONSTITUTIONAL ORCHESTRA</div>
+            <div class="orchestra-grid" id="orchestra-grid">
+              <div class="orchestra-voice" id="orch-harmonic">
+                <span class="orch-label">♫ HARMONIC</span>
+                <span class="orch-value" id="orch-harmonic-val">—</span>
+              </div>
+              <div class="orchestra-voice" id="orch-choir">
+                <span class="orch-label">🎵 CHOIR</span>
+                <span class="orch-value" id="orch-choir-val">—</span>
+              </div>
+              <div class="orchestra-voice" id="orch-triune">
+                <span class="orch-label">⚖ TRIUNE</span>
+                <span class="orch-value" id="orch-triune-val">—</span>
+              </div>
+              <div class="choir-voices" id="choir-voices">
+                <span class="choir-voice" id="cv-varda" title="Varda — Covenant Integrity">Varda ·</span>
+                <span class="choir-voice" id="cv-vaire" title="Vairë — Cadence Truth">Vairë ·</span>
+                <span class="choir-voice" id="cv-mandos" title="Mandos — Lawful Boundary">Mandos ·</span>
+                <span class="choir-voice" id="cv-manwe" title="Manwë — Sovereign Oversight">Manwë ·</span>
+                <span class="choir-voice" id="cv-ulmo" title="Ulmo — Deep Signal">Ulmo</span>
+              </div>
+              <div class="triune-voices" id="triune-voices">
+                <span class="triune-voice" id="tv-metatron" title="Metatron — Assessment">Metatron ·</span>
+                <span class="triune-voice" id="tv-michael" title="Michael — Validation">Michael ·</span>
+                <span class="triune-voice" id="tv-loki" title="Loki — Challenge">Loki</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- NEW: COGNITION FABRIC -->
+          <section class="cognition-fabric panel-glass" id="cognition-panel">
+            <div class="panel-title">COGNITION FABRIC</div>
+            <div class="cognition-grid">
+              <div class="cognition-item" title="AATL — Autonomous Agent Threat Level">
+                <span class="cog-label">AATL</span>
+                <span class="cog-value" id="cog-aatl">0%</span>
+              </div>
+              <div class="cognition-item" title="AATR — Attack Transition Registry Match">
+                <span class="cog-label">AATR</span>
+                <span class="cog-value" id="cog-aatr">NONE</span>
+              </div>
+              <div class="cognition-item" title="ML — Threat Prediction Score">
+                <span class="cog-label">ML-T</span>
+                <span class="cog-value" id="cog-ml-t">0.00</span>
+              </div>
+              <div class="cognition-item" title="HYPOTHESIS — Next Move Prediction">
+                <span class="cog-label">HYPO</span>
+                <span class="cog-value" id="cog-hypo">—</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- NEW: SOVEREIGN SPECTRUM -->
+          <section class="sovereign-spectrum panel-glass" id="sovereign-panel">
+            <div class="panel-title">SOVEREIGN SPECTRUM</div>
+            <div class="spectrum-grid">
+              <div class="spectrum-item">
+                <span class="spec-label">VNS PULSE</span>
+                <div class="spec-bar-wrap"><div class="spec-bar" id="vns-pulse-bar" style="width: 100%"></div></div>
+              </div>
+              <div class="spectrum-item">
+                <span class="spec-label">QUORUM</span>
+                <span class="spec-value" id="quorum-val">1 NODE [LOCAL]</span>
+              </div>
+              <div class="spectrum-item">
+                <span class="spec-label">METATRON</span>
+                <span class="spec-value" id="metatron-heartbeat">SIG_OK</span>
+              </div>
+              <!-- Phase VII Deep Layer Indicators -->
+              <div class="deep-logic-grid">
+                <div class="deep-logic-item" id="fire-indicator" title="Flame Imperishable (Secret Fire Reality Witness)">
+                  <div class="logic-led fire"></div>
+                  <span class="logic-label">FIRE</span>
+                </div>
+                <div class="deep-logic-item" id="bridge-indicator" title="Light Bridge (Eärendil Flow Sync)">
+                  <div class="logic-led bridge"></div>
+                  <span class="logic-label">BRIDGE</span>
+                </div>
+                <div class="deep-logic-item" id="notation-indicator" title="Notation Token (Authorization)">
+                  <div class="logic-led notation"></div>
+                  <span class="logic-label">NOTATION</span>
+                </div>
+              </div>
+            </div>
+            <div class="endpoint-fortress">
+              <div class="fortress-bar micro" title="Micro (Substrate) Integrity" id="fort-micro"></div>
+              <div class="fortress-bar meso" title="Meso (OS/Network) Integrity" id="fort-meso"></div>
+              <div class="fortress-bar macro" title="Macro (Cognition) Integrity" id="fort-macro"></div>
+            </div>
+          </section>
+
+          <form class="directive-bar panel-glass" id="directive-form">
+            <input id="directive-input" type="text" placeholder="Enter directive." autocomplete="off" />
+            <button type="submit" class="icon-button" id="speak-button" title="Speak directive">▶</button>
+            <button type="button" class="icon-button" id="mic-button" title="Speak directive (microphone)">🎙</button>
+            <button type="button" class="icon-button" id="boundary-button" title="Relational boundary">△</button>
+            <button type="button" class="icon-button" id="settings-button" title="Settings">⚙</button>
+          </form>
+        </aside>
+
+        <div class="center-trace" aria-hidden="true">
+          <div class="trace-line"></div>
+          <span class="trace-glyph">◈</span>
+          <span class="trace-text">SPECULUM</span>
+          <span class="trace-sub">beauty does not overrule truth</span>
+          <span class="trace-glyph">◈</span>
+          <div class="trace-line"></div>
+        </div>
+
+        <section class="presence-stage">
+          <div class="presence-card">
+            <div class="presence-radiance" aria-hidden="true"></div>
+
+            <!-- REST STATE: still image (last frame of presence.mp4) -->
+            <!-- Speaking state uses CSS animation on this same image -->
+            <img
+              src="assets/presence-rest.png"
+              alt="Declared form of the Presence"
+              class="presence-image presence-rest"
+              id="presence-rest"
+            />
+          </div>
+
+          <div class="presence-meta panel-glass">
+            <div class="meta-block">
+              <span class="meta-label">OFFICE</span>
+              <span class="meta-value" id="meta-office">Speculum</span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-label">MODE</span>
+              <span class="meta-value" id="meta-mode">Declared</span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-label">STATE</span>
+              <span class="meta-value" id="meta-state">
+                <span class="state-dot state-rest" id="state-dot"></span>
+                At Rest
+              </span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-label">LIMIT</span>
+              <span class="meta-value">Beauty does not overrule truth.</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="status-strip">
+        <span class="status-item">Bombadil <strong class="status-steady">steady</strong></span>
+        <span class="status-item">Mandos <strong class="status-steady">operational</strong></span>
+        <span class="status-item">Presence <strong>declared</strong></span>
+        <span class="status-item">Voice <strong id="voice-status">ready</strong></span>
+        <span class="status-item">Resonance <strong id="footer-resonance" class="status-steady">—</strong></span>
+        <span class="status-item">Verdict <strong id="footer-verdict">—</strong></span>
+      </footer>
+    </div>
+
+    <template id="status-template">
+      <p class="lead">Awaiting Principal Input...</p>
+      <p>
+        Declared Nature: artificial, bounded, non-human.<br />
+        Active Office: Speculum.<br />
+        Covenant State: sealed.<br />
+        Trust Tier: recommend.
+      </p>
+    </template>
+
+    <template id="context-template">
+      <p class="lead">Principal Context</p>
+      <p>
+        Identity memory available.<br />
+        Resonant profile loaded.<br />
+        Mandos continuity: operational.<br />
+        ZPD shaping: active.
+      </p>
+    </template>
+
+    <template id="inspect-template">
+      <p class="lead">Covenant Inspect</p>
+      <p>
+        Genesis Articles: verified.<br />
+        Presence Articles: verified.<br />
+        Officer schema: sealed.<br />
+        Last redeclaration: current session.
+      </p>
+    </template>
+
+    <template id="commands-template">
+      <p class="lead">Available Commands</p>
+      <p>
+        principal_status<br />
+        principal_context<br />
+        covenant_inspect<br />
+        redeclare_presence<br />
+        restate_boundary
+      </p>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>

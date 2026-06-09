@@ -1,0 +1,10 @@
+{
+    "timestamp": "2026-03-31T08:24:53Z",
+    "kernel_version": "6.12.74+deb12-amd64",
+    "architecture": "x86_64",
+    "cpu_model": "13th Gen Intel(R) Core(TM) i7-1355U",
+    "machine_id": "c895237d07c64b029a495b62b878aeba",
+    "hostname": "debian",
+    "efi_present": true,
+    "secure_boot": "SecureBoot enabled"
+}

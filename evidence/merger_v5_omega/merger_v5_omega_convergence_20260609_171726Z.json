@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-06-09T17:17:26.334069+00:00",
+  "repo_root": "C:\\Users\\User\\source\\repos\\Sophia-AI-main",
+  "merger_root": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\MERGER_KnowEdge-main",
+  "overall": {
+    "promotion_allowed": false,
+    "score": 76,
+    "max_score": 100,
+    "percent": 76.0,
+    "hard_failures": 2,
+    "soft_failures": 0,
+    "mode": "static"
+  },
+  "checks": [
+    {
+      "id": "M01",
+      "title": "MERGER root present",
+      "passed": true,
+      "score": 5,
+      "max_score": 5,
+      "severity": "hard",
+      "detail": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\MERGER_KnowEdge-main"
+    },
+    {
+      "id": "M02",
+      "title": "State model consistency",
+      "passed": true,
+      "score": 12,
+      "max_score": 12,
+      "severity": "hard",
+      "detail": "missing_py=[]; missing_ts=[]; playbook_emergency=True"
+    },
+    {
+      "id": "M03",
+      "title": "Control-plane schema and gate",
+      "passed": false,
+      "score": 0,
+      "max_score": 14,
+      "severity": "hard",
+      "detail": "missing_tables=[]; evidence_gate_present=True; transition_guard_present=False"
+    },
+    {
+      "id": "M04",
+      "title": "API surface and stress alignment",
+      "passed": true,
+      "score": 10,
+      "max_score": 10,
+      "severity": "hard",
+      "detail": "missing_routes=[]; missing_stress_refs=[]"
+    },
+    {
+      "id": "M05",
+      "title": "Decision and audit ledger integrity",
+      "passed": true,
+      "score": 10,
+      "max_score": 10,
+      "severity": "hard",
+      "detail": "decision_ledger=True; audit_ledger=True; run_controller_decisions=True"
+    },
+    {
+      "id": "M06",
+      "title": "Pipeline contract convergence",
+      "passed": true,
+      "score": 12,
+      "max_score": 12,
+      "severity": "hard",
+      "detail": "missing_targets=[]; routing_delay=True; missing_stages=[]; stage_delay=True"
+    },
+    {
+      "id": "M07",
+      "title": "Security and policy guardrails",
+      "passed": false,
+      "score": 0,
+      "max_score": 10,
+      "severity": "hard",
+      "detail": "strict_policy=True; injection_scanner=True; url_block=False; pii_patterns=True"
+    },
+    {
+      "id": "M08",
+      "title": "Integrity and citation engines",
+      "passed": true,
+      "score": 9,
+      "max_score": 9,
+      "severity": "hard",
+      "detail": "missing_integrity=[]; missing_citation=[]"
+    },
+    {
+      "id": "M09",
+      "title": "Packaging and runtime artifacts",
+      "passed": true,
+      "score": 9,
+      "max_score": 9,
+      "severity": "soft",
+      "detail": "missing_files=[]; compose_services_ok=True"
+    },
+    {
+      "id": "M10",
+      "title": "Documented capability coherence",
+      "passed": true,
+      "score": 9,
+      "max_score": 9,
+      "severity": "soft",
+      "detail": "missing_tokens=[]"
+    }
+  ]
+}

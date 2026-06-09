@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KnowEdge Merger V4.0</title>
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      // Suppress Vite's noisy logs in the AIS environment
+      const originalDebug = console.debug;
+      console.debug = (...args) => {
+        if (args[0] && typeof args[0] === 'string' && args[0].includes('[vite]')) {
+          return;
+        }
+        originalDebug.apply(console, args);
+      };
+
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
+            console.debug('Service Worker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

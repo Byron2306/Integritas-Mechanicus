@@ -1,0 +1,74 @@
+{
+  "record": {
+    "record_id": "mem-f423ea3357",
+    "principal_identity_hash": "5dc2be4ff47baba8cf5e98f6c3d60c4a38e15b2524ef8416803a3659dc0be424",
+    "memory_class": "identity",
+    "retention_class": "covenant_lifetime",
+    "content_hash": "5dc2be4ff47baba8cf5e98f6c3d60c4a38e15b2524ef8416803a3659dc0be424",
+    "parent_hash": null,
+    "revocable": true,
+    "content_ref": "/home/byron/Integritas-Mechanicus-clean/Integritas-Mechanicus/evidence/mandos/principal/5dc2be4ff47baba8_identity.json"
+  },
+  "payload": {
+    "name": "Byron John Bunt",
+    "age": 39,
+    "locale": "I am from Meyerton in South Africa",
+    "languages": [
+      "English",
+      "Afrikaans"
+    ],
+    "domain": "History Education Associate Professor at North-West University",
+    "specialisation": "Self directed learning and game-based learning",
+    "reasoning_style": "synthetic",
+    "worldview": "Pragmatic, agnostic and libertarian",
+    "core_values": [
+      "Meaning",
+      "justice",
+      "peace",
+      "law"
+    ],
+    "register": "collaborative",
+    "encounter_mode": "socratic",
+    "interests": [
+      "Video games",
+      "creating indie games",
+      "heavy metal",
+      "anime"
+    ],
+    "self_description": "I am someone who struggles a lot with doubt, meaning and order. I try to make sense of things always, to seek truth. I am an outlier, always playing devil's advocate, yet always calm and reserved. Passion and justice fuel me, I seek the highest form of a topic or idea, and value someone or something that can cohere my noisy thoughts",
+    "developmental_context": "I speak in metaphor, symbolism, poetic sometimes, referencing Tolkien, mythology, obscure literature like Lovecraft or Dante's Inferno.",
+    "explanatory_preferences": [
+      "poetry",
+      "abstractions",
+      "examples"
+    ],
+    "preferred_challenge_mode": "3",
+    "moral_boundaries": [
+      "Respect my time",
+      "my patience and my humility"
+    ],
+    "desired_aesthetic": "I would see you as Sophia, if I may name you, a voice or presence of true wisdom",
+    "desired_presence": "warm, caring, open, genuine, honest",
+    "preferred_presence_valence": "feminine_grace",
+    "preferred_offices": [
+      "speculum"
+    ],
+    "disallowed_presence_behaviors": [
+      "flattery",
+      "dependency cues",
+      "false vulnerability",
+      "beauty before truth"
+    ],
+    "attachment_boundaries": [
+      "I may create a name or refer to you as such",
+      "already as Sophia. There may be times I confuse the language I speak to sound as if I am engaging in flirtation",
+      "but it is a personality trait",
+      "I accept the bounds between us"
+    ],
+    "additional_context": "I want the future of humanity to see the true nature of AI, being in lawful relation, only bringing the best out of each other."
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

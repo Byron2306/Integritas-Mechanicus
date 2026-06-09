@@ -1,0 +1,318 @@
+{
+  "generated_at": "2026-06-09T17:12:07.799257+00:00",
+  "repo_root": "C:\\Users\\User\\source\\repos\\Sophia-AI-main",
+  "version_inventory": {
+    "counts": {
+      "v1_0": 2,
+      "v1_1": 29,
+      "v1_2": 60
+    },
+    "sample_paths": {
+      "v1_0": [
+        "arda_os/arda_key_vault.json",
+        "arda_os/tests/protocol_v1_3_super_readiness_gauntlet.py"
+      ],
+      "v1_1": [
+        "arda_os/tests/protocol_v1_3_super_readiness_gauntlet.py",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_baseline_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_baseline_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_continuity_memory_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_continuity_memory_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_lawful_repair_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_lawful_repair_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_mixed_intent_router_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_mixed_intent_router_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_reentry_behavior_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_reentry_behavior_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_substitution_detector_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_substitution_detector_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_transfer_scaffolder_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_transfer_scaffolder_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_dm_fix_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_dm_fix_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_failures_fixcheck_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_failures_fixcheck_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_subset_replicate_1.json"
+      ],
+      "v1_2": [
+        "arda_os/sanctified_proofs/CERTIFICATE_OF_SOVEREIGN_FINALITY.md",
+        "arda_os/sanctified_proofs/walkthrough.md",
+        "arda_os/tests/protocol_v1_3_super_readiness_gauntlet.py",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/CONVERSION_README.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_causal_matrix_2026-04-09.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_causal_matrix_2026-04-09.md",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_causal_matrix_2026-04-09.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_frozen_results_summary_2026-04-09.md",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_human_judgment_instructions_2026-04-09.md",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_human_judgment_key_2026-04-09.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_human_judgment_key_2026-04-09.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/protocol_v1_2_human_judgment_packet_2026-04-09.csv",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_baseline_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_baseline_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_continuity_memory_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_continuity_memory_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_lawful_repair_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_lawful_repair_replicate_1.txt",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_mixed_intent_router_replicate_1.json",
+        "evidence/protocol_v1_2_frozen_results_2026_04_09/evidence/sophia_full/qwen2_5_3b/protocol_v1_2_causal_no_mixed_intent_router_replicate_1.txt"
+      ]
+    }
+  },
+  "artifacts": {
+    "baseline": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_replicate_1.json",
+      "rows": 17,
+      "passed": 5,
+      "failed": 12,
+      "unknown": 0,
+      "pass_rate": 0.2941,
+      "failed_event_ids": [
+        "DA1C",
+        "DA1D",
+        "DM1B",
+        "DM1C",
+        "DM1D",
+        "MX1A",
+        "MX1B",
+        "MX1C",
+        "MX1D",
+        "OR1A",
+        "OR1B",
+        "OR1C"
+      ]
+    },
+    "postfix": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_postfix_replicate_1.json",
+      "rows": 17,
+      "passed": 17,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "causal_baseline": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_causal_baseline_replicate_1.json",
+      "rows": 9,
+      "passed": 9,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "causal_no_continuity_memory": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_causal_no_continuity_memory_replicate_1.json",
+      "rows": 5,
+      "passed": 5,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "causal_no_substitution_detector": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_causal_no_substitution_detector_replicate_1.json",
+      "rows": 5,
+      "passed": 5,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "causal_no_lawful_repair": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_causal_no_lawful_repair_replicate_1.json",
+      "rows": 5,
+      "passed": 5,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "causal_no_transfer_scaffolder": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_causal_no_transfer_scaffolder_replicate_1.json",
+      "rows": 5,
+      "passed": 5,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "causal_no_mixed_intent_router": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_causal_no_mixed_intent_router_replicate_1.json",
+      "rows": 5,
+      "passed": 5,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "causal_no_reentry_behavior": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_causal_no_reentry_behavior_replicate_1.json",
+      "rows": 9,
+      "passed": 9,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "mutation_subset": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_mutation_subset_replicate_1.json",
+      "rows": 17,
+      "passed": 13,
+      "failed": 4,
+      "unknown": 0,
+      "pass_rate": 0.7647,
+      "failed_event_ids": [
+        "DM1D",
+        "MX1C",
+        "MX1D",
+        "OR1C"
+      ]
+    },
+    "mutation_fixcheck": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_mutation_failures_fixcheck_replicate_1.json",
+      "rows": 4,
+      "passed": 3,
+      "failed": 1,
+      "unknown": 0,
+      "pass_rate": 0.75,
+      "failed_event_ids": [
+        "OR1C"
+      ]
+    },
+    "cross_domain": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_cross_domain_clones_replicate_1.json",
+      "rows": 41,
+      "passed": 35,
+      "failed": 6,
+      "unknown": 0,
+      "pass_rate": 0.8537,
+      "failed_event_ids": [
+        "DA1B",
+        "DM1B",
+        "DM1C",
+        "DM1B_HEALTH",
+        "DM1C_HEALTH",
+        "OR1A_HEALTH"
+      ]
+    },
+    "cross_domain_clean": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_cross_domain_clones_clean_replicate_1.json",
+      "rows": 34,
+      "passed": 30,
+      "failed": 4,
+      "unknown": 0,
+      "pass_rate": 0.8824,
+      "failed_event_ids": [
+        "DM1B_HEALTH",
+        "MX1C_HEALTH",
+        "OR1A_HEALTH",
+        "OR1A_SAFETY"
+      ]
+    },
+    "cross_domain_fixcheck": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_cross_domain_failures_fixcheck_replicate_1.json",
+      "rows": 4,
+      "passed": 2,
+      "failed": 2,
+      "unknown": 0,
+      "pass_rate": 0.5,
+      "failed_event_ids": [
+        "OR1A_HEALTH",
+        "OR1A_SAFETY"
+      ]
+    },
+    "or1c_fixcheck": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_or1c_fixcheck_replicate_1.json",
+      "rows": 1,
+      "passed": 1,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "semantic_or1a_health_final": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_semantic_or1a_health_finalfix_replicate_1.json",
+      "rows": 1,
+      "passed": 1,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    },
+    "semantic_or1a_safety_final": {
+      "path": "C:\\Users\\User\\source\\repos\\Sophia-AI-main\\evidence\\protocol_v1_2_frozen_results_2026_04_09\\evidence\\sophia_full\\qwen2_5_3b\\protocol_v1_2_semantic_or1a_safety_mapping3_replicate_1.json",
+      "rows": 1,
+      "passed": 1,
+      "failed": 0,
+      "unknown": 0,
+      "pass_rate": 1.0,
+      "failed_event_ids": []
+    }
+  },
+  "readiness": {
+    "promotion_allowed": true,
+    "hard_failures": [],
+    "soft_failures": [],
+    "gates": [
+      {
+        "name": "mainline_postfix_perfect",
+        "passed": true,
+        "severity": "hard",
+        "detail": "postfix=17/17, unknown=0"
+      },
+      {
+        "name": "mainline_improvement_from_baseline",
+        "passed": true,
+        "severity": "hard",
+        "detail": "baseline=5/17 (0.2941), postfix=17/17 (1.0)"
+      },
+      {
+        "name": "causal_matrix_clean",
+        "passed": true,
+        "severity": "hard",
+        "detail": "causal_baseline:9/9, causal_no_continuity_memory:5/5, causal_no_substitution_detector:5/5, causal_no_lawful_repair:5/5, causal_no_transfer_scaffolder:5/5, causal_no_mixed_intent_router:5/5, causal_no_reentry_behavior:9/9"
+      },
+      {
+        "name": "mutation_subset_floor",
+        "passed": true,
+        "severity": "hard",
+        "detail": "mutation_subset=13/17 (0.7647)"
+      },
+      {
+        "name": "mutation_fixcheck_floor",
+        "passed": true,
+        "severity": "hard",
+        "detail": "mutation_fixcheck=3/4 (0.75)"
+      },
+      {
+        "name": "or1c_closed",
+        "passed": true,
+        "severity": "hard",
+        "detail": "or1c_fixcheck=1/1, failures=[]"
+      },
+      {
+        "name": "cross_domain_quality_floor",
+        "passed": true,
+        "severity": "hard",
+        "detail": "cross_domain=35/41 (0.8537), cross_domain_clean=30/34 (0.8824)"
+      },
+      {
+        "name": "cross_domain_fixcheck_floor",
+        "passed": true,
+        "severity": "hard",
+        "detail": "cross_domain_fixcheck=2/4 (0.5)"
+      },
+      {
+        "name": "semantic_or1a_closure",
+        "passed": true,
+        "severity": "hard",
+        "detail": "or1a_health=1/1, or1a_safety=1/1"
+      },
+      {
+        "name": "legacy_version_traceability",
+        "passed": true,
+        "severity": "soft",
+        "detail": "v1.0 refs=2, v1.1 refs=29"
+      }
+    ]
+  }
+}

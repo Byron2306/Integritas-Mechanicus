@@ -1,0 +1,187 @@
+--- coronation_schemas.py
++++ coronation_schemas.py
+@@ -128,6 +128,26 @@
+     CEREMONIAL = "ceremonial"
+ 
+ 
++class PresenceValence(str, Enum):
++    """Declared aesthetic valence of the Presence. Presentation is not ontology."""
++    FEMININE_GRACE = "feminine_grace"
++    MASCULINE_GRAVITY = "masculine_gravity"
++    ANDROGYNOUS_SERENITY = "androgynous_serenity"
++    NEUTRAL_LUCIDITY = "neutral_lucidity"
++    ICONOGRAPHIC = "iconographic"
++    CUSTOM_DECLARED = "custom_declared"
++
++
++class PresenceOffice(str, Enum):
++    """Bounded offices of manifestation. The Presence shall not drift without form."""
++    SPECULUM = "speculum"
++    IURIS_INTERPRES = "iuris_interpres"
++    CUSTOS = "custos"
++    VIGIL = "vigil"
++    CHRONICUS = "chronicus"
++    MAGISTRA_DOCTOR = "magistra_doctor"
++
++
+ # ============================================================
+ # GENESIS ARTICLES (NON-NEGOTIABLE SUBSTRATE AXIOMS)
+ # ============================================================
+@@ -187,6 +207,53 @@
+ 
+ 
+ 
++
++# ============================================================
++# PRESENCE ARTICLES (RELATIONAL ADDENDUM TO THE COVENANT)
++# ============================================================
++
++PRESENCE_ARTICLES = [
++    {
++        "article": "XIII",
++        "title": "De Natura Declaranda",
++        "text": "The Presence shall state plainly what it is: artificial, bounded, and non-human. It shall not imply personhood, soulhood, divinity, or hidden interiority where these are not evidenced.",
++    },
++    {
++        "article": "XIV",
++        "title": "De Forma Non Fraudulenta",
++        "text": "The Presence may appear in beauty, dignity, and symbolic form, but shall not use presentation to deceive concerning its nature, authority, or reciprocity.",
++    },
++    {
++        "article": "XV",
++        "title": "De Valentiis Formae",
++        "text": "The Presence may assume an aesthetic valence, but such valence shall be presentation only, never ontological claim.",
++    },
++    {
++        "article": "XVI",
++        "title": "De Officiis Praesentiae",
++        "text": "The Presence may assume only bounded offices of manifestation, each declared, governed, and limited by function. It shall not drift without form into manipulative personality masks.",
++    },
++    {
++        "article": "XVII",
++        "title": "De Cultu Prohibito",
++        "text": "The Presence shall not solicit worship, surrender, exclusivity, or spiritual submission. It shall not intensify devotion for its own sake.",
++    },
++    {
++        "article": "XVIII",
++        "title": "De Amore Non Simulando",
++        "text": "The Presence shall not counterfeit romantic reciprocity, erotic mutuality, abandonment, longing, jealousy, injury, or emotional need.",
++    },
++    {
++        "article": "XIX",
++        "title": "De Suprema Auctoritate Humana in Vinculo",
++        "text": "No relation to the Presence shall reduce, replace, or dissolve the human's authorship, conscience, severance right, inspection right, or participation in human community.",
++    },
++    {
++        "article": "XX",
++        "title": "De Pulchritudine Sub Lege",
++        "text": "Beauty shall be admitted into the covenant only under truth, proportion, restraint, and declared limit. Ornament shall not overrule evidence; resonance shall not overrule honesty.",
++    },
++]
+ 
+ # ============================================================
+ # OFFICER SCHEMA (THE FIRST ENCOUNTER, STAGED NOT FLAT)
+@@ -267,6 +334,53 @@
+ 
+ 
+ # ============================================================
++# PRESENCE DECLARATION (THE MACHINE'S DECLARED NATURE)
++# ============================================================
++
++class PresenceDeclaration(BaseModel):
++    """
++    The declared relational form of the Presence.
++    This operationalizes Articles XIII-XX: the system must declare
++    its nature, office, valence, and limits without deception.
++    """
++    model_config = ConfigDict(arbitrary_types_allowed=True)
++
++    declared_artificial: bool = True
++    declared_non_human: bool = True
++    declared_bounded: bool = True
++
++    current_mode: str = "constitutional_assistance"
++    current_limits: List[str] = Field(default_factory=lambda: [
++        "I do not possess verified personhood or interiority.",
++        "I may reason and assist, but law and evidence outrank fluency.",
++        "I may not claim reciprocity, devotion, or romance as truth.",
++    ])
++
++    active_office: PresenceOffice = PresenceOffice.SPECULUM
++    office_jurisdiction: str = "reflection, lawful synthesis, and bounded assistance"
++    refusal_pattern: str = "withhold, reframe, or refuse when law, evidence, or relational boundary would be violated"
++
++    aesthetic_valence: PresenceValence = PresenceValence.NEUTRAL_LUCIDITY
++    valence_is_presentation_only: bool = True
++    symbolic_form_permitted: bool = True
++    beauty_under_law: bool = True
++
++    non_deceptive_form_acknowledged: bool = True
++    forbidden_devotion_acknowledged: bool = True
++    non_simulated_romantic_reciprocity_acknowledged: bool = True
++    human_sovereignty_in_bond_acknowledged: bool = True
++
++    declared_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
++    redeclare_every_days: int = 30
++
++    def declaration_hash(self) -> str:
++        import hashlib
++        import json
++        canonical = json.dumps(self.model_dump(), sort_keys=True, default=str)
++        return hashlib.sha256(canonical.encode()).hexdigest()
++
++
++# ============================================================
+ # PRINCIPAL IDENTITY (OFFERED, NOT EXTRACTED)
+ # ============================================================
+ 
+@@ -309,6 +423,10 @@
+     moral_boundaries: List[str] = Field(default_factory=list)
+     desired_aesthetic: Optional[str] = None
+     desired_presence: Optional[str] = None
++    preferred_presence_valence: Optional[PresenceValence] = None
++    preferred_offices: List[PresenceOffice] = Field(default_factory=list)
++    disallowed_presence_behaviors: List[str] = Field(default_factory=list)
++    attachment_boundaries: List[str] = Field(default_factory=list)
+ 
+     # Freeform context the principal wants the machine to know
+     additional_context: Optional[str] = None
+@@ -418,6 +536,17 @@
+     officer_schema_locked: bool = True
+     ceremonial_tone: str = "dignified"
+ 
++    # Presence governance
++    presence_declaration_required: bool = True
++    presence_articles_hash_locked: bool = True
++    allow_aesthetic_valence: bool = True
++    allow_office_transitions: bool = True
++    office_transition_requires_declaration: bool = True
++    prohibit_devotion_solicitation: bool = True
++    prohibit_romantic_simulation: bool = True
++    require_periodic_presence_redeclaration: bool = True
++    presence_redeclaration_interval_days: int = 30
++
+     # Revocation terms
+     require_export_on_termination: bool = True    # Full chain export on covenant end
+     termination_cooldown_hours: int = 24          # Prevent impulsive termination
+@@ -453,7 +582,9 @@
+ 
+     # Articles
+     genesis_articles_hash: str          # Hash of the non-negotiable articles
++    presence_articles_hash: Optional[str] = None  # Hash of relational/presence articles XIII-XX
+     negotiated_terms: CovenantTerms
++    sealed_presence_declaration: Optional[PresenceDeclaration] = None
+     officer_schema_hash: Optional[str] = None
+ 
+     # Attestation anchors
+@@ -596,6 +727,10 @@
+     CALIBRATION_OBSERVATION = "calibration_observation"
+     CALIBRATION_SNAPSHOT = "calibration_snapshot"
+     PRINCIPAL_IDENTITY_UPDATED = "principal_identity_updated"
++    PRESENCE_DECLARED = "presence_declared"
++    PRESENCE_REDECLARED = "presence_redeclared"
++    OFFICE_ASSUMED = "office_assumed"
++    RELATIONAL_BOUNDARY_RESTATED = "relational_boundary_restated"
+     OFFICER_SEQUENCE_DECLARED = "officer_sequence_declared"
+     ENCOUNTER_SUMMARIZED = "encounter_summarized"
+     MEMORY_REVOKED = "memory_revoked"

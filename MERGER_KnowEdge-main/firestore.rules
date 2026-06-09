@@ -1,0 +1,99 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {userId}
+    // Fields:
+    //   - uid: string (required)
+    //   - email: string (required, email format)
+    //   - displayName: string (optional)
+    //   - photoURL: string (optional, url format)
+    //   - createdAt: timestamp (required)
+    //
+    // Collection: reports
+    // Document ID: {reportId}
+    // Fields:
+    //   - userId: string (required, must match auth.uid)
+    //   - timestamp: timestamp (required)
+    //   - type: string (required, enum: ['synthesis', 'detection'])
+    //   - data: map (required)
+    //   - artifacts: map (optional)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidUrl(url) {
+      return url is string && (url.matches("^https://.*") || url.matches("^http://.*"));
+    }
+
+    // Domain Validators
+    
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'createdAt']) &&
+             data.uid == request.auth.uid &&
+             isValidEmail(data.email) &&
+             data.createdAt is timestamp &&
+             (!('displayName' in data) || data.displayName is string) &&
+             (!('photoURL' in data) || isValidUrl(data.photoURL));
+    }
+
+    function isValidReport(data) {
+      return data.keys().hasAll(['userId', 'timestamp', 'type', 'data']) &&
+             data.userId == request.auth.uid &&
+             data.timestamp is timestamp &&
+             data.type in ['synthesis', 'detection'] &&
+             data.data is map &&
+             (!('artifacts' in data) || data.artifacts is map);
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && 
+                      request.resource.data.uid == resource.data.uid &&
+                      request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if false; // Users cannot delete their profiles via client
+    }
+
+    match /reports/{reportId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && isValidReport(request.resource.data);
+      allow update: if isDocOwner() && isValidReport(request.resource.data) &&
+                      request.resource.data.userId == resource.data.userId &&
+                      request.resource.data.timestamp == resource.data.timestamp;
+      allow delete: if isDocOwner();
+    }
+
+    // Default deny
+    match /{path=**} {
+      allow read, write: if false;
+    }
+  }
+}

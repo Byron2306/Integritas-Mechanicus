@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowEdge Merger Mobile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22KnowEdge%20Merger%22,%22short_name%22:%22KEMerger%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#000000%22,%22theme_color%22:%22#000000%22}">
+    <style>
+        :root {
+            --cyan: #00f5ff;
+            --black: #000000;
+            --gray-dark: #111111;
+            --gray-light: #222222;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Screen Management */
+        .screen { display: none; padding: 20px; flex: 1; overflow-y: auto; }
+        .screen.active { display: flex; flex-direction: column; }
+
+        /* Setup Screen */
+        .setup-container { justify-content: center; align-items: center; text-align: center; }
+        h1 { color: var(--cyan); margin-bottom: 30px; }
+        input {
+            background: var(--gray-dark);
+            border: 1px solid var(--gray-light);
+            color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 300px;
+        }
+        button {
+            background: var(--cyan);
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        /* Tabs Navigation */
+        .nav {
+            display: flex;
+            background: var(--gray-dark);
+            border-top: 1px solid var(--gray-light);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nav-item {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            cursor: pointer;
+        }
+        .nav-item.active { color: var(--cyan); font-weight: 600; }
+
+        /* Dashboard Content */
+        .card {
+            background: var(--gray-dark);
+            border: 1px solid var(--gray-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .status-badge {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff4444;
+            margin-right: 5px;
+        }
+        .status-badge.online { background: #44ff44; }
+
+        pre { background: black; padding: 10px; border-radius: 4px; overflow-x: auto; color: var(--cyan); font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<!-- Setup Screen -->
+<div id="setup-screen" class="screen setup-container active">
+    <h1>KnowEdge Merger</h1>
+    <p>Android Bridge Setup</p>
+    <input type="text" id="server-ip" placeholder="Server LAN IP (e.g. 192.168.1.5)">
+    <input type="number" id="server-pin" placeholder="6-digit PIN">
+    <button onclick="connect()">Connect Bridge</button>
+</div>
+
+<!-- Main Dashboard -->
+<div id="main-screen" class="screen">
+    <div id="content-synthesis" class="tab-content">
+        <h2>SYNTHESIS</h2>
+        <div class="card">
+            <p>Ready for run initiation...</p>
+            <button onclick="triggerRun()" style="width:100%">START SYNTHETIZATION</button>
+        </div>
+    </div>
+    <div id="content-detection" class="tab-content" style="display:none">
+        <h2>DETECTION</h2>
+        <div class="card">
+            <textarea id="detect-text" style="width:100%; height:100px; background:#000; color:#fff; border:1px solid #333;" placeholder="Paste text here..."></textarea>
+            <button onclick="runScan()" style="width:100%; margin-top:10px">MULTI-SCAN</button>
+        </div>
+    </div>
+    <div id="content-status" class="tab-content" style="display:none">
+        <h2>STATUS</h2>
+        <div class="card">
+            <div><span id="bridge-dot" class="status-badge"></span> Bridge: <span id="bridge-text">Offline</span></div>
+            <pre id="telemetry-log">Awaiting data stream...</pre>
+        </div>
+    </div>
+</div>
+
+<div class="nav" id="main-nav" style="display:none">
+    <div class="nav-item active" onclick="switchTab('synthesis')">SYNTHESIS</div>
+    <div class="nav-item" onclick="switchTab('detection')">DETECTION</div>
+    <div class="nav-item" onclick="switchTab('status')">STATUS</div>
+</div>
+
+<script>
+    let ws;
+    let config = { ip: '', pin: '' };
+
+    window.onload = () => {
+        const saved = localStorage.getItem('kem_bridge_config');
+        if (saved) {
+            config = JSON.parse(saved);
+            document.getElementById('server-ip').value = config.ip;
+            document.getElementById('server-pin').value = config.pin;
+        }
+    };
+
+    function connect() {
+        const ip = document.getElementById('server-ip').value;
+        const pin = document.getElementById('server-pin').value;
+        
+        if (!ip || !pin) return alert("Missing credentials");
+
+        ws = new WebSocket(`ws://${ip}:3001`);
+        
+        ws.onopen = () => {
+            ws.send(JSON.stringify({ pin: pin }));
+        };
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.status === 'verified') {
+                config = { ip, pin };
+                localStorage.setItem('kem_bridge_config', JSON.stringify(config));
+                showDashboard();
+                updateStatus(true);
+            } else if (data.type === 'telemetry') {
+                logTelemetry(data.payload);
+            }
+        };
+
+        ws.onclose = () => {
+            updateStatus(false);
+            setTimeout(connect, 5000); // Auto-reconnect
+        };
+    }
+
+    function showDashboard() {
+        document.getElementById('setup-screen').classList.remove('active');
+        document.getElementById('main-screen').classList.add('active');
+        document.getElementById('main-nav').style.display = 'flex';
+    }
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        document.getElementById(`content-${tab}`).style.display = 'block';
+        event.target.classList.add('active');
+    }
+
+    function updateStatus(online) {
+        const dot = document.getElementById('bridge-dot');
+        const text = document.getElementById('bridge-text');
+        if (online) {
+            dot.className = 'status-badge online';
+            text.innerText = 'Connected';
+        } else {
+            dot.className = 'status-badge';
+            text.innerText = 'Disconnected';
+        }
+    }
+
+    function logTelemetry(msg) {
+        const log = document.getElementById('telemetry-log');
+        log.innerText = msg + "\n" + log.innerText;
+    }
+
+    // PWA Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('data:application/javascript,self.addEventListener("fetch", function(event) {})');
+    }
+</script>
+</body>
+</html>

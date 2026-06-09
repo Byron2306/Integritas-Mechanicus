@@ -1,0 +1,295 @@
+--- src/App.tsx
++++ src/App.tsx
+@@ -543,6 +543,9 @@
+     }
+   };
+ 
++  const [activeRunId, setActiveRunId] = useState<string | null>(null);
++  const [runHeartbeat, setRunHeartbeat] = useState<any>(null);
++
+   const handleInitialize = async () => {
+     if (artifacts.input.status === 'empty') return;
+     
+@@ -549,113 +549,67 @@
+     setReport(null);
+-    setTaskStatus({
+-      screening: { state: 'processing' },
+-      linting: { state: 'processing' },
+-      similarity: { state: 'processing' }
+-    });
+-
+-    // Set artifacts to processing state for visual feedback
+-    setArtifacts(prev => ({
+-      input: { ...prev.input, status: 'processing' },
+-      target: prev.target.status === 'loaded' ? { ...prev.target, status: 'processing' } : prev.target,
+-      context: prev.context.status === 'loaded' ? { ...prev.context, status: 'processing' } : prev.context,
+-    }));
+-
+-    try {
+-      const fetchJson = async (url: string, options: any) => {
+-        const response = await fetch(url, options);
+-        if (!response.ok) {
+-          const text = await response.text();
+-          let errorMsg = \`Server returned \${response.status}\`;
+-          try {
+-            const json = JSON.parse(text);
+-            errorMsg = json.message || json.error || errorMsg;
+-          } catch (e) {
+-            errorMsg = text.substring(0, 50) || errorMsg;
+-          }
+-          throw new Error(errorMsg);
+-        }
+-        return response.json();
+-      };
+-
+-      // Simulated delay for "Mission Control" feel
+-      await new Promise(resolve => setTimeout(resolve, 1000));
+-
+-      // Run all checks in parallel with individual status updates
+-      const runScreening = async () => {
+-        try {
+-          const res = await fetchJson('/api/screening/analyze', {
+-            method: 'POST',
+-            headers: { 'Content-Type': 'application/json' },
+-            body: JSON.stringify({ text: artifacts.input.content })
+-          });
+-          setTaskStatus(prev => ({ ...prev, screening: { state: 'complete' } }));
+-          return res;
+-        } catch (e) {
+-          const msg = e instanceof Error ? e.message : String(e);
+-          setTaskStatus(prev => ({ ...prev, screening: { state: 'error', error: msg } }));
+-          throw e;
+-        }
+-      };
+-
+-      const runLinting = async () => {
+-        try {
+-          const res = await fetchJson('/api/grammar/check', {
+-            method: 'POST',
+-            headers: { 'Content-Type': 'application/json' },
+-            body: JSON.stringify({ 
+-              text: artifacts.input.content,
+-              context: artifacts.context.content
+-            })
+-          });
+-          setTaskStatus(prev => ({ ...prev, linting: { state: 'complete' } }));
+-          return res;
+-        } catch (e) {
+-          const msg = e instanceof Error ? e.message : String(e);
+-          setTaskStatus(prev => ({ ...prev, linting: { state: 'error', error: msg } }));
+-          throw e;
+-        }
+-      };
+-
+-      const runSimilarity = async () => {
+-        try {
+-          const res = await fetchJson('/api/similarity/query', {
+-            method: 'POST',
+-            headers: { 'Content-Type': 'application/json' },
+-            body: JSON.stringify({ 
+-              text: artifacts.input.content,
+-              target: artifacts.target.content
+-            })
+-          });
+-          setTaskStatus(prev => ({ ...prev, similarity: { state: 'complete' } }));
+-          return res;
+-        } catch (e) {
+-          const msg = e instanceof Error ? e.message : String(e);
+-          setTaskStatus(prev => ({ ...prev, similarity: { state: 'error', error: msg } }));
+-          throw e;
+-        }
+-      };
+-
+-      const [screeningRes, grammarRes, similarityRes] = await Promise.all([
+-        runScreening(),
+-        runLinting(),
+-        runSimilarity()
+-      ]);
+-
+-      const finalReport: AnalysisReport = {
+-        timestamp: new Date().toISOString(),
+-        screening: screeningRes,
+-        grammar: grammarRes,
+-        similarity: similarityRes,
+-        system: {
+-          node: 'LOCAL_NODE_01',
+-          status: 'DETERMINISTIC_SUCCESS'
+-        }
+-      };
+-
+-      setReport(finalReport);
+-      if (user) {
+-        saveReportToCloud(finalReport, 'synthesis');
+-      }
++    
++    try {
++      const runRes = await fetch('/api/v1/runs', {
++        method: 'POST',
++        headers: { 'Content-Type': 'application/json' },
++        body: JSON.stringify({
++          objective: 'Forensic Synthesis',
++          artifacts: {
++            input: artifacts.input.name,
++            target: artifacts.target.name,
++            context: artifacts.context.name
++          }
++        })
++      });
++      
++      const run = await runRes.json();
++      setActiveRunId(run.id);
++
++      // Start polling heartbeat
++      const poll = setInterval(async () => {
++        try {
++          const hbRes = await fetch(\`/api/v1/runs/\${run.id}/heartbeat\`);
++          const hb = await hbRes.json();
++          setRunHeartbeat(hb);
++
++          if (hb.phase === 'completed') {
++            clearInterval(poll);
++            
++            // Fetch final results (simulated legacy calls for now to maintain UI compatibility)
++            const [screeningRes, grammarRes, similarityRes] = await Promise.all([
++              fetch('/api/screening/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: artifacts.input.content }) }).then(r => r.json()),
++              fetch('/api/grammar/check', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: artifacts.input.content }) }).then(r => r.json()),
++              fetch('/api/similarity/query', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: artifacts.input.content, target: artifacts.target.content }) }).then(r => r.json())
++            ]);
++
++            const finalReport: AnalysisReport = {
++              timestamp: new Date().toISOString(),
++              screening: screeningRes,
++              grammar: grammarRes,
++              similarity: similarityRes,
++              system: {
++                node: 'LOCAL_NODE_01',
++                status: 'DETERMINISTIC_SUCCESS'
++              }
++            };
++
++            setReport(finalReport);
++            setIsInitializing(false);
++            setActiveRunId(null);
++            setRunHeartbeat(null);
++            
++            if (user) saveReportToCloud(finalReport, 'synthesis');
++          }
++        } catch (e) {
++          console.error("[HEARTBEAT] Poll error:", e);
++        }
++      }, 1000);
++
++    } catch (e) {
++      console.error("Initialization failed:", e);
++      setIsInitializing(false);
++    }
++  };
+       
+       // Reset artifact status to loaded
+       setArtifacts(prev => ({
+@@ -1068,67 +1068,46 @@
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 exit={{ opacity: 0, y: -20 }}
+-                className="w-full max-w-4xl"
+-              >
+-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+-                  {[
+-                    { id: 'screening', label: 'AI Screening', status: taskStatus.screening.state, error: taskStatus.screening.error },
+-                    { id: 'linting', label: 'Prose Linting', status: taskStatus.linting.state, error: taskStatus.linting.error },
+-                    { id: 'similarity', label: 'Similarity Mapping', status: taskStatus.similarity.state, error: taskStatus.similarity.error },
+-                  ].map((task) => (
+-                    <div key={task.id} className={cn(
+-                      "p-4 rounded-xl bg-zinc-900/50 border backdrop-blur-sm flex flex-col gap-3 transition-colors duration-500",
+-                      task.status === 'error' ? "border-rose-500/30 bg-rose-500/5" : "border-zinc-800/50"
+-                    )}>
+-                      <div className="flex items-center justify-between">
+-                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">{task.label}</span>
+-                        {task.status === 'complete' ? (
+-                          <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+-                        ) : task.status === 'error' ? (
+-                          <AlertCircle className="w-3 h-3 text-rose-400" />
+-                        ) : (
+-                          <RefreshCw className="w-3 h-3 text-cyan-400 animate-spin" />
+-                        )}
+-                      </div>
+-                      
+-                      {task.error ? (
+-                        <p className="text-[9px] font-bold text-rose-400/80 leading-tight uppercase tracking-tighter">
+-                          {task.error}
+-                        </p>
+-                      ) : (
+-                        <div className="h-1 w-full bg-zinc-800 rounded-full overflow-hidden">
+-                          <motion.div 
+-                            initial={{ width: 0 }}
+-                            animate={{ width: task.status === 'complete' ? '100%' : '60%' }}
+-                            transition={{ 
+-                              duration: task.status === 'complete' ? 0.5 : 2, 
+-                              repeat: task.status === 'complete' ? 0 : Infinity,
+-                              repeatType: 'reverse'
+-                            }}
+-                            className={cn(
+-                              "h-full transition-colors duration-500",
+-                              task.status === 'complete' ? "bg-emerald-500" : 
+-                              task.status === 'error' ? "bg-rose-500" : "bg-cyan-500"
+-                            )}
+-                          />
+-                        </div>
+-                      )}
+-                    </div>
+-                  ))}
+-                </div>
+-
+-                {/* Unified Progress Bar Enhancement */}
+-                <div className="relative h-2 w-full bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
+-                  <div className="absolute inset-0 grid grid-cols-3 divide-x divide-zinc-800/50 z-10 pointer-events-none" />
++                className="w-full max-w-4xl p-10 rounded-[3rem] bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-xl"
++              >
++                <div className="flex items-center justify-between mb-10">
++                  <div className="flex items-center gap-5">
++                    <div className="p-4 rounded-2xl bg-cyan-500/10 text-cyan-400">
++                      <Activity className="w-6 h-6 animate-pulse" />
++                    </div>
++                    <div>
++                      <h3 className="text-xl font-black text-white uppercase tracking-tight font-display">Neural Core Active</h3>
++                      <p className="text-[11px] font-black text-zinc-500 uppercase tracking-widest">Run ID: {activeRunId || 'Initializing...'}</p>
++                    </div>
++                  </div>
++                  <div className="text-right">
++                    <p className="text-3xl font-black text-cyan-400 font-display">{runHeartbeat?.progress || 0}%</p>
++                    <p className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">{runHeartbeat?.phase || 'Queued'}</p>
++                  </div>
++                </div>
++
++                <div className="w-full h-3 bg-zinc-950 rounded-full overflow-hidden mb-10 border border-zinc-800/50">
+                   <motion.div 
+                     initial={{ width: 0 }}
+-                    animate={{ 
+-                      width: taskStatus.similarity.state === 'complete' ? '100%' : 
+-                             taskStatus.linting.state === 'complete' ? '66%' : 
+-                             taskStatus.screening.state === 'complete' ? '33%' : '10%'
+-                    }}
+-                    className="h-full bg-gradient-to-r from-cyan-500 via-emerald-500 to-purple-500 shadow-[0_0_20px_rgba(6,182,212,0.5)]"
+-                  />
++                    animate={{ width: \`\${runHeartbeat?.progress || 0}%\` }}
++                    className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.4)]"
++                  />
++                </div>
++
++                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
++                  {['validating', 'ingesting', 'indexing', 'mapping', 'comparing', 'qa'].map((phase) => (
++                    <div key={phase} className="flex flex-col items-center gap-3">
++                      <div className={cn(
++                        "w-2 h-2 rounded-full transition-all duration-500",
++                        runHeartbeat?.phase === phase ? "bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)] scale-150" : 
++                        (runHeartbeat?.progress || 0) > 0 && ['validating', 'ingesting', 'indexing', 'mapping', 'comparing', 'qa'].indexOf(phase) < ['validating', 'ingesting', 'indexing', 'mapping', 'comparing', 'qa'].indexOf(runHeartbeat?.phase) ? "bg-emerald-500" : "bg-zinc-800"
++                      )} />
++                      <span className={cn(
++                        "text-[10px] font-black uppercase tracking-widest transition-colors text-center",
++                        runHeartbeat?.phase === phase ? "text-cyan-400" : "text-zinc-600"
++                      )}>{phase}</span>
++                    </div>
++                  ))}
+                 </div>
+               </motion.div>
+             )}

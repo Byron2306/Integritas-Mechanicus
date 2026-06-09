@@ -1,0 +1,22 @@
+{
+  "name": "KnowEdge Merger",
+  "short_name": "KnowEdge",
+  "description": "Enterprise-grade document synthesis and forensic review system.",
+  "categories": ["education", "productivity", "utilities"],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00E5FF",
+  "icons": [
+    {
+      "src": "logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

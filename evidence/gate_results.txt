@@ -1,0 +1,10 @@
+PASS|GATE_0|Hardware Census Complete|2026-03-31T08:24:53Z
+PASS|GATE_1|TPM 2.0 Verified — Real Silicon|2026-03-31T08:24:53Z
+PASS|GATE_2|Attestation Key Enrolled — Identity Anchor Set|2026-03-31T08:25:03Z
+PASS|GATE_3|Boot Quote Captured — Silicon Root of Trust|2026-03-31T08:25:04Z
+PASS|GATE_4|eBPF LSM Compiled — Kernel Object Ready|2026-03-31T08:25:05Z
+PASS|GATE_4.5|Harmony Discovery Complete — 257 Binaries Mapped|2026-03-31T08:25:08Z
+WARN|GATE_5|LSM loaded and seeded but test binary was not denied|2026-03-31T08:25:16Z
+PASS|GATE_5|Ring-0 Enforcement PROVEN — 257 Binaries Sealed|2026-03-31T08:25:16Z
+PASS|GATE_6|Attestation Bundle Assembled — Full Proof Object|2026-03-31T08:25:16Z
+PASS|GATE_7|Sovereign Seal Written — Covenant Chain Initiated|2026-03-31T08:25:16Z

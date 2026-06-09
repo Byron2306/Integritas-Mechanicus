@@ -1,0 +1,9 @@
+extends: substitution
+message: "Use a more specific term than '%s'."
+level: warning
+ignorecase: true
+swap:
+  very unique: unique
+  utilize: use
+  leverage: use
+  streamlined: efficient

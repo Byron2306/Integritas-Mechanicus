@@ -1,0 +1,174 @@
+--- server.ts
++++ server.ts
+@@ -10,6 +10,62 @@
+ const __filename = fileURLToPath(import.meta.url);
+ const __dirname = path.dirname(__filename);
+ 
++// --- Forensic Run Controller ---
++class RunController {
++  private runs: Record<string, any> = {};
++  private heartbeats: Record<string, any> = {};
++
++  async createRun(objective: string, artifacts: any) {
++    const runId = `run_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
++    this.runs[runId] = {
++      id: runId,
++      objective,
++      artifacts,
++      state: 'created',
++      timestamp: new Date().toISOString()
++    };
++    
++    this.updateHeartbeat(runId, 'created', 0);
++    this.executeRun(runId);
++    return this.runs[runId];
++  }
++
++  private updateHeartbeat(runId: string, phase: string, progress: number) {
++    this.heartbeats[runId] = {
++      runId,
++      phase,
++      progress,
++      status: 'healthy',
++      updatedAt: new Date().toISOString()
++    };
++  }
++
++  private async executeRun(runId: string) {
++    const phases = [
++      { name: 'validating', weight: 10 },
++      { name: 'ingesting', weight: 20 },
++      { name: 'indexing', weight: 20 },
++      { name: 'mapping', weight: 15 },
++      { name: 'comparing', weight: 15 },
++      { name: 'qa', weight: 10 },
++      { name: 'completed', weight: 10 }
++    ];
++
++    let currentProgress = 0;
++    for (const phase of phases) {
++      this.runs[runId].state = phase.name;
++      currentProgress += phase.weight;
++      this.updateHeartbeat(runId, phase.name, currentProgress);
++      await new Promise(r => setTimeout(r, 800)); // Forensic processing simulation
++    }
++  }
++
++  getRun(runId: string) { return this.runs[runId]; }
++  getHeartbeat(runId: string) { return this.heartbeats[runId]; }
++}
++
++const controller = new RunController();
++
+ async function startServer() {
+   validateEnv();
+   const app = express();
+@@ -16,13 +16,7 @@
+   app.use(express.json({ limit: maxUpload }));
+   app.use(express.urlencoded({ limit: maxUpload, extended: true }));
+   const httpServer = createServer(app);
+-  const io = new Server(httpServer, {
+-    cors: {
+-      origin: "*",
+-      methods: ["GET", "POST"]
+-    }
+-  });
+-
++  
+   const PORT = 3000;
+
+   // Generic Health Check
+@@ -29,78 +29,23 @@
+     res.json({ status: "ok", timestamp: new Date().toISOString() });
+   });
+
+-  // Real-time collaboration state
+-  const presence: Record<string, any> = {};
+-  const locks: Record<string, Record<string, string>> = {}; // roomId -> { componentId: userId }
+-
+-    io.on("connection", (socket) => {
+-      // Silenced noisy logs for production-grade telemetry
+-      // console.log("User connected:", socket.id);
+-
+-    socket.on("join-room", (roomId, user) => {
+-      socket.join(roomId);
+-      presence[socket.id] = { ...user, roomId, cursor: { x: 0, y: 0 } };
+-      io.to(roomId).emit("presence-update", Object.values(presence).filter((p: any) => p.roomId === roomId));
+-      
+-      // Send current locks for the room
+-      if (locks[roomId]) {
+-        socket.emit("locks-update", locks[roomId]);
+-      }
+-    });
+-
+-    socket.on("lock-component", (roomId, componentId) => {
+-      if (!locks[roomId]) locks[roomId] = {};
+-      
+-      // Only lock if not already locked by someone else
+-      if (!locks[roomId][componentId]) {
+-        locks[roomId][componentId] = socket.id;
+-        io.to(roomId).emit("locks-update", locks[roomId]);
+-      }
+-    });
+-
+-    socket.on("unlock-component", (roomId, componentId) => {
+-      if (locks[roomId] && locks[roomId][componentId] === socket.id) {
+-        delete locks[roomId][componentId];
+-        io.to(roomId).emit("locks-update", locks[roomId]);
+-      }
+-    });
+-
+-    socket.on("cursor-move", (roomId, cursor) => {
+-      if (presence[socket.id]) {
+-        presence[socket.id].cursor = cursor;
+-        socket.to(roomId).emit("cursor-update", { userId: socket.id, cursor });
+-      }
+-    });
+-
+-    socket.on("edit-architecture", (roomId, content) => {
+-      socket.to(roomId).emit("architecture-updated", content);
+-    });
+-
+-      socket.on("disconnect", () => {
+-        const p = presence[socket.id];
+-        if (p) {
+-          const roomId = p.roomId;
+-          delete presence[socket.id];
+-          
+-          // Release locks held by this user
+-          if (locks[roomId]) {
+-            let changed = false;
+-            Object.keys(locks[roomId]).forEach(cid => {
+-              if (locks[roomId][cid] === socket.id) {
+-                delete locks[roomId][cid];
+-                changed = true;
+-              }
+-            });
+-            if (changed) {
+-              io.to(roomId).emit("locks-update", locks[roomId]);
+-            }
+-          }
+-
+-          io.to(roomId).emit("presence-update", Object.values(presence).filter((p: any) => p.roomId === roomId));
+-        }
+-        // Silenced noisy logs for production-grade telemetry
+-        // console.log("User disconnected:", socket.id);
+-      });
++  // --- Governed Run Routes ---
++  app.post("/api/v1/runs", async (req, res) => {
++    const { objective, artifacts } = req.body;
++    const run = await controller.createRun(objective, artifacts);
++    res.json(run);
++  });
++
++  app.get("/api/v1/runs/:runId", (req, res) => {
++    const run = controller.getRun(req.params.runId);
++    if (!run) return res.status(404).json({ error: 'run_not_found' });
++    res.json(run);
++  });
++
++  app.get("/api/v1/runs/:runId/heartbeat", (req, res) => {
++    const hb = controller.getHeartbeat(req.params.runId);
++    if (!hb) return res.status(404).json({ error: 'heartbeat_not_found' });
++    res.json(hb);
+   });

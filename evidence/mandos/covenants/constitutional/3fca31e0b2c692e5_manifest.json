@@ -1,0 +1,37 @@
+{
+  "record": {
+    "record_id": "mem-0af85bee02",
+    "principal_identity_hash": "5dc2be4ff47baba8cf5e98f6c3d60c4a38e15b2524ef8416803a3659dc0be424",
+    "memory_class": "constitutional",
+    "retention_class": "permanent",
+    "content_hash": "1eeba42580f210250320b3d54b417bc17da4f1582f87591c50e56256fe140cd1",
+    "parent_hash": null,
+    "revocable": false,
+    "content_ref": "/home/byron/Integritas-Mechanicus-clean/Integritas-Mechanicus/evidence/mandos/covenants/constitutional/3fca31e0b2c692e5_manifest.json"
+  },
+  "payload": {
+    "manifest_id": "coronation-49732f712abf",
+    "principal_identity_hash": "5dc2be4ff47baba8cf5e98f6c3d60c4a38e15b2524ef8416803a3659dc0be424",
+    "machine_node_id": "54df35d18a7953c6",
+    "genesis_articles_hash": "d5ea59c5ca7ac250123f0bf7132cc34f79a0a5baef96410db58e8762c2671768",
+    "presence_articles_hash": "81dc40ae9947baf10fb4bea24f873fa54f5d5f268dbfe41cc5539ac92fc04923",
+    "negotiated_terms": "<backend.services.coronation_schemas.CovenantTerms object at 0x7f6aeb9cd6a0>",
+    "sealed_presence_declaration": "<backend.services.coronation_schemas.PresenceDeclaration object at 0x7f6aeb9cda90>",
+    "officer_schema_hash": "a79ba97002a2fea70222f4fb664bbf9afba13ae8e9ff40b529522bdf4dc40869",
+    "pqc_public_key_fingerprint": "pqc-unavailable",
+    "tpm_pcr_at_coronation": {
+      "0": "unavailable",
+      "1": "unavailable",
+      "7": "unavailable"
+    },
+    "preboot_covenant_ref": null,
+    "handoff_covenant_ref": null,
+    "coronation_started_at": "2026-04-01 18:50:10.046209+00:00",
+    "state": "sealed",
+    "coronation_sealed_at": "2026-04-01 18:50:28.720621+00:00"
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

@@ -1,0 +1,13 @@
+extends: existence
+message: "Consider removing '%s' or replacing it with more specific wording."
+level: suggestion
+ignorecase: true
+action:
+  name: remove
+tokens:
+  - very
+  - extremely
+  - quite
+  - basically
+  - actually
+  - truly

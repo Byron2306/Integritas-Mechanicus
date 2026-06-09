@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vagrant
+.vagrant/
+
+# Temp files
+tmp*/
+*.tmp
+_check.py
+_capture.py
+_debug.py
+_gauntlet_results.json
+
+# Logs
+*.log
+harness_out.txt
+morgoth_*.txt
+*_capture.txt
+*_capture.md
+
+# Build artifacts
+*.zip
+
+# Sovereign Exclusions
+*.mp4
+*.pid
+*.db-shm
+*.db-wal
+.witness_tmp/
+.~lock.*

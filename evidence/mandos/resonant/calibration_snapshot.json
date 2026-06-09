@@ -1,0 +1,32 @@
+{
+  "record": {
+    "record_id": "mem-e65391c068",
+    "principal_identity_hash": "5dc2be4ff47baba8cf5e98f6c3d60c4a38e15b2524ef8416803a3659dc0be424",
+    "memory_class": "resonant",
+    "retention_class": "decayable",
+    "content_hash": "b14e063e734146cefa5b1d3cd60070a1601c09789f2a02404ae3fff75108476d",
+    "parent_hash": null,
+    "revocable": true,
+    "content_ref": "/home/byron/Integritas-Mechanicus-clean/Integritas-Mechanicus/evidence/mandos/resonant/calibration_snapshot.json"
+  },
+  "payload": {
+    "reason": "initialization",
+    "principal_identity_hash": "5dc2be4ff47baba8cf5e98f6c3d60c4a38e15b2524ef8416803a3659dc0be424",
+    "domains": {
+      "trust_readiness": 0.5,
+      "technical_depth": 0.5,
+      "ambiguity_tolerance": 0.5,
+      "adversarial_reasoning": 0.5,
+      "creative_recovery": 0.5,
+      "inspection_discipline": 0.5,
+      "abstraction_preference": 0.5,
+      "challenge_tolerance": 0.5,
+      "metaphorical_resonance": 0.5,
+      "register_alignment": 0.5
+    }
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

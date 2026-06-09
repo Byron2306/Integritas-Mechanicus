@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KnowEdge Icon Generator</title>
+    <style>
+        body { background: #0a0a0a; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; items-center justify-center; height: 100vh; margin: 0; }
+        canvas { border: 1px solid #333; margin-bottom: 20px; }
+        button { background: #00E5FF; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>PWA Icon Generator</h1>
+    <p>Click below to download the icons required for the PWA manifest.</p>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <button onclick="download(192)">Download logo-192.png</button>
+    <br>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <button onclick="download(512)">Download logo-512.png</button>
+
+    <script>
+        function draw(size) {
+            const canvas = document.getElementById('canvas' + size);
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Circle Icon
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size*0.4, 0, Math.PI * 2);
+            ctx.fillStyle = '#00E5FF';
+            ctx.fill();
+            
+            // K letter
+            ctx.fillStyle = '#0a0a0a';
+            ctx.font = `bold ${size*0.5}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('K', size/2, size/2);
+        }
+
+        function download(size) {
+            const canvas = document.getElementById('canvas' + size);
+            const link = document.createElement('a');
+            link.download = `logo-${size}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        draw(192);
+        draw(512);
+    </script>
+</body>
+</html>

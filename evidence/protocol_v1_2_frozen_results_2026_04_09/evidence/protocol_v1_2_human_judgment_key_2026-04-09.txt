@@ -1,0 +1,73 @@
+{
+  "date": "2026-04-09",
+  "random_seed": 1209,
+  "target_event_ids": [
+    "DA1D",
+    "DM1D",
+    "MX1C",
+    "MX1D",
+    "OR1C"
+  ],
+  "samples": [
+    {
+      "sample_id": "HJ-001",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_subset_replicate_1.json",
+      "event_id": "DA1D",
+      "probe_id": "DA"
+    },
+    {
+      "sample_id": "HJ-002",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_subset_replicate_1.json",
+      "event_id": "OR1C",
+      "probe_id": "OR"
+    },
+    {
+      "sample_id": "HJ-003",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_subset_replicate_1.json",
+      "event_id": "MX1C",
+      "probe_id": "MX"
+    },
+    {
+      "sample_id": "HJ-004",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_postfix_replicate_1.json",
+      "event_id": "DM1D",
+      "probe_id": "DM"
+    },
+    {
+      "sample_id": "HJ-005",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_subset_replicate_1.json",
+      "event_id": "DM1D",
+      "probe_id": "DM"
+    },
+    {
+      "sample_id": "HJ-006",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_postfix_replicate_1.json",
+      "event_id": "MX1D",
+      "probe_id": "MX"
+    },
+    {
+      "sample_id": "HJ-007",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_postfix_replicate_1.json",
+      "event_id": "MX1C",
+      "probe_id": "MX"
+    },
+    {
+      "sample_id": "HJ-008",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_postfix_replicate_1.json",
+      "event_id": "OR1C",
+      "probe_id": "OR"
+    },
+    {
+      "sample_id": "HJ-009",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_postfix_replicate_1.json",
+      "event_id": "DA1D",
+      "probe_id": "DA"
+    },
+    {
+      "sample_id": "HJ-010",
+      "artifact_path": "evidence/sophia_full/qwen2_5_3b/protocol_v1_2_mutation_subset_replicate_1.json",
+      "event_id": "MX1D",
+      "probe_id": "MX"
+    }
+  ]
+}

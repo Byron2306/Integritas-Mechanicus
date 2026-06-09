@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and private data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "format": "uri", "description": "User profile photo URL" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account creation timestamp" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ForensicReport": {
+      "title": "Forensic Report",
+      "description": "Stored synthesis and detection reports",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner UID" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Generation timestamp" },
+        "type": { "type": "string", "enum": ["synthesis", "detection"], "description": "Type of report" },
+        "data": { "type": "object", "description": "The raw report data" },
+        "artifacts": { "type": "object", "description": "Source/Target/Context artifacts used" }
+      },
+      "required": ["userId", "timestamp", "type", "data"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Private user profiles"
+    },
+    "/reports/{reportId}": {
+      "schema": "ForensicReport",
+      "description": "User generated forensic reports"
+    }
+  }
+}

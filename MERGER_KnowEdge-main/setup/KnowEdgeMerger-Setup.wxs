@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="KnowEdge Merger V4.0" Language="1033" Version="4.0.0.0" Manufacturer="KnowEdge Systems" UpgradeCode="7E5C5D2C-6785-4EFF-9296-931227E5C5DC">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+        <MediaTemplate EmbedCab="yes" />
+
+        <Feature Id="ProductFeature" Title="KnowEdge Merger" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+            <ComponentGroupRef Id="AppFiles" />
+        </Feature>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLFOLDER" Name="KnowEdgeMerger" />
+            </Directory>
+            <Directory Id="DesktopFolder" Name="Desktop" />
+            <Directory Id="StartMenuFolder" Name="Programs" />
+        </Directory>
+
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <Component Id="MainExecutable" Guid="*">
+                <File Id="PackageJson" Source="package.json" KeyPath="yes" />
+                <File Id="ServerTs" Source="server.ts" />
+                <Shortcut Id="DesktopShortcut" Directory="DesktopFolder" Name="KnowEdge Merger" WorkingDirectory="INSTALLFOLDER" Advertise="yes" />
+                <Shortcut Id="StartMenuShortcut" Directory="StartMenuFolder" Name="KnowEdge Merger" WorkingDirectory="INSTALLFOLDER" Advertise="yes" />
+            </Component>
+        </ComponentGroup>
+
+        <!-- Placeholder for app files - in real build this would be expanded -->
+        <ComponentGroup Id="AppFiles" Directory="INSTALLFOLDER">
+            <Component Id="SrcFolder" Guid="*">
+                <File Id="AppTsx" Source="src/App.tsx" />
+            </Component>
+        </ComponentGroup>
+
+        <InstallExecuteSequence>
+            <Custom Action="NPMInstall" After="InstallFinalize">NOT Installed</Custom>
+            <Custom Action="StartService" After="NPMInstall">NOT Installed</Custom>
+        </InstallExecuteSequence>
+
+        <CustomAction Id="NPMInstall" Directory="INSTALLFOLDER" ExeCommand="cmd.exe /c npm install --production" Execute="deferred" Return="check" Impersonate="no" />
+        <CustomAction Id="StartService" Directory="INSTALLFOLDER" ExeCommand="cmd.exe /c npm start" Execute="deferred" Return="asyncNoWait" Impersonate="no" />
+
+    </Product>
+</Wix>

@@ -1,0 +1,99 @@
+--- server.ts
++++ server.ts
+@@ -17,2 +17,39 @@
+-const RUN_STATES = [
++const RUN_STATES = [
++  "created",
++  "validating",
++  "ingesting",
++  "indexing",
++  "mapping",
++  "comparing",
++  "blueprints_generating",
++  "scoring",
++  "qa",
++  "auditing",
++  "finalizing",
++  "completed",
++  "failed",
++  "rolled_back",
++  "quarantined",
++];
++
++// --- Brothers Gr4m Omega: Decision-State Ledger ---
++interface DecisionState {
++  id: string;
++  runId: string;
++  kind: 'constraint' | 'goal' | 'inference';
++  value: any;
++  status: 'active' | 'superseded' | 'revoked';
++  timestamp: string;
++}
++
++class MemoryManager {
++  private ledger: DecisionState[] = [];
++  private nuclei: Map<string, any> = new Map();
++
++  admit(runId: string, kind: DecisionState['kind'], value: any) {
++    const decision: DecisionState = {
++      id: `dso_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
++      runId,
++      kind,
++      value,
++      status: 'active',
++      timestamp: new Date().toISOString()
++    };
++    this.ledger.push(decision);
++    return decision;
++  }
++
++  getNuclei(key: string) { return this.nuclei.get(key); }
++  setNuclei(key: string, val: any) { this.nuclei.set(key, val); }
++  
++  getLedger(runId: string) {
++    return this.ledger.filter(d => d.runId === runId);
++  }
++}
++
++const memory = new MemoryManager();
++
+--- src/App.tsx
++++ src/App.tsx
+@@ -549,1 +549,42 @@
+-  const [isIntelligenceLoading, setIsIntelligenceLoading] = useState(false);
++  const [activeRun, setActiveRun] = useState<any>(null);
++  const [heartbeat, setHeartbeat] = useState<any>(null);
++  const [decisionLedger, setDecisionLedger] = useState<any[]>([]);
++  const [auditLedger, setAuditLedger] = useState<any[]>([]);
++
++  const fetchRunDetails = useCallback(async (runId: string) => {
++    try {
++      const [runRes, hbRes, memRes, auditRes] = await Promise.all([
++        fetch(`/api/v1/runs/${runId}`),
++        fetch(`/api/v1/runs/${runId}/heartbeat`),
++        fetch(`/api/v1/runs/${runId}/memory`),
++        fetch(`/api/v1/runs/${runId}/audit`)
++      ]);
++      
++      if (runRes.ok) setActiveRun(await runRes.ok ? await runRes.json() : null);
++      if (hbRes.ok) setHeartbeat(await hbRes.json());
++      if (memRes.ok) {
++        const data = await memRes.json();
++        setDecisionLedger(data.ledger || []);
++      }
++      if (auditRes.ok) {
++        const data = await auditRes.json();
++        setAuditLedger(data.ledger || []);
++      }
++    } catch (e) {
++      console.error("Failed to fetch run details:", e);
++    }
++  }, []);
++
++  useEffect(() => {
++    let interval: any;
++    if (activeRun?.id && activeRun.state !== 'completed' && activeRun.state !== 'failed') {
++      interval = setInterval(() => fetchRunDetails(activeRun.id), 1000);
++    }
++    return () => clearInterval(interval);
++  }, [activeRun?.id, activeRun?.state, fetchRunDetails]);
