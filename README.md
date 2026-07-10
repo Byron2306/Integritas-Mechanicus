@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="ARDA.jpg" width="520" style="max-width: 92%; height: auto;">
+  <img src="ARDA.jpg" width="720" style="max-width: 92%; height: auto;">
 </p>
 
 <p align="center">
