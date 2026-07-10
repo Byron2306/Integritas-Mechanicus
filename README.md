@@ -1,7 +1,8 @@
 # Arda OS — Sovereign Security Desktop
 
+
 <p align="center">
-  <img src="docs/assets/icon.png" width="120" alt="Arda OS">
+  <img src="ARDA.jpg" width="520" style="max-width: 92%; height: auto;">
 </p>
 
 <p align="center">
