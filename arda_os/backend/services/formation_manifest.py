@@ -172,7 +172,6 @@ AQIDAQAB
             logger.warning(f"SIGHT OF VARDA: Appraisal error: {e}")
             return False
 
-# Global singleton
 formation_manifest_service = FormationManifestService()
 
 def get_formation_manifest_service(db: Any = None) -> FormationManifestService:

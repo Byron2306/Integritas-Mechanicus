@@ -1,0 +1,275 @@
+{
+  "summary": {
+    "suite": "sophia_writing_desk_phase3_final_robustness",
+    "total": 3,
+    "passed": 3,
+    "pass_rate": 1.0,
+    "passes_phase3_final_robustness_gate": true
+  },
+  "rows": [
+    {
+      "case_id": "entailment_scope_guard",
+      "passed": true,
+      "top": {
+        "source_name": "Pilot feedback study",
+        "support_label": "contradicts",
+        "confidence": 0.8,
+        "relevance": 0.148,
+        "quality_score": 0.86,
+        "ranking_score": 0.6468,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: education learning sciences",
+        "overlap_terms": [
+          "feedback",
+          "pilot"
+        ],
+        "exact_span": "A small pilot suggests AI feedback may improve revision confidence in one classroom.",
+        "authors": [
+          "R. Singh"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Singh, R.. (2025). Pilot feedback study.",
+        "bibtex_candidate": "@article{singh2025pilot,\n  author = {R. Singh},\n  title = {Pilot feedback study},\n  year = {2025}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Pilot feedback study\nAU  - R. Singh\nPY  - 2025\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Pilot feedback study",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "R.",
+              "family": "Singh"
+            }
+          ]
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "contradicts: lexical/construct relevance=0.15; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=feedback, pilot.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "source span contains limitation or uncertainty language"
+        ],
+        "entailment_score": 0.1506,
+        "lexical_vector_score": 0.2108,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "case_id": "rich_metadata_exports",
+      "passed": true,
+      "top": {
+        "source_name": "Regression effects in learning analytics",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.53,
+        "quality_score": 0.86,
+        "ranking_score": 0.8658,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: education learning sciences",
+        "overlap_terms": [
+          "effect",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The article reports a statistically significant regression effect with confidence intervals in a learning analytics model.",
+        "authors": [
+          "Jane Smith",
+          "Robert Nkosi"
+        ],
+        "year": "2026",
+        "container_title": "Journal of Learning Analytics",
+        "publisher": "Example University Press",
+        "volume": "13",
+        "issue": "2",
+        "pages": "44-58",
+        "doi": "10.5555/jla.2026.13.2.44",
+        "url": "https://doi.org/10.5555/jla.2026.13.2.44",
+        "apa_candidate": "Smith, J., & Nkosi, R.. (2026). Regression effects in learning analytics. Journal of Learning Analytics, 13(2), 44-58. https://doi.org/10.5555/jla.2026.13.2.44",
+        "bibtex_candidate": "@article{smith2026regression,\n  author = {Jane Smith and Robert Nkosi},\n  title = {Regression effects in learning analytics},\n  year = {2026},\n  journal = {Journal of Learning Analytics},\n  publisher = {Example University Press},\n  volume = {13},\n  number = {2},\n  pages = {44-58},\n  doi = {10.5555/jla.2026.13.2.44},\n  url = {https://doi.org/10.5555/jla.2026.13.2.44}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression effects in learning analytics\nAU  - Jane Smith\nAU  - Robert Nkosi\nJO  - Journal of Learning Analytics\nPB  - Example University Press\nVL  - 13\nIS  - 2\nSP  - 44\nEP  - 58\nPY  - 2026\nDO  - 10.5555/jla.2026.13.2.44\nUR  - https://doi.org/10.5555/jla.2026.13.2.44\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression effects in learning analytics",
+          "issued": {
+            "date-parts": [
+              [
+                2026
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Jane",
+              "family": "Smith"
+            },
+            {
+              "given": "Robert",
+              "family": "Nkosi"
+            }
+          ],
+          "DOI": "10.5555/jla.2026.13.2.44",
+          "URL": "https://doi.org/10.5555/jla.2026.13.2.44",
+          "container-title": "Journal of Learning Analytics",
+          "publisher": "Example University Press",
+          "volume": "13",
+          "issue": "2",
+          "page": "44-58"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.53; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=effect, regression, reports, significant, statistically.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8362,
+        "lexical_vector_score": 0.7071,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "case_id": "page_aware_spans",
+      "passed": true,
+      "spans": [
+        {
+          "span_id": "S1",
+          "quote": "Page one claim about context.",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S2",
+          "quote": "Page two claim about learner agency and reflective control.",
+          "page": 2,
+          "page_number": 2,
+          "locator": "p. 2"
+        }
+      ],
+      "top": {
+        "source_name": "Paged source",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.736,
+        "quality_score": 0.68,
+        "ranking_score": 0.8837,
+        "source_type": "uploaded document",
+        "source_role": "theory/construct definition",
+        "overlap_terms": [
+          "agency",
+          "control",
+          "learner",
+          "reflective"
+        ],
+        "exact_span": "page 2: Page two claim about learner agency and reflective control.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Paged source.",
+        "bibtex_candidate": "@misc{unknownndpaged,\n  title = {Paged source},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - Paged source\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "Paged source"
+        },
+        "page_status": "page/span marker visible",
+        "page_locator": "p. 2",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "uploaded document",
+        "rationale": "supports: lexical/construct relevance=0.74; semantic families=human_agency; quality=0.68 (session-supplied document span); lexical terms=agency, control, learner, reflective.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9491,
+        "lexical_vector_score": 0.5963,
+        "semantic_overlap": [
+          "human_agency"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    }
+  ]
+}

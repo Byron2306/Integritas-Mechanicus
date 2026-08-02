@@ -4,9 +4,15 @@ import os
 from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any
 
-from backend.schemas.phase4_models import QuorumPolicy, QuorumDecision, QuorumStatus, ClusterView, PeerState
+try:
+    from backend.schemas.phase4_models import QuorumPolicy, QuorumDecision, QuorumStatus, ClusterView, PeerState  # type: ignore
+except Exception:
+    from backend.services.schemas.phase4_models import QuorumPolicy, QuorumDecision, QuorumStatus, ClusterView, PeerState  # type: ignore
 
-from backend.arda.ainur import AinurChoir
+try:
+    from backend.arda.ainur import AinurChoir
+except Exception:
+    from backend.services.ainur import AinurChoir  # type: ignore
 from backend.services.constitutional_projection import project_choir_truth
 
 logger = logging.getLogger(__name__)

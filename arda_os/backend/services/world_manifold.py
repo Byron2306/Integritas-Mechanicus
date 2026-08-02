@@ -19,6 +19,7 @@ try:
     from backend.services.world_model import WorldModelService
     from backend.services.quorum_engine import get_quorum_engine
     from backend.services.telemetry_chain import tamper_evident_telemetry
+    from backend.services.quantum_security import quantum_security
 except Exception:
     from backend.schemas.phase2_models import WorldManifoldSnapshot
     from backend.services.secure_boot import get_secure_boot_service
@@ -32,6 +33,7 @@ except Exception:
     from backend.services.world_model import WorldModelService
     from backend.services.quorum_engine import get_quorum_engine
     from backend.services.telemetry_chain import tamper_evident_telemetry
+    from backend.services.quantum_security import quantum_security
 
 logger = logging.getLogger(__name__)
 
@@ -143,13 +145,31 @@ class WorldManifoldService:
             },
             epoch_strictness=g_score.strictness
         )
+
+        # 5b. Cryptographically seal the manifold snapshot for integrity.
+        sign_payload = manifold.model_dump(
+            mode="json",
+            exclude={"signature_ref", "signature_algorithm", "signature", "signature_valid"},
+        )
+        signed = quantum_security.sign_manifold_snapshot(sign_payload)
+        manifold.signature_ref = signed.get("signature_ref")
+        manifold.signature_algorithm = signed.get("algorithm")
+        manifold.signature = signed.get("signature")
+        manifold.signature_valid = quantum_security.verify_manifold_snapshot_signature(
+            sign_payload,
+            manifold.signature_ref,
+            signature=manifold.signature,
+            algorithm=manifold.signature_algorithm,
+        )
+        if os.environ.get("ARDA_ENV") == "production" and not manifold.signature_valid:
+            raise RuntimeError("SOVEREIGN_FAILURE: World manifold signature validation failed")
         
-        # 5. Push to World Model
+        # 6. Push to World Model
         self.world_model.set_governance_placeholders(
             manifold_ref=manifold.manifold_id
         )
         
-        # 6. Record Constitutional Event
+        # 7. Record Constitutional Event
         self.telemetry.ingest_event(
             event_type="manifold_synthesized",
             severity="info",

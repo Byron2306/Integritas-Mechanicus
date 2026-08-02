@@ -1,84 +1,78 @@
-"""
-Arda Boot Measurement
-=====================
-Reads REAL hardware security state from the Windows substrate.
-
-This is NOT simulation. It queries:
-- UEFISecureBootEnabled via Windows registry (HKLM)
-- TPM 2.0 presence and version via WMI
-
-These are actual machine measurements. On this substrate:
-- Secure Boot: ENABLED (verified via registry)
-- TPM: 2.0 (verified via WMI)
-
-Future work:
-- Read specific PCR values (requires admin or tpm2-pytss)
-- Bind key release to PCR measurements
-- Measure Arda policy file digest into a PCR extend
-"""
-
-import logging
-import subprocess
 import json
+import os
+from typing import Any, Dict
 
-logger = logging.getLogger("ARDA_BOOT")
+
+SECURE_BOOT_EFIVAR = "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+SETUP_MODE_EFIVAR = "/sys/firmware/efi/efivars/SetupMode-8be4df61-93ca-11d2-aa0d-00e098032b8c"
 
 
-def measure_boot_state() -> dict:
-    """
-    Reads real hardware security measurements from the Windows substrate.
-    Returns a dict suitable for embedding in attestation envelopes.
-    
-    Every field is either a real measurement or explicitly marked "unavailable"
-    with a reason. No simulation labels.
-    """
-    state = {
-        "secure_boot": _read_secure_boot(),
-        "tpm": _read_tpm(),
+def _read_efivar_flag(path: str) -> Dict[str, Any]:
+    if not os.path.exists(path):
+        return {"available": False, "enabled": None, "source": path}
+
+    with open(path, "rb") as handle:
+        payload = handle.read()
+    enabled = bool(payload[4]) if len(payload) >= 5 else None
+    return {"available": True, "enabled": enabled, "source": path}
+
+
+def _read_text(path: str) -> str:
+    with open(path, "r", encoding="utf-8") as handle:
+        return handle.read().strip()
+
+
+def _safe_text(path: str) -> Dict[str, Any]:
+    if not os.path.exists(path):
+        return {"available": False, "value": None, "source": path}
+    try:
+        return {"available": True, "value": _read_text(path), "source": path}
+    except Exception as error:
+        return {"available": True, "value": None, "source": path, "error": str(error)}
+
+
+def classify_boot_state(measurement: Dict[str, Any]) -> str:
+    secure_boot_enabled = bool(measurement.get("secure_boot", {}).get("enabled"))
+    setup_mode_disabled = measurement.get("setup_mode", {}).get("enabled") is False
+    lockdown_mode = (measurement.get("lockdown", {}).get("value") or "").lower()
+    active_lsms = (measurement.get("active_lsms", {}).get("value") or "").lower()
+    pcrs = measurement.get("pcrs", {})
+    required_pcrs_present = all(pcrs.get(index) for index in ("0", "1", "7", "11"))
+
+    lawful_signals = 0
+    if secure_boot_enabled:
+        lawful_signals += 1
+    if setup_mode_disabled:
+        lawful_signals += 1
+    if "integrity" in lockdown_mode or "confidentiality" in lockdown_mode:
+        lawful_signals += 1
+    if any(lsm in active_lsms for lsm in ("ima", "evm", "bpf")):
+        lawful_signals += 1
+    if required_pcrs_present:
+        lawful_signals += 1
+
+    if lawful_signals >= 4 and secure_boot_enabled and required_pcrs_present:
+        return "LAWFUL_FULL"
+    if lawful_signals >= 2 and (secure_boot_enabled or required_pcrs_present):
+        return "LAWFUL_PARTIAL"
+    return "ATTESTED_ONLY"
+
+
+def measure_boot_state(*, pcrs: Dict[str, str] | None = None) -> Dict[str, Any]:
+    measurement = {
+        "source": "linux_host_measurement_v1",
+        "secure_boot": _read_efivar_flag(SECURE_BOOT_EFIVAR),
+        "setup_mode": _read_efivar_flag(SETUP_MODE_EFIVAR),
+        "lockdown": _safe_text("/sys/kernel/security/lockdown"),
+        "active_lsms": _safe_text("/sys/kernel/security/lsm"),
+        "kernel_cmdline": _safe_text("/proc/cmdline"),
+        "kernel_release": _safe_text("/proc/sys/kernel/osrelease"),
+        "pcrs": {str(key): str(value).lower() for key, value in (pcrs or {}).items()},
     }
-    logger.info(f"[BOOT] Measured: SecureBoot={state['secure_boot']['enabled']}, TPM={state['tpm']['version']}")
-    return state
+    measurement["classification"] = classify_boot_state(measurement)
+    return measurement
 
 
-def _read_secure_boot() -> dict:
-    """Reads UEFISecureBootEnabled from the Windows registry."""
-    try:
-        result = subprocess.run(
-            ["reg", "query",
-             r"HKLM\SYSTEM\CurrentControlSet\Control\SecureBoot\State",
-             "/v", "UEFISecureBootEnabled"],
-            capture_output=True, text=True, timeout=5
-        )
-        if result.returncode == 0 and "0x1" in result.stdout:
-            return {"enabled": True, "source": "registry:HKLM\\SecureBoot\\State"}
-        elif result.returncode == 0 and "0x0" in result.stdout:
-            return {"enabled": False, "source": "registry:HKLM\\SecureBoot\\State"}
-        else:
-            return {"enabled": "unavailable", "reason": "registry query failed", "source": "registry"}
-    except Exception as e:
-        return {"enabled": "unavailable", "reason": str(e), "source": "registry"}
-
-
-def _read_tpm() -> dict:
-    """Reads TPM version and status via PowerShell/WMI."""
-    try:
-        result = subprocess.run(
-            ["powershell", "-NoProfile", "-Command",
-             "Get-CimInstance -ClassName Win32_TPM -Namespace root/cimv2/Security/MicrosoftTpm "
-             "| Select-Object SpecVersion, IsActivated_InitialValue, IsEnabled_InitialValue "
-             "| ConvertTo-Json"],
-            capture_output=True, text=True, timeout=10
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            data = json.loads(result.stdout.strip())
-            spec = data.get("SpecVersion", "")
-            version = spec.split(",")[0].strip() if spec else "unknown"
-            return {
-                "version": version,
-                "activated": data.get("IsActivated_InitialValue", False),
-                "enabled": data.get("IsEnabled_InitialValue", False),
-                "source": "WMI:Win32_TPM",
-            }
-        return {"version": "unavailable", "reason": "WMI query empty", "source": "WMI"}
-    except Exception as e:
-        return {"version": "unavailable", "reason": str(e), "source": "WMI"}
+def read_sealed_secret_bundle(path: str) -> Dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as handle:
+        return json.load(handle)

@@ -49,11 +49,11 @@ class CapabilityToken:
     issued_at: str
     issuer: str
     nonce: str
-    governance_decision_id: Optional[str] = None
-    governance_queue_id: Optional[str] = None
-    # Phase 1 placeholder seams for polyphonic notation/token work.
-    polyphonic_token_context: Optional[Dict[str, Any]] = None
-    future_notation_token_ref: Optional[str] = None
+    
+    # Governance
+    governance_decision_id: Optional[str]
+    governance_queue_id: Optional[str]
+    governance_action_type: Optional[str]
 
 
 @dataclass
@@ -119,69 +119,11 @@ class TokenBroker:
         
         # Access audit log
         self.access_log: List[Dict] = []
-        self.token_admin_audit_log: List[Dict] = []
-        self.db = None
         
         logger.info("Token Broker / Secrets Vault initialized")
+        # Administrative audit log for token issuance/revocation actions
+        self.token_admin_audit_log: List[Dict] = []
 
-    def set_db(self, db: Any) -> None:
-        self.db = db
-
-    @staticmethod
-    def _governance_required_for_admin_actions() -> bool:
-        allow_ungoverned = str(os.environ.get("TOKEN_BROKER_ALLOW_UNGOVERNED_ADMIN_ACTIONS", "false")).lower() in {
-            "1",
-            "true",
-            "yes",
-            "on",
-        }
-        return not allow_ungoverned
-
-    def _assert_approved_governance_context(
-        self,
-        governance_context: Optional[Dict[str, Any]],
-        *,
-        operation: str,
-    ) -> Dict[str, Any]:
-        if not self._governance_required_for_admin_actions():
-            return {}
-        context = governance_context or {}
-        if not context.get("approved"):
-            raise PermissionError(f"Approved governance context required for token broker operation '{operation}'")
-        decision_id = context.get("decision_id")
-        queue_id = context.get("queue_id")
-        if not decision_id and not queue_id:
-            raise PermissionError(
-                f"Governance context for token broker operation '{operation}' must include decision_id or queue_id"
-            )
-        return {
-            "decision_id": decision_id,
-            "queue_id": queue_id,
-            "action_type": context.get("action_type"),
-        }
-
-    def _audit_token_admin_action(
-        self,
-        *,
-        operation: str,
-        actor: str,
-        token_id: Optional[str],
-        principal: Optional[str],
-        governance_context: Dict[str, Any],
-        metadata: Optional[Dict[str, Any]] = None,
-    ) -> None:
-        self.token_admin_audit_log.append(
-            {
-                "timestamp": datetime.now(timezone.utc).isoformat(),
-                "operation": operation,
-                "actor": actor,
-                "token_id": token_id,
-                "principal": principal,
-                "decision_id": governance_context.get("decision_id"),
-                "queue_id": governance_context.get("queue_id"),
-                "metadata": metadata or {},
-            }
-        )
     
     def _encrypt(self, plaintext: str) -> str:
         """Simple encryption (in production, use proper crypto)"""
@@ -321,10 +263,10 @@ class TokenBroker:
                     action: str, targets: List[str],
                     tool_id: str = None, ttl_seconds: int = 300,
                     max_uses: int = 1, constraints: Dict = None,
-                    governance_context: Optional[Dict[str, Any]] = None,
-                    polyphonic_token_context: Optional[Dict[str, Any]] = None,
-                    future_notation_token_ref: Optional[str] = None,
-                    issued_by: str = "unknown") -> CapabilityToken:
+                    governance_context: Dict = None,
+                    polyphonic_token_context: Dict = None,
+                    future_notation_token_ref: str = None,
+                    issued_by: str = "token_broker") -> CapabilityToken:
         """
         Issue a scoped capability token.
         
@@ -337,15 +279,19 @@ class TokenBroker:
             ttl_seconds: Token lifetime
             max_uses: Maximum uses
             constraints: Additional constraints
+            governance_context: Required governance approval context
+            polyphonic_token_context: Polyphonic token context for advanced scenarios
+            future_notation_token_ref: Reference to future notation token
+            issued_by: Who issued this token
         
         Returns:
             CapabilityToken
         """
+        # Require governance approval for all token issuance
+        if not governance_context or not governance_context.get("approved", False):
+            raise PermissionError("Token issuance requires approved governance context")
+        
         import uuid
-        governance = self._assert_approved_governance_context(
-            governance_context,
-            operation="issue_token",
-        )
         
         token_id = f"tok-{uuid.uuid4().hex[:16]}"
         nonce = secrets.token_hex(8)
@@ -364,12 +310,6 @@ class TokenBroker:
         
         signature = self._sign_token(token_data)
         
-        merged_constraints = dict(constraints or {})
-        if governance.get("decision_id"):
-            merged_constraints.setdefault("governance_decision_id", governance.get("decision_id"))
-        if governance.get("queue_id"):
-            merged_constraints.setdefault("governance_queue_id", governance.get("queue_id"))
-
         token = CapabilityToken(
             token_id=token_id,
             token_type="capability",
@@ -382,88 +322,34 @@ class TokenBroker:
             expires_at=expires.isoformat(),
             max_uses=max_uses,
             uses_remaining=max_uses,
-            constraints=merged_constraints,
+            constraints=constraints or {},
             signature=signature,
             issued_at=now.isoformat(),
-            issuer="token_broker",
+            issuer=issued_by,
             nonce=nonce,
-            governance_decision_id=governance.get("decision_id"),
-            governance_queue_id=governance.get("queue_id"),
-            polyphonic_token_context=polyphonic_token_context or None,
-            future_notation_token_ref=future_notation_token_ref or None,
+            governance_decision_id=governance_context.get("decision_id"),
+            governance_queue_id=governance_context.get("queue_id"),
+            governance_action_type=governance_context.get("action_type")
         )
         
         self.active_tokens[token_id] = token
-        self._audit_token_admin_action(
-            operation="issue_token",
-            actor=issued_by,
-            token_id=token_id,
-            principal=principal,
-            governance_context=governance,
-            metadata={
-                "action": action,
-                "targets": targets,
-                "tool_id": tool_id,
-                "ttl_seconds": ttl_seconds,
-                "future_notation_token_ref": future_notation_token_ref,
-                "polyphonic_token_context": polyphonic_token_context or {},
-            },
-        )
         
-        logger.info(
-            "TOKEN: Issued %s for %s | Action: %s | TTL: %ss | decision=%s queue=%s",
-            token_id,
-            principal,
-            action,
-            ttl_seconds,
-            governance.get("decision_id"),
-            governance.get("queue_id"),
-        )
+        # Audit log
+        self.token_admin_audit_log.append({
+            "action": "issue",
+            "token_id": token_id,
+            "principal": principal,
+            "action": action,
+            "targets": targets,
+            "governance_context": governance_context,
+            "issued_by": issued_by,
+            "timestamp": now.isoformat()
+        })
+        
+        logger.info(f"TOKEN: Issued {token_id} for {principal} | Action: {action} | TTL: {ttl_seconds}s")
         
         return token
     
-    def issue_constitutional_token(self, **kwargs) -> CapabilityToken:
-        """
-        Issue a high-security constitutional capability token.
-        Requires valid boot truth, herald identity, and order state.
-        """
-        try:
-            from services.boot_attestation import boot_attestation
-            from services.manwe_herald import manwe_herald
-            from services.world_model import WorldModelService
-        except Exception:
-            from backend.services.boot_attestation import boot_attestation
-            from backend.services.manwe_herald import manwe_herald
-            from backend.services.world_model import WorldModelService
-
-        # 1. Check Boot Truth
-        bundle = boot_attestation.get_current_bundle()
-        if not bundle or bundle.status != "lawful":
-             logger.error("Constitutional Token: Birth is UNLAWFUL. Refusing to issue.")
-             raise PermissionError("Unlawful boot state detected; constitutional actions prohibited.")
-             
-        # 2. Check Herald
-        herald = manwe_herald.get_state()
-        if not herald or herald.status != "active":
-             logger.error("Constitutional Token: No active Herald detected. Refusing to issue.")
-             raise PermissionError("No active constitutional herald found; manifestation prohibited.")
-
-        # 3. Augment constraints
-        constraints = kwargs.get("constraints", {})
-        constraints.update({
-             "boot_truth_id": bundle.bundle_id,
-             "herald_id": herald.herald_id,
-             "runtime_identity": herald.runtime_identity,
-             "constitutional": True
-        })
-        
-        # 4. Standard issuance with constitutional context
-        return self.issue_token(
-             **kwargs,
-             constraints=constraints,
-             issued_by=herald.herald_id
-        )
-
     def validate_token(self, token_id: str, principal: str,
                        principal_identity: str, action: str,
                        target: str) -> Tuple[bool, str]:
@@ -525,52 +411,36 @@ class TokenBroker:
     def revoke_token(
         self,
         token_id: str,
-        *,
-        governance_context: Optional[Dict[str, Any]] = None,
-        revoked_by: str = "unknown",
+        governance_context: Dict = None,
+        revoked_by: str = "token_broker",
     ) -> bool:
         """Revoke a token"""
-        governance = self._assert_approved_governance_context(
-            governance_context,
-            operation="revoke_token",
-        )
-        principal = None
-        if token_id in self.active_tokens:
-            principal = self.active_tokens[token_id].principal
+        now = datetime.now(timezone.utc)
+
         if token_id in self.active_tokens:
             del self.active_tokens[token_id]
         
         self.revoked_tokens.add(token_id)
-        self._audit_token_admin_action(
-            operation="revoke_token",
-            actor=revoked_by,
-            token_id=token_id,
-            principal=principal,
-            governance_context=governance,
-            metadata={},
-        )
+
+        self.token_admin_audit_log.append({
+            "action": "revoke",
+            "token_id": token_id,
+            "governance_context": governance_context,
+            "revoked_by": revoked_by,
+            "timestamp": now.isoformat(),
+        })
         
-        logger.info(
-            "TOKEN: Revoked %s | decision=%s queue=%s",
-            token_id,
-            governance.get("decision_id"),
-            governance.get("queue_id"),
-        )
+        logger.info(f"TOKEN: Revoked {token_id}")
         
         return True
     
     def revoke_tokens_for_principal(
         self,
         principal: str,
-        *,
-        governance_context: Optional[Dict[str, Any]] = None,
-        revoked_by: str = "unknown",
+        governance_context: Dict = None,
+        revoked_by: str = "token_broker",
     ) -> int:
         """Revoke all tokens for a principal (e.g., on trust degradation)"""
-        governance = self._assert_approved_governance_context(
-            governance_context,
-            operation="revoke_tokens_for_principal",
-        )
         count = 0
         
         tokens_to_revoke = [
@@ -586,23 +456,66 @@ class TokenBroker:
             )
             count += 1
         
-        self._audit_token_admin_action(
-            operation="revoke_tokens_for_principal",
-            actor=revoked_by,
-            token_id=None,
-            principal=principal,
-            governance_context=governance,
-            metadata={"count": count},
-        )
-        logger.warning(
-            "TOKEN: Revoked %s tokens for principal %s | decision=%s queue=%s",
-            count,
-            principal,
-            governance.get("decision_id"),
-            governance.get("queue_id"),
-        )
+        logger.warning(f"TOKEN: Revoked {count} tokens for principal {principal}")
         
         return count
+
+    def apply_ai_trust_degradation(
+        self,
+        session_id: str,
+        agenticity_score: float = 0.0,
+        agenticity_classification: str = "LOW",
+        cbr: float = 0.0,
+        tbcr: float = 0.0,
+        logic_budget_force_trap: bool = False,
+    ) -> Dict:
+        """
+        Degrade trust and revoke tokens for an AI session based on formal metrics.
+        Called when agenticity classification is HIGH/VERY_HIGH or logic-budget
+        exhaustion forces a TRAP_SINK.  CBR and TBCR are used to constrain future
+        token TTLs (the higher the compute burn, the shorter the allowed lifetime).
+        Returns a summary of actions taken.
+        """
+        principal = f"ai_session:{session_id}"
+        actions_taken = []
+
+        # Always revoke on forced trap — the session is adversarial.
+        if logic_budget_force_trap or agenticity_classification in ("HIGH", "VERY_HIGH"):
+            revoked = self.revoke_tokens_for_principal(
+                principal=principal,
+                governance_context={
+                    "approved": True,
+                    "decision_id": f"ai-trust-degrade-{session_id}",
+                    "action_type": "ai_adversary_token_revocation",
+                    "agenticity_score": agenticity_score,
+                    "agenticity_classification": agenticity_classification,
+                    "logic_budget_force_trap": logic_budget_force_trap,
+                },
+                revoked_by="ai_defense_engine",
+            )
+            if revoked > 0:
+                actions_taken.append(f"revoked:{revoked}_tokens")
+            logger.warning(
+                f"TOKEN: AI trust degradation for session {session_id} "
+                f"| classification={agenticity_classification} "
+                f"| force_trap={logic_budget_force_trap} "
+                f"| revoked={revoked} tokens"
+            )
+
+        # Compute an advisory TTL cap for future tokens (seconds).
+        # At CBR=1.0 (budget exhausted) → 30 s max; at CBR=0 → 300 s default.
+        max_cbr = max(cbr, tbcr, 0.01)
+        advisory_ttl_cap = max(30, int(300 * (1.0 - min(1.0, max_cbr))))
+        actions_taken.append(f"advisory_ttl_cap:{advisory_ttl_cap}s")
+
+        return {
+            "session_id": session_id,
+            "principal": principal,
+            "agenticity_classification": agenticity_classification,
+            "logic_budget_force_trap": logic_budget_force_trap,
+            "advisory_ttl_cap_seconds": advisory_ttl_cap,
+            "actions_taken": actions_taken,
+        }
     
     def get_active_tokens(self, principal: str = None) -> List[Dict]:
         """Get active tokens (optionally filtered by principal)"""
@@ -625,120 +538,8 @@ class TokenBroker:
             "active_tokens": len(self.active_tokens),
             "revoked_tokens": len(self.revoked_tokens),
             "stored_secrets": len(self.secrets),
-            "access_log_size": len(self.access_log),
-            "token_admin_audit_log_size": len(self.token_admin_audit_log),
+            "access_log_size": len(self.access_log)
         }
-
-    # =========================================================================
-    # PHASE 2 NOTATION TOKEN BRIDGE METHODS
-    # =========================================================================
-
-    async def issue_notation_token(self, **kwargs) -> Dict[str, Any]:
-        try:
-            from services.notation_token import get_notation_token_service
-        except Exception:
-            from backend.services.notation_token import get_notation_token_service
-        svc = get_notation_token_service(self.db)
-        token = await svc.mint_notation_token(**kwargs)
-        return token.model_dump() if hasattr(token, "model_dump") else token.dict()
-
-    async def validate_notation_token(
-        self,
-        token: Any,
-        active_epoch: Any,
-        world_state_hash: Optional[str],
-        context: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
-        try:
-            from services.notation_token import get_notation_token_service
-        except Exception:
-            from backend.services.notation_token import get_notation_token_service
-        svc = get_notation_token_service(self.db)
-        return await svc.validate_notation_token(
-            token=token,
-            active_epoch=active_epoch,
-            world_state_hash=world_state_hash,
-            context=context or {},
-        )
-
-    async def bind_token_to_epoch(
-        self,
-        token_id: str,
-        *,
-        epoch_id: str,
-        score_id: str,
-        genre_mode: str,
-    ) -> bool:
-        if self.db is None or not hasattr(self.db, "notation_tokens"):
-            return False
-        result = await self.db.notation_tokens.update_one(
-            {"token_id": str(token_id)},
-            {
-                "$set": {
-                    "epoch_id": str(epoch_id),
-                    "score_id": str(score_id),
-                    "genre_mode": str(genre_mode),
-                }
-            },
-        )
-        return bool(getattr(result, "modified_count", 0))
-
-    async def narrow_token_scope(
-        self,
-        token_id: str,
-        *,
-        new_entry_window_ms: Optional[List[int]] = None,
-        remove_companions: Optional[List[str]] = None,
-        new_sequence_slot: Optional[int] = None,
-        reason: Optional[str] = None,
-    ) -> Optional[Dict[str, Any]]:
-        try:
-            from services.notation_token import get_notation_token_service
-        except Exception:
-            from backend.services.notation_token import get_notation_token_service
-        svc = get_notation_token_service(self.db)
-        return await svc.narrow_token_scope(
-            token_id=token_id,
-            new_entry_window_ms=new_entry_window_ms,
-            remove_companions=remove_companions,
-            new_sequence_slot=new_sequence_slot,
-            reason=reason,
-        )
-
-    async def reissue_notation_token(
-        self,
-        token_id: str,
-        *,
-        stricter_score: bool = False,
-        reason: Optional[str] = None,
-    ) -> Optional[Dict[str, Any]]:
-        try:
-            from services.notation_token import get_notation_token_service
-        except Exception:
-            from backend.services.notation_token import get_notation_token_service
-        svc = get_notation_token_service(self.db)
-        return await svc.reissue_notation_token(
-            token_id=token_id,
-            stricter_score=stricter_score,
-            reason=reason,
-        )
-
-    async def bind_token_to_world_state(self, token_id: str, *, world_state_hash: str) -> bool:
-        if self.db is None or not hasattr(self.db, "notation_tokens"):
-            return False
-        result = await self.db.notation_tokens.update_one(
-            {"token_id": str(token_id)},
-            {"$set": {"world_state_hash": str(world_state_hash)}},
-        )
-        return bool(getattr(result, "modified_count", 0))
-
-    async def revoke_notation_tokens_for_epoch(self, epoch_id: str, reason: Optional[str] = None) -> int:
-        try:
-            from services.notation_token import get_notation_token_service
-        except Exception:
-            from backend.services.notation_token import get_notation_token_service
-        svc = get_notation_token_service(self.db)
-        return await svc.revoke_notation_tokens_for_epoch(str(epoch_id), reason=reason)
 
 
 # Global singleton

@@ -12,21 +12,11 @@ import hmac
 import base64
 import secrets
 import logging
-import asyncio
-import threading
 from datetime import datetime, timezone, timedelta
 from typing import Optional, Dict, Any, List, Tuple
 from dataclasses import dataclass, asdict
 from enum import Enum
 import uuid
-
-try:
-    from services.world_events import emit_world_event
-except Exception:
-    try:
-        from backend.services.world_events import emit_world_event
-    except Exception:
-        emit_world_event = None
 
 logger = logging.getLogger(__name__)
 
@@ -105,37 +95,6 @@ class IdentityService:
         }
         
         logger.info("Identity & Attestation Service initialized")
-
-    def set_db(self, db):
-        """Attach optional DB context for canonical event emission."""
-        self.db = db
-
-    def _emit_identity_event(self, event_type: str, entity_refs: List[str], payload: Dict[str, Any], trigger_triune: bool = False):
-        if emit_world_event is None or getattr(self, "db", None) is None:
-            return
-        coro = emit_world_event(
-            self.db,
-            event_type=event_type,
-            entity_refs=entity_refs,
-            payload=payload,
-            trigger_triune=trigger_triune,
-        )
-        try:
-            asyncio.get_running_loop()
-        except RuntimeError:
-            try:
-                asyncio.run(coro)
-            except Exception:
-                pass
-            return
-
-        def _runner():
-            try:
-                asyncio.run(coro)
-            except Exception:
-                pass
-
-        threading.Thread(target=_runner, daemon=True).start()
     
     def generate_spiffe_id(self, agent_id: str, workload_type: str = "agent") -> str:
         """Generate SPIFFE-style workload ID"""
@@ -206,7 +165,7 @@ class IdentityService:
         return True, "Attestation verified"
     
     def calculate_trust_score(self, attestation: AttestationData, 
-                               historical_data: Dict[str, Any] = None) -> int:
+                              historical_data: Dict[str, Any] = None) -> int:
         """
         Calculate trust score based on hard signals.
         Returns 0-100 score.
@@ -277,17 +236,6 @@ class IdentityService:
         self.identities[agent_id] = identity
         
         logger.info(f"Identity registered: {agent_id} | Trust: {trust_state.value} ({trust_score})")
-        self._emit_identity_event(
-            event_type="identity_registered",
-            entity_refs=[agent_id, identity.spiffe_id],
-            payload={
-                "hostname": hostname,
-                "os_type": os_type,
-                "trust_state": trust_state.value,
-                "trust_score": trust_score,
-            },
-            trigger_triune=trust_state != TrustState.TRUSTED,
-        )
         
         return identity
     
@@ -306,26 +254,12 @@ class IdentityService:
         identity.trust_state = new_state
         
         logger.warning(f"Trust state changed: {agent_id} | {old_state.value} -> {new_state.value} | Reason: {reason}")
-        self._emit_identity_event(
-            event_type="identity_trust_state_changed",
-            entity_refs=[agent_id],
-            payload={"old_state": old_state.value, "new_state": new_state.value, "reason": reason},
-            trigger_triune=new_state in {TrustState.QUARANTINED, TrustState.UNKNOWN},
-        )
         
         return True
     
     def quarantine_agent(self, agent_id: str, reason: str) -> bool:
         """Quarantine an agent (no trust)"""
-        result = self.update_trust_state(agent_id, TrustState.QUARANTINED, reason)
-        if result:
-            self._emit_identity_event(
-                event_type="identity_quarantined",
-                entity_refs=[agent_id],
-                payload={"reason": reason},
-                trigger_triune=True,
-            )
-        return result
+        return self.update_trust_state(agent_id, TrustState.QUARANTINED, reason)
     
     def get_all_identities(self) -> List[Dict[str, Any]]:
         """Get all registered identities"""
@@ -370,12 +304,6 @@ class IdentityService:
         allowed = action_type in permissions.get(trust_state, [])
         
         if not allowed:
-            self._emit_identity_event(
-                event_type="identity_action_denied",
-                entity_refs=[agent_id],
-                payload={"action_type": action_type, "trust_state": trust_state.value},
-                trigger_triune=False,
-            )
             return False, f"Action '{action_type}' not allowed for trust state '{trust_state.value}'"
         
         return True, "Allowed"

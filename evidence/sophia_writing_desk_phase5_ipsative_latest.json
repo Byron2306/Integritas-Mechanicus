@@ -1,0 +1,147 @@
+{
+  "timestamp": "2026-08-02T20:48:05.801253+00:00",
+  "suite": "sophia_writing_desk_phase5_ipsative",
+  "summary": {
+    "passed": 3,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "rows": [
+    {
+      "case_id": "improved",
+      "expected": "improved",
+      "actual": "improved",
+      "summary": {
+        "schema_version": "sophia.project_store.v1",
+        "project_id": "improved",
+        "draft_versions": 2,
+        "uploaded_documents": 0,
+        "retrieved_sources": 0,
+        "source_pool": 0,
+        "source_pool_records": 0,
+        "claim_records": 0,
+        "intervention_records": 2,
+        "status_counts": {},
+        "pedagogy_office_counts": {
+          "writing_coach": 2
+        },
+        "repeated_weakness_types": [
+          {
+            "issue": "needs source",
+            "count": 2
+          }
+        ],
+        "latest_intervention_improvement": {
+          "status": "improved",
+          "prior_intervention_id": "intervention-f89ef7707d4c0d6809",
+          "latest_intervention_id": "intervention-e847820002df607701",
+          "prior_issue_count": 3,
+          "latest_issue_count": 1,
+          "resolved_issue_labels": [
+            "overclaim",
+            "scope limit"
+          ],
+          "new_issue_labels": [],
+          "persistent_issue_labels": [
+            "needs source"
+          ],
+          "interpretation": "Latest feedback shows fewer or weaker issue labels than the prior intervention."
+        },
+        "weak_warrants": 0,
+        "missing_limitations": 0,
+        "unsupported_claims": 0,
+        "updated_at": "2026-08-02T20:48:05.795234+00:00"
+      },
+      "ipsative_note": "Ipsative movement: improved since the prior intervention; resolved pattern(s): overclaim, scope limit.",
+      "passed": true
+    },
+    {
+      "case_id": "stable_unresolved",
+      "expected": "stable_unresolved",
+      "actual": "stable_unresolved",
+      "summary": {
+        "schema_version": "sophia.project_store.v1",
+        "project_id": "stable_unresolved",
+        "draft_versions": 2,
+        "uploaded_documents": 0,
+        "retrieved_sources": 0,
+        "source_pool": 0,
+        "source_pool_records": 0,
+        "claim_records": 0,
+        "intervention_records": 2,
+        "status_counts": {},
+        "pedagogy_office_counts": {
+          "writing_coach": 2
+        },
+        "repeated_weakness_types": [
+          {
+            "issue": "operational definition",
+            "count": 2
+          }
+        ],
+        "latest_intervention_improvement": {
+          "status": "stable_unresolved",
+          "prior_intervention_id": "intervention-5a6e199d08fed8b80c",
+          "latest_intervention_id": "intervention-62cf192a805ae1ca15",
+          "prior_issue_count": 1,
+          "latest_issue_count": 1,
+          "resolved_issue_labels": [],
+          "new_issue_labels": [],
+          "persistent_issue_labels": [
+            "operational definition"
+          ],
+          "interpretation": "The same issue labels remain visible; Sophia should scaffold the repeated pattern."
+        },
+        "weak_warrants": 0,
+        "missing_limitations": 0,
+        "unsupported_claims": 0,
+        "updated_at": "2026-08-02T20:48:05.797512+00:00"
+      },
+      "ipsative_note": "Ipsative movement: stable but unresolved; keep working on operational definition.",
+      "passed": true
+    },
+    {
+      "case_id": "regressed_or_new_risk",
+      "expected": "regressed_or_new_risk",
+      "actual": "regressed_or_new_risk",
+      "summary": {
+        "schema_version": "sophia.project_store.v1",
+        "project_id": "regressed_or_new_risk",
+        "draft_versions": 2,
+        "uploaded_documents": 0,
+        "retrieved_sources": 0,
+        "source_pool": 0,
+        "source_pool_records": 0,
+        "claim_records": 0,
+        "intervention_records": 2,
+        "status_counts": {},
+        "pedagogy_office_counts": {
+          "writing_coach": 2
+        },
+        "repeated_weakness_types": [],
+        "latest_intervention_improvement": {
+          "status": "regressed_or_new_risk",
+          "prior_intervention_id": "intervention-73671bab938d44be68",
+          "latest_intervention_id": "intervention-a930c9b3c564dc90f3",
+          "prior_issue_count": 1,
+          "latest_issue_count": 2,
+          "resolved_issue_labels": [
+            "revision ready"
+          ],
+          "new_issue_labels": [
+            "overclaim",
+            "scope limit"
+          ],
+          "persistent_issue_labels": [],
+          "interpretation": "Latest feedback introduced new issue labels or increased the issue count."
+        },
+        "weak_warrants": 0,
+        "missing_limitations": 0,
+        "unsupported_claims": 0,
+        "updated_at": "2026-08-02T20:48:05.800385+00:00"
+      },
+      "ipsative_note": "Ipsative movement: new or stronger risk appeared since the prior intervention; check overclaim, scope limit.",
+      "passed": true
+    }
+  ]
+}

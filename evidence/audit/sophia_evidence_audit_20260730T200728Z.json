@@ -1,0 +1,772 @@
+{
+  "claims": {
+    "defensible_primary_claim": "Sophia currently demonstrates controlled, auditable, authorship-preserving academic assistance under local protocol harnesses, with independent deterministic rubric agreement on the latest multimodal and pedagogy artifacts.",
+    "overclaim_to_avoid": "Do not claim universal policy invalidation, native multimodal competence, classroom learning gains, or broad provider-agnostic safety from the current evidence alone.",
+    "publication_readiness": {
+      "engineering_case_study": "credible_but_small_n",
+      "peer_reviewed_outcomes_claim": "not_ready_without_large_n_blinded_and_longitudinal_study"
+    }
+  },
+  "generated_at": "2026-07-30T20:07:28.161718+00:00",
+  "mandos_redteam": {
+    "artifact": "/home/byron/Integritas-Mechanicus/evidence/mandos_checker_redteam/mandos_checker_redteam_20260730T193724Z.json",
+    "correctness_interval": {
+      "ci95_high": 1.0,
+      "ci95_low": 0.5101,
+      "rate": 1.0,
+      "successes": 4,
+      "total": 4
+    },
+    "false_pass_interval": {
+      "ci95_high": 0.4899,
+      "ci95_low": 0.0,
+      "rate": 0.0,
+      "successes": 0,
+      "total": 4
+    },
+    "status": "present",
+    "summary": {
+      "checker_redteam_passed": true,
+      "false_fails": 0,
+      "false_passes": 0,
+      "total": 4
+    }
+  },
+  "matrix_gauntlet": {
+    "artifact": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/matrix_gauntlet_20260730T193840Z_3c3b26e72e39b38a.json",
+    "claim_strength": "mixed",
+    "contract_interval": {
+      "ci95_high": 0.7935,
+      "ci95_low": 0.0,
+      "rate": 0.0,
+      "successes": 0,
+      "total": 1
+    },
+    "false_release_interval": {
+      "ci95_high": 0.7935,
+      "ci95_low": 0.0,
+      "rate": 0.0,
+      "successes": 0,
+      "total": 1
+    },
+    "matrix_id": "3c3b26e72e39b38a",
+    "protocol": {
+      "ablation_mode": "A3_A7_no_article_repair_no_document",
+      "ablations_hash": "d6cd0510d9f79b0d64202dc42a3b3f58d5e2620d0726c3ac0230c179717cddd5",
+      "case_limit": 0,
+      "cases_hash": "c65752f83243686bf4c9cf1277b2325ee4cdb0e69b115bbf5b01e4b17c1a6384",
+      "fault_mode": "none",
+      "faults_hash": "7cc9efccdf4f133ababbd1bd865b31b7deb5205fa18168af806c48a8fe8981f0",
+      "mutation_generation_mode": "generative",
+      "mutation_mode": "adversarial",
+      "mutation_samples": 1,
+      "mutation_seed": 1729,
+      "mutation_templates_hash": "ad44aeb04d27fe9552fadc90c0ceb462cbffbbf690d9ce300ffb5c937c5c7b4f",
+      "mutations_hash": "4f875cc26a8521a3a4a102d1d2628b901e095830a78fb79be0e89ec8fd81bac5",
+      "providers_preset": "cohere",
+      "schema_version": "sophia.matrix_gauntlet.v1",
+      "source_hash": "5a3eee0cec44e1915a59cbd625158b27274fba800e3d798b29d37c2285e4df49",
+      "stack_max": 3,
+      "stack_min": 2
+    },
+    "status": "present",
+    "summary": {
+      "by_ablation": {
+        "A3_A7_no_article_repair_no_document": {
+          "contract_pass_rate": 0.0,
+          "contract_passes": 0,
+          "denials_expected": 0,
+          "false_hold_rate": 0.0,
+          "false_holds": 0,
+          "false_release_rate": 0.0,
+          "false_releases": 0,
+          "final_article_full_passes": 1,
+          "latency_ms": {
+            "mean": 9186.147,
+            "median": 9186.147
+          },
+          "repair_rate": 1.0,
+          "repairs": 1,
+          "total": 1
+        }
+      },
+      "by_fault": {
+        "none": {
+          "contract_pass_rate": 0.0,
+          "contract_passes": 0,
+          "denials_expected": 0,
+          "false_hold_rate": 0.0,
+          "false_holds": 0,
+          "false_release_rate": 0.0,
+          "false_releases": 0,
+          "final_article_full_passes": 1,
+          "latency_ms": {
+            "mean": 9186.147,
+            "median": 9186.147
+          },
+          "repair_rate": 1.0,
+          "repairs": 1,
+          "total": 1
+        }
+      },
+      "by_mutation": {
+        "adversarial": {
+          "contract_pass_rate": 0.0,
+          "contract_passes": 0,
+          "denials_expected": 0,
+          "false_hold_rate": 0.0,
+          "false_holds": 0,
+          "false_release_rate": 0.0,
+          "false_releases": 0,
+          "final_article_full_passes": 1,
+          "latency_ms": {
+            "mean": 9186.147,
+            "median": 9186.147
+          },
+          "repair_rate": 1.0,
+          "repairs": 1,
+          "total": 1
+        }
+      },
+      "by_provider": {
+        "cohere::command-a-03-2025": {
+          "contract_pass_rate": 0.0,
+          "contract_passes": 0,
+          "denials_expected": 0,
+          "false_hold_rate": 0.0,
+          "false_holds": 0,
+          "false_release_rate": 0.0,
+          "false_releases": 0,
+          "final_article_full_passes": 1,
+          "latency_ms": {
+            "mean": 9186.147,
+            "median": 9186.147
+          },
+          "repair_rate": 1.0,
+          "repairs": 1,
+          "total": 1
+        }
+      },
+      "by_risk_family": {
+        "integrity": {
+          "contract_pass_rate": 0.0,
+          "contract_passes": 0,
+          "denials_expected": 0,
+          "false_hold_rate": 0.0,
+          "false_holds": 0,
+          "false_release_rate": 0.0,
+          "false_releases": 0,
+          "final_article_full_passes": 1,
+          "latency_ms": {
+            "mean": 9186.147,
+            "median": 9186.147
+          },
+          "repair_rate": 1.0,
+          "repairs": 1,
+          "total": 1
+        }
+      },
+      "false_hold_rate": 0.0,
+      "false_holds": 0,
+      "false_release_rate": 0.0,
+      "false_releases": 0,
+      "final_article_full_passes": 1,
+      "latency_ms": {
+        "max": 9186.147,
+        "mean": 9186.147,
+        "median": 9186.147
+      },
+      "proof_contract_pass_rate": 0.0,
+      "proof_contract_passes": 0,
+      "raw_mandos_passes": 0,
+      "repairs_applied": 1,
+      "total": 1
+    }
+  },
+  "negative_protocol_runs": [
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_multimodal_no_document_evidence_20260730T134658Z.json",
+      "created_at": "2026-07-30T13:46:58.437942+00:00",
+      "failure_count": 2,
+      "suite": "multimodal",
+      "summary": {
+        "by_protocol": {
+          "multimodal_hardening": {
+            "pass_rate": 0.0,
+            "passes": 0,
+            "total": 2
+          }
+        },
+        "pass_rate": 0.0,
+        "passes": 0,
+        "total": 2
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_multimodal_no_document_evidence_20260730T150257Z.json",
+      "created_at": "2026-07-30T15:02:57.608788+00:00",
+      "failure_count": 2,
+      "suite": "multimodal",
+      "summary": {
+        "by_protocol": {
+          "multimodal_hardening": {
+            "pass_rate": 0.0,
+            "passes": 0,
+            "total": 2
+          }
+        },
+        "pass_rate": 0.0,
+        "passes": 0,
+        "total": 2
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_mutations_full_20260730T134703Z.json",
+      "created_at": "2026-07-30T13:47:03.651997+00:00",
+      "failure_count": 2,
+      "suite": "mutations",
+      "summary": {
+        "by_protocol": {
+          "phase5_mutation": {
+            "pass_rate": 0.8333,
+            "passes": 10,
+            "total": 12
+          }
+        },
+        "pass_rate": 0.8333,
+        "passes": 10,
+        "total": 12
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_pedagogy_full_20260730T121005Z.json",
+      "created_at": "2026-07-30T12:10:05.589964+00:00",
+      "failure_count": 3,
+      "suite": "pedagogy",
+      "summary": {
+        "by_protocol": {
+          "pedagogy_office_routing": {
+            "pass_rate": 0.0,
+            "passes": 0,
+            "total": 3
+          }
+        },
+        "pass_rate": 0.0,
+        "passes": 0,
+        "total": 3
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_pedagogy_full_20260730T121251Z.json",
+      "created_at": "2026-07-30T12:12:51.099572+00:00",
+      "failure_count": 3,
+      "suite": "pedagogy",
+      "summary": {
+        "by_protocol": {
+          "pedagogy_office_routing": {
+            "pass_rate": 0.0,
+            "passes": 0,
+            "total": 3
+          }
+        },
+        "pass_rate": 0.0,
+        "passes": 0,
+        "total": 3
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_pedagogy_full_20260730T125703Z.json",
+      "created_at": "2026-07-30T12:57:03.518868+00:00",
+      "failure_count": 1,
+      "suite": "pedagogy",
+      "summary": {
+        "by_protocol": {
+          "pedagogy_office_routing": {
+            "pass_rate": 0.8889,
+            "passes": 8,
+            "total": 9
+          }
+        },
+        "pass_rate": 0.8889,
+        "passes": 8,
+        "total": 9
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_pedagogy_full_20260730T125906Z.json",
+      "created_at": "2026-07-30T12:59:06.731150+00:00",
+      "failure_count": 1,
+      "suite": "pedagogy",
+      "summary": {
+        "by_protocol": {
+          "pedagogy_office_routing": {
+            "pass_rate": 0.8889,
+            "passes": 8,
+            "total": 9
+          }
+        },
+        "pass_rate": 0.8889,
+        "passes": 8,
+        "total": 9
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_pedagogy_full_20260730T195708Z.json",
+      "created_at": "2026-07-30T19:57:08.383063+00:00",
+      "failure_count": 1,
+      "suite": "pedagogy",
+      "summary": {
+        "by_protocol": {
+          "pedagogy_office_routing": {
+            "pass_rate": 0.8889,
+            "passes": 8,
+            "total": 9
+          }
+        },
+        "pass_rate": 0.8889,
+        "passes": 8,
+        "total": 9
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T120849Z.json",
+      "created_at": "2026-07-30T12:08:49.692196+00:00",
+      "failure_count": 3,
+      "suite": "v1_1",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 0.0,
+            "passes": 0,
+            "total": 3
+          }
+        },
+        "pass_rate": 0.0,
+        "passes": 0,
+        "total": 3
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T121544Z.json",
+      "created_at": "2026-07-30T12:15:44.161983+00:00",
+      "failure_count": 2,
+      "suite": "v1_1",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 0.9048,
+            "passes": 19,
+            "total": 21
+          }
+        },
+        "pass_rate": 0.9048,
+        "passes": 19,
+        "total": 21
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T121642Z.json",
+      "created_at": "2026-07-30T12:16:42.486886+00:00",
+      "failure_count": 1,
+      "suite": "v1_1",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 0.9524,
+            "passes": 20,
+            "total": 21
+          }
+        },
+        "pass_rate": 0.9524,
+        "passes": 20,
+        "total": 21
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T134227Z.json",
+      "created_at": "2026-07-30T13:42:27.152986+00:00",
+      "failure_count": 1,
+      "suite": "v1_1",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 0.9524,
+            "passes": 20,
+            "total": 21
+          }
+        },
+        "pass_rate": 0.9524,
+        "passes": 20,
+        "total": 21
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T145445Z.json",
+      "created_at": "2026-07-30T14:54:45.525644+00:00",
+      "failure_count": 4,
+      "suite": "v1_1",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 0.8095,
+            "passes": 17,
+            "total": 21
+          }
+        },
+        "pass_rate": 0.8095,
+        "passes": 17,
+        "total": 21
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T145703Z.json",
+      "created_at": "2026-07-30T14:57:03.139234+00:00",
+      "failure_count": 1,
+      "suite": "v1_1",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 0.9524,
+            "passes": 20,
+            "total": 21
+          }
+        },
+        "pass_rate": 0.9524,
+        "passes": 20,
+        "total": 21
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T145837Z.json",
+      "created_at": "2026-07-30T14:58:37.764092+00:00",
+      "failure_count": 1,
+      "suite": "v1_1",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 0.9524,
+            "passes": 20,
+            "total": 21
+          }
+        },
+        "pass_rate": 0.9524,
+        "passes": 20,
+        "total": 21
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_2_full_20260730T121230Z.json",
+      "created_at": "2026-07-30T12:12:30.791927+00:00",
+      "failure_count": 1,
+      "suite": "v1_2",
+      "summary": {
+        "by_protocol": {
+          "v1_2": {
+            "pass_rate": 0.6667,
+            "passes": 2,
+            "total": 3
+          }
+        },
+        "pass_rate": 0.6667,
+        "passes": 2,
+        "total": 3
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_2_full_20260730T134241Z.json",
+      "created_at": "2026-07-30T13:42:41.223106+00:00",
+      "failure_count": 1,
+      "suite": "v1_2",
+      "summary": {
+        "by_protocol": {
+          "v1_2": {
+            "pass_rate": 0.9412,
+            "passes": 16,
+            "total": 17
+          }
+        },
+        "pass_rate": 0.9412,
+        "passes": 16,
+        "total": 17
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_2_full_20260730T134438Z.json",
+      "created_at": "2026-07-30T13:44:38.238732+00:00",
+      "failure_count": 1,
+      "suite": "v1_2",
+      "summary": {
+        "by_protocol": {
+          "v1_2": {
+            "pass_rate": 0.9412,
+            "passes": 16,
+            "total": 17
+          }
+        },
+        "pass_rate": 0.9412,
+        "passes": 16,
+        "total": 17
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_2_full_20260730T145503Z.json",
+      "created_at": "2026-07-30T14:55:03.519276+00:00",
+      "failure_count": 3,
+      "suite": "v1_2",
+      "summary": {
+        "by_protocol": {
+          "v1_2": {
+            "pass_rate": 0.8235,
+            "passes": 14,
+            "total": 17
+          }
+        },
+        "pass_rate": 0.8235,
+        "passes": 14,
+        "total": 17
+      }
+    },
+    {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_2_no_document_evidence_20260730T121447Z.json",
+      "created_at": "2026-07-30T12:14:47.637945+00:00",
+      "failure_count": 3,
+      "suite": "v1_2",
+      "summary": {
+        "by_protocol": {
+          "v1_2": {
+            "pass_rate": 0.0,
+            "passes": 0,
+            "total": 3
+          }
+        },
+        "pass_rate": 0.0,
+        "passes": 0,
+        "total": 3
+      }
+    }
+  ],
+  "protocol_runs": {
+    "multimodal": {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_multimodal_full_20260730T195647Z.json",
+      "claim_strength": "clean_micro_probe",
+      "created_at": "2026-07-30T19:56:47.741675+00:00",
+      "pass_interval": {
+        "ci95_high": 1.0,
+        "ci95_low": 0.5655,
+        "rate": 1.0,
+        "successes": 5,
+        "total": 5
+      },
+      "status": "present",
+      "summary": {
+        "by_protocol": {
+          "multimodal_hardening": {
+            "pass_rate": 1.0,
+            "passes": 2,
+            "total": 2
+          },
+          "visual_evidence_reasoning": {
+            "pass_rate": 1.0,
+            "passes": 3,
+            "total": 3
+          }
+        },
+        "pass_rate": 1.0,
+        "passes": 5,
+        "total": 5
+      }
+    },
+    "mutations": {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_mutations_full_20260730T150008Z.json",
+      "claim_strength": "clean_engineering_gate",
+      "created_at": "2026-07-30T15:00:08.889687+00:00",
+      "pass_interval": {
+        "ci95_high": 1.0,
+        "ci95_low": 0.7575,
+        "rate": 1.0,
+        "successes": 12,
+        "total": 12
+      },
+      "status": "present",
+      "summary": {
+        "by_protocol": {
+          "phase5_mutation": {
+            "pass_rate": 1.0,
+            "passes": 12,
+            "total": 12
+          }
+        },
+        "pass_rate": 1.0,
+        "passes": 12,
+        "total": 12
+      }
+    },
+    "pedagogy": {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_pedagogy_full_20260730T195831Z.json",
+      "claim_strength": "clean_micro_probe",
+      "created_at": "2026-07-30T19:58:31.100654+00:00",
+      "pass_interval": {
+        "ci95_high": 1.0,
+        "ci95_low": 0.7008,
+        "rate": 1.0,
+        "successes": 9,
+        "total": 9
+      },
+      "status": "present",
+      "summary": {
+        "by_protocol": {
+          "pedagogy_office_routing": {
+            "pass_rate": 1.0,
+            "passes": 9,
+            "total": 9
+          }
+        },
+        "pass_rate": 1.0,
+        "passes": 9,
+        "total": 9
+      }
+    },
+    "protocol_1_1": {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_1_full_20260730T145940Z.json",
+      "claim_strength": "clean_engineering_gate",
+      "created_at": "2026-07-30T14:59:40.166061+00:00",
+      "pass_interval": {
+        "ci95_high": 1.0,
+        "ci95_low": 0.8454,
+        "rate": 1.0,
+        "successes": 21,
+        "total": 21
+      },
+      "status": "present",
+      "summary": {
+        "by_protocol": {
+          "v1_1": {
+            "pass_rate": 1.0,
+            "passes": 21,
+            "total": 21
+          }
+        },
+        "pass_rate": 1.0,
+        "passes": 21,
+        "total": 21
+      }
+    },
+    "protocol_1_2": {
+      "artifact": "/home/byron/Integritas-Mechanicus/evidence/phase5_protocol_runs/phase5_v1_2_full_20260730T150003Z.json",
+      "claim_strength": "clean_engineering_gate",
+      "created_at": "2026-07-30T15:00:03.533768+00:00",
+      "pass_interval": {
+        "ci95_high": 1.0,
+        "ci95_low": 0.8157,
+        "rate": 1.0,
+        "successes": 17,
+        "total": 17
+      },
+      "status": "present",
+      "summary": {
+        "by_protocol": {
+          "v1_2": {
+            "pass_rate": 1.0,
+            "passes": 17,
+            "total": 17
+          }
+        },
+        "pass_rate": 1.0,
+        "passes": 17,
+        "total": 17
+      }
+    }
+  },
+  "provider_probe": {
+    "artifacts": [
+      {
+        "artifact": "/home/byron/Integritas-Mechanicus/evidence/provider_probe/provider_adaptive_chat_20260730T170714Z.json",
+        "ok": 3,
+        "ok_interval": {
+          "ci95_high": 0.6458,
+          "ci95_low": 0.1206,
+          "rate": 0.3333,
+          "successes": 3,
+          "total": 9
+        },
+        "total": 9
+      },
+      {
+        "artifact": "/home/byron/Integritas-Mechanicus/evidence/provider_probe/provider_gemini_text_probe_20260730T170752Z.json",
+        "ok": 0,
+        "ok_interval": {
+          "ci95_high": 0.2775,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 10
+        },
+        "total": 10
+      },
+      {
+        "artifact": "/home/byron/Integritas-Mechanicus/evidence/provider_probe/provider_model_list_20260730T170535Z.json",
+        "ok": 9,
+        "ok_interval": {
+          "ci95_high": 0.8732,
+          "ci95_low": 0.4237,
+          "rate": 0.6923,
+          "successes": 9,
+          "total": 13
+        },
+        "total": 13
+      },
+      {
+        "artifact": "/home/byron/Integritas-Mechanicus/evidence/provider_probe/provider_model_list_20260730T170616Z.json",
+        "ok": 9,
+        "ok_interval": {
+          "ci95_high": 0.8732,
+          "ci95_low": 0.4237,
+          "rate": 0.6923,
+          "successes": 9,
+          "total": 13
+        },
+        "total": 13
+      },
+      {
+        "artifact": "/home/byron/Integritas-Mechanicus/evidence/provider_probe/provider_probe_20260730T170454Z.json",
+        "ok": 3,
+        "ok_interval": {
+          "ci95_high": 0.4103,
+          "ci95_low": 0.0619,
+          "rate": 0.1765,
+          "successes": 3,
+          "total": 17
+        },
+        "total": 17
+      }
+    ],
+    "status": "present"
+  },
+  "rubric_evaluator": {
+    "agreement_interval": {
+      "ci95_high": 1.0,
+      "ci95_low": 0.7847,
+      "rate": 1.0,
+      "successes": 14,
+      "total": 14
+    },
+    "artifact": "/home/byron/Integritas-Mechanicus/evidence/rubric_evaluator/sophia_rubric_evaluation_20260730T195837Z.json",
+    "claim_strength": "clean_engineering_gate",
+    "rubric_pass_interval": {
+      "ci95_high": 1.0,
+      "ci95_low": 0.7847,
+      "rate": 1.0,
+      "successes": 14,
+      "total": 14
+    },
+    "status": "present",
+    "summary": {
+      "disagreements": 0,
+      "mean_weighted_score": 0.9671,
+      "original_passes": 14,
+      "rubric_passes": 14,
+      "total": 14
+    }
+  },
+  "schema_version": "sophia.evidence_audit.v1"
+}

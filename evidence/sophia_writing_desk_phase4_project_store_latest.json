@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-08-02T19:52:02.942299+00:00",
+  "suite": "sophia_writing_desk_phase4_project_store",
+  "summary": {
+    "passed": 8,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "checks": [
+    {
+      "check": "project_ids_separate_documents",
+      "passed": true
+    },
+    {
+      "check": "draft_versions_linked",
+      "passed": true
+    },
+    {
+      "check": "claim_record_written",
+      "passed": true
+    },
+    {
+      "check": "no_cross_project_contamination",
+      "passed": true
+    },
+    {
+      "check": "dashboard_counts_present",
+      "passed": true
+    },
+    {
+      "check": "source_pool_written_without_claiming_support",
+      "passed": true
+    },
+    {
+      "check": "retrieved_leads_written_as_unmapped",
+      "passed": true
+    },
+    {
+      "check": "contamination_report_clean",
+      "passed": true
+    }
+  ],
+  "diagnostics": {
+    "fides_project_id": "fides_et_speculum.pdf-62b67c86d723",
+    "gospel_project_id": "gospel_of_seraph.pdf-890dbf2938b5",
+    "fides_summary": {
+      "schema_version": "sophia.project_store.v1",
+      "project_id": "fides_et_speculum.pdf-62b67c86d723",
+      "draft_versions": 1,
+      "uploaded_documents": 1,
+      "retrieved_sources": 1,
+      "source_pool": 1,
+      "source_pool_records": 1,
+      "claim_records": 1,
+      "status_counts": {
+        "partial": 1
+      },
+      "weak_warrants": 1,
+      "missing_limitations": 0,
+      "unsupported_claims": 0,
+      "updated_at": "2026-08-02T19:52:02.940958+00:00"
+    },
+    "gospel_summary": {
+      "schema_version": "sophia.project_store.v1",
+      "project_id": "gospel_of_seraph.pdf-890dbf2938b5",
+      "draft_versions": 1,
+      "uploaded_documents": 1,
+      "retrieved_sources": 0,
+      "source_pool": 0,
+      "source_pool_records": 0,
+      "claim_records": 0,
+      "status_counts": {},
+      "weak_warrants": 0,
+      "missing_limitations": 0,
+      "unsupported_claims": 0,
+      "updated_at": "2026-08-02T19:52:02.939035+00:00"
+    },
+    "contamination": {
+      "schema_version": "sophia.project_store.v1",
+      "project_count": 2,
+      "pair_count": 1,
+      "contamination_signals": 0,
+      "pairwise": [
+        {
+          "left_project_id": "fides_et_speculum.pdf-62b67c86d723",
+          "right_project_id": "gospel_of_seraph.pdf-890dbf2938b5",
+          "shared_document_hashes": [],
+          "shared_source_records": [],
+          "shared_claim_record_ids": []
+        }
+      ],
+      "passed": true
+    }
+  }
+}

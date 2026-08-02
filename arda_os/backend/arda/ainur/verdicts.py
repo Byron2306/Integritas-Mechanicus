@@ -117,7 +117,8 @@ class AinurVerdict(BaseModel):
     state: VerdictState
     score: float
     reasons: List[str]
-    evidence: List[EvidencePacket] = Field(default_factory=list)
+    testimony: Optional[str] = None
+    evidence: List[Any] = Field(default_factory=list)
 
 class ChoirVerdict(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -126,6 +127,7 @@ class ChoirVerdict(BaseModel):
     confidence: float
     ainur: List[AinurVerdict]
     reasons: List[str]
+    collective_testimony: Optional[str] = None
 
     subject_id: Optional[str] = None      # canonical runtime identity
     node_id: Optional[str] = None         # fabric / cluster identity

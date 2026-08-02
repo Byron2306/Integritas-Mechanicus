@@ -8,7 +8,10 @@ import subprocess
 from typing import Dict, Any, Optional, List
 from backend.services.tpm_attestation_service import get_tpm_service
 from backend.services.secret_fire import get_secret_fire_forge
-from backend.arda.ainur.dissonance import DissonantStateModel, InfluenceMapper
+try:
+    from backend.arda.ainur.dissonance import DissonantStateModel, InfluenceMapper
+except Exception:
+    from backend.services.ainur.dissonance import DissonantStateModel, InfluenceMapper  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -68,11 +71,21 @@ class ArdaFabricEngine:
         if time.time() > handshake["expiry"]:
             del self.active_handshakes[session_id]
             return False
-        voice_id = getattr(secret_fire_packet, "voice_id", None)
+        # Accept either a pydantic model or a dict coming from the API router.
+        if isinstance(secret_fire_packet, dict):
+            voice_id = secret_fire_packet.get("voice_id")
+            tpm_quote = secret_fire_packet.get("tpm_quote")
+            workload_hash = secret_fire_packet.get("workload_hash")
+            executable_path = secret_fire_packet.get("executable_path")
+        else:
+            voice_id = getattr(secret_fire_packet, "voice_id", None)
+            tpm_quote = getattr(secret_fire_packet, "tpm_quote", None)
+            workload_hash = getattr(secret_fire_packet, "workload_hash", None)
+            executable_path = getattr(secret_fire_packet, "executable_path", None)
+
         current_voice = self.forge.get_current_packet()
         if not current_voice or voice_id != current_voice.voice_id:
              return False
-        tpm_quote = getattr(secret_fire_packet, "tpm_quote", None)
         if not tpm_quote or not await self.tpm.verify_quote(tpm_quote, handshake["nonce"]):
              return False
         remote_node_id = handshake["remote_node_id"]
@@ -82,7 +95,10 @@ class ArdaFabricEngine:
             "wg_pubkey": "local-only",
             "last_handshake": time.time(),
             "pcr_baseline": getattr(tpm_quote, "pcr_values", {}),
-            "influence_budget": initial_budget
+            "influence_budget": initial_budget,
+            "workload_hash": workload_hash,
+            "executable_path": executable_path,
+            "is_peer_verified": True,
         }
         del self.active_handshakes[session_id]
         return True
@@ -101,14 +117,17 @@ class ArdaFabricEngine:
                     behavioral_score=1.0
                 )
             }
-        elif workload_hash:
-             self.known_peers[node_id]["workload_hash"] = workload_hash
-             if executable_path: self.known_peers[node_id]["executable_path"] = executable_path
+        else:
+            if workload_hash:
+                self.known_peers[node_id]["workload_hash"] = workload_hash
+            if executable_path:
+                self.known_peers[node_id]["executable_path"] = executable_path
 
     async def broadcast_sovereign_summons(self, truth_payload: Dict[str, Any]):
         logger.info("Fabric: Igniting Sovereign Summons across the Mesh.")
         current_packet = self.forge.get_current_packet()
-        truth_payload["sig_voice"] = current_packet.voice_id
+        if current_packet is not None:
+            truth_payload["sig_voice"] = current_packet.voice_id
         self.transport.transmit(truth_payload)
 
     def get_influence_budget(self, node_id: str) -> Optional[DissonantStateModel]:
@@ -138,7 +157,9 @@ class ArdaFabricEngine:
                  logger.info(f"Fabric: Resonance Amplitude for {node_id} set to {final_val}")
 
     def get_pid_for_node(self, node_id: str) -> Optional[int]:
-        return self.node_to_pid.get(node_id) or os.getpid()
+        # Never fall back to os.getpid() — an unmapped node must not trigger
+        # enforcement against the system process itself.
+        return self.node_to_pid.get(node_id) or None
 
     def update_influence_budget(self, node_id: str, new_budget: DissonantStateModel):
         peer = self.known_peers.get(node_id)

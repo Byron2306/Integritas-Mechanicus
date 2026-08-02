@@ -42,14 +42,18 @@ class AttestedIdentityBridge:
         )
 
     async def verify_remote_attestation(self, state: AttestedNodeState) -> bool:
-        """Verifies an attestation state received from a remote peer."""
-        # Verification logic for remote PCRs against a global policy would go here
-        if not state.is_attested:
-            logger.warning(f"PHASE VI: Remote node {state.node_id} is reporting a FRACTURED birth.")
-            return False
-            
-        logger.info(f"PHASE VI: Remote node {state.node_id} attestation VERIFIED.")
-        return True
+        """Reject legacy self-reported remote state.
+
+        ``AttestedNodeState`` contains claims, not nonce-bound quote evidence.
+        Remote callers must use ``StrictArdaAttestationVerifier`` and present
+        its signed ``ArdaAttestationResultV1`` to the relying party.
+        """
+        logger.error(
+            "PHASE VI: Remote node %s supplied self-reported attestation state; "
+            "strict verifier appraisal is required.",
+            getattr(state, "node_id", "unknown"),
+        )
+        return False
 
 # Singleton
 _instance = None

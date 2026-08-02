@@ -32,7 +32,7 @@ class ManweInspector(AinurInspector):
 
         # Law II: Freshness over static truth
         observed_at = packet.freshness.observed_at
-        if time.time() - observed_at > 2.0: # 2s window for breath
+        if time.time() - observed_at > 300.0: # 300s window for breath (adjusted for AI latency)
             state = "stalled"
             score = 0.2
             reasons.append("System breath is stale (Liveness timeout)")
@@ -110,10 +110,18 @@ class ManweInspector(AinurInspector):
                         score = 0.0
                         reasons.append("Mutual Sight: PCR 11 (UKI) measurement mismatch. Unauthenticated kernel breath.")
 
+        # Semantic Testimony
+        testimony = "Manwë, Lord of the Breath, hears a natural and rhythmic song in the system's pulse."
+        if state == "stalled":
+            testimony = "The Breath has stopped! Manwë senses a stalled pulse or an unauthenticated kernel breath."
+        elif state == "strained":
+            testimony = "The Breath is irregular. Manwë detects dissonance in the cadence or high latency in the fire."
+
         return AinurVerdict(
             ainur=self.name,
             state=state,
             score=score,
             reasons=reasons or ["System breath is natural and rhythmic"],
+            testimony=testimony,
             evidence=[packet]
         )

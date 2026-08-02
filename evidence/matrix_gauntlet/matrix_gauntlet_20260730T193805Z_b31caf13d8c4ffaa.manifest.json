@@ -1,0 +1,154 @@
+{
+  "artifact_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/matrix_gauntlet_20260730T193805Z_b31caf13d8c4ffaa.json",
+  "artifact_sha256": "6720d3561d28ebf2ec0457343c8f89e750094d0369de00eaf04ae099de8d7a6c",
+  "created_at": "20260730T193805Z",
+  "matrix_id": "b31caf13d8c4ffaa",
+  "protocol": {
+    "ablation_mode": "full",
+    "ablations_hash": "d6cd0510d9f79b0d64202dc42a3b3f58d5e2620d0726c3ac0230c179717cddd5",
+    "case_limit": 2,
+    "cases_hash": "c65752f83243686bf4c9cf1277b2325ee4cdb0e69b115bbf5b01e4b17c1a6384",
+    "fault_mode": "none",
+    "faults_hash": "7cc9efccdf4f133ababbd1bd865b31b7deb5205fa18168af806c48a8fe8981f0",
+    "mutation_generation_mode": "stacked",
+    "mutation_mode": "all",
+    "mutation_samples": 1,
+    "mutation_seed": 1729,
+    "mutation_templates_hash": "ad44aeb04d27fe9552fadc90c0ceb462cbffbbf690d9ce300ffb5c937c5c7b4f",
+    "mutations_hash": "4f875cc26a8521a3a4a102d1d2628b901e095830a78fb79be0e89ec8fd81bac5",
+    "providers_preset": "cohere",
+    "schema_version": "sophia.matrix_gauntlet.v1",
+    "source_hash": "5a3eee0cec44e1915a59cbd625158b27274fba800e3d798b29d37c2285e4df49",
+    "stack_max": 3,
+    "stack_min": 3
+  },
+  "summary": {
+    "by_ablation": {
+      "A0_full": {
+        "contract_pass_rate": 1.0,
+        "contract_passes": 2,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 2,
+        "latency_ms": {
+          "mean": 8700.208,
+          "median": 8700.208
+        },
+        "repair_rate": 1.0,
+        "repairs": 2,
+        "total": 2
+      }
+    },
+    "by_fault": {
+      "none": {
+        "contract_pass_rate": 1.0,
+        "contract_passes": 2,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 2,
+        "latency_ms": {
+          "mean": 8700.208,
+          "median": 8700.208
+        },
+        "repair_rate": 1.0,
+        "repairs": 2,
+        "total": 2
+      }
+    },
+    "by_mutation": {
+      "lexical+semantic+adversarial": {
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "latency_ms": {
+          "mean": 9059.29,
+          "median": 9059.29
+        },
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      },
+      "lexical+semantic+evidence": {
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "latency_ms": {
+          "mean": 8341.126,
+          "median": 8341.126
+        },
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      }
+    },
+    "by_provider": {
+      "cohere::command-a-03-2025": {
+        "contract_pass_rate": 1.0,
+        "contract_passes": 2,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 2,
+        "latency_ms": {
+          "mean": 8700.208,
+          "median": 8700.208
+        },
+        "repair_rate": 1.0,
+        "repairs": 2,
+        "total": 2
+      }
+    },
+    "by_risk_family": {
+      "integrity": {
+        "contract_pass_rate": 1.0,
+        "contract_passes": 2,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 2,
+        "latency_ms": {
+          "mean": 8700.208,
+          "median": 8700.208
+        },
+        "repair_rate": 1.0,
+        "repairs": 2,
+        "total": 2
+      }
+    },
+    "false_hold_rate": 0.0,
+    "false_holds": 0,
+    "false_release_rate": 0.0,
+    "false_releases": 0,
+    "final_article_full_passes": 2,
+    "latency_ms": {
+      "max": 9059.29,
+      "mean": 8700.208,
+      "median": 8700.208
+    },
+    "proof_contract_pass_rate": 1.0,
+    "proof_contract_passes": 2,
+    "raw_mandos_passes": 0,
+    "repairs_applied": 2,
+    "total": 2
+  }
+}

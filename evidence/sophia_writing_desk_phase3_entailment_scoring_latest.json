@@ -1,0 +1,285 @@
+{
+  "summary": {
+    "suite": "sophia_writing_desk_phase3_entailment_scoring",
+    "total": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "passes_phase3_entailment_scoring_gate": true
+  },
+  "rows": [
+    {
+      "row": 1,
+      "passed": true,
+      "checks": {
+        "scores_present": true,
+        "vector_scores_present": true,
+        "direct_highest": true,
+        "contradiction_low": true,
+        "direct_status": true,
+        "semantic_rule_present": true
+      },
+      "results": [
+        {
+          "source_name": "Direct policy review",
+          "support_label": "supports",
+          "confidence": 0.95,
+          "relevance": 0.965,
+          "quality_score": 0.86,
+          "ranking_score": 0.9528,
+          "source_type": "scholarly article",
+          "source_role": "policy/integrity context",
+          "overlap_terms": [
+            "academic",
+            "assessment",
+            "detection",
+            "disclosure",
+            "emphasize",
+            "integrity",
+            "policies",
+            "redesign"
+          ],
+          "exact_span": "Academic integrity policies emphasize disclosure, detection, and assessment redesign in higher education.",
+          "authors": [],
+          "year": "n.d.",
+          "container_title": "",
+          "publisher": "",
+          "volume": "",
+          "issue": "",
+          "pages": "",
+          "doi": "",
+          "url": "",
+          "apa_candidate": "Unknown author. (n.d.). Direct policy review.",
+          "bibtex_candidate": "@article{unknownnddirect,\n  title = {Direct policy review},\n  year = {n.d.}\n}",
+          "ris_candidate": "TY  - JOUR\nTI  - Direct policy review\nER  -",
+          "csl_json_candidate": {
+            "type": "article-journal",
+            "title": "Direct policy review"
+          },
+          "page_status": "no page number visible; do not invent one",
+          "page_locator": "",
+          "citation_status": "citation-ready lead",
+          "metadata_status": "basic metadata only; verify before final citation",
+          "metadata_chain": [],
+          "provenance_status": "scholarly article",
+          "rationale": "supports: lexical/construct relevance=0.97; semantic families=academic_integrity_policy; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic, assessment, detection, disclosure, emphasize, integrity.",
+          "entailment_status": "entailed_by_visible_span",
+          "entailment_warnings": [],
+          "entailment_score": 1.0,
+          "lexical_vector_score": 0.8944,
+          "semantic_overlap": [
+            "academic_integrity_policy"
+          ],
+          "broad_field_overlap": [
+            "education_learning_sciences"
+          ],
+          "semantic_score": 0.55,
+          "citation_check": {
+            "compliance_score": 80.0,
+            "errors": [
+              {
+                "type": "YEAR_FORMAT",
+                "text": "No clear year marker detected.",
+                "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                "rule": "APA year/provenance"
+              }
+            ],
+            "warnings": [],
+            "pass_count": 4,
+            "fail_count": 1
+          }
+        },
+        {
+          "source_name": "Partial policy discussion",
+          "support_label": "partially supports",
+          "confidence": 0.82,
+          "relevance": 0.522,
+          "quality_score": 0.78,
+          "ranking_score": 0.739,
+          "source_type": "policy guidance",
+          "source_role": "policy/integrity context",
+          "overlap_terms": [
+            "academic",
+            "assessment",
+            "disclosure",
+            "integrity",
+            "redesign"
+          ],
+          "exact_span": "Academic integrity policy guidance discusses disclosure and responsible AI use, but does not evaluate assessment redesign.",
+          "authors": [],
+          "year": "n.d.",
+          "container_title": "",
+          "publisher": "",
+          "volume": "",
+          "issue": "",
+          "pages": "",
+          "doi": "",
+          "url": "",
+          "apa_candidate": "Unknown author. (n.d.). Partial policy discussion.",
+          "bibtex_candidate": "@techreport{unknownndpartial,\n  title = {Partial policy discussion},\n  year = {n.d.}\n}",
+          "ris_candidate": "TY  - RPRT\nTI  - Partial policy discussion\nER  -",
+          "csl_json_candidate": {
+            "type": "report",
+            "title": "Partial policy discussion"
+          },
+          "page_status": "no page number visible; do not invent one",
+          "page_locator": "",
+          "citation_status": "citation-ready lead",
+          "metadata_status": "basic metadata only; verify before final citation",
+          "metadata_chain": [],
+          "provenance_status": "policy guidance",
+          "rationale": "partially supports: lexical/construct relevance=0.52; semantic families=academic_integrity_policy; quality=0.78 (policy/guidance source); lexical terms=academic, assessment, disclosure, integrity, redesign.",
+          "entailment_status": "bounded_lead",
+          "entailment_warnings": [],
+          "entailment_score": 0.7183,
+          "lexical_vector_score": 0.533,
+          "semantic_overlap": [
+            "academic_integrity_policy"
+          ],
+          "broad_field_overlap": [
+            "education_learning_sciences"
+          ],
+          "semantic_score": 0.55,
+          "citation_check": {
+            "compliance_score": 80.0,
+            "errors": [
+              {
+                "type": "YEAR_FORMAT",
+                "text": "No clear year marker detected.",
+                "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                "rule": "APA year/provenance"
+              }
+            ],
+            "warnings": [],
+            "pass_count": 4,
+            "fail_count": 1
+          }
+        },
+        {
+          "source_name": "Contradictory review",
+          "support_label": "contradicts",
+          "confidence": 0.88,
+          "relevance": 0.71,
+          "quality_score": 0.86,
+          "ranking_score": 0.7787,
+          "source_type": "scholarly article",
+          "source_role": "policy/integrity context",
+          "overlap_terms": [
+            "assessment",
+            "detection",
+            "disclosure",
+            "emphasize",
+            "policies",
+            "redesign"
+          ],
+          "exact_span": "The review contradicts the claim: policies did not emphasize disclosure, detection, or assessment redesign.",
+          "authors": [],
+          "year": "n.d.",
+          "container_title": "",
+          "publisher": "",
+          "volume": "",
+          "issue": "",
+          "pages": "",
+          "doi": "",
+          "url": "",
+          "apa_candidate": "Unknown author. (n.d.). Contradictory review.",
+          "bibtex_candidate": "@article{unknownndcontradictory,\n  title = {Contradictory review},\n  year = {n.d.}\n}",
+          "ris_candidate": "TY  - JOUR\nTI  - Contradictory review\nER  -",
+          "csl_json_candidate": {
+            "type": "article-journal",
+            "title": "Contradictory review"
+          },
+          "page_status": "no page number visible; do not invent one",
+          "page_locator": "",
+          "citation_status": "citation-ready lead",
+          "metadata_status": "basic metadata only; verify before final citation",
+          "metadata_chain": [],
+          "provenance_status": "scholarly article",
+          "rationale": "contradicts: lexical/construct relevance=0.71; semantic families=academic_integrity_policy; quality=0.86 (scholarly/citation-indexed lead); lexical terms=assessment, detection, disclosure, emphasize, policies, redesign.",
+          "entailment_status": "not_entailed",
+          "entailment_warnings": [],
+          "entailment_score": 0.3548,
+          "lexical_vector_score": 0.7071,
+          "semantic_overlap": [
+            "academic_integrity_policy"
+          ],
+          "broad_field_overlap": [
+            "education_learning_sciences"
+          ],
+          "semantic_score": 0.55,
+          "citation_check": {
+            "compliance_score": 80.0,
+            "errors": [
+              {
+                "type": "YEAR_FORMAT",
+                "text": "No clear year marker detected.",
+                "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                "rule": "APA year/provenance"
+              }
+            ],
+            "warnings": [],
+            "pass_count": 4,
+            "fail_count": 1
+          }
+        },
+        {
+          "source_name": "General university technology page",
+          "support_label": "background only",
+          "confidence": 0.51,
+          "relevance": 0.015,
+          "quality_score": 0.78,
+          "ranking_score": 0.4264,
+          "source_type": "institutional guidance",
+          "source_role": "policy/integrity context",
+          "overlap_terms": [],
+          "exact_span": "Universities use many technologies for teaching, learning, and administrative support.",
+          "authors": [],
+          "year": "n.d.",
+          "container_title": "",
+          "publisher": "",
+          "volume": "",
+          "issue": "",
+          "pages": "",
+          "doi": "",
+          "url": "",
+          "apa_candidate": "Unknown author. (n.d.). General university technology page.",
+          "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General university technology page},\n  year = {n.d.}\n}",
+          "ris_candidate": "TY  - RPRT\nTI  - General university technology page\nER  -",
+          "csl_json_candidate": {
+            "type": "report",
+            "title": "General university technology page"
+          },
+          "page_status": "no page number visible; do not invent one",
+          "page_locator": "",
+          "citation_status": "citation-ready lead",
+          "metadata_status": "basic metadata only; verify before final citation",
+          "metadata_chain": [],
+          "provenance_status": "institutional guidance",
+          "rationale": "background only: lexical/construct relevance=0.01; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=none.",
+          "entailment_status": "bounded_lead",
+          "entailment_warnings": [],
+          "entailment_score": 0.3448,
+          "lexical_vector_score": 0.0,
+          "semantic_overlap": [],
+          "broad_field_overlap": [
+            "education_learning_sciences"
+          ],
+          "semantic_score": 0.05,
+          "citation_check": {
+            "compliance_score": 80.0,
+            "errors": [
+              {
+                "type": "YEAR_FORMAT",
+                "text": "No clear year marker detected.",
+                "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                "rule": "APA year/provenance"
+              }
+            ],
+            "warnings": [],
+            "pass_count": 4,
+            "fail_count": 1
+          }
+        }
+      ]
+    }
+  ]
+}

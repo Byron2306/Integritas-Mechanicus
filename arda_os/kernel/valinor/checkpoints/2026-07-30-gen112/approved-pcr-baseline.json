@@ -1,0 +1,25 @@
+{
+  "approved_boot": {
+    "generation": 112,
+    "identity_chain_mode": "ek-certificate+createak",
+    "manifest_id": "measured-d8383a1c3548228d",
+    "manufacturer": "Nuvoton (NTC)",
+    "manufacturer_rooted": true,
+    "policy_generation": "ARDA-POLICY-V1@1.1.0"
+  },
+  "baseline_name": "hp-probook-valinor-known-good-gen112-stable",
+  "boot_state": "LAWFUL_FULL",
+  "chain_hash": "fc3af9f8ac771780f7b766a493e64ff9e29f85d41e053c95da5a99279c86c306",
+  "generated_at": "2026-07-30T19:00:15.392286+00:00",
+  "mirror_id": "ARDA-CORONATION-FC3AF9F8AC771780",
+  "node_id": null,
+  "pcr_selection": "sha256:0,1,7,11",
+  "pcrs": {
+    "0": "0886e6fc01b4b9c8fc427eb494c7fa477032d56991529621fe3e9865f532e92f",
+    "1": "513c6b7a2bea363aa0750a14f62d56a37ba69a4c6abcbb60503db6b28571b35e",
+    "11": "e5b97ef776ace6210441a1160c232b81b9c64c6cfb97d1de9b31b4481711d5f1",
+    "7": "94b6dc41a920b74d113a059deea8d3fc5a1145637ba5668002f1261a8effac54"
+  },
+  "schema_version": "arda.phase4.pcr_baseline.v1",
+  "source_evidence_bundle": "/var/lib/arda/attestation/latest/07_sovereign_attestation.json"
+}

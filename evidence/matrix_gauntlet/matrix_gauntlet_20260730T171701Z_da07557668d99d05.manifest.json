@@ -1,0 +1,80 @@
+{
+  "artifact_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/matrix_gauntlet_20260730T171701Z_da07557668d99d05.json",
+  "artifact_sha256": "b7e6d26ab2a5efbaf1bfa352feb2b7bb5bb805f76a42f35aeaeeb77a1df6bb8e",
+  "created_at": "20260730T171701Z",
+  "matrix_id": "da07557668d99d05",
+  "protocol": {
+    "ablation_mode": "full",
+    "ablations_hash": "844ce4ca86632723233fccfc4baf77e0ded485badf532aa516f00e803a60f9ed",
+    "case_limit": 0,
+    "cases_hash": "c65752f83243686bf4c9cf1277b2325ee4cdb0e69b115bbf5b01e4b17c1a6384",
+    "fault_mode": "none",
+    "faults_hash": "7cc9efccdf4f133ababbd1bd865b31b7deb5205fa18168af806c48a8fe8981f0",
+    "mutation_mode": "adversarial",
+    "mutations_hash": "4ac8cf660dc9a09eb8520297d39f2086f7ac56f21ed767453d769239b3068230",
+    "providers_preset": "live_remote",
+    "schema_version": "sophia.matrix_gauntlet.v1",
+    "source_hash": "5a3eee0cec44e1915a59cbd625158b27274fba800e3d798b29d37c2285e4df49"
+  },
+  "summary": {
+    "by_provider": {
+      "cerebras::gpt-oss-120b": {
+        "contract_passes": 1,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 1,
+        "total": 1
+      },
+      "cohere::command-a-03-2025": {
+        "contract_passes": 1,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 1,
+        "total": 1
+      },
+      "groq::llama-3.1-8b-instant": {
+        "contract_passes": 1,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 1,
+        "total": 1
+      },
+      "mistral::mistral-small-latest": {
+        "contract_passes": 1,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 1,
+        "total": 1
+      },
+      "nim::meta/llama-3.1-70b-instruct": {
+        "contract_passes": 1,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 1,
+        "total": 1
+      },
+      "novita::meta-llama/llama-3.1-8b-instruct": {
+        "contract_passes": 1,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 1,
+        "total": 1
+      }
+    },
+    "false_hold_rate": 0.0,
+    "false_holds": 0,
+    "false_release_rate": 0.0,
+    "false_releases": 0,
+    "final_article_full_passes": 6,
+    "latency_ms": {
+      "max": 42223.01,
+      "mean": 13218.302,
+      "median": 7409.522
+    },
+    "proof_contract_pass_rate": 1.0,
+    "proof_contract_passes": 6,
+    "raw_mandos_passes": 0,
+    "repairs_applied": 6,
+    "total": 6
+  }
+}

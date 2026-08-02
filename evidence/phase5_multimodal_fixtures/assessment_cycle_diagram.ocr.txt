@@ -1,0 +1,3 @@
+Diagram transcription: Assessment ecology cycle.
+Nodes: baseline -> diagnostic -> formative scaffold -> criterion check -> reflection -> ipsative comparison.
+Warning label: do not skip diagnostic stage; do not treat ipsative comparison as external grading.

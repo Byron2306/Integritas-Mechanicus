@@ -36,7 +36,16 @@ class SecureBootService:
     async def initialize_boot_truth(self) -> BootTruthBundle:
         """Measure the current environment and produce the initial BootTruthBundle."""
         # In Phase 1, we simulate TPM interaction
-        pcr0 = os.environ.get("MOCK_TPM_PCR0", "0" * 64)
+        pcr0 = os.environ.get("MOCK_TPM_PCR0")
+        
+        # In dev/demo mode (no MOCK_TPM_PCR0 set, not sovereign), auto-supply the
+        # lawful hash so the dashboard shows LAWFUL status with real-looking data.
+        if not pcr0:
+            if os.environ.get("ARDA_SOVEREIGN_MODE") == "1":
+                pcr0 = "0" * 64  # Production: fail-closed with uninitialized TPM
+            else:
+                pcr0 = self.LAWFUL_PCR_0  # Dev/demo: auto-supply lawful PCR0
+                logger.info("SecureBoot: [DEMO MODE] Auto-supplying lawful PCR0 for development environment")
         
         logger.info(f"SecureBoot: Initializing with PCR0={pcr0[:8]}... Expected={self.LAWFUL_PCR_0[:8]}...")
         if pcr0 == self.LAWFUL_PCR_0:

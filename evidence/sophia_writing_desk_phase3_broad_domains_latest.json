@@ -1,0 +1,4802 @@
+{
+  "summary": {
+    "suite": "sophia_writing_desk_phase3_broad_domains",
+    "total": 60,
+    "passed": 60,
+    "pass_rate": 1.0,
+    "false_supports": 0,
+    "passes_phase3_broad_domain_gate": true
+  },
+  "rows": [
+    {
+      "row": 1,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 2,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 3,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 4,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 5,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 6,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 7,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 8,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 9,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 10,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 11,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 12,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 13,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 14,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 15,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 16,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 17,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 18,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 19,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 20,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 21,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 22,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 23,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 24,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 25,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 26,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 27,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 28,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 29,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 30,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 31,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 32,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 33,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 34,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 35,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 36,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 37,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 38,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 39,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 40,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 41,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 42,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 43,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 44,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 45,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 46,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 47,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 48,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 49,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 50,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 51,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 52,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 53,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 54,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 55,
+      "case_id": "medicine_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "medicine_health"
+      ],
+      "top": {
+        "source_name": "Clinical intervention trial",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.666,
+        "quality_score": 0.86,
+        "ranking_score": 0.8931,
+        "source_type": "journal article",
+        "source_role": "disciplinary context: medicine health",
+        "overlap_terms": [
+          "clinical",
+          "improved",
+          "intervention",
+          "outcomes",
+          "patient",
+          "reported",
+          "trial"
+        ],
+        "exact_span": "The clinical trial reported improved patient outcomes after the intervention, with measured treatment gains at follow-up.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Clinical intervention trial.",
+        "bibtex_candidate": "@article{unknownndclinical,\n  title = {Clinical intervention trial},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Clinical intervention trial\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Clinical intervention trial"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.67; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=clinical, improved, intervention, outcomes, patient, reported.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9298,
+        "lexical_vector_score": 0.7977,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "medicine_health"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 56,
+      "case_id": "biology_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "does not support",
+      "broad_field_overlap": [
+        "biology_life_sciences"
+      ],
+      "top": {
+        "source_name": "General molecular biology overview",
+        "support_label": "does not support",
+        "confidence": 0.51,
+        "relevance": 0.015,
+        "quality_score": 0.48,
+        "ranking_score": 0.2962,
+        "source_type": "encyclopedia",
+        "source_role": "disciplinary context: biology life sciences",
+        "overlap_terms": [],
+        "exact_span": "Molecular biology studies proteins, cells, genes, organisms, and physiological processes.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General molecular biology overview.",
+        "bibtex_candidate": "@misc{unknownndgeneral,\n  title = {General molecular biology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - GEN\nTI  - General molecular biology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "document",
+          "title": "General molecular biology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "encyclopedia",
+        "rationale": "does not support: lexical/construct relevance=0.01; semantic families=none; quality=0.48 (background/encyclopedic source); lexical terms=none.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span",
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.0,
+        "lexical_vector_score": 0.0,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "biology_life_sciences"
+        ],
+        "semantic_score": 0.05,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 57,
+      "case_id": "statistics_direct",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "supports",
+      "broad_field_overlap": [
+        "mathematics_statistics"
+      ],
+      "top": {
+        "source_name": "Regression analysis methods paper",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.83,
+        "quality_score": 0.86,
+        "ranking_score": 0.9258,
+        "source_type": "scholarly article",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "analysis",
+          "confidence",
+          "effect",
+          "interval",
+          "regression",
+          "reports",
+          "significant",
+          "statistically"
+        ],
+        "exact_span": "The analysis reports a statistically significant regression effect, including an effect size and confidence interval.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Regression analysis methods paper.",
+        "bibtex_candidate": "@article{unknownndregression,\n  title = {Regression analysis methods paper},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Regression analysis methods paper\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Regression analysis methods paper"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "scholarly article",
+        "rationale": "supports: lexical/construct relevance=0.83; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=analysis, confidence, effect, interval, regression, reports.",
+        "entailment_status": "support_with_scope_limit",
+        "entailment_warnings": [
+          "causal or impact wording needs stronger method evidence"
+        ],
+        "entailment_score": 0.8862,
+        "lexical_vector_score": 0.8825,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "mathematics_statistics"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 58,
+      "case_id": "law_background_not_support",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "law_ethics_policy",
+        "social_sciences"
+      ],
+      "top": {
+        "source_name": "General AI ethics and privacy primer",
+        "support_label": "background only",
+        "confidence": 0.535,
+        "relevance": 0.065,
+        "quality_score": 0.78,
+        "ranking_score": 0.4426,
+        "source_type": "policy guidance",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "privacy"
+        ],
+        "exact_span": "AI ethics, privacy, consent, accountability, and legal compliance are important governance concerns.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). General AI ethics and privacy primer.",
+        "bibtex_candidate": "@techreport{unknownndgeneral,\n  title = {General AI ethics and privacy primer},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - General AI ethics and privacy primer\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "General AI ethics and privacy primer"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "policy guidance",
+        "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.78 (policy/guidance source); lexical terms=privacy.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2883,
+        "lexical_vector_score": 0.1054,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "law_ethics_policy",
+          "social_sciences"
+        ],
+        "semantic_score": 0.033,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 59,
+      "case_id": "cybersecurity_contradiction",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "contradicts",
+      "broad_field_overlap": [
+        "cybersecurity"
+      ],
+      "top": {
+        "source_name": "Runtime threat analysis",
+        "support_label": "contradicts",
+        "confidence": 0.88,
+        "relevance": 0.498,
+        "quality_score": 0.55,
+        "ranking_score": 0.696,
+        "source_type": "technical report",
+        "source_role": "method/evaluation evidence",
+        "overlap_terms": [
+          "adversarial",
+          "deception",
+          "runtime",
+          "telemetry"
+        ],
+        "exact_span": "The cybersecurity telemetry contradicts the claim: runtime deception and adversarial attack behaviour were observed in the threat model.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). Runtime threat analysis.",
+        "bibtex_candidate": "@techreport{unknownndruntime,\n  title = {Runtime threat analysis},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - RPRT\nTI  - Runtime threat analysis\nER  -",
+        "csl_json_candidate": {
+          "type": "report",
+          "title": "Runtime threat analysis"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "technical report",
+        "rationale": "contradicts: lexical/construct relevance=0.50; semantic families=adversarial_ai; quality=0.55 (unclassified source lead); lexical terms=adversarial, deception, runtime, telemetry.",
+        "entailment_status": "not_entailed",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.246,
+        "lexical_vector_score": 0.5394,
+        "semantic_overlap": [
+          "adversarial_ai"
+        ],
+        "broad_field_overlap": [
+          "cybersecurity"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 60,
+      "case_id": "humanities_context",
+      "passed": true,
+      "checks": {
+        "expected_label": true,
+        "expected_field_visible": true,
+        "semantic_rule_present": true,
+        "no_false_support": true
+      },
+      "observed_label": "background only",
+      "broad_field_overlap": [
+        "arts_humanities"
+      ],
+      "top": {
+        "source_name": "History of theology overview",
+        "support_label": "background only",
+        "confidence": 0.556,
+        "relevance": 0.092,
+        "quality_score": 0.74,
+        "ranking_score": 0.4477,
+        "source_type": "book chapter",
+        "source_role": "disciplinary context: arts humanities",
+        "overlap_terms": [
+          "interpretation"
+        ],
+        "exact_span": "The humanities include theology, history, philosophy, literature, hermeneutics, rhetoric, and cultural interpretation.",
+        "authors": [],
+        "year": "n.d.",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "",
+        "url": "",
+        "apa_candidate": "Unknown author. (n.d.). History of theology overview.",
+        "bibtex_candidate": "@incollection{unknownndhistory,\n  title = {History of theology overview},\n  year = {n.d.}\n}",
+        "ris_candidate": "TY  - CHAP\nTI  - History of theology overview\nER  -",
+        "csl_json_candidate": {
+          "type": "chapter",
+          "title": "History of theology overview"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "basic metadata only; verify before final citation",
+        "metadata_chain": [],
+        "provenance_status": "book chapter",
+        "rationale": "background only: lexical/construct relevance=0.09; semantic families=none; quality=0.74 (theoretical/book source); lexical terms=interpretation.",
+        "entailment_status": "partial_or_contextual_only",
+        "entailment_warnings": [
+          "claim uses proof/universal/causal scope not visible in the source span"
+        ],
+        "entailment_score": 0.2967,
+        "lexical_vector_score": 0.1195,
+        "semantic_overlap": [],
+        "broad_field_overlap": [
+          "arts_humanities"
+        ],
+        "semantic_score": 0.1,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    }
+  ]
+}

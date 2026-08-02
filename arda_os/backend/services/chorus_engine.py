@@ -6,7 +6,10 @@ from typing import Any, Dict, List, Optional, Tuple
 try:
     from schemas.polyphonic_models import ChorusSpec, EdgeObservation, ChorusState
 except Exception:
-    from backend.schemas.polyphonic_models import ChorusSpec, EdgeObservation, ChorusState
+    try:
+        from backend.schemas.polyphonic_models import ChorusSpec, EdgeObservation, ChorusState  # type: ignore
+    except Exception:
+        from backend.services.schemas.polyphonic_models import ChorusSpec, EdgeObservation, ChorusState  # type: ignore
 
 
 def _clamp(value: float, low: float = 0.0, high: float = 1.0) -> float:

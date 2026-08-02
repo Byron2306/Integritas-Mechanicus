@@ -1,0 +1,35 @@
+[Unit]
+Description=Arda Bombadil — The Eldest Witness
+Documentation=https://github.com/Byron2306/Integritas-Mechanicus
+After=network.target tpm2-abrmd.service
+Wants=tpm2-abrmd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/byron/Integritas-Mechanicus-clean/Integritas-Mechanicus/arda_os/backend/services/arda_bombadil.py
+ExecStop=/bin/kill -TERM $MAINPID
+Restart=on-failure
+RestartSec=5
+
+# Bombadil needs root to read TPM and BPF state
+User=root
+Group=root
+
+# Environment
+Environment=ARDA_ROOT=/home/byron/Integritas-Mechanicus-clean/Integritas-Mechanicus
+Environment=ARDA_SOCK=/run/arda/bombadil.sock
+Environment=ARDA_PID=/run/arda/bombadil.pid
+
+# Runtime directory
+RuntimeDirectory=arda
+RuntimeDirectoryMode=0755
+
+# Security hardening — Bombadil watches but doesn't need much
+ProtectHome=read-only
+ProtectSystem=strict
+ReadWritePaths=/run/arda /home/byron/Integritas-Mechanicus-clean/Integritas-Mechanicus/evidence
+PrivateTmp=true
+NoNewPrivileges=false
+
+[Install]
+WantedBy=multi-user.target

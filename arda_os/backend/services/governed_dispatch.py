@@ -2,6 +2,10 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
+from backend.services.arda_trust_contracts import BeastCapabilityLeaseV1, sha256_digest
+from backend.services.authority_binding import canonical_action_digest, canonical_target_digest
+from backend.services.capability_authority import get_capability_lease_store
+
 try:
     from services.outbound_gate import OutboundGateService
 except Exception:
@@ -168,20 +172,74 @@ class GovernedDispatchService:
                     if isinstance(polyphonic_context, dict)
                     else {}
                 )
-                notation = await self.notation_tokens.mint_notation_token(
-                    epoch_id=active_epoch.epoch_id,
-                    score_id=active_epoch.score_id,
-                    genre_mode=active_epoch.genre_mode,
-                    voice_role=str(voice_profile.get("voice_type") or "unknown_voice"),
-                    capability_class=str(voice_profile.get("capability_class") or "orchestration"),
-                    world_state_hash=active_epoch.world_state_hash,
-                    issued_to=str(agent_id or actor or "unknown"),
-                    entry_window_ms=working_command_doc.get("entry_window_ms") or [0, 300000],
-                    sequence_slot=working_command_doc.get("sequence_slot"),
-                    required_companions=working_command_doc.get("required_companions") or [],
-                    response_class=action_type,
-                    ttl_seconds=int(working_command_doc.get("notation_ttl_seconds") or 600),
+                capability_required = bool(
+                    self.environment == "production"
+                    and str(impact_level or "").lower() in {"high", "critical"}
                 )
+                if capability_required:
+                    raw_lease = working_command_doc.get("capability_lease")
+                    if not isinstance(raw_lease, dict):
+                        raise PermissionError("BEAST capability lease is required before notation issuance")
+                    lease_payload = dict(raw_lease)
+                    for field in ("data_scope", "route_scope", "output_scope", "approval_receipt_ids"):
+                        lease_payload[field] = tuple(lease_payload.get(field) or ())
+                    lease = BeastCapabilityLeaseV1(**lease_payload)
+                    lease_store = get_capability_lease_store()
+                    lease_store.register(lease)
+                    action_digest = canonical_action_digest(
+                        action_type=action_type,
+                        actor=actor,
+                        subject_id=agent_id,
+                        impact_level=impact_level,
+                        payload=working_command_doc,
+                    )
+                    target_digest = canonical_target_digest(
+                        subject_id=agent_id,
+                        payload=working_command_doc,
+                    )
+                    parameters_digest = sha256_digest(
+                        working_command_doc.get("parameters")
+                        or working_command_doc.get("params")
+                        or {}
+                    )
+                    notation = await self.notation_tokens.mint_authorized_notation_token(
+                        lease=lease,
+                        lease_store=lease_store,
+                        expected_audience="metatron-outbound-gate",
+                        action_digest=action_digest,
+                        parameters_digest=parameters_digest,
+                        target_digest=target_digest,
+                        epoch_id=active_epoch.epoch_id,
+                        score_id=active_epoch.score_id,
+                        genre_mode=active_epoch.genre_mode,
+                        voice_role=str(voice_profile.get("voice_type") or "unknown_voice"),
+                        world_state_hash=active_epoch.world_state_hash,
+                        entry_window_ms=working_command_doc.get("entry_window_ms") or [0, 300000],
+                        sequence_slot=working_command_doc.get("sequence_slot"),
+                        required_companions=working_command_doc.get("required_companions") or [],
+                        response_class=action_type,
+                        ttl_seconds=int(working_command_doc.get("notation_ttl_seconds") or 600),
+                    )
+                    working_command_doc["capability_lease_id"] = lease.lease_id
+                    working_command_doc["authority_request_digest"] = lease.authority_request_digest
+                    working_command_doc["canonical_action_digest"] = action_digest
+                    working_command_doc["canonical_target_digest"] = target_digest
+                    working_command_doc.pop("capability_lease", None)
+                else:
+                    notation = await self.notation_tokens.mint_notation_token(
+                        epoch_id=active_epoch.epoch_id,
+                        score_id=active_epoch.score_id,
+                        genre_mode=active_epoch.genre_mode,
+                        voice_role=str(voice_profile.get("voice_type") or "unknown_voice"),
+                        capability_class=str(voice_profile.get("capability_class") or "orchestration"),
+                        world_state_hash=active_epoch.world_state_hash,
+                        issued_to=str(agent_id or actor or "unknown"),
+                        entry_window_ms=working_command_doc.get("entry_window_ms") or [0, 300000],
+                        sequence_slot=working_command_doc.get("sequence_slot"),
+                        required_companions=working_command_doc.get("required_companions") or [],
+                        response_class=action_type,
+                        ttl_seconds=int(working_command_doc.get("notation_ttl_seconds") or 600),
+                    )
                 notation_doc = notation.model_dump() if hasattr(notation, "model_dump") else notation.dict()
                 if isinstance(polyphonic_context, dict):
                     polyphonic_context["governance_epoch"] = active_epoch.epoch_id
@@ -343,10 +401,18 @@ class GovernedDispatchService:
         persisted.setdefault("agent_id", agent_id)
         persisted.setdefault("created_at", now)
         persisted["updated_at"] = now
-        persisted["status"] = "gated_pending_approval"
+        gate_status = str(queued.get("status") or "queued").strip().lower()
+        if gate_status == "denied":
+            persisted_status = "rejected"
+        elif gate_status == "approved":
+            persisted_status = "approved"
+        else:
+            persisted_status = "gated_pending_approval"
+        persisted["status"] = persisted_status
         persisted.setdefault("state_version", 1)
-        if not persisted.get("state_transition_log"):
-            persisted["state_transition_log"] = [
+        state_transition_log = list(persisted.get("state_transition_log") or [])
+        if not state_transition_log:
+            state_transition_log = [
                 {
                     "from_status": None,
                     "to_status": "gated_pending_approval",
@@ -355,14 +421,41 @@ class GovernedDispatchService:
                     "timestamp": now,
                 }
             ]
+        if persisted_status != "gated_pending_approval":
+            previous_status = state_transition_log[-1].get("to_status") if state_transition_log else None
+            if previous_status != persisted_status:
+                state_transition_log.append(
+                    {
+                        "from_status": previous_status,
+                        "to_status": persisted_status,
+                        "actor": actor or "unknown",
+                        "reason": queued.get("reason") or queued.get("notes") or f"gate returned {gate_status}",
+                        "timestamp": now,
+                        "metadata": {
+                            "gate_status": gate_status,
+                            "queue_id": queued.get("queue_id"),
+                            "decision_id": queued.get("decision_id"),
+                        },
+                    }
+                )
+        persisted["state_transition_log"] = state_transition_log
         persisted["queue_id"] = queued.get("queue_id")
         persisted["decision_id"] = queued.get("decision_id")
         persisted["decision_context"] = {
             "decision_id": queued.get("decision_id"),
             "queue_id": queued.get("queue_id"),
-            "approved": False,
-            "released_to_execution": False,
+            "approved": persisted_status == "approved",
+            "released_to_execution": persisted_status == "approved",
         }
+        persisted["execution_status"] = queued.get("execution_status")
+        if queued.get("reason"):
+            persisted["gate_reason"] = queued.get("reason")
+        if queued.get("notes"):
+            persisted["gate_notes"] = queued.get("notes")
+        if persisted_status == "approved":
+            persisted["approved_at"] = now
+        elif persisted_status == "rejected":
+            persisted["rejected_at"] = now
         if "authority_context" not in persisted:
             persisted["authority_context"] = {
                 "principal": actor,

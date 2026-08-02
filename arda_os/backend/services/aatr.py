@@ -207,7 +207,7 @@ THREAT_REGISTRY: List[ThreatEntry] = [
             "Enable behavioral anomaly detection"
         ],
         first_observed="2024-01",
-        last_updated="2026-02",
+        last_updated="2026-05",
         sources=["Public security research", "MITRE ATT&CK updates"]
     ),
     
@@ -272,7 +272,7 @@ THREAT_REGISTRY: List[ThreatEntry] = [
             "Deploy execution sandboxing"
         ],
         first_observed="2024-03",
-        last_updated="2026-02",
+        last_updated="2026-05",
         sources=["Security incident reports", "Threat intelligence feeds"]
     ),
     
@@ -337,7 +337,7 @@ THREAT_REGISTRY: List[ThreatEntry] = [
             "Real-time threat intelligence sharing"
         ],
         first_observed="2025-06",
-        last_updated="2026-02",
+        last_updated="2026-05",
         sources=["Emerging threat research", "Multi-host incident analysis"]
     ),
     
@@ -402,7 +402,7 @@ THREAT_REGISTRY: List[ThreatEntry] = [
             "Unpredictable honeypot deployment"
         ],
         first_observed="2024-09",
-        last_updated="2026-02",
+        last_updated="2026-05",
         sources=["AI safety research", "Red team assessments"]
     ),
     
@@ -467,7 +467,7 @@ THREAT_REGISTRY: List[ThreatEntry] = [
             "Immutable backup systems"
         ],
         first_observed="2024-06",
-        last_updated="2026-02",
+        last_updated="2026-05",
         sources=["Security incident database", "AI safety research"]
     ),
     
@@ -532,7 +532,7 @@ THREAT_REGISTRY: List[ThreatEntry] = [
             "Network traffic baseline monitoring"
         ],
         first_observed="2024-02",
-        last_updated="2026-02",
+        last_updated="2026-05",
         sources=["APT research", "Long-term threat analysis"]
     )
 ]

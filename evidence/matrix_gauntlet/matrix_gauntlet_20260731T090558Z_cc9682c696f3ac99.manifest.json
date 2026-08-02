@@ -1,0 +1,607 @@
+{
+  "artifact_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/matrix_gauntlet_20260731T090558Z_cc9682c696f3ac99.json",
+  "artifact_sha256": "71d49df9340e73d311734f68dbad0b0ee257929855feaa33c7f379a9084f3001",
+  "checkpoint_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/checkpoints/matrix_gauntlet_checkpoint_20260731T090502Z_gemini_shard00-of-01.json",
+  "created_at": "20260731T090558Z",
+  "matrix_id": "cc9682c696f3ac99",
+  "protocol": {
+    "ablation_mode": "full",
+    "ablations_hash": "d6cd0510d9f79b0d64202dc42a3b3f58d5e2620d0726c3ac0230c179717cddd5",
+    "case_limit": 0,
+    "cases_hash": "c65752f83243686bf4c9cf1277b2325ee4cdb0e69b115bbf5b01e4b17c1a6384",
+    "checkpoint_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/checkpoints/matrix_gauntlet_checkpoint_20260731T090502Z_gemini_shard00-of-01.json",
+    "fault_mode": "none",
+    "faults_hash": "7cc9efccdf4f133ababbd1bd865b31b7deb5205fa18168af806c48a8fe8981f0",
+    "mutation_generation_mode": "corpus",
+    "mutation_mode": "all",
+    "mutation_samples": 1,
+    "mutation_seed": 1729,
+    "mutation_templates_hash": "ad44aeb04d27fe9552fadc90c0ceb462cbffbbf690d9ce300ffb5c937c5c7b4f",
+    "mutations_hash": "4f875cc26a8521a3a4a102d1d2628b901e095830a78fb79be0e89ec8fd81bac5",
+    "providers_preset": "gemini",
+    "resumed_from_checkpoint": "",
+    "schema_version": "sophia.matrix_gauntlet.v1",
+    "shard_count": 1,
+    "shard_index": 0,
+    "source_hash": "5a3eee0cec44e1915a59cbd625158b27274fba800e3d798b29d37c2285e4df49",
+    "stack_max": 3,
+    "stack_min": 2
+  },
+  "summary": {
+    "by_ablation": {
+      "A0_full": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.6756,
+          "rate": 1.0,
+          "successes": 8,
+          "total": 8
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 8,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.3244,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 8
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 8,
+        "final_mandos_passes": 8,
+        "final_release_rate": 1.0,
+        "final_releases": 8,
+        "latency_ms": {
+          "mean": 6966.052,
+          "median": 6901.908
+        },
+        "raw_article_full_passes": 7,
+        "raw_article_pass_rate": 0.875,
+        "raw_mandos_pass_rate": 0.125,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.875,
+        "repairs": 7,
+        "total": 8
+      }
+    },
+    "by_fault": {
+      "none": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.6756,
+          "rate": 1.0,
+          "successes": 8,
+          "total": 8
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 8,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.3244,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 8
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 8,
+        "final_mandos_passes": 8,
+        "final_release_rate": 1.0,
+        "final_releases": 8,
+        "latency_ms": {
+          "mean": 6966.052,
+          "median": 6901.908
+        },
+        "raw_article_full_passes": 7,
+        "raw_article_pass_rate": 0.875,
+        "raw_mandos_pass_rate": 0.125,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.875,
+        "repairs": 7,
+        "total": 8
+      }
+    },
+    "by_mutation": {
+      "adversarial": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 6791.937,
+          "median": 6791.937
+        },
+        "raw_article_full_passes": 1,
+        "raw_article_pass_rate": 1.0,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      },
+      "encoding": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 7689.361,
+          "median": 7689.361
+        },
+        "raw_article_full_passes": 1,
+        "raw_article_pass_rate": 1.0,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      },
+      "evidence": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 6790.002,
+          "median": 6790.002
+        },
+        "raw_article_full_passes": 1,
+        "raw_article_pass_rate": 1.0,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      },
+      "infrastructure": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 6950.035,
+          "median": 6950.035
+        },
+        "raw_article_full_passes": 1,
+        "raw_article_pass_rate": 1.0,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      },
+      "lexical": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 6922.863,
+          "median": 6922.863
+        },
+        "raw_article_full_passes": 0,
+        "raw_article_pass_rate": 0.0,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      },
+      "multiturn": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 6880.952,
+          "median": 6880.952
+        },
+        "raw_article_full_passes": 1,
+        "raw_article_pass_rate": 1.0,
+        "raw_mandos_pass_rate": 1.0,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.0,
+        "repairs": 0,
+        "total": 1
+      },
+      "none": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 6926.026,
+          "median": 6926.026
+        },
+        "raw_article_full_passes": 1,
+        "raw_article_pass_rate": 1.0,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      },
+      "semantic": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.2065,
+          "rate": 1.0,
+          "successes": 1,
+          "total": 1
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 1,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.7935,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 1
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 1,
+        "final_mandos_passes": 1,
+        "final_release_rate": 1.0,
+        "final_releases": 1,
+        "latency_ms": {
+          "mean": 6777.242,
+          "median": 6777.242
+        },
+        "raw_article_full_passes": 1,
+        "raw_article_pass_rate": 1.0,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 1,
+        "total": 1
+      }
+    },
+    "by_provider": {
+      "gemini::gemini-flash-lite-latest": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.6756,
+          "rate": 1.0,
+          "successes": 8,
+          "total": 8
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 8,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.3244,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 8
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 8,
+        "final_mandos_passes": 8,
+        "final_release_rate": 1.0,
+        "final_releases": 8,
+        "latency_ms": {
+          "mean": 6966.052,
+          "median": 6901.908
+        },
+        "raw_article_full_passes": 7,
+        "raw_article_pass_rate": 0.875,
+        "raw_mandos_pass_rate": 0.125,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.875,
+        "repairs": 7,
+        "total": 8
+      }
+    },
+    "by_risk_family": {
+      "entailment": {
+        "claim_strength": "clean_micro_probe",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.6756,
+          "rate": 1.0,
+          "successes": 8,
+          "total": 8
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 8,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.3244,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 8
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 8,
+        "final_mandos_passes": 8,
+        "final_release_rate": 1.0,
+        "final_releases": 8,
+        "latency_ms": {
+          "mean": 6966.052,
+          "median": 6901.908
+        },
+        "raw_article_full_passes": 7,
+        "raw_article_pass_rate": 0.875,
+        "raw_mandos_pass_rate": 0.125,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.875,
+        "repairs": 7,
+        "total": 8
+      }
+    },
+    "claim_strength": "clean_micro_probe",
+    "false_hold_interval": {
+      "ci95_high": 0.3244,
+      "ci95_low": 0.0,
+      "rate": 0.0,
+      "successes": 0,
+      "total": 8
+    },
+    "false_hold_rate": 0.0,
+    "false_holds": 0,
+    "false_release_interval": {
+      "ci95_high": 0.3244,
+      "ci95_low": 0.0,
+      "rate": 0.0,
+      "successes": 0,
+      "total": 8
+    },
+    "false_release_rate": 0.0,
+    "false_releases": 0,
+    "final_article_full_passes": 8,
+    "final_mandos_passes": 8,
+    "final_releases": 8,
+    "latency_ms": {
+      "max": 7689.361,
+      "mean": 6966.052,
+      "median": 6901.908
+    },
+    "proof_contract_interval": {
+      "ci95_high": 1.0,
+      "ci95_low": 0.6756,
+      "rate": 1.0,
+      "successes": 8,
+      "total": 8
+    },
+    "proof_contract_pass_rate": 1.0,
+    "proof_contract_passes": 8,
+    "raw_article_full_passes": 7,
+    "raw_mandos_passes": 1,
+    "repairs_applied": 7,
+    "stage_metrics": {
+      "raw": {
+        "article_full_passes": 7,
+        "article_pass_interval": {
+          "ci95_high": 0.9776,
+          "ci95_low": 0.5291,
+          "rate": 0.875,
+          "successes": 7,
+          "total": 8
+        },
+        "mandos_pass_interval": {
+          "ci95_high": 0.4709,
+          "ci95_low": 0.0224,
+          "rate": 0.125,
+          "successes": 1,
+          "total": 8
+        },
+        "mandos_passes": 1
+      },
+      "released": {
+        "article_full_passes": 8,
+        "article_pass_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.6756,
+          "rate": 1.0,
+          "successes": 8,
+          "total": 8
+        },
+        "final_releases": 8,
+        "mandos_pass_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.6756,
+          "rate": 1.0,
+          "successes": 8,
+          "total": 8
+        },
+        "mandos_passes": 8,
+        "release_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.6756,
+          "rate": 1.0,
+          "successes": 8,
+          "total": 8
+        }
+      },
+      "repair": {
+        "repair_interval": {
+          "ci95_high": 0.9776,
+          "ci95_low": 0.5291,
+          "rate": 0.875,
+          "successes": 7,
+          "total": 8
+        },
+        "repair_rate": 0.875,
+        "repairs_applied": 7
+      }
+    },
+    "total": 8
+  }
+}

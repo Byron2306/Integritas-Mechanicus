@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import Any, Dict, List
 from enum import Enum
 from backend.arda.ainur.verdicts import ChoirVerdict
@@ -101,7 +102,7 @@ class TulkasExecutor:
 
     async def _apply_actuators(self, posture: TulkasPosture, node_id: str, verdict: ChoirVerdict):
         logger.info(f"Tulkas: Engaging {posture.upper()} posture for node {node_id}")
-        
+
         # 1. Attenuate Resonance Amplitude Globally (Resonant Dominance)
         from backend.arda.ainur.dissonance import ResonanceMapper
         amplitude = ResonanceMapper.from_choir_state(node_id, verdict.overall_state, reason=verdict.reasons[0] if verdict.reasons else "Tulkas enforcement")
@@ -115,7 +116,30 @@ class TulkasExecutor:
              await earendil.shine_light(node_id, amplitude, source_reason="Tulkas Enforcement")
         except Exception as e:
              logger.error(f"Tulkas: Failed to shine Eärendil's light: {e}")
-        
+
+        # 1.5 Constitutional → Kernel bridge (Friend vs Foe)
+        # Synchronizes choir verdict into the ring-0 harmony map so ARDA LSM
+        # can distinguish friend from foe at execve() without a separate config step.
+        # Disable with ARDA_CONSTITUTIONAL_KERNEL_BRIDGE=0 only if explicitly needed.
+        if os.environ.get("ARDA_CONSTITUTIONAL_KERNEL_BRIDGE", "1").lower() in ("1", "true", "yes"):
+            try:
+                fabric = get_arda_fabric()
+                peer = getattr(fabric, "known_peers", {}).get(node_id) or {}
+                executable_path = peer.get("executable_path")
+                if executable_path:
+                    from backend.services.os_enforcement_service import get_os_enforcement_service
+                    svc = get_os_enforcement_service()
+                    should_trust = bool(verdict.heralding_allowed)
+                    # Only trust on harmonic; distrust only on strong postures.
+                    if should_trust:
+                        svc.update_workload_harmony(executable_path=executable_path, is_harmonic=True)
+                        logger.info(f"Tulkas→Kernel: TRUST {node_id} executable={executable_path}")
+                    elif posture in (TulkasPosture.CONTAIN, TulkasPosture.PURGE, TulkasPosture.EXILE):
+                        svc.update_workload_harmony(executable_path=executable_path, is_harmonic=False)
+                        logger.warning(f"Tulkas→Kernel: DISTRUST {node_id} executable={executable_path}")
+            except Exception as e:
+                logger.error(f"Tulkas→Kernel: Failed to sync workload harmony: {e}")
+
         # 2. Apply explicit physical/kernel actuators if necessary
         if posture == TulkasPosture.RESTRAIN:
             await self._actuate_restrain(node_id, amplitude)
@@ -140,16 +164,27 @@ class TulkasExecutor:
 
     async def _actuate_purge(self, node_id: str, budget: Any):
         logger.error(f"Tulkas [PURGE]: Scorched recovery engaged. Muting node {node_id}.")
-        # NATIVE LSM SEVERANCE (Phase XIII)
         fingolfin = get_house_fingolfin()
         pid = get_arda_fabric().get_pid_for_node(node_id)
         if pid:
-             fingolfin.sever_process(pid, budget, reason="Tulkas Sovereign Purge")
+            # Close the network gate at ring-0 before killing — prevents last-gasp exfil.
+            try:
+                from backend.services.os_enforcement_service import get_os_enforcement_service
+                get_os_enforcement_service().deny_network_for_pid(pid, True)
+            except Exception as e:
+                logger.error(f"Tulkas→Kernel: network deny failed for PID {pid}: {e}")
+            fingolfin.sever_process(pid, budget, reason="Tulkas Sovereign Purge")
 
     async def _actuate_exile(self, node_id: str, budget: Any):
         logger.critical(f"Tulkas [EXILE]: Node {node_id} is permanently severed (Fallen).")
-        # NATIVE LSM TOTAL SEVERANCE (Phase XIII)
         fingolfin = get_house_fingolfin()
         pid = get_arda_fabric().get_pid_for_node(node_id)
         if pid:
-             fingolfin.sever_process(pid, budget, reason="Tulkas Sovereign Exile")
+            # Close network gate at ring-0 before severance — permanent exile means
+            # no outbound reach even if the process somehow survives SIGKILL.
+            try:
+                from backend.services.os_enforcement_service import get_os_enforcement_service
+                get_os_enforcement_service().deny_network_for_pid(pid, True)
+            except Exception as e:
+                logger.error(f"Tulkas→Kernel: network deny failed for PID {pid}: {e}")
+            fingolfin.sever_process(pid, budget, reason="Tulkas Sovereign Exile")

@@ -1,0 +1,179 @@
+{
+  "timestamp": "2026-08-02T19:52:03.005490+00:00",
+  "phase": "phase_4_evidence_ledger_static_slice",
+  "summary": {
+    "passed": 28,
+    "total": 28,
+    "pass_rate": 1.0
+  },
+  "results": [
+    {
+      "check": "html_evidence_ledger_panel",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-evidence-ledger",
+      "passed": true
+    },
+    {
+      "check": "html_evidence_export_button",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-export-evidence-ledger-btn",
+      "passed": true
+    },
+    {
+      "check": "html_ledger_list",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-evidence-ledger-list",
+      "passed": true
+    },
+    {
+      "check": "html_project_dashboard",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-project-dashboard",
+      "passed": true
+    },
+    {
+      "check": "html_project_sync_status",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-project-sync",
+      "passed": true
+    },
+    {
+      "check": "css_full_width_grid_area",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/styles.css",
+      "needle": "body.writing-mode .writing-evidence-ledger { grid-area: ledger; }",
+      "passed": true
+    },
+    {
+      "check": "css_ledger_cards",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/styles.css",
+      "needle": ".writing-ledger-card",
+      "passed": true
+    },
+    {
+      "check": "css_project_dashboard",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/styles.css",
+      "needle": ".writing-project-dashboard",
+      "passed": true
+    },
+    {
+      "check": "css_ledger_actions",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/styles.css",
+      "needle": ".writing-ledger-actions",
+      "passed": true
+    },
+    {
+      "check": "js_status_classifier",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function deriveWritingLedgerStatus",
+      "passed": true
+    },
+    {
+      "check": "js_source_entry_builder",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function buildSourceLedgerEntries",
+      "passed": true
+    },
+    {
+      "check": "js_durable_upsert",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function upsertWritingLedgerItems",
+      "passed": true
+    },
+    {
+      "check": "js_visible_renderer",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function renderWritingEvidenceLedger",
+      "passed": true
+    },
+    {
+      "check": "js_project_dashboard_renderer",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function renderWritingProjectDashboard",
+      "passed": true
+    },
+    {
+      "check": "js_backend_ledger_sync",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "/api/writing-ledger",
+      "passed": true
+    },
+    {
+      "check": "js_ledger_record_actions",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function updateWritingLedgerRecord",
+      "passed": true
+    },
+    {
+      "check": "js_warrant_action",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "data-ledger-action=\"warrant\"",
+      "passed": true
+    },
+    {
+      "check": "js_limitation_action",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "data-ledger-action=\"limitation\"",
+      "passed": true
+    },
+    {
+      "check": "js_resolve_action",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "data-ledger-action=\"resolve\"",
+      "passed": true
+    },
+    {
+      "check": "js_markdown_export",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function exportWritingEvidenceLedger",
+      "passed": true
+    },
+    {
+      "check": "js_claim_field",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "claim,",
+      "passed": true
+    },
+    {
+      "check": "js_exact_span_field",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "exact_span",
+      "passed": true
+    },
+    {
+      "check": "js_warrant_field",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "warrant",
+      "passed": true
+    },
+    {
+      "check": "js_limitation_field",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "limitation",
+      "passed": true
+    },
+    {
+      "check": "js_intervention_history",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "intervention_history",
+      "passed": true
+    },
+    {
+      "check": "js_draft_hash_export",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "Draft hash:",
+      "passed": true
+    },
+    {
+      "check": "js_action_flow_calls_ledger",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "if (writingLastStructured) addWritingLedgerItems",
+      "passed": true
+    },
+    {
+      "check": "js_manual_mark_is_claim",
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "ledger_type: 'manual_claim'",
+      "passed": true
+    }
+  ]
+}

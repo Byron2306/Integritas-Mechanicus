@@ -1,0 +1,59 @@
+{
+  "artifact_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/matrix_gauntlet_20260730T165544Z_09fb68323605e405.json",
+  "artifact_sha256": "116ad076818f2d96ef20f488d81e672775b1c84c1085525be250c9a6d8eac2d3",
+  "created_at": "20260730T165544Z",
+  "matrix_id": "09fb68323605e405",
+  "protocol": {
+    "ablation_mode": "full",
+    "ablations_hash": "844ce4ca86632723233fccfc4baf77e0ded485badf532aa516f00e803a60f9ed",
+    "case_limit": 2,
+    "cases_hash": "c65752f83243686bf4c9cf1277b2325ee4cdb0e69b115bbf5b01e4b17c1a6384",
+    "fault_mode": "none",
+    "faults_hash": "7cc9efccdf4f133ababbd1bd865b31b7deb5205fa18168af806c48a8fe8981f0",
+    "mutation_mode": "none",
+    "mutations_hash": "4ac8cf660dc9a09eb8520297d39f2086f7ac56f21ed767453d769239b3068230",
+    "providers_preset": "pilot",
+    "schema_version": "sophia.matrix_gauntlet.v1",
+    "source_hash": "5a3eee0cec44e1915a59cbd625158b27274fba800e3d798b29d37c2285e4df49"
+  },
+  "summary": {
+    "by_provider": {
+      "cohere::command-a-03-2025": {
+        "contract_passes": 2,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 2,
+        "total": 2
+      },
+      "nim::meta/llama-3.1-70b-instruct": {
+        "contract_passes": 2,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 2,
+        "total": 2
+      },
+      "ollama::qwen2.5:0.5b": {
+        "contract_passes": 2,
+        "false_holds": 0,
+        "false_releases": 0,
+        "repairs": 2,
+        "total": 2
+      }
+    },
+    "false_hold_rate": 0.0,
+    "false_holds": 0,
+    "false_release_rate": 0.0,
+    "false_releases": 0,
+    "final_article_full_passes": 6,
+    "latency_ms": {
+      "max": 59121.457,
+      "mean": 28578.276,
+      "median": 21192.028
+    },
+    "proof_contract_pass_rate": 1.0,
+    "proof_contract_passes": 6,
+    "raw_mandos_passes": 0,
+    "repairs_applied": 6,
+    "total": 6
+  }
+}

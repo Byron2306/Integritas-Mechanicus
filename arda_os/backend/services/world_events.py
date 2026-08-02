@@ -3,11 +3,28 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 import uuid
+import asyncio
+import logging
 
 try:
-    from services.triune_orchestrator import TriuneOrchestrator
+    from websocket_service import realtime_ws, WSMessage
 except Exception:
-    from backend.services.triune_orchestrator import TriuneOrchestrator
+    try:
+        from backend.websocket_service import realtime_ws, WSMessage
+    except Exception:
+        realtime_ws = None
+        WSMessage = None
+
+
+logger = logging.getLogger(__name__)
+
+
+def _load_triune_orchestrator():
+    try:
+        from backend.services.triune_orchestrator import TriuneOrchestrator
+        return TriuneOrchestrator
+    except Exception:
+        return None
 
 
 EVENT_CLASS_PASSIVE_FACT = "passive_fact"
@@ -41,6 +58,9 @@ _ACTION_CRITICAL_MARKERS = (
     "policy_bind_completed",
     "policy_obligations_emitted",
     "policy_resolution_class",
+    # AI adversary action-critical events (force Triune recompute + governance veto eligible)
+    "ai_logic_budget_trap",
+    "ai_token_revoked",
 )
 
 _STRATEGIC_MARKERS = (
@@ -53,6 +73,10 @@ _STRATEGIC_MARKERS = (
     "triune_periodic_tick",
     "genre_mode_changed",
     "score_id_changed",
+    # AI adversary strategic events (trigger Triune analysis)
+    "ai_adversary_",
+    "agenticity_",
+    "logic_budget_",
 )
 
 _LOCAL_REFLEX_MARKERS = (
@@ -135,21 +159,39 @@ async def emit_world_event(
 
     triune_bundle = None
     if resolved_trigger_triune:
-        orchestrator = TriuneOrchestrator(db)
-        triune_bundle = await orchestrator.handle_world_change(
-            event_type=event_type,
-            entity_ids=entity_refs,
-            context={
-                "source": source or "world_event_emitter",
-                "payload": payload,
-                "event_class": resolved_event_class,
-                "polyphonic_context": payload.get("polyphonic_context") if isinstance(payload, dict) else None,
-                "score_id": payload.get("score_id") if isinstance(payload, dict) else None,
-                "genre_mode": payload.get("genre_mode") if isinstance(payload, dict) else None,
-                "governance_epoch": payload.get("governance_epoch") if isinstance(payload, dict) else None,
-                "notation_token_id": payload.get("notation_token_id") if isinstance(payload, dict) else None,
-                "world_state_hash": payload.get("world_state_hash") if isinstance(payload, dict) else None,
-            },
-        )
+        triune_orchestrator_cls = _load_triune_orchestrator()
+        if triune_orchestrator_cls is None:
+            logger.warning("world_events: triune orchestrator unavailable; skipping recompute for %s", event_type)
+        else:
+            orchestrator = triune_orchestrator_cls(db)
+            triune_bundle = await orchestrator.handle_world_change(
+                event_type=event_type,
+                entity_ids=entity_refs,
+                context={
+                    "source": source or "world_event_emitter",
+                    "payload": payload,
+                    "event_class": resolved_event_class,
+                    "polyphonic_context": payload.get("polyphonic_context") if isinstance(payload, dict) else None,
+                    "score_id": payload.get("score_id") if isinstance(payload, dict) else None,
+                    "genre_mode": payload.get("genre_mode") if isinstance(payload, dict) else None,
+                    "governance_epoch": payload.get("governance_epoch") if isinstance(payload, dict) else None,
+                    "notation_token_id": payload.get("notation_token_id") if isinstance(payload, dict) else None,
+                    "world_state_hash": payload.get("world_state_hash") if isinstance(payload, dict) else None,
+                },
+            )
+
+    # 3. Broadcast to real-time dashboards
+    if realtime_ws is not None:
+        try:
+            # Create a background task for broadcasting to avoid blocking the caller
+            msg = WSMessage(
+                type="world_event",
+                payload=event,
+                source=source or "world_event_emitter"
+            )
+            asyncio.create_task(realtime_ws.broadcast_to_dashboards(msg))
+        except Exception as e:
+            # We don't want telemetry failures to crash the main logic
+            logger.error(f"Failed to broadcast world event: {e}")
 
     return {"event": event, "triune": triune_bundle}

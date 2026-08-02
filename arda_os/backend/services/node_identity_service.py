@@ -22,6 +22,11 @@ except Exception:
 
 logger = logging.getLogger(__name__)
 
+
+class NodeIdentityUnavailable(RuntimeError):
+    """Raised when cryptographic node identity cannot be established."""
+
+
 class NodeIdentityService:
     """
     The Foundation of Distributed Trust.
@@ -36,8 +41,10 @@ class NodeIdentityService:
     def initialize(self):
         """Load or create the node's cryptographic keys."""
         if not HAS_CRYPTO:
-            logger.error("PHASE IV: 'cryptography' library missing! Falling back to degraded mode.")
-            return
+            logger.critical("PHASE IV: 'cryptography' library missing; node identity unavailable.")
+            raise NodeIdentityUnavailable(
+                "cryptographic node identity cannot fall back to an unkeyed digest"
+            )
 
         if os.path.exists(self.key_path):
             self._load_keys()
@@ -60,7 +67,9 @@ class NodeIdentityService:
     def sign_payload(self, payload: str) -> str:
         """Sign a string payload using the node's private key."""
         if not HAS_CRYPTO or not self._private_key:
-            return hashlib.sha256(payload.encode()).hexdigest() # Fallback
+            raise NodeIdentityUnavailable(
+                "node private key is unavailable; an unkeyed hash is not a signature"
+            )
 
         signature = self._private_key.sign(
             payload.encode(),
@@ -91,6 +100,7 @@ class NodeIdentityService:
                 format=serialization.PrivateFormat.PKCS8,
                 encryption_algorithm=serialization.NoEncryption()
             ))
+        os.chmod(self.key_path, 0o600)
 
     def _load_keys(self):
         """Load the private key from disk."""
@@ -100,6 +110,13 @@ class NodeIdentityService:
                 f.read(),
                 password=None
             )
+        try:
+            os.chmod(self.key_path, 0o600)
+        except OSError as exc:
+            if str(os.environ.get("ARDA_ENV") or "").lower() == "production":
+                raise NodeIdentityUnavailable(
+                    "cannot enforce private-key filesystem permissions"
+                ) from exc
 
     def _build_identity(self):
         """Derive the node's identity from its public key."""

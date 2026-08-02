@@ -23,6 +23,8 @@ from backend.services.harmonic_engine import get_harmonic_engine
 from backend.services.chorus_engine import get_chorus_engine
 from backend.services.vns import vns
 from backend.services.vns_alerts import vns_alert_service
+from backend.services.authority_binding import canonical_action_digest, canonical_target_digest
+from backend.services.capability_authority import get_capability_lease_store
 
 try:
     from backend.services.world_events import emit_world_event
@@ -745,6 +747,21 @@ class GovernanceExecutorService:
                 or queue_doc.get("strictness_level")
             ),
         )
+        capability_required = bool(
+            self.environment == "production"
+            and str(queue_doc.get("impact_level") or "").lower() in {"high", "critical"}
+        )
+        expected_action_digest = canonical_action_digest(
+            action_type=str(queue_doc.get("action_type") or ""),
+            actor=str(queue_doc.get("actor") or ""),
+            subject_id=queue_doc.get("subject_id"),
+            impact_level=str(queue_doc.get("impact_level") or ""),
+            payload=payload,
+        )
+        expected_target_digest = canonical_target_digest(
+            subject_id=queue_doc.get("subject_id"),
+            payload=payload,
+        )
         return await self.notation_tokens.validate_notation_token(
             token=notation_ctx.get("token") or notation_ctx.get("token_id"),
             active_epoch=active_epoch_doc,
@@ -759,6 +776,12 @@ class GovernanceExecutorService:
                 "enforce_required_companions": profile.get("enforce_required_companions")
                 if enforce_required_companions is None
                 else bool(enforce_required_companions),
+                "require_capability": capability_required,
+                "capability_lease_id": payload.get("capability_lease_id"),
+                "authority_request_digest": payload.get("authority_request_digest"),
+                "action_digest": expected_action_digest,
+                "target_digest": expected_target_digest,
+                "audience": "metatron-outbound-gate",
             },
         )
 
@@ -1500,28 +1523,50 @@ class GovernanceExecutorService:
     async def _verify_constitutional_compliance(self, action_type: str, context_id: Optional[str] = None) -> Tuple[bool, str]:
         """Verify the constitutional health (Phase I) before any execution."""
         is_dev = os.environ.get("ARDA_ENV") != "production"
+        allow_dev_override = os.environ.get("ARDA_ALLOW_DEV_CONSTITUTIONAL_OVERRIDE", "0").lower() in (
+            "1",
+            "true",
+            "yes",
+        )
         
         # 1. Check Tree of Truth (Boot)
         bundle = boot_attestation.get_current_bundle() if boot_attestation else None
+        if bundle is None and boot_attestation is not None:
+            try:
+                if getattr(boot_attestation, "db", None) is None:
+                    boot_attestation.db = self.db
+                world_model = getattr(boot_attestation, "world_model", None)
+                if world_model is not None and getattr(world_model, "db", None) is None and hasattr(world_model, "set_database"):
+                    world_model.set_database(self.db)
+                bundle = await boot_attestation.collect_boot_truth()
+                logger.info("Governance executor initialized missing boot attestation bundle on demand")
+            except Exception as exc:
+                logger.warning("Governance executor failed to initialize boot attestation bundle: %s", exc)
         if not bundle or bundle.status != "lawful":
-             msg = f"Constitutional failure: Boot state is {bundle.status if bundle else 'none'}"
-             if is_dev: logger.warning(f"{msg} (Overridden in development)")
-             else: return False, msg
+                        msg = f"Constitutional failure: Boot state is {bundle.status if bundle else 'none'}"
+                        if is_dev and allow_dev_override:
+                                logger.warning(f"{msg} (Overridden in development)")
+                        else:
+                                return False, msg
              
         # 2. Check Herald (Identity)
         herald = manwe_herald.get_state() if manwe_herald else None
         if not herald or herald.status != "active":
-             msg = "Constitutional failure: Manwë Herald is inactive"
-             if is_dev: logger.warning(f"{msg} (Overridden in development)")
-             else: return False, msg
+                        msg = "Constitutional failure: Manwë Herald is inactive"
+                        if is_dev and allow_dev_override:
+                                logger.warning(f"{msg} (Overridden in development)")
+                        else:
+                                return False, msg
              
         # 3. Check Arda Fabric (Workload Integrity - Phase D)
         node_id = herald.attested_state_ref or herald.device_id if herald else "local-substrate"
         fabric_state = self.fabric.get_subject_state(node_id)
         if fabric_state in {"fallen", "dissonant"}:
-             msg = f"Constitutional blockade: node '{node_id}' is in {fabric_state.upper()} state"
-             if is_dev: logger.warning(f"{msg} (Overridden in development)")
-             else: return False, msg
+                        msg = f"Constitutional blockade: node '{node_id}' is in {fabric_state.upper()} state"
+                        if is_dev and allow_dev_override:
+                                logger.warning(f"{msg} (Overridden in development)")
+                        else:
+                                return False, msg
 
         # 4. Consult Ainur Choir
         from backend.services.secret_fire import get_secret_fire_forge
@@ -1537,13 +1582,194 @@ class GovernanceExecutorService:
         })
         await project_choir_truth(choir_verdict)
         if not choir_verdict.heralding_allowed:
-             # Phase VII: Engage Tulkas for enforcement
-             await self.tulkas.execute_enforcement(choir_verdict, node_id)
-             msg = f"Ainur Choir {choir_verdict.overall_state.upper()}: {'; '.join(choir_verdict.reasons)}"
-             if is_dev: logger.warning(f"{msg} (Overridden in development)")
-             else: return False, msg
-             
+            # Phase VII: Engage Tulkas for enforcement
+            await self.tulkas.execute_enforcement(choir_verdict, node_id)
+            msg = f"Ainur Choir {choir_verdict.overall_state.upper()}: {'; '.join(choir_verdict.reasons)}"
+            if is_dev and allow_dev_override:
+                logger.warning(f"{msg} (Overridden in development)")
+            else:
+                return False, msg
+
         return True, "Constitutional compliance verified"
+
+    async def _execute_response_operation(
+        self,
+        *,
+        decision: Dict[str, Any],
+        queue_doc: Dict[str, Any],
+        payload: Dict[str, Any],
+        actor: str,
+    ) -> Dict[str, Any]:
+        decision_id = decision.get("decision_id")
+        related_queue_id = queue_doc.get("queue_id")
+        now = _iso_now()
+        polyphonic_context = queue_doc.get("polyphonic_context") or payload.get("polyphonic_context") or {}
+        if not isinstance(polyphonic_context, dict):
+            polyphonic_context = {}
+
+        operation = str(payload.get("operation") or "").strip().lower()
+        if not operation:
+            return {"outcome": "skipped", "reason": "missing_response_operation"}
+
+        if operation == "soar_execute_playbook":
+            from backend.soar_engine import soar_engine
+
+            playbook_id = str(payload.get("playbook_id") or queue_doc.get("subject_id") or "").strip()
+            if not playbook_id:
+                raise ValueError("Missing playbook_id for soar_execute_playbook")
+            event = payload.get("event") or {}
+            execution = await soar_engine.execute_playbook(playbook_id, event)
+            execution_payload = execution.to_dict() if hasattr(execution, "to_dict") else _model_dump(execution)
+            execution_id = execution_payload.get("id") or execution_payload.get("execution_id")
+
+            await self.db.triune_outbound_queue.update_one(
+                {"queue_id": related_queue_id},
+                {
+                    "$set": {
+                        "status": "released_to_execution",
+                        "execution_status": "executed",
+                        "released_to_execution": True,
+                        "released_at": now,
+                        "executed_at": now,
+                        "execution_result": {
+                            "operation": operation,
+                            "playbook_id": playbook_id,
+                            "execution": execution_payload,
+                        },
+                        "polyphonic_context": polyphonic_context or None,
+                        "updated_at": now,
+                    }
+                },
+            )
+            await self.db.triune_decisions.update_one(
+                {"decision_id": decision_id},
+                {
+                    "$set": {
+                        "execution_status": "executed",
+                        "executed_at": now,
+                        "execution_result": {
+                            "operation": operation,
+                            "playbook_id": playbook_id,
+                            "execution": execution_payload,
+                        },
+                        "polyphonic_context": polyphonic_context or None,
+                        "updated_at": now,
+                    }
+                },
+            )
+
+            self._record_execution_audit(
+                decision_id=decision_id,
+                queue_id=related_queue_id,
+                action_type="response_execution",
+                outcome="executed",
+                actor=actor,
+                command_id=playbook_id,
+                command_type=operation,
+                execution_id=str(execution_id or playbook_id),
+                trace_id=str(payload.get("trace_id") or ""),
+                polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+                targets=[playbook_id, related_queue_id, decision_id],
+            )
+            await self._emit_execution_completion_event(
+                decision_id=decision_id,
+                queue_id=related_queue_id,
+                action_type="response_execution",
+                outcome="executed",
+                command_id=playbook_id,
+                command_type=operation,
+                execution_id=str(execution_id or playbook_id),
+                trace_id=str(payload.get("trace_id") or ""),
+                polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+            )
+            return {
+                "outcome": "executed",
+                "operation": operation,
+                "playbook_id": playbook_id,
+                "execution_id": execution_id,
+            }
+
+        if operation == "soar_trigger_playbooks":
+            from backend.soar_engine import soar_engine
+
+            event = payload.get("event") or {}
+            event_id = str(payload.get("event_id") or queue_doc.get("subject_id") or "").strip()
+            executions = await soar_engine.trigger_playbooks(event)
+            execution_payloads = [
+                execution.to_dict() if hasattr(execution, "to_dict") else _model_dump(execution)
+                for execution in executions
+            ]
+
+            await self.db.triune_outbound_queue.update_one(
+                {"queue_id": related_queue_id},
+                {
+                    "$set": {
+                        "status": "released_to_execution",
+                        "execution_status": "executed",
+                        "released_to_execution": True,
+                        "released_at": now,
+                        "executed_at": now,
+                        "execution_result": {
+                            "operation": operation,
+                            "event_id": event_id,
+                            "execution_count": len(execution_payloads),
+                            "executions": execution_payloads,
+                        },
+                        "polyphonic_context": polyphonic_context or None,
+                        "updated_at": now,
+                    }
+                },
+            )
+            await self.db.triune_decisions.update_one(
+                {"decision_id": decision_id},
+                {
+                    "$set": {
+                        "execution_status": "executed",
+                        "executed_at": now,
+                        "execution_result": {
+                            "operation": operation,
+                            "event_id": event_id,
+                            "execution_count": len(execution_payloads),
+                            "executions": execution_payloads,
+                        },
+                        "polyphonic_context": polyphonic_context or None,
+                        "updated_at": now,
+                    }
+                },
+            )
+
+            self._record_execution_audit(
+                decision_id=decision_id,
+                queue_id=related_queue_id,
+                action_type="response_execution",
+                outcome="executed",
+                actor=actor,
+                command_id=event_id or related_queue_id,
+                command_type=operation,
+                execution_id=event_id or related_queue_id,
+                trace_id=str(payload.get("trace_id") or ""),
+                polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+                targets=[event_id, related_queue_id, decision_id],
+            )
+            await self._emit_execution_completion_event(
+                decision_id=decision_id,
+                queue_id=related_queue_id,
+                action_type="response_execution",
+                outcome="executed",
+                command_id=event_id or related_queue_id,
+                command_type=operation,
+                execution_id=event_id or related_queue_id,
+                trace_id=str(payload.get("trace_id") or ""),
+                polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+            )
+            return {
+                "outcome": "executed",
+                "operation": operation,
+                "event_id": event_id,
+                "execution_count": len(execution_payloads),
+            }
+
+        return {"outcome": "skipped", "reason": f"unsupported_response_operation:{operation}"}
 
     async def _execute_decision(self, decision: Dict[str, Any]) -> Dict[str, Any]:
         decision_id = decision.get("decision_id")
@@ -1682,6 +1908,27 @@ class GovernanceExecutorService:
         notation_valid = bool(notation_validation.get("valid"))
         notation_checks = notation_validation.get("checks") or {}
         notation_failure_reason = ";".join(notation_validation.get("reasons") or []) or None
+        capability_required = bool(
+            self.environment == "production"
+            and str(queue_doc.get("impact_level") or "").lower() in {"high", "critical"}
+        )
+        if notation_valid and capability_required:
+            verified_token = notation_validation.get("token") or {}
+            try:
+                get_capability_lease_store().consume_bound(
+                    str(verified_token.get("capability_lease_id") or ""),
+                    notation_token_id=str(verified_token.get("token_id") or ""),
+                    expected_audience="metatron-outbound-gate",
+                    authority_request_digest=str(
+                        verified_token.get("authority_request_digest") or ""
+                    ),
+                    action_digest=str(verified_token.get("action_digest") or ""),
+                )
+                notation_checks["capability_consumed"] = True
+            except Exception as exc:
+                notation_valid = False
+                notation_checks["capability_consumed"] = False
+                notation_failure_reason = f"capability_consumption_failed:{type(exc).__name__}"
         resolved_action_id = str(
             payload.get("command_id")
             or queue_doc.get("action_id")
@@ -1887,6 +2134,126 @@ class GovernanceExecutorService:
                 reason=result.get("reason"),
             )
             return result
+
+        if action_type == "response_execution" and str(payload.get("operation") or "").strip():
+            try:
+                result = await self._execute_response_operation(
+                    decision=decision,
+                    queue_doc=queue_doc,
+                    payload=payload,
+                    actor=actor,
+                )
+                if result.get("outcome") != "executed":
+                    reason = result.get("reason") or "unsupported_response_operation"
+                    await self.db.triune_outbound_queue.update_one(
+                        {"queue_id": related_queue_id},
+                        {
+                            "$set": {
+                                "status": "approved_no_executor" if result.get("outcome") == "skipped" else "approved_execution_failed",
+                                "execution_status": result.get("outcome"),
+                                "execution_error": reason if result.get("outcome") != "skipped" else None,
+                                "updated_at": _iso_now(),
+                            }
+                        },
+                    )
+                    await self.db.triune_decisions.update_one(
+                        {"decision_id": decision_id},
+                        {
+                            "$set": {
+                                "execution_status": result.get("outcome"),
+                                "execution_error": reason if result.get("outcome") != "skipped" else None,
+                                "updated_at": _iso_now(),
+                            }
+                        },
+                    )
+                    self._record_execution_audit(
+                        decision_id=decision_id,
+                        queue_id=related_queue_id,
+                        action_type=action_type,
+                        outcome=result.get("outcome") or "failed",
+                        reason=reason,
+                        actor=actor,
+                        command_id=str(payload.get("playbook_id") or payload.get("event_id") or related_queue_id),
+                        command_type=str(payload.get("operation") or action_type),
+                        execution_id=str(payload.get("event_id") or payload.get("playbook_id") or related_queue_id),
+                        trace_id=str(payload.get("trace_id") or ""),
+                        polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+                        targets=[queue_doc.get("subject_id"), related_queue_id, decision_id],
+                    )
+                    await self._emit_execution_completion_event(
+                        decision_id=decision_id,
+                        queue_id=related_queue_id,
+                        action_type=action_type,
+                        outcome=result.get("outcome") or "failed",
+                        reason=reason,
+                        command_id=str(payload.get("playbook_id") or payload.get("event_id") or related_queue_id),
+                        command_type=str(payload.get("operation") or action_type),
+                        execution_id=str(payload.get("event_id") or payload.get("playbook_id") or related_queue_id),
+                        trace_id=str(payload.get("trace_id") or ""),
+                        polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+                    )
+                await self._mark_notation_execution_outcome(
+                    notation_ctx.get("token_id"),
+                    outcome="completed" if result.get("outcome") == "executed" else "failed",
+                )
+                await _finalize_harmonic(
+                    result.get("outcome") or "failed",
+                    reason=result.get("reason"),
+                )
+                return result
+            except Exception as exc:
+                error_reason = str(exc)
+                logger.exception("Failed to execute response operation for decision %s: %s", decision_id, exc)
+                await self.db.triune_outbound_queue.update_one(
+                    {"queue_id": related_queue_id},
+                    {
+                        "$set": {
+                            "status": "approved_execution_failed",
+                            "execution_status": "failed",
+                            "execution_error": error_reason,
+                            "updated_at": _iso_now(),
+                        }
+                    },
+                )
+                await self.db.triune_decisions.update_one(
+                    {"decision_id": decision_id},
+                    {
+                        "$set": {
+                            "execution_status": "failed",
+                            "execution_error": error_reason,
+                            "updated_at": _iso_now(),
+                        }
+                    },
+                )
+                self._record_execution_audit(
+                    decision_id=decision_id,
+                    queue_id=related_queue_id,
+                    action_type=action_type,
+                    outcome="failed",
+                    reason=error_reason,
+                    actor=actor,
+                    command_id=str(payload.get("playbook_id") or payload.get("event_id") or related_queue_id),
+                    command_type=str(payload.get("operation") or action_type),
+                    execution_id=str(payload.get("event_id") or payload.get("playbook_id") or related_queue_id),
+                    trace_id=str(payload.get("trace_id") or ""),
+                    polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+                    targets=[queue_doc.get("subject_id"), related_queue_id, decision_id],
+                )
+                await self._emit_execution_completion_event(
+                    decision_id=decision_id,
+                    queue_id=related_queue_id,
+                    action_type=action_type,
+                    outcome="failed",
+                    reason=error_reason,
+                    command_id=str(payload.get("playbook_id") or payload.get("event_id") or related_queue_id),
+                    command_type=str(payload.get("operation") or action_type),
+                    execution_id=str(payload.get("event_id") or payload.get("playbook_id") or related_queue_id),
+                    trace_id=str(payload.get("trace_id") or ""),
+                    polyphonic_context=polyphonic_context if isinstance(polyphonic_context, dict) else None,
+                )
+                await self._mark_notation_execution_outcome(notation_ctx.get("token_id"), outcome="failed")
+                await _finalize_harmonic("failed", reason=error_reason)
+                return {"outcome": "failed", "reason": "response_execution_exception"}
 
         if action_type not in self.DISPATCHABLE_ACTIONS:
             await self.db.triune_outbound_queue.update_one(

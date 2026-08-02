@@ -1,0 +1,18 @@
+[Unit]
+Description=ARDA Valinor post-boot kernel parity gate
+Documentation=file:/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/README.md
+After=local-fs.target systemd-modules-load.service network-online.target tpm2-abrmd.service plymouth-quit.service getty@tty1.service lightdm.service graphical.target
+Wants=network-online.target tpm2-abrmd.service graphical.target
+ConditionPathExists=/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/scripts/post_boot_valinor_gate.py
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/byron/Integritas-Mechanicus
+Environment=ARDA_SOVEREIGN_MODE=1
+EnvironmentFile=-/etc/arda/attested-host.env
+EnvironmentFile=-/etc/default/arda-valinor
+ExecStart=/usr/bin/python3 /home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/scripts/post_boot_valinor_gate.py --require-arda-gate --json
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical.target

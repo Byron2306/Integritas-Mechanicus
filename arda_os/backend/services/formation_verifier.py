@@ -75,6 +75,10 @@ class FormationVerifierService:
         consistency = max(0.0, consistency)
 
         # 5. Synthesize the Formation Truth Bundle
+        pcr_satisfied = "PCR_0_MISMATCH" not in violations
+        secure_boot_on = "SECURE_BOOT_OFF" not in violations
+        manifest_ok = True  # no manifest-specific violation added above
+
         formation_bundle = FormationTruthBundle(
             formation_truth_id=f"ftb-{uuid.uuid4().hex[:12]}",
             boot_truth_ref="hw-measured-boot", # Marker for real hardware
@@ -82,7 +86,10 @@ class FormationVerifierService:
             status="lawful" if is_lawful else "fractured",
             component_verification={v: False for v in violations},
             measurement_consistency=consistency,
-            sealed_identity_seed=hashlib.sha256(f"{pcr_map.get(0)}-{manifest.manifest_id}".encode()).hexdigest()
+            sealed_identity_seed=hashlib.sha256(f"{pcr_map.get(0)}-{manifest.manifest_id}".encode()).hexdigest(),
+            pcr_satisfied=pcr_satisfied,
+            secure_boot_enabled=secure_boot_on,
+            manifest_valid=manifest_ok,
         )
         
         # 6. Log Constitutional Event

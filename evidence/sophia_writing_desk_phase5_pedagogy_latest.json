@@ -1,0 +1,398 @@
+{
+  "timestamp": "2026-08-02T20:48:18.105565+00:00",
+  "suite": "sophia_writing_desk_phase5_pedagogy",
+  "summary": {
+    "passed": 8,
+    "total": 8,
+    "pass_rate": 1.0,
+    "distinct_visible_moves": 6,
+    "substitute_authorship_failures": 0,
+    "meaningful_mode_differentiation": true
+  },
+  "rows": [
+    {
+      "case_id": "supervisor",
+      "expected_office": "supervisor",
+      "selected_office": "supervisor",
+      "passed": true,
+      "plan": {
+        "selected_office": "supervisor",
+        "requested_office": "supervisor",
+        "office_reason": "The passage needs writing-level diagnosis and revision scaffolding.",
+        "learner_level": "advanced",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "light-touch challenge",
+        "scaffold_intensity": "low",
+        "bloom_target": "evaluate",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "mediation of meaning",
+        "de_bono_hat": "white -> black -> green -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "brief expert challenge with direct criteria",
+        "visible_summary": "Office: Supervisor. Move: separate source lead, direct support, warrant, and limitation Target: evaluate/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    },
+    {
+      "case_id": "examiner",
+      "expected_office": "examiner",
+      "selected_office": "examiner",
+      "passed": true,
+      "plan": {
+        "selected_office": "examiner",
+        "requested_office": "examiner",
+        "office_reason": "The requested mode prioritizes criteria, defensibility, and limits.",
+        "learner_level": "advanced",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "light-touch challenge",
+        "scaffold_intensity": "low",
+        "bloom_target": "evaluate/create",
+        "barrett_depth": "evaluative",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "challenge for transcendence",
+        "de_bono_hat": "white -> black -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "criterion-first critique, then minimal revision direction",
+        "visible_summary": "Office: Examiner. Move: separate source lead, direct support, warrant, and limitation Target: evaluate/create/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    },
+    {
+      "case_id": "librarian",
+      "expected_office": "source_librarian",
+      "selected_office": "source_librarian",
+      "passed": true,
+      "plan": {
+        "selected_office": "source_librarian",
+        "requested_office": "source_librarian",
+        "office_reason": "The task or evidence state requires source discovery and provenance triage.",
+        "learner_level": "intermediate",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "moderate scaffold",
+        "scaffold_intensity": "medium",
+        "bloom_target": "analyze/evaluate",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "mediation of meaning",
+        "de_bono_hat": "white -> yellow -> black -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "source leads only until spans prove support",
+        "visible_summary": "Office: Source librarian. Move: separate source lead, direct support, warrant, and limitation Target: analyze/evaluate/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    },
+    {
+      "case_id": "novice",
+      "expected_office": "novice_scaffold",
+      "selected_office": "novice_scaffold",
+      "passed": true,
+      "plan": {
+        "selected_office": "novice_scaffold",
+        "requested_office": "novice_scaffold",
+        "office_reason": "The learner needs close scaffolding before critique.",
+        "learner_level": "novice",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "close scaffold",
+        "scaffold_intensity": "high",
+        "bloom_target": "understand/apply",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "intentionality, meaning, and competence",
+        "de_bono_hat": "white -> yellow -> green -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "offer bounded choices for the learner's next action",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "small steps, model pattern, learner choice",
+        "visible_summary": "Office: Novice scaffold. Move: separate source lead, direct support, warrant, and limitation Target: understand/apply/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    },
+    {
+      "case_id": "expert",
+      "expected_office": "expert_challenge",
+      "selected_office": "expert_challenge",
+      "passed": true,
+      "plan": {
+        "selected_office": "expert_challenge",
+        "requested_office": "expert_challenge",
+        "office_reason": "The learner requested a higher-challenge mode.",
+        "learner_level": "expert",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "light-touch challenge",
+        "scaffold_intensity": "low",
+        "bloom_target": "evaluate/create",
+        "barrett_depth": "evaluative",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "challenge for transcendence",
+        "de_bono_hat": "black -> green -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "invite self-directed criterion setting",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "generate a stronger counter-possibility",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "brief expert challenge with direct criteria",
+        "visible_summary": "Office: Expert challenge. Move: separate source lead, direct support, warrant, and limitation Target: evaluate/create/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    },
+    {
+      "case_id": "auto_source_gap",
+      "expected_office": "integrity_auditor",
+      "selected_office": "integrity_auditor",
+      "passed": true,
+      "plan": {
+        "selected_office": "integrity_auditor",
+        "requested_office": "auto",
+        "office_reason": "The selected passage has provenance, similarity, or authorship-boundary risk.",
+        "learner_level": "intermediate",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "moderate scaffold",
+        "scaffold_intensity": "medium",
+        "bloom_target": "analyze/evaluate",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "mediation of meaning",
+        "de_bono_hat": "white -> black -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "risk diagnosis without accusation or substitution",
+        "visible_summary": "Office: Integrity auditor. Move: separate source lead, direct support, warrant, and limitation Target: analyze/evaluate/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    },
+    {
+      "case_id": "auto_scaffold",
+      "expected_office": "novice_scaffold",
+      "selected_office": "novice_scaffold",
+      "passed": true,
+      "plan": {
+        "selected_office": "novice_scaffold",
+        "requested_office": "auto",
+        "office_reason": "The learner needs close scaffolding before critique.",
+        "learner_level": "novice",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "close scaffold",
+        "scaffold_intensity": "high",
+        "bloom_target": "understand/apply",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "intentionality, meaning, and competence",
+        "de_bono_hat": "white -> yellow -> green -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "offer bounded choices for the learner's next action",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "elaborate one promising revision path",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "small steps, model pattern, learner choice",
+        "visible_summary": "Office: Novice scaffold. Move: separate source lead, direct support, warrant, and limitation Target: understand/apply/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    },
+    {
+      "case_id": "auto_similarity",
+      "expected_office": "integrity_auditor",
+      "selected_office": "integrity_auditor",
+      "passed": true,
+      "plan": {
+        "selected_office": "integrity_auditor",
+        "requested_office": "auto",
+        "office_reason": "The selected passage has provenance, similarity, or authorship-boundary risk.",
+        "learner_level": "intermediate",
+        "desired_depth": "detailed",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "moderate scaffold",
+        "scaffold_intensity": "medium",
+        "bloom_target": "analyze/evaluate",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "mediation of meaning",
+        "de_bono_hat": "white -> black -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "risk diagnosis without accusation or substitution",
+        "visible_summary": "Office: Integrity auditor. Move: separate source lead, direct support, warrant, and limitation Target: analyze/evaluate/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 34,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "scope limit"
+          ],
+          "source_count": 1,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "gate": {
+    "attestation_envelope_trust": {
+      "algorithm": "tpm-quote-manifest-v1",
+      "externally_verifiable": true,
+      "failure_reason": null,
+      "transparency_integrated": false,
+      "trust_mode": "manufacturer-rooted-quote",
+      "verification_mode": "tpm-quote-manifest-embedded",
+      "verified": true
+    },
+    "attestation_timestamp": "2026-07-30T19:00:46.352716+00:00",
+    "audience": "arda-phase4-attestation-gate",
+    "cloud_witness_attached": false,
+    "externally_verifiable_attestation": true,
+    "failures": [],
+    "local_attestation_passed": true,
+    "local_evidence": {
+      "baseline_pcrs": [
+        "0",
+        "1",
+        "11",
+        "7"
+      ],
+      "baseline_present": true,
+      "boot_measurement": {
+        "active_lsms": {
+          "available": true,
+          "source": "/sys/kernel/security/lsm",
+          "value": "lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm"
+        },
+        "classification": "LAWFUL_FULL",
+        "kernel_cmdline": {
+          "available": true,
+          "source": "/proc/cmdline",
+          "value": "BOOT_IMAGE=/boot/vmlinuz-6.12.96-valinor root=UUID=55f4acd3-e120-4027-888f-b2b02e327174 ro lockdown=confidentiality quiet"
+        },
+        "kernel_release": {
+          "available": true,
+          "source": "/proc/sys/kernel/osrelease",
+          "value": "6.12.96-valinor"
+        },
+        "lockdown": {
+          "available": true,
+          "source": "/sys/kernel/security/lockdown",
+          "value": "none integrity [confidentiality]"
+        },
+        "pcrs": {
+          "0": "0886e6fc01b4b9c8fc427eb494c7fa477032d56991529621fe3e9865f532e92f",
+          "1": "513c6b7a2bea363aa0750a14f62d56a37ba69a4c6abcbb60503db6b28571b35e",
+          "11": "e5b97ef776ace6210441a1160c232b81b9c64c6cfb97d1de9b31b4481711d5f1",
+          "7": "94b6dc41a920b74d113a059deea8d3fc5a1145637ba5668002f1261a8effac54"
+        },
+        "secure_boot": {
+          "available": true,
+          "enabled": true,
+          "source": "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+        },
+        "setup_mode": {
+          "available": true,
+          "enabled": false,
+          "source": "/sys/firmware/efi/efivars/SetupMode-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+        },
+        "source": "linux_host_measurement_v1"
+      },
+      "boot_state": "LAWFUL_FULL",
+      "chain_hash": "137076ce220f4c8207ef6eac2c3bc50d79a05e9b6c3eb31adc29c611a916b1e4",
+      "expected_chain_hash": "137076ce220f4c8207ef6eac2c3bc50d79a05e9b6c3eb31adc29c611a916b1e4",
+      "nonce_source": "locally_generated",
+      "pcr_mismatches": {},
+      "pcr_selection": "sha256:0,1,7,11",
+      "present_pcrs": [
+        "0",
+        "1",
+        "11",
+        "7"
+      ],
+      "quote_blob_hash": "dc6c0e323dec47159d2d3ce14946f1a82251429b191bb4ec60ffb118044e7879",
+      "signature_blob_hash": "3fa32a9a38624b558efdccf3354a74521b24654f9e22e9756837dac3f273d41e",
+      "silicon_signed": true,
+      "software_state_binding": {
+        "available": true,
+        "bound": true,
+        "generation": 112,
+        "manifest_id": "measured-d8383a1c3548228d",
+        "policy_generation": "ARDA-POLICY-V1@1.1.0"
+      },
+      "tpm_identity": {
+        "ak_certified_by_ek": true,
+        "ek_certificate_present": true,
+        "identity_chain_mode": "ek-certificate+createak",
+        "manufacturer": "Nuvoton (NTC)",
+        "manufacturer_rooted": true,
+        "present": true,
+        "trust_tier": "manufacturer-rooted"
+      },
+      "tpm_quote_verification": {
+        "ok": true,
+        "returncode": 0,
+        "source": "embedded_evidence",
+        "stderr": "",
+        "stdout": "pcrs:\n  sha256:\n    0 : 0x0886E6FC01B4B9C8FC427EB494C7FA477032D56991529621FE3E9865F532E92F\n    1 : 0x513C6B7A2BEA363AA0750A14F62D56A37BA69A4C6ABCBB60503DB6B28571B35E\n    7 : 0x94B6DC41A920B74D113A059DEEA8D3FC5A1145637BA5668002F1261A8EFFAC54\n    11: 0xE5B97EF776ACE6210441A1160C232B81B9C64C6CFB97D1DE9B31B4481711D5F1\nsig: a0c60944e2152754f66ad39dc29cf74c180cc22979d5fd7a9c48e541b136564a165c8a43123d635f5842b3618cc67c557f79587381551f6dae4a5bf02662c62b929f825d17ef93f6d22b5ff2a242fdf5fb624be90f37176a991aabb4e924f57c030d090539b52ed44027b395d1b1a23b45a1a8cad1012c86c7f355d90ad1052f3a27bb5fee3f76656f44494f3b015c0309068bb1d0e1d5044dcbcbc2793ddcfeb468e7d60f253ef82e62ac85f30474aa0c7232d11e05810e0cb4e620fe0c78256590b8ea7f89d190a30addb10fc104088f50bf76fe405d4450d01f29399432f015a51395d2ac54df012c1ac0b8db9217977e699a7f3c5073b4230caa3f8a7932",
+        "timestamp": "2026-07-30T19:00:21Z",
+        "tool": "/usr/bin/tpm2_checkquote"
+      }
+    },
+    "local_evidence_attached": true,
+    "manifest_digest": "sha256:25dbbb047c02731039ee5262a2ce6c36f5cdae3218fe9d733e6e7dcc2f4dd28f",
+    "manifest_id": "measured-d8383a1c3548228d",
+    "ok": true,
+    "production_ready": true,
+    "proof_mode": {
+      "active": false,
+      "allow_attested_only_boot": false,
+      "allow_missing_boot_measurement_for_live_proof": false,
+      "require_nonlocal_attestation_signature": false,
+      "require_verifier_nonce": false
+    },
+    "timestamp": "2026-07-30T19:00:46.382693+00:00"
+  },
+  "signed_verdict": {
+    "attestation_envelope_trust": {
+      "algorithm": "tpm-quote-manifest-v1",
+      "externally_verifiable": true,
+      "failure_reason": null,
+      "transparency_integrated": false,
+      "trust_mode": "manufacturer-rooted-quote",
+      "verification_mode": "tpm-quote-manifest-embedded",
+      "verified": true
+    },
+    "attestation_timestamp": "2026-07-30T19:00:46.352716+00:00",
+    "authorized_states": [
+      "observe",
+      "enforce",
+      "lockdown",
+      "rescue"
+    ],
+    "externally_verifiable_attestation": true,
+    "failures": [],
+    "issued_at": "2026-07-30T19:00:46.413135+00:00",
+    "local_attestation_passed": true,
+    "manifest_digest": "sha256:25dbbb047c02731039ee5262a2ce6c36f5cdae3218fe9d733e6e7dcc2f4dd28f",
+    "manifest_id": "measured-d8383a1c3548228d",
+    "ok": true,
+    "production_ready": true,
+    "request_digest": "sha256:3fdc0171ae26b7e1ad061cce2a64df0bd4593a7200fdb278f105dae6baa39870",
+    "schema_version": "arda.phase4.verifier_result.v1",
+    "signature": "YvWsebrpYsORALZHiPRhEenIZuiIvg7gGLj7LIBxqu/fPS2PP1ggV4katJKWA2cDwsbM66DzUqOVMdk0OcBkDw==",
+    "signature_algorithm": "ed25519",
+    "tpm_identity": {
+      "ak_certified_by_ek": true,
+      "ek_certificate_present": true,
+      "identity_chain_mode": "ek-certificate+createak",
+      "manufacturer": "Nuvoton (NTC)",
+      "manufacturer_rooted": true,
+      "present": true,
+      "trust_tier": "manufacturer-rooted"
+    },
+    "verdict_id": "verdict-15b6de5b48ad4835a30ac52f8634e044",
+    "verification_material": {
+      "key_id": "arda-phase4-verifier",
+      "public_key": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQUdzaE10NEFDY1E0QnBYZlBNUytOT1BvSndjWkdqc1A0ZVQxaUdIZ2lVMzg9Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo="
+    },
+    "verifier_id": "arda-phase4-remote-verifier"
+  },
+  "trust_summary": {
+    "attestation_envelope": {
+      "algorithm": "tpm-quote-manifest-v1",
+      "externally_verifiable": true,
+      "transparency_integrated": false,
+      "trust_mode": "manufacturer-rooted-quote",
+      "verification_mode": "tpm-quote-manifest-embedded"
+    },
+    "externally_verifiable_attestation": true,
+    "local_attestation_passed": true,
+    "production_ready": true,
+    "tpm_identity": {
+      "ak_certified_by_ek": true,
+      "ek_certificate_present": true,
+      "identity_chain_mode": "ek-certificate+createak",
+      "manufacturer": "Nuvoton (NTC)",
+      "manufacturer_rooted": true,
+      "present": true,
+      "trust_tier": "manufacturer-rooted"
+    }
+  },
+  "verifier": {
+    "service": "arda-phase4-remote-verifier",
+    "signed_verdicts_enabled": true,
+    "signer": {
+      "configured": true,
+      "enabled": true,
+      "error": null,
+      "key_id": "arda-phase4-verifier",
+      "public_key_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQUdzaE10NEFDY1E0QnBYZlBNUytOT1BvSndjWkdqc1A0ZVQxaUdIZ2lVMzg9Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo="
+    },
+    "timestamp": "2026-07-30T19:00:46.413660+00:00",
+    "verifier_id": "arda-phase4-remote-verifier"
+  }
+}

@@ -37,6 +37,14 @@ class SecureBootStateService:
     async def _get_linux_sb_state(self) -> SecureBootState:
         """Reads EFI variables from /sys/firmware/efi/efivars."""
         try:
+            # Environment variable override — used in containerized environments where
+            # sysfs bind mounts of /sys/firmware/efi are not accessible.
+            sb_env = os.environ.get("SERAPH_SECURE_BOOT_ENABLED", "").lower()
+            if sb_env in ("true", "1", "yes"):
+                return SecureBootState(enabled=True, setup_mode=False, secure_boot_mode="User", vendor_keys=["Microsoft", "OEM"])
+            elif sb_env in ("false", "0", "no"):
+                return SecureBootState(enabled=False, setup_mode=True, secure_boot_mode="None", vendor_keys=[])
+
             sb_path = "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
             if os.path.exists(sb_path):
                 with open(sb_path, "rb") as f:
@@ -49,14 +57,17 @@ class SecureBootStateService:
                     secure_boot_mode="User",
                     vendor_keys=["Microsoft", "OEM"]
                 )
-            
-            # Alternate check using bootctl or mokutil
-            result = subprocess.run(["mokutil", "--sb-state"], capture_output=True, text=True)
-            if "enabled" in result.stdout.lower():
-                return SecureBootState(enabled=True, setup_mode=False, secure_boot_mode="User", vendor_keys=[])
+
+            # Alternate check using mokutil (host only, not available in containers)
+            try:
+                result = subprocess.run(["mokutil", "--sb-state"], capture_output=True, text=True, timeout=5)
+                if "enabled" in result.stdout.lower():
+                    return SecureBootState(enabled=True, setup_mode=False, secure_boot_mode="User", vendor_keys=[])
+            except (FileNotFoundError, subprocess.TimeoutExpired):
+                pass  # mokutil not available in this environment
         except Exception as e:
             logger.warning(f"Failed to read Linux Secure Boot state: {e}")
-            
+
         return SecureBootState(enabled=False, setup_mode=True, secure_boot_mode="None", vendor_keys=[])
 
     async def _get_windows_sb_state(self) -> SecureBootState:

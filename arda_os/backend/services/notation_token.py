@@ -1,8 +1,15 @@
 from __future__ import annotations
 
 import secrets
+import hashlib
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple, Union
+
+from backend.services.arda_trust_contracts import (
+    BeastCapabilityLeaseV1,
+    canonical_json_bytes,
+    parse_utc,
+)
 
 try:
     from schemas.polyphonic_models import GovernanceEpoch, NotationToken
@@ -136,6 +143,14 @@ class NotationTokenService:
             response_class=doc.get("response_class"),
             world_state_hash=str(doc.get("world_state_hash")),
             issued_to=str(doc.get("issued_to")),
+            capability_lease_id=doc.get("capability_lease_id"),
+            capability_lease_digest=doc.get("capability_lease_digest"),
+            authority_request_digest=doc.get("authority_request_digest"),
+            action_digest=doc.get("action_digest"),
+            consequence_class=doc.get("consequence_class"),
+            target_digest=doc.get("target_digest"),
+            audience=doc.get("audience"),
+            maximum_uses=int(doc.get("maximum_uses") or 1),
             issued_at=issued_at,
             expires_at=expires_at,
             status=str(doc.get("status") or "issued"),
@@ -187,6 +202,13 @@ class NotationTokenService:
         response_class: Optional[str] = None,
         ttl_seconds: Optional[int] = None,
         token_id: Optional[str] = None,
+        capability_lease_id: Optional[str] = None,
+        capability_lease_digest: Optional[str] = None,
+        authority_request_digest: Optional[str] = None,
+        action_digest: Optional[str] = None,
+        consequence_class: Optional[str] = None,
+        target_digest: Optional[str] = None,
+        audience: Optional[str] = None,
     ) -> NotationToken:
         now = _utc_now()
         ttl = max(30, int(ttl_seconds or self.DEFAULT_TTL_SECONDS))
@@ -204,6 +226,14 @@ class NotationTokenService:
             response_class=response_class,
             world_state_hash=str(world_state_hash),
             issued_to=str(issued_to),
+            capability_lease_id=capability_lease_id,
+            capability_lease_digest=capability_lease_digest,
+            authority_request_digest=authority_request_digest,
+            action_digest=action_digest,
+            consequence_class=consequence_class,
+            target_digest=target_digest,
+            audience=audience,
+            maximum_uses=1,
             issued_at=now,
             expires_at=now + timedelta(seconds=ttl),
             status="issued",
@@ -230,11 +260,86 @@ class NotationTokenService:
                     "required_companions": token.required_companions,
                     "expires_at": token.expires_at.isoformat(),
                     "signature_ref": token.signature_ref,
+                    "capability_lease_id": token.capability_lease_id,
+                    "authority_request_digest": token.authority_request_digest,
+                    "action_digest": token.action_digest,
                 },
                 trigger_triune=False,
                 source="notation_token",
             )
         return token
+
+    async def mint_authorized_notation_token(
+        self,
+        *,
+        lease: BeastCapabilityLeaseV1,
+        lease_store: Any,
+        expected_audience: str,
+        action_digest: str,
+        parameters_digest: str,
+        target_digest: str,
+        epoch_id: str,
+        score_id: str,
+        genre_mode: str,
+        voice_role: str,
+        world_state_hash: str,
+        entry_window_ms: Optional[List[int]] = None,
+        sequence_slot: Optional[int] = None,
+        required_companions: Optional[List[str]] = None,
+        response_class: Optional[str] = None,
+        ttl_seconds: Optional[int] = None,
+    ) -> NotationToken:
+        """Bind independently issued BEAST authority before minting notation."""
+        lease.validate_shape()
+        if lease.audience != expected_audience:
+            raise ValueError("capability lease audience does not match notation issuer")
+        if lease.parameters_digest != parameters_digest:
+            raise ValueError("capability lease parameters digest mismatch")
+        if not action_digest.startswith("sha256:") or not target_digest.startswith("sha256:"):
+            raise ValueError("notation requires content-addressed action and target bindings")
+        remaining = int((parse_utc(lease.expires_at) - _utc_now()).total_seconds())
+        if remaining < 30:
+            raise ValueError("capability lease is too close to expiry for notation issuance")
+        requested_ttl = int(ttl_seconds or self.DEFAULT_TTL_SECONDS)
+        bounded_ttl = min(requested_ttl, remaining)
+        token_id = f"nt_{_utc_now().strftime('%Y%m%d%H%M%S')}_{secrets.token_hex(4)}"
+        lease_digest = "sha256:" + hashlib.sha256(
+            canonical_json_bytes(lease.unsigned_payload())
+        ).hexdigest()
+
+        lease_store.bind_notation(
+            lease.lease_id,
+            notation_token_id=token_id,
+            expected_audience=expected_audience,
+            authority_request_digest=lease.authority_request_digest,
+            action_digest=action_digest,
+        )
+        try:
+            return await self.mint_notation_token(
+                epoch_id=epoch_id,
+                score_id=score_id,
+                genre_mode=genre_mode,
+                voice_role=voice_role,
+                capability_class=lease.capability,
+                world_state_hash=world_state_hash,
+                issued_to=lease.node_id,
+                entry_window_ms=entry_window_ms,
+                sequence_slot=sequence_slot,
+                required_companions=required_companions,
+                response_class=response_class,
+                ttl_seconds=bounded_ttl,
+                token_id=token_id,
+                capability_lease_id=lease.lease_id,
+                capability_lease_digest=lease_digest,
+                authority_request_digest=lease.authority_request_digest,
+                action_digest=action_digest,
+                consequence_class=lease.consequence_ceiling,
+                target_digest=target_digest,
+                audience=expected_audience,
+            )
+        except Exception:
+            lease_store.revoke(lease.lease_id, reason="notation_mint_failed_after_binding")
+            raise
 
     @staticmethod
     def enforce_entry_window(
@@ -298,6 +403,14 @@ class NotationTokenService:
                     response_class=token.get("response_class"),
                     world_state_hash=str(token.get("world_state_hash")),
                     issued_to=str(token.get("issued_to")),
+                    capability_lease_id=token.get("capability_lease_id"),
+                    capability_lease_digest=token.get("capability_lease_digest"),
+                    authority_request_digest=token.get("authority_request_digest"),
+                    action_digest=token.get("action_digest"),
+                    consequence_class=token.get("consequence_class"),
+                    target_digest=token.get("target_digest"),
+                    audience=token.get("audience"),
+                    maximum_uses=int(token.get("maximum_uses") or 1),
                     issued_at=issued_at,
                     expires_at=expires_at,
                     status=str(token.get("status") or "issued"),
@@ -318,6 +431,11 @@ class NotationTokenService:
             "sequence_slot_valid": False,
             "required_companions_valid": False,
             "signature_valid": False,
+            "capability_binding_valid": False,
+            "authority_request_binding_valid": False,
+            "action_binding_valid": False,
+            "audience_binding_valid": False,
+            "target_binding_valid": False,
         }
         reasons: List[str] = []
 
@@ -406,6 +524,51 @@ class NotationTokenService:
         if not checks["signature_valid"]:
             reasons.append("notation_signature_invalid")
 
+        require_capability = bool(ctx.get("require_capability", False))
+        expected_lease_id = str(ctx.get("capability_lease_id") or "")
+        expected_request_digest = str(ctx.get("authority_request_digest") or "")
+        expected_action_digest = str(ctx.get("action_digest") or "")
+        expected_audience = str(ctx.get("audience") or "")
+        expected_target_digest = str(ctx.get("target_digest") or "")
+        checks["capability_binding_valid"] = bool(
+            resolved_token.capability_lease_id
+            and resolved_token.capability_lease_digest
+            and (not expected_lease_id or resolved_token.capability_lease_id == expected_lease_id)
+        )
+        checks["authority_request_binding_valid"] = bool(
+            resolved_token.authority_request_digest
+            and (
+                not expected_request_digest
+                or resolved_token.authority_request_digest == expected_request_digest
+            )
+        )
+        checks["action_binding_valid"] = bool(
+            resolved_token.action_digest
+            and (not expected_action_digest or resolved_token.action_digest == expected_action_digest)
+        )
+        checks["audience_binding_valid"] = bool(
+            resolved_token.audience
+            and (not expected_audience or resolved_token.audience == expected_audience)
+        )
+        checks["target_binding_valid"] = bool(
+            resolved_token.target_digest
+            and (
+                not expected_target_digest
+                or resolved_token.target_digest == expected_target_digest
+            )
+        )
+        if require_capability:
+            if not checks["capability_binding_valid"]:
+                reasons.append("notation_capability_binding_invalid")
+            if not checks["authority_request_binding_valid"]:
+                reasons.append("notation_authority_request_binding_invalid")
+            if not checks["action_binding_valid"]:
+                reasons.append("notation_action_binding_invalid")
+            if not checks["audience_binding_valid"]:
+                reasons.append("notation_audience_binding_invalid")
+            if not checks["target_binding_valid"]:
+                reasons.append("notation_target_binding_invalid")
+
         mandatory = (
             checks["token_present"],
             checks["token_status_valid"],
@@ -418,6 +581,16 @@ class NotationTokenService:
             checks["signature_valid"],
         )
         valid = all(mandatory)
+        if require_capability:
+            valid = valid and all(
+                (
+                    checks["capability_binding_valid"],
+                    checks["authority_request_binding_valid"],
+                    checks["action_binding_valid"],
+                    checks["audience_binding_valid"],
+                    checks["target_binding_valid"],
+                )
+            )
         if enforce_sequence_slot:
             valid = valid and checks["sequence_slot_valid"]
         if enforce_required_companions:
@@ -560,6 +733,13 @@ class NotationTokenService:
             required_companions=list(original.required_companions or []),
             response_class=original.response_class,
             ttl_seconds=ttl,
+            capability_lease_id=original.capability_lease_id,
+            capability_lease_digest=original.capability_lease_digest,
+            authority_request_digest=original.authority_request_digest,
+            action_digest=original.action_digest,
+            consequence_class=original.consequence_class,
+            target_digest=original.target_digest,
+            audience=original.audience,
         )
 
         if emit_world_event is not None and self.db is not None:

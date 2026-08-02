@@ -1,7 +1,10 @@
 import logging
 import asyncio
 from typing import Dict, Any, List, Optional
-from backend.arda.ainur.dissonance import DissonantStateModel
+try:
+    from backend.arda.ainur.dissonance import DissonantStateModel
+except Exception:
+    from backend.services.ainur.dissonance import DissonantStateModel  # type: ignore
 from backend.services.arda_fabric import get_arda_fabric
 
 logger = logging.getLogger(__name__)
@@ -58,7 +61,10 @@ class EarendilFlowOrchestrator:
         logger.warning(f"Eärendil Ingress: Sovereign Summons received for {entity_id}. Syncing Resonance: {new_budget.constitutional_state.upper()}")
         
         # 1. Update the local LightBridge
-        from backend.valinor.runtime_hooks import get_valinor_runtime
+        try:
+            from backend.valinor.runtime_hooks import get_valinor_runtime
+        except Exception:
+            from backend.services.runtime_hooks import get_valinor_runtime  # type: ignore
         valinor = get_valinor_runtime()
         valinor.bridge.update_state(entity_id, new_budget)
         

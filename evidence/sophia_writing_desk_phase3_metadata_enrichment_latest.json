@@ -1,0 +1,275 @@
+{
+  "summary": {
+    "suite": "sophia_writing_desk_phase3_metadata_enrichment",
+    "total": 2,
+    "passed": 2,
+    "pass_rate": 1.0,
+    "verified_rows": 2,
+    "graceful_failure_rows": 0,
+    "passes_phase3_metadata_gate": true
+  },
+  "rows": [
+    {
+      "row": 1,
+      "case_id": "crossref_doi",
+      "passed": true,
+      "checks": {
+        "enrichment_attempted": true,
+        "support_preserved": true,
+        "metadata_status_explicit": true,
+        "verified_or_graceful_failure": true,
+        "chain_visible_if_verified": true,
+        "citation_exports_present": true,
+        "csl_zotero_importable_shape": true,
+        "doi_preserved": true
+      },
+      "metadata_status": "crossref metadata verified",
+      "metadata_chain": [
+        "crossref"
+      ],
+      "top": {
+        "source_name": "Mastering the game of Go with deep neural networks and tree search",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.636,
+        "quality_score": 0.86,
+        "ranking_score": 0.8871,
+        "source_type": "journal article",
+        "source_role": "background/context",
+        "overlap_terms": [
+          "alphago",
+          "deep",
+          "game",
+          "networks",
+          "neural",
+          "search",
+          "tree"
+        ],
+        "exact_span": "AlphaGo combines deep neural networks with tree search to play the game of Go.",
+        "authors": [
+          "David Silver",
+          "Aja Huang",
+          "Chris J. Maddison",
+          "Arthur Guez",
+          "Laurent Sifre",
+          "George van den Driessche"
+        ],
+        "year": "2016",
+        "container_title": "Nature",
+        "publisher": "Springer Science and Business Media LLC",
+        "volume": "529",
+        "issue": "7587",
+        "pages": "484-489",
+        "doi": "10.1038/nature16961",
+        "url": "https://doi.org/10.1038/nature16961",
+        "apa_candidate": "Silver, D., Huang, A., Maddison, C. J., Guez, A., Sifre, L., & Driessche, G. v. d.. (2016). Mastering the game of Go with deep neural networks and tree search. Nature, 529(7587), 484-489. https://doi.org/10.1038/nature16961",
+        "bibtex_candidate": "@article{silver2016mastering,\n  author = {David Silver and Aja Huang and Chris J. Maddison and Arthur Guez and Laurent Sifre and George van den Driessche},\n  title = {Mastering the game of Go with deep neural networks and tree search},\n  year = {2016},\n  journal = {Nature},\n  publisher = {Springer Science and Business Media LLC},\n  volume = {529},\n  number = {7587},\n  pages = {484-489},\n  doi = {10.1038/nature16961},\n  url = {https://doi.org/10.1038/nature16961}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Mastering the game of Go with deep neural networks and tree search\nAU  - David Silver\nAU  - Aja Huang\nAU  - Chris J. Maddison\nAU  - Arthur Guez\nAU  - Laurent Sifre\nAU  - George van den Driessche\nJO  - Nature\nPB  - Springer Science and Business Media LLC\nVL  - 529\nIS  - 7587\nSP  - 484\nEP  - 489\nPY  - 2016\nDO  - 10.1038/nature16961\nUR  - https://doi.org/10.1038/nature16961\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Mastering the game of Go with deep neural networks and tree search",
+          "issued": {
+            "date-parts": [
+              [
+                2016
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "David",
+              "family": "Silver"
+            },
+            {
+              "given": "Aja",
+              "family": "Huang"
+            },
+            {
+              "given": "Chris J.",
+              "family": "Maddison"
+            },
+            {
+              "given": "Arthur",
+              "family": "Guez"
+            },
+            {
+              "given": "Laurent",
+              "family": "Sifre"
+            },
+            {
+              "given": "George van den",
+              "family": "Driessche"
+            }
+          ],
+          "DOI": "10.1038/nature16961",
+          "URL": "https://doi.org/10.1038/nature16961",
+          "container-title": "Nature",
+          "publisher": "Springer Science and Business Media LLC",
+          "volume": "529",
+          "issue": "7587",
+          "page": "484-489"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "crossref metadata verified",
+        "metadata_chain": [
+          "crossref"
+        ],
+        "provenance_status": "journal article",
+        "rationale": "supports: lexical/construct relevance=0.64; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=alphago, deep, game, networks, neural, search.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9186,
+        "lexical_vector_score": 0.7778,
+        "semantic_overlap": [],
+        "broad_field_overlap": [],
+        "semantic_score": 0.0,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    },
+    {
+      "row": 2,
+      "case_id": "openalex_title_fallback",
+      "passed": true,
+      "checks": {
+        "enrichment_attempted": true,
+        "support_preserved": true,
+        "metadata_status_explicit": true,
+        "verified_or_graceful_failure": true,
+        "chain_visible_if_verified": true,
+        "citation_exports_present": true,
+        "csl_zotero_importable_shape": true
+      },
+      "metadata_status": "openalex metadata verified",
+      "metadata_chain": [
+        "openalex"
+      ],
+      "top": {
+        "source_name": "Mastering the game of Go with deep neural networks and tree search",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.636,
+        "quality_score": 0.86,
+        "ranking_score": 0.8871,
+        "source_type": "scholarly title lead",
+        "source_role": "background/context",
+        "overlap_terms": [
+          "alphago",
+          "deep",
+          "game",
+          "networks",
+          "neural",
+          "search",
+          "tree"
+        ],
+        "exact_span": "AlphaGo combines deep neural networks with tree search to play the game of Go.",
+        "authors": [
+          "David Silver",
+          "Aja Huang",
+          "Chris J. Maddison",
+          "Arthur Guez",
+          "Laurent Sifre",
+          "George van den Driessche"
+        ],
+        "year": "2016",
+        "container_title": "Nature",
+        "publisher": "",
+        "volume": "529",
+        "issue": "7587",
+        "pages": "484-489",
+        "doi": "10.1038/nature16961",
+        "url": "https://doi.org/10.1038/nature16961",
+        "apa_candidate": "Silver, D., Huang, A., Maddison, C. J., Guez, A., Sifre, L., & Driessche, G. v. d.. (2016). Mastering the game of Go with deep neural networks and tree search. Nature, 529(7587), 484-489. https://doi.org/10.1038/nature16961",
+        "bibtex_candidate": "@article{silver2016mastering,\n  author = {David Silver and Aja Huang and Chris J. Maddison and Arthur Guez and Laurent Sifre and George van den Driessche},\n  title = {Mastering the game of Go with deep neural networks and tree search},\n  year = {2016},\n  journal = {Nature},\n  volume = {529},\n  number = {7587},\n  pages = {484-489},\n  doi = {10.1038/nature16961},\n  url = {https://doi.org/10.1038/nature16961}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Mastering the game of Go with deep neural networks and tree search\nAU  - David Silver\nAU  - Aja Huang\nAU  - Chris J. Maddison\nAU  - Arthur Guez\nAU  - Laurent Sifre\nAU  - George van den Driessche\nJO  - Nature\nVL  - 529\nIS  - 7587\nSP  - 484\nEP  - 489\nPY  - 2016\nDO  - 10.1038/nature16961\nUR  - https://doi.org/10.1038/nature16961\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Mastering the game of Go with deep neural networks and tree search",
+          "issued": {
+            "date-parts": [
+              [
+                2016
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "David",
+              "family": "Silver"
+            },
+            {
+              "given": "Aja",
+              "family": "Huang"
+            },
+            {
+              "given": "Chris J.",
+              "family": "Maddison"
+            },
+            {
+              "given": "Arthur",
+              "family": "Guez"
+            },
+            {
+              "given": "Laurent",
+              "family": "Sifre"
+            },
+            {
+              "given": "George van den",
+              "family": "Driessche"
+            }
+          ],
+          "DOI": "10.1038/nature16961",
+          "URL": "https://doi.org/10.1038/nature16961",
+          "container-title": "Nature",
+          "volume": "529",
+          "issue": "7587",
+          "page": "484-489"
+        },
+        "page_status": "page/span marker visible",
+        "page_locator": "p. 484",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "openalex metadata verified",
+        "metadata_chain": [
+          "openalex"
+        ],
+        "provenance_status": "scholarly title lead",
+        "rationale": "supports: lexical/construct relevance=0.64; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=alphago, deep, game, networks, neural, search.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.9186,
+        "lexical_vector_score": 0.7778,
+        "semantic_overlap": [],
+        "broad_field_overlap": [],
+        "semantic_score": 0.0,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      }
+    }
+  ]
+}

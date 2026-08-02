@@ -3,9 +3,14 @@ import hmac
 import logging
 import uuid
 import time
+import os
+import sys
 from typing import Dict, Any, Optional, List, Set
 from dataclasses import asdict
-from backend.arda.ainur.verdicts import SecretFirePacket, IluvatarVoiceChallenge
+try:
+    from backend.arda.ainur.verdicts import SecretFirePacket, IluvatarVoiceChallenge
+except Exception:
+    from backend.services.ainur.verdicts import SecretFirePacket, IluvatarVoiceChallenge  # type: ignore
 from backend.services.tpm_attestation_service import get_tpm_service
 
 logger = logging.getLogger(__name__)
@@ -174,9 +179,22 @@ class SecretFireService:
         raw_to_sign = f"{nonce}|{covenant_id}|{epoch}|{counter}|{attestation_digest}"
         witness_signature = hashlib.sha256(f"{raw_to_sign}|{self.witness_id}".encode()).hexdigest()
 
+        # 4.5 Workload identity (best-effort, local substrate)
+        executable_path = None
+        workload_hash = None
+        try:
+            executable_path = sys.executable
+            if executable_path and os.path.exists(executable_path):
+                with open(executable_path, "rb") as f:
+                    workload_hash = hashlib.sha256(f.read()).hexdigest()
+        except Exception:
+            executable_path = None
+            workload_hash = None
+
         packet = SecretFirePacket(
             node_id=self.node_id,
             covenant_id=covenant_id,
+            executable_path=executable_path,
             voice_id=voice_id,
             root_nonce_ref=root_nonce_ref,
             tier=tier,
@@ -196,6 +214,7 @@ class SecretFireService:
             cadence_profile=cadence_profile or {},
             witness_id=self.witness_id,
             witness_signature=witness_signature,
+            workload_hash=workload_hash,
             replay_suspected=replay_suspected,
             freshness_valid=freshness_valid,
             tpm_quote=tpm_quote_dict

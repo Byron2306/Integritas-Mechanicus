@@ -176,10 +176,13 @@ class VirtualNetworkSensor:
         self.dns_queries: deque = deque(maxlen=50000)
         self.tls_fingerprints: Dict[str, TLSFingerprint] = {}
         self.beacon_detections: deque = deque(maxlen=1000)
-        self.domain_pulse_windows: Dict[str, deque] = defaultdict(lambda: deque(maxlen=128))
-        self.domain_pulse_state: Dict[str, Dict[str, Any]] = {}
-        self.edge_mesh_windows: Dict[str, deque] = defaultdict(lambda: deque(maxlen=64))
-        self.edge_mesh_state: Dict[str, Dict[str, Any]] = {}
+
+        # Zeek ingest (best-effort, for container deployments)
+        self._last_zeek_ingest_at: Optional[datetime] = None
+        self._zeek_seen_flow_keys: set = set()
+        self._zeek_seen_flow_key_ring: deque = deque(maxlen=50000)
+        self._zeek_seen_dns_keys: set = set()
+        self._zeek_seen_dns_key_ring: deque = deque(maxlen=50000)
         
         # Indexes
         self.flows_by_ip: Dict[str, List[str]] = defaultdict(list)
@@ -213,114 +216,6 @@ class VirtualNetworkSensor:
         self.canary_ports: set = set()
         
         logger.info("Virtual Network Sensor initialized")
-
-    def update_domain_pulse(
-        self,
-        *,
-        domain: str,
-        timing_features: Dict[str, Any],
-        harmonic_state: Optional[Dict[str, Any]] = None,
-        timestamp_ms: Optional[int] = None,
-    ) -> Dict[str, Any]:
-        normalized_domain = str(domain or "global")
-        jitter_norm = float(timing_features.get("jitter_norm") or 0.0)
-        drift_norm = float(timing_features.get("drift_norm") or 0.0)
-        interval_mean = float(timing_features.get("mean_interval_ms") or timing_features.get("median_interval_ms") or 0.0)
-        discord = float((harmonic_state or {}).get("discord_score") or 0.0)
-        sample_size = int(timing_features.get("sample_size") or 0)
-        point = {
-            "timestamp_ms": int(timestamp_ms or datetime.now(timezone.utc).timestamp() * 1000),
-            "mean_interval_ms": interval_mean,
-            "jitter_norm": jitter_norm,
-            "drift_norm": drift_norm,
-            "discord_score": discord,
-            "sample_size": sample_size,
-        }
-        self.domain_pulse_windows[normalized_domain].append(point)
-        window = list(self.domain_pulse_windows[normalized_domain])
-        n = max(1, len(window))
-        recent_mean_cadence = sum(max(0.0, float(item.get("mean_interval_ms") or 0.0)) for item in window) / n
-        recent_jitter_band = sum(max(0.0, float(item.get("jitter_norm") or 0.0)) for item in window) / n
-        elevated_drift_count = sum(1 for item in window if float(item.get("drift_norm") or 0.0) >= 0.5)
-        pulse_instability = min(
-            1.0,
-            (0.45 * recent_jitter_band) + (0.35 * (elevated_drift_count / n)) + (0.2 * sum(float(item.get("discord_score") or 0.0) for item in window) / n),
-        )
-        state = {
-            "domain": normalized_domain,
-            "updated_at": datetime.now(timezone.utc).isoformat(),
-            "samples": n,
-            "recent_mean_cadence_ms": round(recent_mean_cadence, 6),
-            "recent_jitter_band": round(recent_jitter_band, 6),
-            "pulse_stability_index": round(max(0.0, 1.0 - pulse_instability), 6),
-            "elevated_drift_count": int(elevated_drift_count),
-            "latest_discord_score": round(discord, 6),
-        }
-        self.domain_pulse_state[normalized_domain] = state
-        return state
-
-    def get_domain_pulse_state(self, domain: Optional[str] = None) -> Dict[str, Any]:
-        if domain:
-            return self.domain_pulse_state.get(str(domain), {})
-        return dict(self.domain_pulse_state)
-
-    def update_edge_mesh_state(
-        self,
-        *,
-        action_id: str,
-        edge_type: str,
-        participant: str,
-        timestamp_ms: Optional[float] = None,
-    ) -> Dict[str, Any]:
-        if not action_id:
-            return {}
-        ts_ms = float(timestamp_ms if timestamp_ms is not None else datetime.now(timezone.utc).timestamp() * 1000.0)
-        key = str(action_id)
-        self.edge_mesh_windows[key].append(
-            {
-                "participant": str(participant),
-                "timestamp_ms": ts_ms,
-                "edge_type": str(edge_type or "unknown"),
-            }
-        )
-        state = self.assess_local_entrainment(action_id=key)
-        self.edge_mesh_state[key] = state
-        return state
-
-    def assess_local_entrainment(self, *, action_id: str) -> Dict[str, Any]:
-        points = list(self.edge_mesh_windows.get(str(action_id)) or [])
-        if not points:
-            return {}
-        ordered = sorted(points, key=lambda row: float(row.get("timestamp_ms") or 0.0))
-        participants = [str(row.get("participant") or "") for row in ordered if row.get("participant")]
-        unique = list(dict.fromkeys(participants))
-        intervals = []
-        for idx in range(1, len(ordered)):
-            delta = float(ordered[idx].get("timestamp_ms") or 0.0) - float(ordered[idx - 1].get("timestamp_ms") or 0.0)
-            intervals.append(max(0.0, delta))
-        mean_interval = (sum(intervals) / len(intervals)) if intervals else 0.0
-        jitter = 0.0
-        if len(intervals) > 1:
-            try:
-                import statistics
-                jitter = float(statistics.pstdev(intervals))
-            except Exception:
-                jitter = 0.0
-        instability = 0.0
-        if mean_interval > 0:
-            instability = min(1.0, jitter / mean_interval)
-        pulse_coherence = max(0.0, 1.0 - instability)
-        return {
-            "action_id": str(action_id),
-            "edge_type": str(ordered[0].get("edge_type") or "unknown"),
-            "samples": len(ordered),
-            "participants": unique,
-            "mean_interval_ms": round(mean_interval, 6),
-            "jitter_ms": round(jitter, 6),
-            "pulse_coherence": round(pulse_coherence, 6),
-            "mesh_state": "scattered" if pulse_coherence < 0.4 else "strained" if pulse_coherence < 0.7 else "entrained",
-            "updated_at": datetime.now(timezone.utc).isoformat(),
-        }
     
     def _get_zone(self, ip: str) -> str:
         """Determine network zone for IP"""
@@ -406,15 +301,32 @@ class VirtualNetworkSensor:
     # FLOW LOGGING
     # =========================================================================
     
-    def record_flow(self, src_ip: str, src_port: int, dst_ip: str, dst_port: int,
-                    protocol: str = "TCP", service: str = None,
-                    bytes_sent: int = 0, bytes_recv: int = 0,
-                    tls_version: str = None, ja3_hash: str = None,
-                    ja3s_hash: str = None, sni: str = None) -> NetworkFlow:
+    def record_flow(
+        self,
+        src_ip: str,
+        src_port: int,
+        dst_ip: str,
+        dst_port: int,
+        protocol: str = "TCP",
+        service: str = None,
+        bytes_sent: int = 0,
+        bytes_recv: int = 0,
+        tls_version: str = None,
+        ja3_hash: str = None,
+        ja3s_hash: str = None,
+        sni: str = None,
+        *,
+        started_at: Optional[str] = None,
+        ended_at: Optional[str] = None,
+        duration_ms: Optional[int] = None,
+        packets_sent: int = 0,
+        packets_recv: int = 0,
+    ) -> NetworkFlow:
         """Record a network flow"""
         
         flow_id = f"flow-{uuid.uuid4().hex[:12]}"
         now = datetime.now(timezone.utc).isoformat()
+        started = started_at or now
         
         direction = self._get_direction(src_ip, dst_ip)
         src_zone = self._get_zone(src_ip)
@@ -459,13 +371,13 @@ class VirtualNetworkSensor:
             direction=direction,
             zone_src=src_zone,
             zone_dst=dst_zone,
-            started_at=now,
-            ended_at=None,
-            duration_ms=0,
+            started_at=started,
+            ended_at=ended_at,
+            duration_ms=int(duration_ms or 0),
             bytes_sent=bytes_sent,
             bytes_recv=bytes_recv,
-            packets_sent=0,
-            packets_recv=0,
+            packets_sent=int(packets_sent or 0),
+            packets_recv=int(packets_recv or 0),
             tls_version=tls_version,
             tls_cipher=None,
             ja3_hash=ja3_hash,
@@ -506,14 +418,22 @@ class VirtualNetworkSensor:
     # DNS TELEMETRY
     # =========================================================================
     
-    def record_dns_query(self, src_ip: str, query_name: str, query_type: str = "A",
-                         response_code: str = "NOERROR",
-                         response_ips: List[str] = None,
-                         response_ttl: int = 0) -> DNSQuery:
+    def record_dns_query(
+        self,
+        src_ip: str,
+        query_name: str,
+        query_type: str = "A",
+        response_code: str = "NOERROR",
+        response_ips: List[str] = None,
+        response_ttl: int = 0,
+        *,
+        timestamp: Optional[str] = None,
+    ) -> DNSQuery:
         """Record a DNS query"""
         
         query_id = f"dns-{uuid.uuid4().hex[:12]}"
         now = datetime.now(timezone.utc).isoformat()
+        ts = timestamp or now
         
         # Check for suspicious domains
         threat_indicators = []
@@ -545,7 +465,7 @@ class VirtualNetworkSensor:
         
         query = DNSQuery(
             query_id=query_id,
-            timestamp=now,
+            timestamp=ts,
             src_ip=src_ip,
             query_name=query_name,
             query_type=query_type,
@@ -563,6 +483,179 @@ class VirtualNetworkSensor:
             logger.warning(f"VNS: Suspicious DNS query from {src_ip}: {query_name}")
         
         return query
+
+    # =========================================================================
+    # ZEEK INGEST (BEST-EFFORT)
+    # =========================================================================
+
+    def _tail_lines(self, path: str, *, max_lines: int = 2000, max_bytes: int = 2_000_000) -> List[str]:
+        """Read roughly the last N lines from a file without loading it fully."""
+        try:
+            size = os.path.getsize(path)
+        except Exception:
+            return []
+
+        read_size = min(size, max_bytes)
+        try:
+            with open(path, "rb") as f:
+                f.seek(-read_size, os.SEEK_END)
+                blob = f.read(read_size)
+        except Exception:
+            return []
+
+        text = blob.decode(errors="ignore")
+        lines = text.splitlines()
+        return lines[-max_lines:] if len(lines) > max_lines else lines
+
+    def _parse_zeek_tsv_tail(self, path: str, *, max_lines: int = 2000) -> List[Dict[str, str]]:
+        """Parse Zeek TSV logs (conn.log/dns.log) from the tail chunk."""
+        lines = self._tail_lines(path, max_lines=max_lines)
+        if not lines:
+            return []
+
+        fields: Optional[List[str]] = None
+        rows: List[Dict[str, str]] = []
+        for line in lines:
+            if not line:
+                continue
+            if line.startswith("#fields"):
+                parts = line.split("\t")
+                fields = parts[1:]
+                continue
+            if line.startswith("#"):
+                continue
+            if fields is None:
+                continue
+            parts = line.split("\t")
+            if len(parts) < len(fields):
+                continue
+            row = {fields[i]: parts[i] for i in range(len(fields))}
+            rows.append(row)
+        return rows
+
+    def ingest_zeek_recent(
+        self,
+        *,
+        log_dir: Optional[str] = None,
+        max_lines: int = 2000,
+        min_interval_s: int = 15,
+        force: bool = False,
+    ) -> Dict[str, Any]:
+        """Best-effort ingest of recent Zeek conn/dns logs into VNS buffers."""
+        now = datetime.now(timezone.utc)
+        if not force and self._last_zeek_ingest_at and (now - self._last_zeek_ingest_at).total_seconds() < min_interval_s:
+            return {"ingested": False, "reason": "rate_limited"}
+
+        log_dir = (log_dir or os.environ.get("ZEEK_LOG_DIR") or "/usr/local/zeek/logs").strip()
+        conn_path = os.path.join(log_dir, "conn.log")
+        dns_path = os.path.join(log_dir, "dns.log")
+
+        flow_added = 0
+        dns_added = 0
+
+        # conn.log -> flows
+        if os.path.exists(conn_path):
+            for row in self._parse_zeek_tsv_tail(conn_path, max_lines=max_lines):
+                try:
+                    ts_raw = row.get("ts") or ""
+                    ts = float(ts_raw) if ts_raw else None
+                    started_at = datetime.fromtimestamp(ts, timezone.utc).isoformat() if ts else None
+
+                    src_ip = (row.get("id.orig_h") or "").strip()
+                    dst_ip = (row.get("id.resp_h") or "").strip()
+                    src_port = int(float(row.get("id.orig_p") or 0))
+                    dst_port = int(float(row.get("id.resp_p") or 0))
+                    proto = (row.get("proto") or "tcp").upper()
+                    service = (row.get("service") or None)
+                    duration_s = float(row.get("duration") or 0.0)
+                    duration_ms = int(duration_s * 1000)
+
+                    orig_bytes = int(float(row.get("orig_bytes") or 0))
+                    resp_bytes = int(float(row.get("resp_bytes") or 0))
+                    orig_pkts = int(float(row.get("orig_pkts") or 0))
+                    resp_pkts = int(float(row.get("resp_pkts") or 0))
+
+                    if not src_ip or not dst_ip:
+                        continue
+
+                    key = f"{ts_raw}|{src_ip}:{src_port}->{dst_ip}:{dst_port}|{proto}"
+                    if key in self._zeek_seen_flow_keys:
+                        continue
+                    self._zeek_seen_flow_keys.add(key)
+                    self._zeek_seen_flow_key_ring.append(key)
+                    # The deque drops old keys automatically; periodically rebuild the set to stay bounded.
+                    if len(self._zeek_seen_flow_keys) > (self._zeek_seen_flow_key_ring.maxlen * 2):
+                        # rebuild set from ring
+                        self._zeek_seen_flow_keys = set(self._zeek_seen_flow_key_ring)
+
+                    self.record_flow(
+                        src_ip=src_ip,
+                        src_port=src_port,
+                        dst_ip=dst_ip,
+                        dst_port=dst_port,
+                        protocol=proto,
+                        service=service,
+                        bytes_sent=orig_bytes,
+                        bytes_recv=resp_bytes,
+                        started_at=started_at,
+                        duration_ms=duration_ms,
+                        packets_sent=orig_pkts,
+                        packets_recv=resp_pkts,
+                    )
+                    flow_added += 1
+                except Exception:
+                    continue
+
+        # dns.log -> dns queries
+        if os.path.exists(dns_path):
+            for row in self._parse_zeek_tsv_tail(dns_path, max_lines=max_lines):
+                try:
+                    ts_raw = row.get("ts") or ""
+                    ts = float(ts_raw) if ts_raw else None
+                    started_at = datetime.fromtimestamp(ts, timezone.utc).isoformat() if ts else None
+
+                    src_ip = (row.get("id.orig_h") or "").strip()
+                    query = (row.get("query") or "").strip()
+                    qtype = (row.get("qtype_name") or row.get("qtype") or "A").strip()
+                    rcode = (row.get("rcode_name") or row.get("rcode") or "NOERROR").strip()
+
+                    answers = (row.get("answers") or "").strip()
+                    response_ips = []
+                    if answers and answers != "-":
+                        # Zeek encodes sets as comma-separated by default.
+                        response_ips = [a.strip() for a in re.split(r"[,\s]+", answers) if a.strip()]
+
+                    if not src_ip or not query:
+                        continue
+
+                    key = f"{ts_raw}|{src_ip}|{query}|{qtype}|{rcode}"
+                    if key in self._zeek_seen_dns_keys:
+                        continue
+                    self._zeek_seen_dns_keys.add(key)
+                    self._zeek_seen_dns_key_ring.append(key)
+                    if len(self._zeek_seen_dns_keys) > self._zeek_seen_dns_key_ring.maxlen:
+                        self._zeek_seen_dns_keys = set(self._zeek_seen_dns_key_ring)
+
+                    self.record_dns_query(
+                        src_ip=src_ip,
+                        query_name=query,
+                        query_type=qtype,
+                        response_code=rcode,
+                        response_ips=response_ips,
+                        timestamp=started_at,
+                    )
+                    dns_added += 1
+                except Exception:
+                    continue
+
+        self._last_zeek_ingest_at = now
+        return {
+            "ingested": True,
+            "log_dir": log_dir,
+            "flows_added": flow_added,
+            "dns_added": dns_added,
+            "timestamp": now.isoformat(),
+        }
     
     def _looks_like_dga(self, domain: str) -> bool:
         """Check if domain looks like DGA-generated"""
@@ -743,9 +836,7 @@ class VirtualNetworkSensor:
             "beacon_detections": len(self.beacon_detections),
             "canary_ips": len(self.canary_ips),
             "canary_domains": len(self.canary_domains),
-            "canary_ports": len(self.canary_ports),
-            "domain_pulse_domains": len(self.domain_pulse_state),
-            "edge_mesh_edges": len(self.edge_mesh_state),
+            "canary_ports": len(self.canary_ports)
         }
     
     def validate_endpoint_telemetry(self, endpoint_ip: str,

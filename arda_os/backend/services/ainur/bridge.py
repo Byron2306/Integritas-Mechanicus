@@ -1,11 +1,13 @@
-import httpx
 import json
 import logging
+import urllib.request
+import urllib.error
+import asyncio
 
 logger = logging.getLogger("ARDA_BRIDGE")
 
 class OllamaBridge:
-    def __init__(self, model="qwen2.5:7b", host="http://localhost:11434"):
+    def __init__(self, model="qwen2.5:3b", host="http://localhost:11434"):
         self.model = model
         self.host = host
 
@@ -20,15 +22,23 @@ class OllamaBridge:
         if format == "json":
             payload["format"] = "json"
 
-        async with httpx.AsyncClient() as client:
-            try:
-                response = await client.post(url, json=payload, timeout=120.0)
-                if response.status_code == 200:
-                    result = response.json()
-                    return result.get("response", "")
-                else:
-                    logger.error(f"Ollama error: {response.status_code} - {response.text}")
-                    return ""
-            except Exception as e:
-                logger.error(f"Connection to Ollama failed: {e}")
-                raise RuntimeError(f"Ollama bridge failure: {e}")
+        # Use sync urllib in a thread pool to avoid blocking the event loop
+        def _call_ollama():
+             data = json.dumps(payload).encode("utf-8")
+             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+             try:
+                 with urllib.request.urlopen(req, timeout=120.0) as response:
+                     if response.status == 200:
+                         result = json.loads(response.read().decode("utf-8"))
+                         return result.get("response", "")
+                     else:
+                         logger.error(f"Ollama error: {response.status}")
+                         return ""
+             except urllib.error.URLError as e:
+                 logger.error(f"Connection to Ollama failed: {e}")
+                 raise RuntimeError(f"Ollama bridge failure: {e}")
+             except Exception as e:
+                 logger.error(f"Unexpected bridge error: {e}")
+                 return ""
+
+        return await asyncio.to_thread(_call_ollama)

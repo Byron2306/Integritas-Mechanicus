@@ -10,7 +10,10 @@ from typing import List, Dict, Optional, Any
 try:
     from schemas.phase6_models import PcrSnapshot, AttestationQuote
 except Exception:
-    from backend.schemas.phase6_models import PcrSnapshot, AttestationQuote
+    try:
+        from backend.schemas.phase6_models import PcrSnapshot, AttestationQuote  # type: ignore
+    except Exception:
+        from backend.services.schemas.phase6_models import PcrSnapshot, AttestationQuote  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -47,11 +50,14 @@ class TpmAttestationService:
     def _detect_tpm_environment(self) -> bool:
         """Heuristic to detect if hardware TPM is available and functional."""
         try:
-            # 1. Check for physical device node
-            if not os.path.exists("/dev/tpmrm0") and not os.path.exists("/dev/tpm0"):
+            # 1. Check for physical device node and READ/WRITE access
+            tpm_nodes = ["/dev/tpmrm0", "/dev/tpm0"]
+            has_node_access = any(os.path.exists(n) and os.access(n, os.R_OK | os.W_OK) for n in tpm_nodes)
+            
+            if not has_node_access:
                 return False
                 
-            # 2. Check for tpm2_pcrread in PATH
+            # 2. Check for tpm2_pcrread in PATH and check its output
             result = subprocess.run(["tpm2_pcrread", "-v"], capture_output=True, text=True, timeout=5)
             return result.returncode == 0
         except (FileNotFoundError, subprocess.TimeoutExpired, Exception):
@@ -182,18 +188,29 @@ class TpmAttestationService:
             pcr_str = ",".join(map(str, pcr_indices))
             logger.info(f"TPM (Real): Initiating hardware SEALing to PCRs: {pcr_str}")
             
-            # 1. Create policy for PCRs
+            # 1. Create primary context
+            subprocess.run(["tpm2_createprimary", "-C", "o", "-c", "/tmp/primary.ctx"], check=True)
+            
+            # 2. Create policy for PCRs
             subprocess.run(["tpm2_createpolicy", "--policy-pcr", "-l", f"sha256:{pcr_str}", "-L", "/tmp/pcr.policy"], check=True)
             
-            # 2. Create the sealed object
+            # 3. Create the sealed object
             subprocess.run([
-                "tpm2_create", "-C", "primary", "-u", "/tmp/obj.pub", "-r", "/tmp/obj.priv",
+                "tpm2_create", "-C", "/tmp/primary.ctx", "-u", "/tmp/obj.pub", "-r", "/tmp/obj.priv",
                 "-L", "/tmp/pcr.policy", "-i", "-", "-a", "fixedtpm|fixedparent|adminwithpolicy|noda"
             ], input=data, check=True)
             
-            # 3. Read the resulting private object to return as the "sealed blob"
-            with open("/tmp/obj.priv", "rb") as f:
-                return f.read()
+            # 4. Read both public and private parts to return as a consolidated "sealed blob"
+            with open("/tmp/obj.pub", "rb") as f_pub:
+                pub_data = f_pub.read()
+            with open("/tmp/obj.priv", "rb") as f_priv:
+                priv_data = f_priv.read()
+                
+            consolidated = {
+                "pub": base64.b64encode(pub_data).decode(),
+                "priv": base64.b64encode(priv_data).decode()
+            }
+            return json.dumps(consolidated).encode()
         except Exception as e:
             logger.error(f"Failed to seal data to TPM: {e}")
             return None
@@ -225,7 +242,28 @@ class TpmAttestationService:
 
         try:
             # Restore and unseal
-            subprocess.run(["tpm2_load", "-C", "primary", "-u", "/tmp/obj.pub", "-r", "-", "-c", "/tmp/obj.ctx"], input=sealed_blob, check=True)
+            # 1. Unpack consolidated blob
+            try:
+                consolidated = json.loads(sealed_blob.decode())
+                pub_data = base64.b64decode(consolidated["pub"])
+                priv_data = base64.b64decode(consolidated["priv"])
+            except Exception:
+                # Fallback for legacy raw blobs (unlikely in this coronation)
+                logger.warning("Unsealing: Raw blob detected, attempting legacy load (may fail).")
+                priv_data = sealed_blob
+                pub_data = None
+
+            # 2. Project blobs to disk for TPM loading
+            with open("/tmp/obj.pub", "wb") as f_pub:
+                if pub_data: f_pub.write(pub_data)
+            with open("/tmp/obj.priv", "wb") as f_priv:
+                f_priv.write(priv_data)
+
+            # 3. Create primary context for loading
+            subprocess.run(["tpm2_createprimary", "-C", "o", "-c", "/tmp/primary.ctx"], check=True)
+            
+            # 4. Load the sealed object
+            subprocess.run(["tpm2_load", "-C", "/tmp/primary.ctx", "-u", "/tmp/obj.pub", "-r", "/tmp/obj.priv", "-c", "/tmp/obj.ctx"], check=True)
             pcr_str = ",".join(map(str, pcr_indices))
             result = subprocess.run(["tpm2_unseal", "-c", "/tmp/obj.ctx", "-p", f"pcr:sha256:{pcr_str}"], capture_output=True, check=True)
             return result.stdout

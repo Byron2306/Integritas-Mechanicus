@@ -4,13 +4,9 @@ import math
 import os
 import statistics
 from collections import defaultdict, deque
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Any, Deque, Dict, List, Optional, Tuple
-
-try:
-    from schemas.polyphonic_models import BaselineRef, HarmonicState, TimingFeatures
-except Exception:
-    from backend.schemas.polyphonic_models import BaselineRef, HarmonicState, TimingFeatures
 
 
 def _utc_now_ms() -> float:
@@ -34,20 +30,57 @@ def _sigmoid(x: float) -> float:
         return 0.0 if x < 0 else 1.0
 
 
-def _model_dump(model: Any) -> Dict[str, Any]:
-    if hasattr(model, "model_dump"):
-        return model.model_dump()  # type: ignore[no-any-return]
-    if hasattr(model, "dict"):
-        return model.dict()  # type: ignore[no-any-return]
-    if hasattr(model, "__dict__"):
-        return dict(model.__dict__)  # type: ignore[no-any-return]
-    return dict(model)
+@dataclass
+class BaselineRef:
+    baseline_id: str
+    scope_type: str
+    actor_id: Optional[str]
+    tool_name: Optional[str]
+    target_domain: Optional[str]
+    environment: Optional[str]
+    version: str
+    source: str
+    baseline_band: Dict[str, float]
+
+
+@dataclass
+class TimingFeatures:
+    sample_size: int
+    timestamps_ms: Optional[List[float]]
+    intervals_ms: List[float]
+    last_interval_ms: Optional[float]
+    median_interval_ms: Optional[float]
+    mean_interval_ms: Optional[float]
+    jitter_ms: float
+    jitter_norm: float
+    drift_norm: float
+    burstiness: float
+    entropy_signature: float
+    sequence_class: str
+    dominant_frequency: float
+
+
+@dataclass
+class HarmonicState:
+    baseline_ref: BaselineRef
+    resonance_score: float
+    discord_score: float
+    confidence: float
+    drift_norm: float
+    jitter_norm: float
+    burstiness: float
+    entropy_signature: float
+    mode_recommendation: str
+    rationale: List[str]
 
 
 class HarmonicEngine:
     """
-    Phase 3 Harmonic Governance Layer (HGL) online scoring engine.
-    Tracks timing cadence windows and computes resonance/discord/confidence.
+    Reconciled Arda Harmonic Engine.
+
+    A self-contained cadence scorer shared by sovereign enforcement, Ainur,
+    and higher-order runtime surfaces. It deliberately avoids schema coupling
+    so the engine can operate even when broader polyphonic packages are absent.
     """
 
     def __init__(self, db: Any = None, *, window_size: int = 64):
@@ -96,7 +129,7 @@ class HarmonicEngine:
         ordered = [float(ts) for ts in timestamps if ts is not None]
         if len(ordered) < 2:
             return []
-        return [max(0.0, ordered[i] - ordered[i - 1]) for i in range(1, len(ordered))]
+        return [max(0.0, ordered[index] - ordered[index - 1]) for index in range(1, len(ordered))]
 
     def compute_jitter(self, intervals: List[float], window: Optional[int] = None) -> float:
         if not intervals:
@@ -181,11 +214,85 @@ class HarmonicEngine:
             "tool_sequence_size": len(tool_sequence or []),
         }
 
-    def extract_timing_features(
+    def _candidate_scopes(
+        self,
+        actor_id: Optional[str],
+        tool_name: Optional[str],
+        target_domain: Optional[str],
+        environment: Optional[str],
+    ) -> List[Tuple[str, str]]:
+        env = str(environment or "unknown").lower()
+        actor = str(actor_id or "*").lower()
+        tool = str(tool_name or "*").lower()
+        domain = str(target_domain or "*").lower()
+        return [
+            (self._scope_key("actor_tool_domain_env", actor, tool, domain, env), "actor_tool_domain_env"),
+            (self._scope_key("actor_tool_env", actor, tool, env), "actor_tool_env"),
+            (self._scope_key("actor_env", actor, env), "actor_env"),
+            (self._scope_key("tool_domain_env", tool, domain, env), "tool_domain_env"),
+            (self._scope_key("domain_env", domain, env), "domain_env"),
+            (self._scope_key("global_env", env), "global_env"),
+            (self._scope_key("global", "all"), "global"),
+        ]
+
+    def _build_baseline_band(self, events: List[Dict[str, Any]]) -> Dict[str, float]:
+        timestamps = [float(evt["timestamp_ms"]) for evt in events if evt.get("timestamp_ms") is not None]
+        intervals = self.compute_intervals(timestamps)
+        if not intervals:
+            return dict(self._default_band)
+        sorted_intervals = sorted(intervals)
+        median_interval = float(statistics.median(intervals))
+        p95_interval = self._percentile(sorted_intervals, 0.95)
+        jitter = self.compute_jitter(intervals)
+        entropy = self.compute_entropy_signature(intervals)
+        burstiness = self.compute_burstiness(intervals, short_threshold_ms=30.0)
+        return {
+            "median_interval_ms": median_interval,
+            "p95_interval_ms": p95_interval,
+            "jitter_ms": max(jitter, 1.0),
+            "short_threshold_ms": 30.0,
+            "expected_burstiness": _clamp(burstiness),
+            "entropy_target": _clamp(entropy),
+            "entropy_tolerance": 0.30,
+        }
+
+    def _baseline_for_scope(
+        self,
+        actor_id: Optional[str],
+        tool_name: Optional[str],
+        target_domain: Optional[str],
+        environment: Optional[str],
+    ) -> BaselineRef:
+        for scope_key, scope_type in self._candidate_scopes(actor_id, tool_name, target_domain, environment):
+            events = list(self._events_by_scope.get(scope_key) or [])
+            if len(self.compute_intervals([float(evt["timestamp_ms"]) for evt in events if evt.get("timestamp_ms") is not None])) >= 4:
+                return BaselineRef(
+                    baseline_id=f"baseline::{scope_key}",
+                    scope_type=scope_type,
+                    actor_id=actor_id,
+                    tool_name=tool_name,
+                    target_domain=target_domain,
+                    environment=environment,
+                    version="v1",
+                    source="harmonic_engine.online",
+                    baseline_band=self._build_baseline_band(events),
+                )
+        return BaselineRef(
+            baseline_id=f"baseline::{self._scope_key('global', 'fallback')}",
+            scope_type="global_fallback",
+            actor_id=actor_id,
+            tool_name=tool_name,
+            target_domain=target_domain,
+            environment=environment,
+            version="v1",
+            source="harmonic_engine.default",
+            baseline_band=dict(self._default_band),
+        )
+
+    def _extract_timing_features(
         self,
         events: List[Dict[str, Any]],
         baseline: Optional[Dict[str, Any]] = None,
-        scope: Optional[str] = None,
     ) -> TimingFeatures:
         timestamps = [float(evt.get("timestamp_ms")) for evt in events if evt.get("timestamp_ms") is not None]
         intervals = self.compute_intervals(timestamps)
@@ -218,181 +325,71 @@ class HarmonicEngine:
             drift_norm=round(_clamp(drift_norm), 6),
             burstiness=round(_clamp(burstiness), 6),
             entropy_signature=round(_clamp(entropy_signature), 6),
-            sequence_class=sequence_tempo.get("sequence_class"),
-            dominant_frequency=sequence_tempo.get("dominant_frequency"),
+            sequence_class=sequence_tempo["sequence_class"],
+            dominant_frequency=sequence_tempo["dominant_frequency"],
         )
 
-    def _build_baseline_band(self, events: List[Dict[str, Any]]) -> Dict[str, Any]:
-        timestamps = [float(evt.get("timestamp_ms")) for evt in events if evt.get("timestamp_ms") is not None]
-        intervals = self.compute_intervals(timestamps)
-        if len(intervals) < 4:
-            return dict(self._default_band)
-        ordered = sorted(intervals)
-        median_interval = float(statistics.median(ordered))
-        p95_interval = self._percentile(ordered, 0.95)
-        jitter = self.compute_jitter(intervals)
-        burstiness = self.compute_burstiness(intervals, short_threshold_ms=80.0, baseline_expectation=None)
-        entropy = self.compute_entropy_signature(intervals)
-        return {
-            "median_interval_ms": median_interval,
-            "p95_interval_ms": p95_interval,
-            "jitter_ms": max(jitter, 1.0),
-            "short_threshold_ms": min(150.0, max(30.0, median_interval * 0.45)),
-            "expected_burstiness": _clamp(burstiness),
-            "entropy_target": _clamp(entropy),
-            "entropy_tolerance": 0.30,
-        }
-
-    def _candidate_scopes(
-        self,
-        actor_id: Optional[str],
-        tool_name: Optional[str],
-        target_domain: Optional[str],
-        environment: Optional[str],
-    ) -> List[Tuple[str, str]]:
-        env = str(environment or "unknown").lower()
-        actor = str(actor_id or "*").lower()
-        tool = str(tool_name or "*").lower()
-        domain = str(target_domain or "*").lower()
-        return [
-            (
-                self._scope_key("actor_tool_domain_env", actor, tool, domain, env),
-                "actor_tool_domain_env",
-            ),
-            (
-                self._scope_key("actor_tool_env", actor, tool, env),
-                "actor_tool_env",
-            ),
-            (
-                self._scope_key("actor_env", actor, env),
-                "actor_env",
-            ),
-            (
-                self._scope_key("tool_domain_env", tool, domain, env),
-                "tool_domain_env",
-            ),
-            (
-                self._scope_key("domain_env", domain, env),
-                "domain_env",
-            ),
-            (
-                self._scope_key("global_env", env),
-                "global_env",
-            ),
-            (
-                self._scope_key("global", "all"),
-                "global",
-            ),
-        ]
-
-    def select_baseline_scope(
-        self,
-        actor_id: Optional[str],
-        tool_name: Optional[str],
-        target_domain: Optional[str],
-        env: Optional[str],
-    ) -> BaselineRef:
-        for key, scope_type in self._candidate_scopes(actor_id, tool_name, target_domain, env):
-            events = list(self._events_by_scope.get(key) or [])
-            intervals = self.compute_intervals([float(evt.get("timestamp_ms")) for evt in events if evt.get("timestamp_ms") is not None])
-            if len(intervals) >= 4:
-                band = self._build_baseline_band(events)
-                return BaselineRef(
-                    baseline_id=f"baseline::{key}",
-                    scope_type=scope_type,
-                    actor_id=actor_id,
-                    tool_name=tool_name,
-                    target_domain=target_domain,
-                    environment=env,
-                    version="v1",
-                    source="harmonic_engine.online",
-                    baseline_band=band,
-                )
-        # cold-start fallback
-        return BaselineRef(
-            baseline_id=f"baseline::{self._scope_key('global', 'fallback')}",
-            scope_type="global_fallback",
-            actor_id=actor_id,
-            tool_name=tool_name,
-            target_domain=target_domain,
-            environment=env,
-            version="v1",
-            source="harmonic_engine.default",
-            baseline_band=dict(self._default_band),
+    def _compute_harmonic_state(self, baseline_ref: BaselineRef, timing: TimingFeatures) -> HarmonicState:
+        band = baseline_ref.baseline_band
+        entropy_delta = abs(timing.entropy_signature - float(band.get("entropy_target", self._default_band["entropy_target"])))
+        entropy_penalty = _safe_div(
+            entropy_delta,
+            float(band.get("entropy_tolerance", self._default_band["entropy_tolerance"])),
+            default=0.0,
         )
-
-    def compute_resonance_score(self, features: TimingFeatures, baseline_ref: BaselineRef) -> float:
-        drift = float(features.drift_norm or 0.0)
-        jitter = float(features.jitter_norm or 0.0)
-        burst = float(features.burstiness or 0.0)
-        entropy = float(features.entropy_signature or 0.0)
-        band = baseline_ref.baseline_band or self._default_band
-        entropy_target = float(band.get("entropy_target") or self._default_band["entropy_target"])
-        entropy_tolerance = float(band.get("entropy_tolerance") or self._default_band["entropy_tolerance"])
-        entropy_fit = 1.0 - _clamp(abs(entropy - entropy_target) / max(entropy_tolerance, 0.01))
-        raw = (
-            +1.4 * (1.0 - _clamp(jitter))
-            +1.6 * (1.0 - _clamp(drift))
-            +1.2 * (1.0 - _clamp(burst))
-            +0.8 * entropy_fit
-            -2.0
+        discord_score = _clamp(
+            (timing.drift_norm * 0.35)
+            + (timing.jitter_norm * 0.25)
+            + (timing.burstiness * 0.20)
+            + (_clamp(entropy_penalty) * 0.20)
         )
-        return round(_clamp(_sigmoid(raw)), 6)
-
-    def compute_discord_score(self, features: TimingFeatures, baseline_ref: BaselineRef) -> float:
-        drift = float(features.drift_norm or 0.0)
-        jitter = float(features.jitter_norm or 0.0)
-        burst = float(features.burstiness or 0.0)
-        entropy = float(features.entropy_signature or 0.0)
-        band = baseline_ref.baseline_band or self._default_band
-        entropy_target = float(band.get("entropy_target") or self._default_band["entropy_target"])
-        entropy_tolerance = float(band.get("entropy_tolerance") or self._default_band["entropy_tolerance"])
-        entropy_delta = _clamp(abs(entropy - entropy_target) / max(entropy_tolerance, 0.01))
-        perfect_tempo_penalty = 0.0
-        if features.sample_size >= 5 and (features.jitter_ms or 0.0) < 5.0:
-            perfect_tempo_penalty = 0.20
-        raw = (
-            +1.5 * _clamp(drift)
-            +1.2 * _clamp(jitter)
-            +1.4 * _clamp(burst)
-            +0.9 * entropy_delta
-            +perfect_tempo_penalty
-            -1.6
+        resonance_score = _clamp(
+            1.0
+            - (
+                (timing.drift_norm * 0.30)
+                + (timing.jitter_norm * 0.25)
+                + (timing.burstiness * 0.20)
+                + (_clamp(entropy_penalty) * 0.10)
+            )
         )
-        return round(_clamp(_sigmoid(raw)), 6)
-
-    def compute_confidence(
-        self,
-        features: TimingFeatures,
-        sample_size: int,
-        env_conditions: Optional[Dict[str, Any]] = None,
-    ) -> float:
-        sample_factor = _clamp(_safe_div(float(sample_size), 16.0))
-        env_conditions = env_conditions or {}
-        baseline_quality = _clamp(float(env_conditions.get("baseline_quality", 0.75)))
-        degradation_penalty = 0.2 if str(env_conditions.get("environment_state") or "").lower() in {"degraded", "incident"} else 0.0
-        confidence = (0.65 * sample_factor) + (0.35 * baseline_quality) - degradation_penalty
-        return round(_clamp(confidence), 6)
-
-    def _mode_recommendation(self, resonance: float, discord: float, confidence: float) -> Tuple[str, List[str]]:
+        confidence = _clamp(_sigmoid((timing.sample_size - 4.0) / 2.0))
         rationale: List[str] = []
-        if confidence < 0.4:
-            rationale.append("low confidence due to limited cadence evidence")
-            return "observe_and_review", rationale
-        if discord >= 0.85:
-            rationale.append("extreme discord score")
-            return "sandbox_or_contain", rationale
-        if discord >= 0.65:
-            rationale.append("high discord score")
-            return "tighten_scrutiny", rationale
-        if discord >= 0.45 or resonance <= 0.45:
-            rationale.append("moderate timing strain")
-            return "monitor_with_obligations", rationale
-        rationale.append("timing resonance within expected bounds")
-        return "normal_flow", rationale
+        if timing.sample_size == 0:
+            rationale.append("cold-start cadence; baseline still forming")
+        if timing.drift_norm > 0.35:
+            rationale.append("cadence drift from baseline pulse")
+        if timing.jitter_norm > 0.50:
+            rationale.append("jitter instability exceeds baseline band")
+        if timing.burstiness > 0.35:
+            rationale.append("burstiness above expected range")
+        if entropy_penalty > 0.50:
+            rationale.append("entropy signature departs from expected melody")
+        if not rationale:
+            rationale.append("timing resonance within expected bounds")
 
-    def _record_event(self, scope_key: str, event: Dict[str, Any]) -> None:
-        self._events_by_scope[scope_key].append(event)
+        if confidence < 0.40:
+            mode = "observe_and_review"
+        elif discord_score >= 0.85:
+            mode = "sandbox_or_contain"
+        elif discord_score >= 0.65:
+            mode = "tighten_scrutiny"
+        elif discord_score >= 0.45 or resonance_score <= 0.45 or timing.jitter_norm >= 0.80 or timing.burstiness >= 0.45:
+            mode = "monitor_with_obligations"
+        else:
+            mode = "normal_flow"
+
+        return HarmonicState(
+            baseline_ref=baseline_ref,
+            resonance_score=round(resonance_score, 6),
+            discord_score=round(discord_score, 6),
+            confidence=round(confidence, 6),
+            drift_norm=timing.drift_norm,
+            jitter_norm=timing.jitter_norm,
+            burstiness=timing.burstiness,
+            entropy_signature=timing.entropy_signature,
+            mode_recommendation=mode,
+            rationale=rationale,
+        )
 
     def _record_observation_across_scopes(
         self,
@@ -403,7 +400,7 @@ class HarmonicEngine:
         event: Dict[str, Any],
     ) -> None:
         for scope_key, _ in self._candidate_scopes(actor_id, tool_name, target_domain, environment):
-            self._record_event(scope_key, event)
+            self._events_by_scope[scope_key].append(event)
 
     def score_observation(
         self,
@@ -417,113 +414,57 @@ class HarmonicEngine:
         operation: Optional[str] = None,
         context: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
-        ts_ms = float(timestamp_ms if timestamp_ms is not None else _utc_now_ms())
         event = {
-            "timestamp_ms": ts_ms,
-            "stage": str(stage),
             "actor_id": actor_id,
             "tool_name": tool_name,
             "operation": operation or tool_name,
             "target_domain": target_domain,
-            "environment": environment,
+            "environment": environment or "local",
+            "stage": stage,
             "context": context or {},
+            "timestamp_ms": float(timestamp_ms if timestamp_ms is not None else _utc_now_ms()),
         }
-        resolved_context = context or {}
-        threat_state = str(resolved_context.get("threat_state") or "").strip().lower()
-        learn_baseline = bool(resolved_context.get("learn_baseline", True))
-        if threat_state in {"active", "elevated", "incident", "siege"}:
-            learn_baseline = False
-        if learn_baseline:
-            self._record_observation_across_scopes(
-                actor_id=actor_id,
-                tool_name=tool_name,
-                target_domain=target_domain,
-                environment=environment,
-                event=event,
-            )
-        primary_scope_key = self._scope_key(
+        self._record_observation_across_scopes(actor_id, tool_name, target_domain, environment, event)
+        primary_scope = self._scope_key(
             "actor_tool_domain_env",
             actor_id or "*",
             tool_name or "*",
             target_domain or "*",
-            environment or "unknown",
+            environment or "local",
         )
-        primary_events = list(self._events_by_scope.get(primary_scope_key) or [])
-        if not learn_baseline:
-            primary_events = primary_events + [event]
-        baseline_ref = self.select_baseline_scope(actor_id, tool_name, target_domain, environment)
-        features = self.extract_timing_features(
-            primary_events,
-            baseline=baseline_ref.baseline_band or self._default_band,
-            scope=primary_scope_key,
-        )
-        # 1. Calculate base discord and resonance using full sigmoid logic
-        raw_discord = self.compute_discord_score(features, baseline_ref)
-        raw_resonance = self.compute_resonance_score(features, baseline_ref)
-        
-        # 2. Phase 26: Polyphonic Resonance Integration
-        from .resonance_service import get_resonance_service
-        res_svc = get_resonance_service()
-        spectrum = res_svc.get_resonance_spectrum()
-        
-        # Adjust resonance and discord based on choral spectrum
-        micro_fact = float(spectrum.get("micro", 1.0))
-        meso_fact = float(spectrum.get("meso", 1.0))
-        macro_fact = float(spectrum.get("macro", 1.0))
-        
-        # Spectral Multiplication
-        # Micro (Infrasound) is the absolute foundation.
-        resonance_score = _clamp(raw_resonance * (0.4 * micro_fact + 0.3 * meso_fact + 0.3 * macro_fact))
-        if micro_fact < 0.1:
-            resonance_score = 0.0
-            
-        # Discord is boosted by choral dissonance
-        discord_score = _clamp(raw_discord + (1.0 - micro_fact) * 0.5 + (1.0 - meso_fact) * 0.3)
-
-        confidence = self.compute_confidence(
-            features,
-            sample_size=features.sample_size,
-            env_conditions={
-                "baseline_quality": (0.85 if baseline_ref.scope_type != "global_fallback" else 0.45) * micro_fact,
-                "environment_state": "degraded"
-                if str(environment or "").lower() in {"incident", "degraded"} or micro_fact < 0.5
-                else "normal",
-            },
-        )
-        mode_recommendation, rationale = self._mode_recommendation(resonance_score, discord_score, confidence)
-        
-        # Add spectral rationale
-        if micro_fact < 0.8:
-            rationale.append(f"Infrasound (Micro) dissonance: {micro_fact}")
-        if meso_fact < 0.8:
-            rationale.append(f"Mid-range (Meso) rhythm drift: {meso_fact}")
-        # enrich rationale with top contributors
-        if float(features.burstiness or 0.0) > 0.35:
-            rationale.append("burstiness above expected range")
-        if float(features.drift_norm or 0.0) > 0.35:
-            rationale.append("cadence drift from baseline pulse")
-        if float(features.jitter_norm or 0.0) > 0.5:
-            rationale.append("jitter instability exceeds baseline band")
-        
-        harmonic_state = HarmonicState(
-            resonance_score=resonance_score,
-            discord_score=discord_score,
-            confidence=confidence,
-            baseline_ref=baseline_ref,
-            mode_recommendation=mode_recommendation,
-            drift_norm=features.drift_norm,
-            jitter_norm=features.jitter_norm,
-            burstiness=features.burstiness,
-            entropy_signature=features.entropy_signature,
-            rationale=rationale,
-            baseline_ref_id=baseline_ref.baseline_id
-        )
+        events = list(self._events_by_scope[primary_scope])
+        baseline_ref = self._baseline_for_scope(actor_id, tool_name, target_domain, environment or "local")
+        timing = self._extract_timing_features(events, baseline_ref.baseline_band)
+        state = self._compute_harmonic_state(baseline_ref, timing)
         return {
             "event": event,
-            "timing_features": _model_dump(features),
-            "baseline_ref": _model_dump(baseline_ref),
-            "harmonic_state": _model_dump(harmonic_state),
+            "baseline_ref": asdict(baseline_ref),
+            "timing_features": asdict(timing),
+            "harmonic_state": asdict(state),
         }
+
+    def observe(
+        self,
+        *,
+        actor_id: str,
+        tool_name: str,
+        target_domain: str,
+        operation: Optional[str] = None,
+        environment: str = "local",
+        stage: str = "gate",
+        context: Optional[Dict[str, Any]] = None,
+        timestamp_ms: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        return self.score_observation(
+            actor_id=actor_id,
+            tool_name=tool_name,
+            target_domain=target_domain,
+            operation=operation,
+            environment=environment,
+            stage=stage,
+            context=context,
+            timestamp_ms=timestamp_ms,
+        )
 
 
 _harmonic_engine_singleton: Optional[HarmonicEngine] = None

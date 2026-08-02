@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-08-02T20:48:18.003636+00:00",
+  "suite": "sophia_writing_desk_phase5_ui_static",
+  "summary": {
+    "passed": 14,
+    "total": 14,
+    "pass_rate": 1.0
+  },
+  "rows": [
+    {
+      "check": "office_selector",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-pedagogy-office"
+    },
+    {
+      "check": "learner_selector",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-learner-level"
+    },
+    {
+      "check": "style_selector",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-feedback-style"
+    },
+    {
+      "check": "assessment_layer_selector",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "writing-assessment-layer"
+    },
+    {
+      "check": "all_core_offices",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/index.html",
+      "needle": "expert_challenge"
+    },
+    {
+      "check": "pedagogy_row_css",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/styles.css",
+      "needle": ".writing-pedagogy-row"
+    },
+    {
+      "check": "pedagogy_card_css",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/styles.css",
+      "needle": ".writing-pedagogy-card"
+    },
+    {
+      "check": "js_reads_options",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "function getWritingPedagogyOptions"
+    },
+    {
+      "check": "js_sends_options",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "...getWritingPedagogyOptions()"
+    },
+    {
+      "check": "js_renders_plan",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "structured.pedagogical_plan"
+    },
+    {
+      "check": "zpd_visible",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "ZPD:"
+    },
+    {
+      "check": "bloom_visible",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "needle": "Bloom:"
+    },
+    {
+      "check": "no_browser_speech_synthesis",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "forbidden": "speechSynthesis"
+    },
+    {
+      "check": "no_browser_voice_fallback",
+      "passed": true,
+      "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/Presence UI/script.js",
+      "forbidden": "speakWithBrowserVoice"
+    }
+  ]
+}

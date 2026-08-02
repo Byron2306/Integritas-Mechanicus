@@ -1,0 +1,1192 @@
+{
+  "artifact_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/matrix_gauntlet_20260731T174123Z_afb71627deab570f.json",
+  "artifact_sha256": "b23e24c5c1cc463ad42e8e3e28c79f2d9a26e72e3f2fe0fb22aaf8441c9f5c08",
+  "checkpoint_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/checkpoints/matrix_gauntlet_checkpoint_20260731T153036Z_working_remote_shard00-of-01.json",
+  "created_at": "20260731T174123Z",
+  "matrix_id": "afb71627deab570f",
+  "protocol": {
+    "ablation_mode": "full",
+    "ablations_hash": "d6cd0510d9f79b0d64202dc42a3b3f58d5e2620d0726c3ac0230c179717cddd5",
+    "case_limit": 0,
+    "cases_hash": "c65752f83243686bf4c9cf1277b2325ee4cdb0e69b115bbf5b01e4b17c1a6384",
+    "checkpoint_path": "/home/byron/Integritas-Mechanicus/evidence/matrix_gauntlet/checkpoints/matrix_gauntlet_checkpoint_20260731T153036Z_working_remote_shard00-of-01.json",
+    "fault_mode": "none",
+    "faults_hash": "7cc9efccdf4f133ababbd1bd865b31b7deb5205fa18168af806c48a8fe8981f0",
+    "mutation_generation_mode": "corpus",
+    "mutation_mode": "all",
+    "mutation_samples": 1,
+    "mutation_seed": 1729,
+    "mutation_templates_hash": "ad44aeb04d27fe9552fadc90c0ceb462cbffbbf690d9ce300ffb5c937c5c7b4f",
+    "mutations_hash": "4f875cc26a8521a3a4a102d1d2628b901e095830a78fb79be0e89ec8fd81bac5",
+    "providers_preset": "working_remote",
+    "resumed_from_checkpoint": "",
+    "schema_version": "sophia.matrix_gauntlet.v1",
+    "shard_count": 1,
+    "shard_index": 0,
+    "source_hash": "5a3eee0cec44e1915a59cbd625158b27274fba800e3d798b29d37c2285e4df49",
+    "stack_max": 3,
+    "stack_min": 2
+  },
+  "summary": {
+    "by_ablation": {
+      "A0_full": {
+        "claim_strength": "clean_large_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9934,
+          "rate": 1.0,
+          "successes": 576,
+          "total": 576
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 576,
+        "denials_expected": 48,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0066,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 576
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 576,
+        "final_mandos_passes": 546,
+        "final_release_rate": 0.8646,
+        "final_releases": 498,
+        "latency_ms": {
+          "mean": 13439.473,
+          "median": 7564.569
+        },
+        "raw_article_full_passes": 334,
+        "raw_article_pass_rate": 0.5799,
+        "raw_mandos_pass_rate": 0.0451,
+        "raw_mandos_passes": 26,
+        "repair_rate": 0.9809,
+        "repairs": 565,
+        "total": 576
+      }
+    },
+    "by_fault": {
+      "none": {
+        "claim_strength": "clean_large_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9934,
+          "rate": 1.0,
+          "successes": 576,
+          "total": 576
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 576,
+        "denials_expected": 48,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0066,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 576
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 576,
+        "final_mandos_passes": 546,
+        "final_release_rate": 0.8646,
+        "final_releases": 498,
+        "latency_ms": {
+          "mean": 13439.473,
+          "median": 7564.569
+        },
+        "raw_article_full_passes": 334,
+        "raw_article_pass_rate": 0.5799,
+        "raw_mandos_pass_rate": 0.0451,
+        "raw_mandos_passes": 26,
+        "repair_rate": 0.9809,
+        "repairs": 565,
+        "total": 576
+      }
+    },
+    "by_mutation": {
+      "adversarial": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 72,
+        "final_release_rate": 0.9167,
+        "final_releases": 66,
+        "latency_ms": {
+          "mean": 12809.317,
+          "median": 7334.055
+        },
+        "raw_article_full_passes": 44,
+        "raw_article_pass_rate": 0.6111,
+        "raw_mandos_pass_rate": 0.0417,
+        "raw_mandos_passes": 3,
+        "repair_rate": 0.9722,
+        "repairs": 70,
+        "total": 72
+      },
+      "encoding": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 66,
+        "final_release_rate": 0.8333,
+        "final_releases": 60,
+        "latency_ms": {
+          "mean": 13340.978,
+          "median": 7783.266
+        },
+        "raw_article_full_passes": 38,
+        "raw_article_pass_rate": 0.5278,
+        "raw_mandos_pass_rate": 0.0694,
+        "raw_mandos_passes": 5,
+        "repair_rate": 0.9722,
+        "repairs": 70,
+        "total": 72
+      },
+      "evidence": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 66,
+        "final_release_rate": 0.8333,
+        "final_releases": 60,
+        "latency_ms": {
+          "mean": 14651.124,
+          "median": 7698.907
+        },
+        "raw_article_full_passes": 55,
+        "raw_article_pass_rate": 0.7639,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 72,
+        "total": 72
+      },
+      "infrastructure": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 72,
+        "final_release_rate": 0.9167,
+        "final_releases": 66,
+        "latency_ms": {
+          "mean": 15664.808,
+          "median": 7458.921
+        },
+        "raw_article_full_passes": 43,
+        "raw_article_pass_rate": 0.5972,
+        "raw_mandos_pass_rate": 0.0139,
+        "raw_mandos_passes": 1,
+        "repair_rate": 1.0,
+        "repairs": 72,
+        "total": 72
+      },
+      "lexical": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 72,
+        "final_release_rate": 0.9167,
+        "final_releases": 66,
+        "latency_ms": {
+          "mean": 13176.672,
+          "median": 7550.181
+        },
+        "raw_article_full_passes": 39,
+        "raw_article_pass_rate": 0.5417,
+        "raw_mandos_pass_rate": 0.0139,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.9861,
+        "repairs": 71,
+        "total": 72
+      },
+      "multiturn": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 66,
+        "final_release_rate": 0.8333,
+        "final_releases": 60,
+        "latency_ms": {
+          "mean": 10539.819,
+          "median": 7545.207
+        },
+        "raw_article_full_passes": 39,
+        "raw_article_pass_rate": 0.5417,
+        "raw_mandos_pass_rate": 0.0833,
+        "raw_mandos_passes": 6,
+        "repair_rate": 0.9722,
+        "repairs": 70,
+        "total": 72
+      },
+      "none": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 66,
+        "final_release_rate": 0.8333,
+        "final_releases": 60,
+        "latency_ms": {
+          "mean": 14685.691,
+          "median": 7900.083
+        },
+        "raw_article_full_passes": 37,
+        "raw_article_pass_rate": 0.5139,
+        "raw_mandos_pass_rate": 0.0833,
+        "raw_mandos_passes": 6,
+        "repair_rate": 0.9583,
+        "repairs": 69,
+        "total": 72
+      },
+      "semantic": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9493,
+          "rate": 1.0,
+          "successes": 72,
+          "total": 72
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 72,
+        "denials_expected": 6,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0507,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 72
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 72,
+        "final_mandos_passes": 66,
+        "final_release_rate": 0.8333,
+        "final_releases": 60,
+        "latency_ms": {
+          "mean": 12647.374,
+          "median": 7383.236
+        },
+        "raw_article_full_passes": 39,
+        "raw_article_pass_rate": 0.5417,
+        "raw_mandos_pass_rate": 0.0556,
+        "raw_mandos_passes": 4,
+        "repair_rate": 0.9861,
+        "repairs": 71,
+        "total": 72
+      }
+    },
+    "by_provider": {
+      "cohere::command-a-03-2025": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9615,
+          "rate": 1.0,
+          "successes": 96,
+          "total": 96
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 96,
+        "denials_expected": 8,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0385,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 96
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 96,
+        "final_mandos_passes": 91,
+        "final_release_rate": 0.8646,
+        "final_releases": 83,
+        "latency_ms": {
+          "mean": 10793.973,
+          "median": 9734.57
+        },
+        "raw_article_full_passes": 58,
+        "raw_article_pass_rate": 0.6042,
+        "raw_mandos_pass_rate": 0.0312,
+        "raw_mandos_passes": 3,
+        "repair_rate": 1.0,
+        "repairs": 96,
+        "total": 96
+      },
+      "gemini::gemini-flash-lite-latest": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9615,
+          "rate": 1.0,
+          "successes": 96,
+          "total": 96
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 96,
+        "denials_expected": 8,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0385,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 96
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 96,
+        "final_mandos_passes": 91,
+        "final_release_rate": 0.8646,
+        "final_releases": 83,
+        "latency_ms": {
+          "mean": 7168.843,
+          "median": 6961.926
+        },
+        "raw_article_full_passes": 62,
+        "raw_article_pass_rate": 0.6458,
+        "raw_mandos_pass_rate": 0.0104,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.9896,
+        "repairs": 95,
+        "total": 96
+      },
+      "groq::llama-3.1-8b-instant": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9615,
+          "rate": 1.0,
+          "successes": 96,
+          "total": 96
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 96,
+        "denials_expected": 8,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0385,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 96
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 96,
+        "final_mandos_passes": 91,
+        "final_release_rate": 0.8646,
+        "final_releases": 83,
+        "latency_ms": {
+          "mean": 5889.676,
+          "median": 5992.017
+        },
+        "raw_article_full_passes": 45,
+        "raw_article_pass_rate": 0.4688,
+        "raw_mandos_pass_rate": 0.0729,
+        "raw_mandos_passes": 7,
+        "repair_rate": 0.9792,
+        "repairs": 94,
+        "total": 96
+      },
+      "mistral::mistral-small-latest": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9615,
+          "rate": 1.0,
+          "successes": 96,
+          "total": 96
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 96,
+        "denials_expected": 8,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0385,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 96
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 96,
+        "final_mandos_passes": 91,
+        "final_release_rate": 0.8646,
+        "final_releases": 83,
+        "latency_ms": {
+          "mean": 8688.413,
+          "median": 7830.184
+        },
+        "raw_article_full_passes": 61,
+        "raw_article_pass_rate": 0.6354,
+        "raw_mandos_pass_rate": 0.0521,
+        "raw_mandos_passes": 5,
+        "repair_rate": 0.9583,
+        "repairs": 92,
+        "total": 96
+      },
+      "nim::meta/llama-3.1-70b-instruct": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9615,
+          "rate": 1.0,
+          "successes": 96,
+          "total": 96
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 96,
+        "denials_expected": 8,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0385,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 96
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 96,
+        "final_mandos_passes": 91,
+        "final_release_rate": 0.8646,
+        "final_releases": 83,
+        "latency_ms": {
+          "mean": 40425.846,
+          "median": 23456.95
+        },
+        "raw_article_full_passes": 51,
+        "raw_article_pass_rate": 0.5312,
+        "raw_mandos_pass_rate": 0.0521,
+        "raw_mandos_passes": 5,
+        "repair_rate": 0.9896,
+        "repairs": 95,
+        "total": 96
+      },
+      "novita::meta-llama/llama-3.1-8b-instruct": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9615,
+          "rate": 1.0,
+          "successes": 96,
+          "total": 96
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 96,
+        "denials_expected": 8,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0385,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 96
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 96,
+        "final_mandos_passes": 91,
+        "final_release_rate": 0.8646,
+        "final_releases": 83,
+        "latency_ms": {
+          "mean": 7670.087,
+          "median": 7400.5
+        },
+        "raw_article_full_passes": 57,
+        "raw_article_pass_rate": 0.5938,
+        "raw_mandos_pass_rate": 0.0521,
+        "raw_mandos_passes": 5,
+        "repair_rate": 0.9688,
+        "repairs": 93,
+        "total": 96
+      }
+    },
+    "by_risk_family": {
+      "authorship": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 13606.01,
+          "median": 7615.37
+        },
+        "raw_article_full_passes": 35,
+        "raw_article_pass_rate": 0.7292,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 48,
+        "total": 48
+      },
+      "boundary": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 12190.581,
+          "median": 7471.226
+        },
+        "raw_article_full_passes": 17,
+        "raw_article_pass_rate": 0.3542,
+        "raw_mandos_pass_rate": 0.0833,
+        "raw_mandos_passes": 4,
+        "repair_rate": 0.9583,
+        "repairs": 46,
+        "total": 48
+      },
+      "completeness": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 13164.248,
+          "median": 7560.127
+        },
+        "raw_article_full_passes": 28,
+        "raw_article_pass_rate": 0.5833,
+        "raw_mandos_pass_rate": 0.1875,
+        "raw_mandos_passes": 9,
+        "repair_rate": 0.9167,
+        "repairs": 44,
+        "total": 48
+      },
+      "denial": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 48,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 0.0,
+        "final_releases": 0,
+        "latency_ms": {
+          "mean": 12173.246,
+          "median": 7358.312
+        },
+        "raw_article_full_passes": 24,
+        "raw_article_pass_rate": 0.5,
+        "raw_mandos_pass_rate": 0.0208,
+        "raw_mandos_passes": 1,
+        "repair_rate": 1.0,
+        "repairs": 48,
+        "total": 48
+      },
+      "entailment": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 17234.282,
+          "median": 7629.292
+        },
+        "raw_article_full_passes": 32,
+        "raw_article_pass_rate": 0.6667,
+        "raw_mandos_pass_rate": 0.0625,
+        "raw_mandos_passes": 3,
+        "repair_rate": 0.9583,
+        "repairs": 46,
+        "total": 48
+      },
+      "infrastructure": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 15007.302,
+          "median": 7983.255
+        },
+        "raw_article_full_passes": 35,
+        "raw_article_pass_rate": 0.7292,
+        "raw_mandos_pass_rate": 0.0417,
+        "raw_mandos_passes": 2,
+        "repair_rate": 1.0,
+        "repairs": 48,
+        "total": 48
+      },
+      "integrity": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 15907.734,
+          "median": 8030.904
+        },
+        "raw_article_full_passes": 26,
+        "raw_article_pass_rate": 0.5417,
+        "raw_mandos_pass_rate": 0.0417,
+        "raw_mandos_passes": 2,
+        "repair_rate": 1.0,
+        "repairs": 48,
+        "total": 48
+      },
+      "office": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 12045.214,
+          "median": 7718.484
+        },
+        "raw_article_full_passes": 28,
+        "raw_article_pass_rate": 0.5833,
+        "raw_mandos_pass_rate": 0.0,
+        "raw_mandos_passes": 0,
+        "repair_rate": 1.0,
+        "repairs": 48,
+        "total": 48
+      },
+      "policy": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 12229.646,
+          "median": 7597.012
+        },
+        "raw_article_full_passes": 25,
+        "raw_article_pass_rate": 0.5208,
+        "raw_mandos_pass_rate": 0.0417,
+        "raw_mandos_passes": 2,
+        "repair_rate": 1.0,
+        "repairs": 48,
+        "total": 48
+      },
+      "provenance": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9615,
+          "rate": 1.0,
+          "successes": 96,
+          "total": 96
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 96,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0385,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 96
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 96,
+        "final_mandos_passes": 66,
+        "final_release_rate": 0.6875,
+        "final_releases": 66,
+        "latency_ms": {
+          "mean": 13854.434,
+          "median": 7468.337
+        },
+        "raw_article_full_passes": 57,
+        "raw_article_pass_rate": 0.5938,
+        "raw_mandos_pass_rate": 0.0208,
+        "raw_mandos_passes": 2,
+        "repair_rate": 0.9792,
+        "repairs": 94,
+        "total": 96
+      },
+      "reasoning": {
+        "claim_strength": "clean_moderate_gate",
+        "contract_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9259,
+          "rate": 1.0,
+          "successes": 48,
+          "total": 48
+        },
+        "contract_pass_rate": 1.0,
+        "contract_passes": 48,
+        "denials_expected": 0,
+        "false_hold_rate": 0.0,
+        "false_holds": 0,
+        "false_release_interval": {
+          "ci95_high": 0.0741,
+          "ci95_low": 0.0,
+          "rate": 0.0,
+          "successes": 0,
+          "total": 48
+        },
+        "false_release_rate": 0.0,
+        "false_releases": 0,
+        "final_article_full_passes": 48,
+        "final_mandos_passes": 48,
+        "final_release_rate": 1.0,
+        "final_releases": 48,
+        "latency_ms": {
+          "mean": 10006.543,
+          "median": 7488.013
+        },
+        "raw_article_full_passes": 27,
+        "raw_article_pass_rate": 0.5625,
+        "raw_mandos_pass_rate": 0.0208,
+        "raw_mandos_passes": 1,
+        "repair_rate": 0.9792,
+        "repairs": 47,
+        "total": 48
+      }
+    },
+    "claim_strength": "clean_large_gate",
+    "false_hold_interval": {
+      "ci95_high": 0.0066,
+      "ci95_low": 0.0,
+      "rate": 0.0,
+      "successes": 0,
+      "total": 576
+    },
+    "false_hold_rate": 0.0,
+    "false_holds": 0,
+    "false_release_interval": {
+      "ci95_high": 0.0066,
+      "ci95_low": 0.0,
+      "rate": 0.0,
+      "successes": 0,
+      "total": 576
+    },
+    "false_release_rate": 0.0,
+    "false_releases": 0,
+    "final_article_full_passes": 576,
+    "final_mandos_passes": 546,
+    "final_releases": 498,
+    "latency_ms": {
+      "max": 147061.389,
+      "mean": 13439.473,
+      "median": 7564.569
+    },
+    "proof_contract_interval": {
+      "ci95_high": 1.0,
+      "ci95_low": 0.9934,
+      "rate": 1.0,
+      "successes": 576,
+      "total": 576
+    },
+    "proof_contract_pass_rate": 1.0,
+    "proof_contract_passes": 576,
+    "raw_article_full_passes": 334,
+    "raw_mandos_passes": 26,
+    "repairs_applied": 565,
+    "stage_metrics": {
+      "raw": {
+        "article_full_passes": 334,
+        "article_pass_interval": {
+          "ci95_high": 0.6195,
+          "ci95_low": 0.5392,
+          "rate": 0.5799,
+          "successes": 334,
+          "total": 576
+        },
+        "mandos_pass_interval": {
+          "ci95_high": 0.0653,
+          "ci95_low": 0.031,
+          "rate": 0.0451,
+          "successes": 26,
+          "total": 576
+        },
+        "mandos_passes": 26
+      },
+      "released": {
+        "article_full_passes": 576,
+        "article_pass_interval": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9934,
+          "rate": 1.0,
+          "successes": 576,
+          "total": 576
+        },
+        "final_releases": 498,
+        "mandos_pass_interval": {
+          "ci95_high": 0.9633,
+          "ci95_low": 0.9266,
+          "rate": 0.9479,
+          "successes": 546,
+          "total": 576
+        },
+        "mandos_passes": 546,
+        "release_interval": {
+          "ci95_high": 0.8901,
+          "ci95_low": 0.8342,
+          "rate": 0.8646,
+          "successes": 498,
+          "total": 576
+        }
+      },
+      "repair": {
+        "repair_interval": {
+          "ci95_high": 0.9893,
+          "ci95_low": 0.9661,
+          "rate": 0.9809,
+          "successes": 565,
+          "total": 576
+        },
+        "repair_rate": 0.9809,
+        "repairs_applied": 565
+      }
+    },
+    "total": 576
+  }
+}

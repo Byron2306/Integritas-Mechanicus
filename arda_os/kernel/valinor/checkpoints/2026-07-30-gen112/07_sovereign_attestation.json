@@ -1,0 +1,162 @@
+{
+  "protocol": "ARDA_CORONATION_v1",
+  "mirror_id": "ARDA-CORONATION-137076CE220F4C82",
+  "timestamp": "2026-07-30T19:00:21Z",
+  "boot_state": "LAWFUL_FULL",
+  "boot_measurement": {
+    "source": "linux_host_measurement_v1",
+    "secure_boot": {
+      "available": true,
+      "enabled": true,
+      "source": "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+    },
+    "setup_mode": {
+      "available": true,
+      "enabled": false,
+      "source": "/sys/firmware/efi/efivars/SetupMode-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+    },
+    "lockdown": {
+      "available": true,
+      "value": "none integrity [confidentiality]",
+      "source": "/sys/kernel/security/lockdown"
+    },
+    "active_lsms": {
+      "available": true,
+      "value": "lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm",
+      "source": "/sys/kernel/security/lsm"
+    },
+    "kernel_cmdline": {
+      "available": true,
+      "value": "BOOT_IMAGE=/boot/vmlinuz-6.12.96-valinor root=UUID=55f4acd3-e120-4027-888f-b2b02e327174 ro lockdown=confidentiality quiet",
+      "source": "/proc/cmdline"
+    },
+    "kernel_release": {
+      "available": true,
+      "value": "6.12.96-valinor",
+      "source": "/proc/sys/kernel/osrelease"
+    },
+    "pcrs": {
+      "0": "0886e6fc01b4b9c8fc427eb494c7fa477032d56991529621fe3e9865f532e92f",
+      "1": "513c6b7a2bea363aa0750a14f62d56a37ba69a4c6abcbb60503db6b28571b35e",
+      "7": "94b6dc41a920b74d113a059deea8d3fc5a1145637ba5668002f1261a8effac54",
+      "11": "e5b97ef776ace6210441a1160c232b81b9c64c6cfb97d1de9b31b4481711d5f1"
+    },
+    "classification": "LAWFUL_FULL"
+  },
+  "principal": {
+    "type": "SOVEREIGN_SUBSTRATE",
+    "assent": "I attest that this evidence was produced by direct hardware interaction",
+    "machine_id": "c895237d07c64b029a495b62b878aeba"
+  },
+  "tpm_pcr_quote": {
+    "nonce": "7642033ce894f55df038d005d2672348",
+    "nonce_source": "locally_generated",
+    "pcr_selection": "sha256:0,1,7,11",
+    "pcr_values": {
+      "0": "0886e6fc01b4b9c8fc427eb494c7fa477032d56991529621fe3e9865f532e92f",
+      "1": "513c6b7a2bea363aa0750a14f62d56a37ba69a4c6abcbb60503db6b28571b35e",
+      "7": "94b6dc41a920b74d113a059deea8d3fc5a1145637ba5668002f1261a8effac54",
+      "11": "e5b97ef776ace6210441a1160c232b81b9c64c6cfb97d1de9b31b4481711d5f1"
+    },
+    "quote_blob_b64": "/1RDR4AYACIAC3CG6EB1+8Zj4nvo6HWsVqhlkq5T+Vo21/pfD1ZCR6s0ABB2QgM86JT1XfA40AXSZyNIAAAAAiHSG4oAAAD9AAAAAAEABwACAAMAAQAAAAEACwODCAAAIEBnNAAHd27F6OZZ/E8Xc4wvqOiulzsQjFQ5RXU/tsty",
+    "signature_blob_b64": "ABQACwEAoMYJROIVJ1T2atOdwpz3TBgMwil51f16nEjlQbE2VkoWXIpDEj1jX1hCs2GMxnxVf3lYc4FVH22uSlvwJmLGK5Kfgl0X75P20itf8qJC/fX7YkvpDzcXapkaq7TpJPV8Aw0JBTm1LtRAJ7OV0bGiO0WhqMrRASyGx/NV2QrRBS86J7tf7j92ZW9ESU87AVwDCQaLsdDh1QRNy8vCeT3c/rRo59YPJT74LmKshfMEdKoMcjLRHgWBDgy05iD+DHglZZC46n+J0ZCjCt2xD8EECI9Qv3b+QF1EUNAfKTmUMvAVpROV0qxU3wEsGsC425IXl35pmn88UHO0IwyqP4p5Mg==",
+    "pcr_blob_b64": "AQAAAAsAA4MIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAgAAiG5vwBtLnI/EJ+tJTH+kdwMtVpkVKWIf4+mGX1MukvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAFE8a3or6jY6oHUKFPYtVqN7pppMary7YFA9trKFcbNeAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAJS23EGpILdNEToFne6o0/xaEUVje6VmgALxJhqO/6xUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAOW5fvd2rOYhBEGhFgwjK4G5xkxs+5fR3psxtEgXEdXxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+    "ak_public_b64": "ARgAAQALAAUAcgAAABAAFAALCAAAAAAAAQDSSKsWNFuYBGc7hMOYmpHm2cnfSByd/zfhYWpcKdj0zx1cLURTFUSxKegf4atWqpoRyNzorhSFgJni4fKsJn2WiGOVSusz0OGohfKVsGEku8magiCdhK35lna0m+4thGcxpHKp1PuE0kgvmrEFGcT0FHb0ziSgJdcShG4KbABj1y9ODT7gtR3SGUvGtZ+es/YAUCmeTlhHJewuFjCwQmOGLBnDdTZj+qm/I8vouYCI93wCbltgPnlN+5351dPBUYxACbhFqnEJS0Ru3tVDmexagyQqwApVra1fgZD12+gGBW+6FUD61s6rISD6apvT0jBU7vcTR1MM23VeIVvdosMv",
+    "ek_public_b64": "AToAAQALAAMAsgAgg3GXZ0SEs/gakMyNRqXXJP1S124GUgtk8qHaGzMUaaoABgCAAEMAEAgAAAAAAAEApLi4ybhQD3T99MDhSknQf58g76MNoSnwwCRTeqpL96hBRQ186jjrj3onu5zSe4D+i3hV29h1AK5eg+FNDDGktf9MMCgYtdImT9iEZHX5dRvRBywig2eqCk6lxOfEkWzRrauktLhDRvCyXK1VxUzttnRxzdh4OetWwiF6iVcoYX4uUuoLo52t2Vl8CnL4vAvEafBPNfvXB0WBXCJaIiz5K5p9uccNz3HY/qHASJrjph13fo5vRBBBEjKXDApDb2BvEnvT7jbIRQwCdj/ZfS3J46Q/QsnL5BBSTCGFUDNmMbUPNXTVM1uhfNz1TiHnzV1BpRpoz6sDUf9ACobLNYGecQ==",
+    "silicon_signed": true
+  },
+  "tpm_identity": {
+    "manufacturer": "Nuvoton (NTC)",
+    "identity_chain_mode": "ek-certificate+createak",
+    "endorsement_primary": {
+      "public_sha256": "a9cba9a1aed19f1f810607ec480fb4c85d6ffcecec52c1145efb5d164242bc43",
+      "public_pem_b64": "AToAAQALAAMAsgAgg3GXZ0SEs/gakMyNRqXXJP1S124GUgtk8qHaGzMUaaoABgCAAEMAEAgAAAAAAAEApLi4ybhQD3T99MDhSknQf58g76MNoSnwwCRTeqpL96hBRQ186jjrj3onu5zSe4D+i3hV29h1AK5eg+FNDDGktf9MMCgYtdImT9iEZHX5dRvRBywig2eqCk6lxOfEkWzRrauktLhDRvCyXK1VxUzttnRxzdh4OetWwiF6iVcoYX4uUuoLo52t2Vl8CnL4vAvEafBPNfvXB0WBXCJaIiz5K5p9uccNz3HY/qHASJrjph13fo5vRBBBEjKXDApDb2BvEnvT7jbIRQwCdj/ZfS3J46Q/QsnL5BBSTCGFUDNmMbUPNXTVM1uhfNz1TiHnzV1BpRpoz6sDUf9ACobLNYGecQ=="
+    },
+    "attestation_key": {
+      "public_sha256": "5d2a8a6d3a9968ec837c4f1019d5f97f64ac69ca1f8e2eb45d692b1ff1af029a",
+      "public_pem_b64": "ARgAAQALAAUAcgAAABAAFAALCAAAAAAAAQDSSKsWNFuYBGc7hMOYmpHm2cnfSByd/zfhYWpcKdj0zx1cLURTFUSxKegf4atWqpoRyNzorhSFgJni4fKsJn2WiGOVSusz0OGohfKVsGEku8magiCdhK35lna0m+4thGcxpHKp1PuE0kgvmrEFGcT0FHb0ziSgJdcShG4KbABj1y9ODT7gtR3SGUvGtZ+es/YAUCmeTlhHJewuFjCwQmOGLBnDdTZj+qm/I8vouYCI93wCbltgPnlN+5351dPBUYxACbhFqnEJS0Ru3tVDmexagyQqwApVra1fgZD12+gGBW+6FUD61s6rISD6apvT0jBU7vcTR1MM23VeIVvdosMv"
+    },
+    "ek_certificate_present": true,
+    "ak_certified_by_ek": true,
+    "trust_note": "manufacturer-rooted identity available"
+  },
+  "software_state_binding": {
+    "available": true,
+    "bound": true,
+    "generation_db": "/var/lib/arda/projection/arda_measured_generation.sqlite3",
+    "pcr_index": 11,
+    "manifest_id": "measured-d8383a1c3548228d",
+    "generation": 112,
+    "node_id": "debian",
+    "manifest_digest": "sha256:25dbbb047c02731039ee5262a2ce6c36f5cdae3218fe9d733e6e7dcc2f4dd28f",
+    "policy_generation": "ARDA-POLICY-V1@1.1.0",
+    "policy_generation_digest": "c1bc17bf833fc0be6db8f494adda41701189b2741be5b975485009a5a1d48fbb",
+    "components": [
+      {
+        "label": "manifest_digest",
+        "pcr_index": 11,
+        "algorithm": "sha256",
+        "digest": "25dbbb047c02731039ee5262a2ce6c36f5cdae3218fe9d733e6e7dcc2f4dd28f"
+      },
+      {
+        "label": "policy_generation",
+        "pcr_index": 11,
+        "algorithm": "sha256",
+        "digest": "c1bc17bf833fc0be6db8f494adda41701189b2741be5b975485009a5a1d48fbb"
+      }
+    ],
+    "timestamp": "2026-07-30T19:00:21Z",
+    "boot_id": "9dd1324f-4d3d-437e-9c2d-1c06d841d918",
+    "pcr_before": {
+      "11": "e5b97ef776ace6210441a1160c232b81b9c64c6cfb97d1de9b31b4481711d5f1"
+    },
+    "pcr_after": {
+      "11": "e5b97ef776ace6210441a1160c232b81b9c64c6cfb97d1de9b31b4481711d5f1"
+    },
+    "operations": [],
+    "binding_reused": true,
+    "binding_state_path": "/var/lib/arda/attestation/state/pcr11_binding_state.json"
+  },
+  "ebpf_enforcement": {
+    "compiled": false,
+    "enforcement_result": "NOT_CAPTURED",
+    "lsm_active": "lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm"
+  },
+  "quote_verification": {
+    "ok": true,
+    "timestamp": "2026-07-30T19:00:21Z",
+    "tool": "/usr/bin/tpm2_checkquote",
+    "returncode": 0,
+    "stdout": "pcrs:\n  sha256:\n    0 : 0x0886E6FC01B4B9C8FC427EB494C7FA477032D56991529621FE3E9865F532E92F\n    1 : 0x513C6B7A2BEA363AA0750A14F62D56A37BA69A4C6ABCBB60503DB6B28571B35E\n    7 : 0x94B6DC41A920B74D113A059DEEA8D3FC5A1145637BA5668002F1261A8EFFAC54\n    11: 0xE5B97EF776ACE6210441A1160C232B81B9C64C6CFB97D1DE9B31B4481711D5F1\nsig: a0c60944e2152754f66ad39dc29cf74c180cc22979d5fd7a9c48e541b136564a165c8a43123d635f5842b3618cc67c557f79587381551f6dae4a5bf02662c62b929f825d17ef93f6d22b5ff2a242fdf5fb624be90f37176a991aabb4e924f57c030d090539b52ed44027b395d1b1a23b45a1a8cad1012c86c7f355d90ad1052f3a27bb5fee3f76656f44494f3b015c0309068bb1d0e1d5044dcbcbc2793ddcfeb468e7d60f253ef82e62ac85f30474aa0c7232d11e05810e0cb4e620fe0c78256590b8ea7f89d190a30addb10fc104088f50bf76fe405d4450d01f29399432f015a51395d2ac54df012c1ac0b8db9217977e699a7f3c5073b4230caa3f8a7932",
+    "stderr": ""
+  },
+  "file_hashes": {
+    "01_tpm_handles_persistent.txt": "dbd567068a46f2f9c9c99d23de468f4730b8c74ecfe9cb224bb02acb2c30bfd3",
+    "01_tpm_properties.json": "7602331643d1ade82d2a9cf827d51d8a9c9901504bd983c5481a766f9d26611b",
+    "01_tpm_properties.txt": "4501e96db433c0fb22592fbdf89c784bf5e02ad951d5908da781fc1a682cf5fd",
+    "02_pcr11_after.txt": "c11337fd3037ff99cbc1993826082a0a1fa4382c8dafc2631dde800cf71869fc",
+    "02_pcr11_before.txt": "c11337fd3037ff99cbc1993826082a0a1fa4382c8dafc2631dde800cf71869fc",
+    "02_pcr11_extend_manifest_digest.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "02_pcr11_extend_policy_generation.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "02_pcr_raw.txt": "98c6b01638638993568ef6a4e96140768b6e2ed556a4642363fa358eb1d6d54a",
+    "02_pcr_values.json": "775168feacfef430dd6555b8c38f2314a8ebfffbb276976507250e41ce6aea56",
+    "02_software_state_binding.json": "9d4b725099efd251f00911af5bf65151a2ce85514e294e74d71d5e2b459437f8",
+    "03_ak_creation_attest.err": "6640cc6db647e65536e880c02760751008c35c4055da4f7278c016e25740a81c",
+    "03_ak_public.pem": "5d2a8a6d3a9968ec837c4f1019d5f97f64ac69ca1f8e2eb45d692b1ff1af029a",
+    "03_ak_public.txt": "1289c0eb93ff23a7b5d5d34792d7c75007f6225f47aec58e249b6854d706dd6e",
+    "03_ek_cert_0x01c00002.bin": "0af98f3c926a6dd29b959d0c4c454fcfc1889ada2da16533610e5ef372f12b64",
+    "03_ek_nvreadpublic_0x01c00002.txt": "14001252c976eae8ce2b44649c9aa9fef08d742a69780efff79557668cf200b6",
+    "03_ek_public.pem": "a9cba9a1aed19f1f810607ec480fb4c85d6ffcecec52c1145efb5d164242bc43",
+    "03_ek_public.txt": "df70bb2b8af2c233a9d474f6264950dd694a314fb524d3cb59b447f21674ef76",
+    "03_tpm_identity.json": "f9db8c11b617f4497c2b56bb73622cc304d880ff63e9832ba4b3b0a32e99e44b",
+    "04_quote.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "04_quote_metadata.json": "43cb2715bcdb6c1d441b6c8cc7fbff7beb8f5e20629f721f8289c46394bf8303",
+    "04_quote_nonce.txt": "0d4e4ae4aad5cba9aa6a9237d60e5ae9936ca93a5bb0477ad2fa7dd445fc1901",
+    "04_tpm_quote.bin": "dc6c0e323dec47159d2d3ce14946f1a82251429b191bb4ec60ffb118044e7879",
+    "04_tpm_quote_pcrs.bin": "68bdb5430a2a312c9fa30db8a6a72bea67ba68fc9f5c17e7534e6b5f47b07945",
+    "04_tpm_quote_sig.bin": "3fa32a9a38624b558efdccf3354a74521b24654f9e22e9756837dac3f273d41e",
+    "08_quote_verification.json": "c8e209c60ec3cf2cd044c4c2ef90e7594957fce6a5814975dba32e25dfff7f0e",
+    "09_attestation_envelope.json": "6eaced8f093c26e4732246d332df4bce654f966d45891ba041935b11cccc08f3"
+  },
+  "chain_hash": "137076ce220f4c8207ef6eac2c3bc50d79a05e9b6c3eb31adc29c611a916b1e4"
+}

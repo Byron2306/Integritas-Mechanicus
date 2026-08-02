@@ -1,0 +1,4731 @@
+{
+  "summary": {
+    "suite": "sophia_writing_desk_phase3_ranking_quality",
+    "total": 40,
+    "passed": 40,
+    "pass_rate": 1.0,
+    "passes_phase3_ranking_gate": true
+  },
+  "rows": [
+    {
+      "row": 1,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 2,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 3,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 4,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 5,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 6,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 7,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 8,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 9,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 10,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 11,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 12,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 13,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 14,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 15,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 16,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 17,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 18,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 19,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 20,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 21,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 22,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 23,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 24,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 25,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 26,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 27,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 28,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 29,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 30,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 31,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 32,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 33,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 34,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 35,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 36,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 37,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 38,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 39,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    },
+    {
+      "row": 40,
+      "checks": {
+        "top_is_systematic_review": true,
+        "top_supports": true,
+        "top_has_doi": true,
+        "top_role_policy": true,
+        "background_not_first": true,
+        "ranking_scores_present": true,
+        "roles_present": true
+      },
+      "passed": true,
+      "top": {
+        "source_name": "Systematic review of generative AI academic integrity policy",
+        "support_label": "supports",
+        "confidence": 0.95,
+        "relevance": 0.691,
+        "quality_score": 0.93,
+        "ranking_score": 0.9072,
+        "source_type": "systematic review scholarly OpenAlex",
+        "source_role": "policy/integrity context",
+        "overlap_terms": [
+          "assessment",
+          "detection",
+          "disclosure",
+          "dominated",
+          "enforcement",
+          "generative",
+          "hoc",
+          "post",
+          "redesign",
+          "responses"
+        ],
+        "exact_span": "Across higher education, institutional responses to generative AI were dominated by disclosure requirements, detection tools, assessment redesign, and post hoc enforcement mechanisms.",
+        "authors": [
+          "Lina Mokoena",
+          "James Patel"
+        ],
+        "year": "2025",
+        "container_title": "",
+        "publisher": "",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "doi": "10.5555/aihe.2025.42",
+        "url": "https://doi.org/10.5555/aihe.2025.42",
+        "apa_candidate": "Mokoena, L., & Patel, J.. (2025). Systematic review of generative AI academic integrity policy. https://doi.org/10.5555/aihe.2025.42",
+        "bibtex_candidate": "@article{mokoena2025systematic,\n  author = {Lina Mokoena and James Patel},\n  title = {Systematic review of generative AI academic integrity policy},\n  year = {2025},\n  doi = {10.5555/aihe.2025.42},\n  url = {https://doi.org/10.5555/aihe.2025.42}\n}",
+        "ris_candidate": "TY  - JOUR\nTI  - Systematic review of generative AI academic integrity policy\nAU  - Lina Mokoena\nAU  - James Patel\nPY  - 2025\nDO  - 10.5555/aihe.2025.42\nUR  - https://doi.org/10.5555/aihe.2025.42\nER  -",
+        "csl_json_candidate": {
+          "type": "article-journal",
+          "title": "Systematic review of generative AI academic integrity policy",
+          "issued": {
+            "date-parts": [
+              [
+                2025
+              ]
+            ]
+          },
+          "author": [
+            {
+              "given": "Lina",
+              "family": "Mokoena"
+            },
+            {
+              "given": "James",
+              "family": "Patel"
+            }
+          ],
+          "DOI": "10.5555/aihe.2025.42",
+          "URL": "https://doi.org/10.5555/aihe.2025.42"
+        },
+        "page_status": "no page number visible; do not invent one",
+        "page_locator": "",
+        "citation_status": "citation-ready lead",
+        "metadata_status": "doi metadata present",
+        "metadata_chain": [],
+        "provenance_status": "systematic review scholarly OpenAlex",
+        "rationale": "supports: lexical/construct relevance=0.69; semantic families=academic_integrity_policy; quality=0.93 (review-level scholarly synthesis); lexical terms=assessment, detection, disclosure, dominated, enforcement, generative.",
+        "entailment_status": "entailed_by_visible_span",
+        "entailment_warnings": [],
+        "entailment_score": 0.952,
+        "lexical_vector_score": 0.7001,
+        "semantic_overlap": [
+          "academic_integrity_policy"
+        ],
+        "broad_field_overlap": [
+          "education_learning_sciences"
+        ],
+        "semantic_score": 0.55,
+        "citation_check": {
+          "compliance_score": 80.0,
+          "errors": [
+            {
+              "type": "YEAR_FORMAT",
+              "text": "No clear year marker detected.",
+              "suggestion": "Add or verify publication year before treating this as citation-ready.",
+              "rule": "APA year/provenance"
+            }
+          ],
+          "warnings": [],
+          "pass_count": 4,
+          "fail_count": 1
+        }
+      },
+      "labels": [
+        "supports",
+        "supports",
+        "partially supports",
+        "background only"
+      ],
+      "roles": [
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context",
+        "policy/integrity context"
+      ]
+    }
+  ]
+}

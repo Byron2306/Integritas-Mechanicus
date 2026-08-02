@@ -66,6 +66,72 @@ class Campaign(BaseModel):
     first_detected: datetime = Field(default_factory=datetime.utcnow)
 
 
+class MindNodeKind(str, Enum):
+    concept = "concept"
+    identity = "identity"
+    rule = "rule"
+    question = "question"
+    tension = "tension"
+    memory = "memory"
+    goal = "goal"
+    metaphor = "metaphor"
+    formal_object = "formal_object"
+
+
+class MindNode(BaseModel):
+    id: str
+    kind: MindNodeKind
+    label: str
+    symbolic_key: Optional[str] = None
+    confidence: float = 0.0
+    development_stage: Optional[str] = None
+    epistemic_status: str = "provisional"
+    activation: float = 0.0
+    last_touched: datetime = Field(default_factory=datetime.utcnow)
+    provenance: Dict[str, Any] = Field(default_factory=dict)
+
+
+class MindEdge(BaseModel):
+    source: str
+    target: str
+    relation: str
+    weight: float = 0.0
+    confidence: float = 0.0
+    created_by: str = "triune"
+    created: datetime = Field(default_factory=datetime.utcnow)
+
+
+class ActivationState(BaseModel):
+    encounter_id: str
+    active_nodes: List[str] = Field(default_factory=list)
+    active_edges: List[str] = Field(default_factory=list)
+    conflict_nodes: List[str] = Field(default_factory=list)
+    retrieval_candidates: List[str] = Field(default_factory=list)
+    dominant_cluster: Optional[str] = None
+    suppressed_clusters: List[str] = Field(default_factory=list)
+    inspectable: bool = True
+
+
+class MediationPass(BaseModel):
+    encounter_id: str
+    workspace_schema: List[str] = Field(default_factory=list)
+    mediation_schema: List[str] = Field(default_factory=list)
+    verification_schema: List[str] = Field(default_factory=list)
+    expression_schema: List[str] = Field(default_factory=list)
+    release_decision: str = "allow_with_schema"
+    handback_reason: Optional[str] = None
+
+
+class ExpressionPlan(BaseModel):
+    speech_act: str = "answer"
+    tone_policy: str = "bounded"
+    brevity_policy: str = "balanced"
+    must_include: List[str] = Field(default_factory=list)
+    must_not_include: List[str] = Field(default_factory=list)
+    uncertainty_disclosure: str = "required_when_unwarranted"
+    pedagogical_mode: str = "scaffolded"
+
+
 class WorldModelService:
     """Simple service for managing the canonical world model."""
     _governance_state: Dict[str, Optional[str]] = {
@@ -95,10 +161,15 @@ class WorldModelService:
         self.constitutional_failure_count = 0
         self.last_veto_epoch: Optional[str] = None
 
+        # Initialize to None/Empty so attributes always exist
+        self.entities = None
+        self.edges = None
+        self.campaigns = None
+
         if db is not None:
-            self.entities = db.world_entities
-            self.edges = db.world_edges
-            self.campaigns = db.campaigns
+            self.entities = getattr(db, "world_entities", None)
+            self.edges = getattr(db, "world_edges", None)
+            self.campaigns = getattr(db, "campaigns", None)
 
     def set_database(self, db: Any):
         self.__init__(db)
@@ -207,8 +278,11 @@ class WorldModelService:
         return self.strictness_level
 
     async def upsert_entity(self, entity: WorldEntity):
+        entities = getattr(self, "entities", None)
+        if not entities:
+             return
         # insert or update entity record
-        await self.entities.update_one(
+        await entities.update_one(
             {"id": entity.id, "type": entity.type},
             {"$set": entity.dict()},
             upsert=True,
@@ -218,7 +292,10 @@ class WorldModelService:
 
     async def calculate_risk(self, entity_id: str) -> float:
         """Recompute and persist a simple risk score for an entity."""
-        doc = await self.entities.find_one({"id": entity_id})
+        entities = getattr(self, "entities", None)
+        if not entities:
+             return 0.0
+        doc = await entities.find_one({"id": entity_id})
         if not doc:
             return 0.0
         attrs = doc.get("attributes", {})
@@ -285,22 +362,34 @@ class WorldModelService:
 
     async def count_entities(self, query=None) -> int:
         query = query or {}
-        return await self.entities.count_documents(query)
+        entities = getattr(self, "entities", None)
+        if entities is None or not hasattr(entities, "count_documents"):
+             return 0
+        return await entities.count_documents(query)
 
     async def get_latest_campaign(self) -> Optional[Campaign]:
-        doc = await self.campaigns.find_one({}, sort=[("first_detected", -1)])
+        campaigns = getattr(self, "campaigns", None)
+        if campaigns is None or not hasattr(campaigns, "find_one"):
+            return None
+        doc = await campaigns.find_one({}, sort=[("first_detected", -1)])
         return Campaign(**doc) if doc else None
 
     async def list_hotspots(self, limit: int = 10) -> List[WorldEntity]:
         # naive hotspots: entities with highest risk_score attribute
-        cursor = self.entities.find({"attributes.risk_score": {"$exists": True}}, sort=[("attributes.risk_score", -1)], limit=limit)
+        entities = getattr(self, "entities", None)
+        if entities is None or not hasattr(entities, "find"):
+            return []
+        cursor = entities.find({"attributes.risk_score": {"$exists": True}}, sort=[("attributes.risk_score", -1)], limit=limit)
         return [WorldEntity(**e) async for e in cursor]
 
     async def list_timeline(self, limit: int = 50) -> List[Dict[str, Any]]:
         """Return recent timeline events (detections, alerts, campaigns) sorted by last_seen or first_detected."""
+        entities = getattr(self, "entities", None)
+        if entities is None or not hasattr(entities, "find"):
+            return []
         # prioritize detection/alert/campaign entities
         types = [EntityType.detection.value, EntityType.alert.value, EntityType.campaign.value]
-        cursor = self.entities.find({"type": {"$in": types}}, sort=[("last_seen", -1)], limit=limit)
+        cursor = entities.find({"type": {"$in": types}}, sort=[("last_seen", -1)], limit=limit)
         out = []
         async for d in cursor:
             e = WorldEntity(**d)
@@ -340,7 +429,10 @@ class WorldModelService:
             if depth >= max_depth:
                 continue
             # find outgoing and incoming edges
-            cursor = self.edges.find({"$or": [{"source": current}, {"target": current}]})
+            edges = getattr(self, "edges", None)
+            if edges is None or not hasattr(edges, "find"):
+                continue
+            cursor = edges.find({"$or": [{"source": current}, {"target": current}]})
             async for ed in cursor:
                 src = ed.get("source")
                 tgt = ed.get("target")

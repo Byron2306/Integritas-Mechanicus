@@ -1,0 +1,20 @@
+[Unit]
+Description=ARDA Phase 4 Remote Verifier
+Documentation=file:/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/PRODUCTION_OPERATIONS.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/arda/arda-verifier.env
+EnvironmentFile=-/etc/default/arda-valinor
+WorkingDirectory=/home/byron/Integritas-Mechanicus
+ExecStart=/usr/bin/env PYTHONPATH=/home/byron/Integritas-Mechanicus/arda_os /home/byron/Integritas-Mechanicus/.venv/bin/python3 /home/byron/Integritas-Mechanicus/arda_os/bin/arda_phase4_verifier_service.py
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=arda-phase4-remote-verifier
+
+[Install]
+WantedBy=multi-user.target

@@ -2,7 +2,15 @@ import logging
 import asyncio
 from typing import Dict, Any, Optional
 from backend.services.arda_fabric import get_arda_fabric
-from backend.valinor.runtime_hooks import get_valinor_runtime
+try:
+    from backend.valinor.runtime_hooks import get_valinor_runtime
+except Exception:
+    from backend.services.runtime_hooks import get_valinor_runtime  # type: ignore
+from backend.services.outbound_policy_hardening import (
+    OutboundPolicyError,
+    canonicalize_target,
+    host_matches_allowlist,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -22,10 +30,21 @@ class GatesOfNight:
         logger.info(f"Gates of Night: Evaluating egress through the Doors for {target_url}...")
         
         # 1. Sanctity Check (Whitelisted Sanctuaries)
-        for sanctuary in self.sanctuaries:
-             if sanctuary in target_url:
-                  logger.debug(f"Gates of Night: Request to Sanctuary {sanctuary} allowed.")
-                  return True
+        try:
+            canonical_target = canonicalize_target(target_url)
+        except OutboundPolicyError as exc:
+            logger.warning("Gates of Night: malformed egress target rejected: %s", exc)
+            return False
+        if host_matches_allowlist(
+            canonical_target.host,
+            exact_hosts=self.sanctuaries,
+            allowed_subdomain_roots=self.sanctuaries,
+        ):
+            logger.debug(
+                "Gates of Night: canonical Sanctuary host %s allowed.",
+                canonical_target.host,
+            )
+            return True
 
         # 2. Sovereign Exemption (Check for a Varda Star-Seal)
         valinor = get_valinor_runtime()

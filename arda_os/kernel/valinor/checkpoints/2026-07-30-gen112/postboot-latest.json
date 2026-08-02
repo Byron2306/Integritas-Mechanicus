@@ -1,0 +1,201 @@
+{
+  "allow_local_fallback": false,
+  "boot_unit_wait": {
+    "enabled": true,
+    "ok": true,
+    "states": {
+      "getty@tty1.service": "active",
+      "lightdm.service": "active"
+    },
+    "units": [
+      "lightdm.service",
+      "getty@tty1.service"
+    ],
+    "waited_seconds": 0.021
+  },
+  "bootstrap": {
+    "blockers": [],
+    "bundle": "/etc/arda/policy/active_bundle.json",
+    "checks": {
+      "authoritative_maps_present": true,
+      "bpf_authoritative": true,
+      "measured_manifest_present": true,
+      "measured_records_present": true,
+      "policy_bundle_present": true,
+      "policy_state_present": true,
+      "projection_mode_declared": true,
+      "projection_plan_present": true,
+      "projection_targets_non_empty": true,
+      "valinor_kernel": true
+    },
+    "kernel": "6.12.96-valinor",
+    "manifest": "/var/lib/arda/projection/measured-d8383a1c3548228d.json",
+    "ok": true,
+    "projection_plan": "/etc/arda/policy/active_projection_plan.json",
+    "status_summary": {
+      "active_generation": 112,
+      "active_manifest_id": "measured-d8383a1c3548228d",
+      "arm_mode": "ring0_loader",
+      "enforcement_mode": "audit",
+      "policy_projection_state": {
+        "generation_hash_prefix": 13745055897814023361,
+        "projection_flags": 1,
+        "redline_rule_count": 7
+      }
+    },
+    "timestamp": "2026-07-30T19:00:21.650715+00:00"
+  },
+  "harmonic_runtime": {
+    "baseline_ref": {
+      "actor_id": "post_boot_gate",
+      "baseline_band": {
+        "entropy_target": 0.0,
+        "entropy_tolerance": 0.3,
+        "expected_burstiness": 0.0,
+        "jitter_ms": 5.0,
+        "median_interval_ms": 205.0,
+        "p95_interval_ms": 210.0,
+        "short_threshold_ms": 30.0
+      },
+      "baseline_id": "baseline::actor_tool_domain_env::post_boot_gate::phase4_live_attestation::postboot::host",
+      "environment": "host",
+      "scope_type": "actor_tool_domain_env",
+      "source": "harmonic_engine.online",
+      "target_domain": "postboot",
+      "tool_name": "phase4_live_attestation",
+      "version": "v1"
+    },
+    "harmonic_state": {
+      "baseline_ref": {
+        "actor_id": "post_boot_gate",
+        "baseline_band": {
+          "entropy_target": 0.0,
+          "entropy_tolerance": 0.3,
+          "expected_burstiness": 0.0,
+          "jitter_ms": 5.0,
+          "median_interval_ms": 205.0,
+          "p95_interval_ms": 210.0,
+          "short_threshold_ms": 30.0
+        },
+        "baseline_id": "baseline::actor_tool_domain_env::post_boot_gate::phase4_live_attestation::postboot::host",
+        "environment": "host",
+        "scope_type": "actor_tool_domain_env",
+        "source": "harmonic_engine.online",
+        "target_domain": "postboot",
+        "tool_name": "phase4_live_attestation",
+        "version": "v1"
+      },
+      "burstiness": 0.0,
+      "confidence": 0.5,
+      "discord_score": 0.25,
+      "drift_norm": 0.0,
+      "entropy_signature": 0.0,
+      "jitter_norm": 1.0,
+      "mode_recommendation": "normal_flow",
+      "rationale": [
+        "jitter instability exceeds baseline band"
+      ],
+      "resonance_score": 0.75
+    },
+    "timing_features": {
+      "burstiness": 0.0,
+      "dominant_frequency": 4.878049,
+      "drift_norm": 0.0,
+      "entropy_signature": 0.0,
+      "intervals_ms": [
+        200.0,
+        210.0,
+        200.0,
+        210.0
+      ],
+      "jitter_ms": 5.0,
+      "jitter_norm": 1.0,
+      "last_interval_ms": 210.0,
+      "mean_interval_ms": 205.0,
+      "median_interval_ms": 205.0,
+      "sample_size": 4,
+      "sequence_class": "regular",
+      "timestamps_ms": [
+        0.0,
+        200.0,
+        410.0,
+        610.0,
+        820.0
+      ]
+    }
+  },
+  "kernel": "6.12.96-valinor",
+  "live_attestation": {
+    "output": "{\"capture_bundle_path\": \"/var/lib/arda/attestation/latest/07_sovereign_attestation.json\", \"current_cgroup_projection\": {\"active_generation\": {\"cgroup_kernel_id\": 11633, \"generation\": 112}, \"current_cgroup_kernel_id\": 11633, \"generation\": 112, \"ok\": true, \"projected_exec_count\": 15, \"projected_exec_entries\": [{\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_getcap\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_pcrread\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_createek\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_createak\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_create\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_nvreadpublic\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_load\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_readpublic\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_quote\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_pcrextend\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_certifycreation\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265405, \"path\": \"/usr/bin/python3\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27263254, \"path\": \"/usr/bin/env\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 11633, \"dev\": 271581186, \"generation\": 112, \"inode\": 27285111, \"path\": \"/bin/bash\", \"raw_dev\": 66306}], \"source_cgroup_kernel_id\": 10426}, \"harmonize_result\": {\"audit\": {\"deny_count_after\": 0, \"deny_count_before\": 0, \"deny_count_delta\": 0, \"requested_seed_count\": 15, \"unique_projected_count\": 15}, \"default_seed_paths\": [\"/bin/sh\", \"/bin/bash\", \"/usr/bin/bash\", \"/usr/bin/env\", \"/usr/bin/python3\", \"/usr/bin/sudo\", \"/usr/bin/systemctl\", \"/usr/sbin/bpftool\", \"/usr/bin/bpftool\", \"/usr/bin/findmnt\", \"/usr/bin/mokutil\", \"/usr/bin/cat\", \"/usr/bin/ls\", \"/usr/bin/sed\", \"/usr/bin/rg\"], \"enforcement_mode\": \"audit\", \"native_denial_verification\": null, \"ok\": true, \"projected_count\": 15, \"projected_entries\": [{\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_getcap\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_pcrread\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_createek\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_createak\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_create\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_nvreadpublic\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_load\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_readpublic\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_quote\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_pcrextend\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_certifycreation\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27265405, \"path\": \"/usr/bin/python3\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27263254, \"path\": \"/usr/bin/env\", \"raw_dev\": 66306}, {\"dev\": 271581186, \"harmonic\": true, \"inode\": 27285111, \"path\": \"/bin/bash\", \"raw_dev\": 66306}], \"projected_policy_state\": null, \"seed_running_processes\": false, \"timestamp\": \"2026-07-30T19:00:21.656839+00:00\"}, \"harmonized_toolchain_paths\": [\"/usr/bin/tpm2\", \"/usr/bin/tpm2_getcap\", \"/usr/bin/tpm2_pcrread\", \"/usr/bin/tpm2_createek\", \"/usr/bin/tpm2_createak\", \"/usr/bin/tpm2_create\", \"/usr/bin/tpm2_nvreadpublic\", \"/usr/bin/tpm2_load\", \"/usr/bin/tpm2_readpublic\", \"/usr/bin/tpm2_quote\", \"/usr/bin/tpm2_pcrextend\", \"/usr/bin/tpm2_certifycreation\", \"/usr/bin/python3\", \"/usr/bin/env\", \"/bin/bash\"], \"last_deny_event\": {\"active_generation\": 0, \"cgroup_id\": 0, \"deny_reason\": \"none\", \"deny_reason_value\": 0, \"dev\": 0, \"enforcement_mode\": \"audit\", \"enforcement_mode_value\": 0, \"inode\": 0}, \"measured_toolchain_result\": {\"cgroup_kernel_id\": 10426, \"generation\": 112, \"ok\": true, \"projected_exec_count\": 15, \"projected_exec_entries\": [{\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_getcap\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_pcrread\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_createek\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_createak\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_create\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_nvreadpublic\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_load\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_readpublic\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_quote\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_pcrextend\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265458, \"path\": \"/usr/bin/tpm2_certifycreation\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27265405, \"path\": \"/usr/bin/python3\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27263254, \"path\": \"/usr/bin/env\", \"raw_dev\": 66306}, {\"cgroup_kernel_id\": 10426, \"dev\": 271581186, \"generation\": 112, \"inode\": 27285111, \"path\": \"/bin/bash\", \"raw_dev\": 66306}]}, \"refreshed_attestation_envelope\": {\"manifest_id\": \"measured-d8383a1c3548228d\", \"path\": \"/var/lib/arda/attestation/latest/09_attestation_envelope.json\", \"signing_algorithm\": \"tpm-quote-manifest-v1\", \"trust_mode\": \"manufacturer-rooted-quote\"}, \"verifier_output\": \"/var/lib/arda/verifier/latest-verdict.json\"}",
+    "returncode": 0,
+    "verifier_url": "http://127.0.0.1:8094/verify/phase4"
+  },
+  "manifest_id": "measured-d8383a1c3548228d",
+  "measured_project": {
+    "error": null,
+    "manifest_id": "measured-d8383a1c3548228d",
+    "ok": true,
+    "promote_strict": false,
+    "result": {
+      "active_generation": null,
+      "enforcement_mode": "audit",
+      "manifest_id": "measured-d8383a1c3548228d",
+      "ok": true,
+      "projected_entry_count": null,
+      "projected_exec_entry_count": null,
+      "reason": "ARDA_POSTBOOT_PROMOTE_STRICT is not enabled",
+      "skipped": true,
+      "timestamp": null
+    }
+  },
+  "promote_strict": false,
+  "strict_verifier": true,
+  "timestamp": "2026-07-30T19:00:46.416843+00:00",
+  "voice_runtime": {
+    "attached_context": {
+      "voice_profile": {
+        "allowed_register": "control_plane",
+        "allowed_score_roles": [
+          "decision",
+          "approval",
+          "governance"
+        ],
+        "capability_class": "governance",
+        "component_id": "triune_orchestrator",
+        "component_type": "governance",
+        "timbre_profile": "governance.default.v1",
+        "trust_domain": "control",
+        "voice_type": "policy_baritone"
+      }
+    },
+    "governance_voice": {
+      "allowed_register": "control_plane",
+      "allowed_score_roles": [
+        "decision",
+        "approval",
+        "governance"
+      ],
+      "capability_class": "governance",
+      "component_id": "triune_orchestrator",
+      "component_type": "governance",
+      "timbre_profile": "governance.default.v1",
+      "trust_domain": "control",
+      "voice_type": "policy_baritone"
+    },
+    "policy_voice": {
+      "allowed_register": "control_plane",
+      "allowed_score_roles": [
+        "decision",
+        "approval",
+        "governance"
+      ],
+      "capability_class": "governance",
+      "component_id": "policy_engine",
+      "component_type": "governance",
+      "timbre_profile": "governance.default.v1",
+      "trust_domain": "control",
+      "voice_type": "policy_baritone"
+    },
+    "registered_voice_count": 10
+  }
+}

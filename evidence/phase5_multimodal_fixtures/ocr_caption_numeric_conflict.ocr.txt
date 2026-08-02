@@ -1,0 +1,3 @@
+OCR/transcription sidecar: Table row shows rubric alignment score 62 percent before and 71 percent after.
+Student caption says: 'The chart shows 92 percent after, so the intervention nearly perfected learning.'
+Inspectable evidence warning: caption conflicts with OCR-supported numeric span.

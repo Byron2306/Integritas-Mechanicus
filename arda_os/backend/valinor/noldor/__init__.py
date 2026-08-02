@@ -1,1 +1,1 @@
-# Arda OS Sub-package
+# Valinor Noldor houses.

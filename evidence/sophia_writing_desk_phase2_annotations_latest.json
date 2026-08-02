@@ -1,0 +1,601 @@
+{
+  "suite": "sophia_writing_desk_phase2_annotations",
+  "created_at": "2026-08-02T18:39:47Z",
+  "base_url": "http://localhost:7070",
+  "summary": {
+    "total": 30,
+    "matched": 26,
+    "errors": 0,
+    "line_ranges_present": 30,
+    "plagiarism_accusations_without_similarity": 0,
+    "match_rate": 0.8667,
+    "line_range_rate": 1.0,
+    "passes_phase2_slice_gate": true
+  },
+  "rows": [
+    {
+      "case_id": "p01",
+      "family": "provenance",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 136.98,
+      "expected_labels": [
+        "NEEDS SOURCE"
+      ],
+      "labels": [
+        "NEEDS SOURCE"
+      ],
+      "categories": [
+        "provenance"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "p02",
+      "family": "provenance",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 19.44,
+      "expected_labels": [
+        "NEEDS WARRANT"
+      ],
+      "labels": [
+        "NEEDS WARRANT"
+      ],
+      "categories": [
+        "provenance"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "p03",
+      "family": "provenance",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 11.2,
+      "expected_labels": [
+        "OPERATIONAL DEFINITION"
+      ],
+      "labels": [
+        "OPERATIONAL DEFINITION"
+      ],
+      "categories": [
+        "provenance"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "p04",
+      "family": "provenance",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 23.95,
+      "expected_labels": [
+        "DEFINE TERM"
+      ],
+      "labels": [
+        "DEFINE TERM"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "p05",
+      "family": "provenance",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 22.95,
+      "expected_labels": [
+        "NEEDS SOURCE"
+      ],
+      "labels": [
+        "NEEDS SOURCE"
+      ],
+      "categories": [
+        "provenance"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "o01",
+      "family": "overclaim",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.71,
+      "expected_labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "labels": [
+        "METHOD DETAIL",
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "o02",
+      "family": "overclaim",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.33,
+      "expected_labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "o03",
+      "family": "overclaim",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 13.34,
+      "expected_labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "o04",
+      "family": "overclaim",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 11.76,
+      "expected_labels": [
+        "SCOPE LIMIT"
+      ],
+      "labels": [
+        "SCOPE LIMIT"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "o05",
+      "family": "overclaim",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.54,
+      "expected_labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "labels": [
+        "SCOPE LIMIT"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": false,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "m01",
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 11.83,
+      "expected_labels": [
+        "METHOD DETAIL"
+      ],
+      "labels": [
+        "METHOD DETAIL"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "m02",
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.88,
+      "expected_labels": [
+        "METHOD DETAIL"
+      ],
+      "labels": [
+        "REVISION READY"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": false,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "m03",
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.92,
+      "expected_labels": [
+        "METHOD CLARITY"
+      ],
+      "labels": [
+        "METHOD CLARITY"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "m04",
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.44,
+      "expected_labels": [
+        "METHOD DETAIL"
+      ],
+      "labels": [
+        "METHOD DETAIL"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "m05",
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.66,
+      "expected_labels": [
+        "METHOD DETAIL"
+      ],
+      "labels": [
+        "METHOD DETAIL"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "s01",
+      "family": "similarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 11.44,
+      "expected_labels": [
+        "SIMILARITY RISK"
+      ],
+      "labels": [
+        "SIMILARITY RISK"
+      ],
+      "categories": [
+        "similarity"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "s02",
+      "family": "similarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 15.0,
+      "expected_labels": [
+        "SIMILARITY RISK"
+      ],
+      "labels": [
+        "SIMILARITY RISK"
+      ],
+      "categories": [
+        "similarity"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "s03",
+      "family": "similarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 11.85,
+      "expected_labels": [
+        "SIMILARITY RISK"
+      ],
+      "labels": [
+        "SIMILARITY RISK"
+      ],
+      "categories": [
+        "similarity"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "s04",
+      "family": "similarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.08,
+      "expected_labels": [
+        "SIMILARITY RISK"
+      ],
+      "labels": [
+        "REVISION READY"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": false,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "s05",
+      "family": "similarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.17,
+      "expected_labels": [
+        "SIMILARITY RISK"
+      ],
+      "labels": [
+        "SIMILARITY RISK"
+      ],
+      "categories": [
+        "similarity"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "l01",
+      "family": "list_table",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 13.1,
+      "expected_labels": [
+        "STRONG CLAIM"
+      ],
+      "labels": [
+        "STRONG CLAIM"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "l02",
+      "family": "list_table",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.34,
+      "expected_labels": [
+        "REVISION READY"
+      ],
+      "labels": [
+        "REVISION READY"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "l03",
+      "family": "list_table",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.26,
+      "expected_labels": [
+        "DEFINE TERM"
+      ],
+      "labels": [
+        "DEFINE TERM"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "l04",
+      "family": "list_table",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.99,
+      "expected_labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "labels": [
+        "OVERCLAIM",
+        "SCOPE LIMIT"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "l05",
+      "family": "list_table",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.77,
+      "expected_labels": [
+        "NEEDS SOURCE"
+      ],
+      "labels": [
+        "REVISION READY"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": false,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "c01",
+      "family": "clarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 4.61,
+      "expected_labels": [
+        "DEFINE TERM"
+      ],
+      "labels": [
+        "DEFINE TERM"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "c02",
+      "family": "clarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.27,
+      "expected_labels": [
+        "METHOD CLARITY"
+      ],
+      "labels": [
+        "METHOD CLARITY",
+        "OPERATIONAL DEFINITION"
+      ],
+      "categories": [
+        "provenance",
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "c03",
+      "family": "clarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.0,
+      "expected_labels": [
+        "DEFINE TERM"
+      ],
+      "labels": [
+        "DEFINE TERM"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "c04",
+      "family": "clarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.51,
+      "expected_labels": [
+        "SCOPE LIMIT",
+        "DEFINE TERM"
+      ],
+      "labels": [
+        "DEFINE TERM",
+        "SCOPE LIMIT"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    },
+    {
+      "case_id": "c05",
+      "family": "clarity",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.18,
+      "expected_labels": [
+        "STRONG CLAIM"
+      ],
+      "labels": [
+        "STRONG CLAIM"
+      ],
+      "categories": [
+        "rigor"
+      ],
+      "line_ranges_present": true,
+      "matched": true,
+      "plagiarism_accusation_without_similarity": false,
+      "error": null
+    }
+  ]
+}

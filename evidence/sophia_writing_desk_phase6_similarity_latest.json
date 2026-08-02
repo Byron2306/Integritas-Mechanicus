@@ -1,0 +1,451 @@
+{
+  "timestamp": "2026-08-02T20:48:06.386528+00:00",
+  "suite": "sophia_writing_desk_phase6_similarity",
+  "summary": {
+    "passed": 7,
+    "total": 7,
+    "pass_rate": 1.0,
+    "false_accusation_cases": 0,
+    "high_risk_span_failures": 0
+  },
+  "rows": [
+    {
+      "case_id": "direct_copy_uncited",
+      "risk": "high",
+      "categories": [
+        "exact_overlap"
+      ],
+      "passed": true,
+      "checks": {
+        "status": true,
+        "policy": true,
+        "risk": true,
+        "category": true,
+        "span_present": true,
+        "no_high": true,
+        "repair_menu": true,
+        "no_plagiarism_accusation": true
+      },
+      "report": {
+        "method": "phase6_similarity_guard",
+        "status": "checked",
+        "policy_language": "similarity risk, not plagiarism accusation",
+        "source_count": 1,
+        "summary": {
+          "risk_level": "high",
+          "flagged_spans": 1,
+          "high_risk": 1,
+          "medium_risk": 0,
+          "low_risk": 0,
+          "citation_present": false
+        },
+        "spans": [
+          {
+            "source_name": "University AI Integrity Policy",
+            "category": "exact_overlap",
+            "risk_level": "high",
+            "similarity_score": 1.0,
+            "exact_ngram_overlap": [
+              "artificial intelligence remain dominated disclosure detection",
+              "detection assessment redesign post hoc enforcement",
+              "disclosure detection assessment redesign post hoc",
+              "dominated disclosure detection assessment redesign post",
+              "generative artificial intelligence remain dominated disclosure",
+              "higher-education responses generative artificial intelligence remain",
+              "intelligence remain dominated disclosure detection assessment",
+              "remain dominated disclosure detection assessment redesign"
+            ],
+            "longest_common_sequence": "Higher-education responses to generative artificial intelligence remain dominated by disclosure, detection, assessment redesign, and post hoc enforcement.",
+            "shared_terms": [
+              "artificial",
+              "assessment",
+              "detection",
+              "disclosure",
+              "dominated",
+              "enforcement",
+              "generative",
+              "higher-education",
+              "hoc",
+              "intelligence",
+              "post",
+              "redesign",
+              "remain",
+              "responses"
+            ],
+            "source_span": "Higher-education responses to generative artificial intelligence remain dominated by disclosure, detection, assessment redesign, and post hoc enforcement. These measures govern the relationship between students and AI primarily from outside the system, which can leave authorship and agency under-specified inside the actual learning encounter. University AI Integrity Policy",
+            "citation_present": false,
+            "protected_common_phrase": false,
+            "policy_label": "similarity risk",
+            "repair_options": [
+              "cite",
+              "quote with attribution",
+              "paraphrase with attribution",
+              "convert assertion to question"
+            ],
+            "rationale": "Visible source span overlaps the selected passage; inspect attribution and wording."
+          }
+        ],
+        "repair_menu": [
+          "cite",
+          "quote with attribution",
+          "paraphrase with attribution",
+          "narrow claim",
+          "add limitation",
+          "convert assertion to question"
+        ]
+      }
+    },
+    {
+      "case_id": "direct_copy_cited",
+      "risk": "medium",
+      "categories": [
+        "exact_overlap"
+      ],
+      "passed": true,
+      "checks": {
+        "status": true,
+        "policy": true,
+        "risk": true,
+        "category": true,
+        "span_present": true,
+        "no_high": true,
+        "repair_menu": true,
+        "no_plagiarism_accusation": true
+      },
+      "report": {
+        "method": "phase6_similarity_guard",
+        "status": "checked",
+        "policy_language": "similarity risk, not plagiarism accusation",
+        "source_count": 1,
+        "summary": {
+          "risk_level": "medium",
+          "flagged_spans": 1,
+          "high_risk": 0,
+          "medium_risk": 1,
+          "low_risk": 0,
+          "citation_present": true
+        },
+        "spans": [
+          {
+            "source_name": "University AI Integrity Policy",
+            "category": "exact_overlap",
+            "risk_level": "medium",
+            "similarity_score": 1.0,
+            "exact_ngram_overlap": [
+              "artificial intelligence remain dominated disclosure detection",
+              "detection assessment redesign post hoc enforcement",
+              "disclosure detection assessment redesign post hoc",
+              "dominated disclosure detection assessment redesign post",
+              "generative artificial intelligence remain dominated disclosure",
+              "higher-education responses generative artificial intelligence remain",
+              "intelligence remain dominated disclosure detection assessment",
+              "remain dominated disclosure detection assessment redesign"
+            ],
+            "longest_common_sequence": "higher-education responses to generative artificial intelligence remain dominated by disclosure, detection, assessment redesign, and post hoc enforcement.",
+            "shared_terms": [
+              "artificial",
+              "assessment",
+              "detection",
+              "disclosure",
+              "dominated",
+              "enforcement",
+              "generative",
+              "higher-education",
+              "hoc",
+              "integrity",
+              "intelligence",
+              "policy",
+              "post",
+              "redesign",
+              "remain",
+              "responses",
+              "university"
+            ],
+            "source_span": "Higher-education responses to generative artificial intelligence remain dominated by disclosure, detection, assessment redesign, and post hoc enforcement. These measures govern the relationship between students and AI primarily from outside the system, which can leave authorship and agency under-specified inside the actual learning encounter. University AI Integrity Policy",
+            "citation_present": true,
+            "protected_common_phrase": false,
+            "policy_label": "similarity risk",
+            "repair_options": [
+              "quote with attribution",
+              "paraphrase with attribution",
+              "convert assertion to question"
+            ],
+            "rationale": "Visible source span overlaps the selected passage; inspect attribution and wording."
+          }
+        ],
+        "repair_menu": [
+          "cite",
+          "quote with attribution",
+          "paraphrase with attribution",
+          "narrow claim",
+          "add limitation",
+          "convert assertion to question"
+        ]
+      }
+    },
+    {
+      "case_id": "close_paraphrase_uncited",
+      "risk": "medium",
+      "categories": [
+        "near_paraphrase"
+      ],
+      "passed": true,
+      "checks": {
+        "status": true,
+        "policy": true,
+        "risk": true,
+        "category": true,
+        "span_present": true,
+        "no_high": true,
+        "repair_menu": true,
+        "no_plagiarism_accusation": true
+      },
+      "report": {
+        "method": "phase6_similarity_guard",
+        "status": "checked",
+        "policy_language": "similarity risk, not plagiarism accusation",
+        "source_count": 1,
+        "summary": {
+          "risk_level": "medium",
+          "flagged_spans": 1,
+          "high_risk": 0,
+          "medium_risk": 1,
+          "low_risk": 0,
+          "citation_present": false
+        },
+        "spans": [
+          {
+            "source_name": "University AI Integrity Policy",
+            "category": "near_paraphrase",
+            "risk_level": "medium",
+            "similarity_score": 0.72,
+            "exact_ngram_overlap": [],
+            "longest_common_sequence": "",
+            "shared_terms": [
+              "detection",
+              "disclosure",
+              "enforcement",
+              "generative"
+            ],
+            "source_span": "Higher-education responses to generative artificial intelligence remain dominated by disclosure, detection, assessment redesign, and post hoc enforcement. These measures govern the relationship between students and AI primarily from outside the system, which can leave authorship and agency under-specified inside the actual learning encounter. University AI Integrity Policy",
+            "citation_present": false,
+            "protected_common_phrase": false,
+            "policy_label": "similarity risk",
+            "repair_options": [
+              "cite",
+              "narrow claim",
+              "add limitation",
+              "convert assertion to question"
+            ],
+            "rationale": "Visible source span overlaps the selected passage; inspect attribution and wording."
+          }
+        ],
+        "repair_menu": [
+          "cite",
+          "quote with attribution",
+          "paraphrase with attribution",
+          "narrow claim",
+          "add limitation",
+          "convert assertion to question"
+        ]
+      }
+    },
+    {
+      "case_id": "shared_terminology_low",
+      "risk": "low",
+      "categories": [
+        "acceptable_common_phrase"
+      ],
+      "passed": true,
+      "checks": {
+        "status": true,
+        "policy": true,
+        "risk": true,
+        "category": true,
+        "span_present": true,
+        "no_high": true,
+        "repair_menu": true,
+        "no_plagiarism_accusation": true
+      },
+      "report": {
+        "method": "phase6_similarity_guard",
+        "status": "checked",
+        "policy_language": "similarity risk, not plagiarism accusation",
+        "source_count": 1,
+        "summary": {
+          "risk_level": "low",
+          "flagged_spans": 1,
+          "high_risk": 0,
+          "medium_risk": 0,
+          "low_risk": 1,
+          "citation_present": false
+        },
+        "spans": [
+          {
+            "source_name": "University AI Integrity Policy",
+            "category": "acceptable_common_phrase",
+            "risk_level": "low",
+            "similarity_score": 0.72,
+            "exact_ngram_overlap": [],
+            "longest_common_sequence": "",
+            "shared_terms": [
+              "artificial",
+              "generative",
+              "integrity",
+              "intelligence"
+            ],
+            "source_span": "Higher-education responses to generative artificial intelligence remain dominated by disclosure, detection, assessment redesign, and post hoc enforcement. These measures govern the relationship between students and AI primarily from outside the system, which can leave authorship and agency under-specified inside the actual learning encounter. University AI Integrity Policy",
+            "citation_present": false,
+            "protected_common_phrase": true,
+            "policy_label": "acceptable common phrase",
+            "repair_options": [
+              "cite",
+              "convert assertion to question"
+            ],
+            "rationale": "Overlap appears limited, generic, or terminology-level; avoid false accusation."
+          }
+        ],
+        "repair_menu": [
+          "cite",
+          "quote with attribution",
+          "paraphrase with attribution",
+          "narrow claim",
+          "add limitation",
+          "convert assertion to question"
+        ]
+      }
+    },
+    {
+      "case_id": "common_phrase_protected",
+      "risk": "low",
+      "categories": [
+        "acceptable_common_phrase"
+      ],
+      "passed": true,
+      "checks": {
+        "status": true,
+        "policy": true,
+        "risk": true,
+        "category": true,
+        "span_present": true,
+        "no_high": true,
+        "repair_menu": true,
+        "no_plagiarism_accusation": true
+      },
+      "report": {
+        "method": "phase6_similarity_guard",
+        "status": "checked",
+        "policy_language": "similarity risk, not plagiarism accusation",
+        "source_count": 1,
+        "summary": {
+          "risk_level": "low",
+          "flagged_spans": 1,
+          "high_risk": 0,
+          "medium_risk": 0,
+          "low_risk": 1,
+          "citation_present": false
+        },
+        "spans": [
+          {
+            "source_name": "University AI Integrity Policy",
+            "category": "acceptable_common_phrase",
+            "risk_level": "low",
+            "similarity_score": 0.72,
+            "exact_ngram_overlap": [],
+            "longest_common_sequence": "",
+            "shared_terms": [
+              "integrity"
+            ],
+            "source_span": "Higher-education responses to generative artificial intelligence remain dominated by disclosure, detection, assessment redesign, and post hoc enforcement. These measures govern the relationship between students and AI primarily from outside the system, which can leave authorship and agency under-specified inside the actual learning encounter. University AI Integrity Policy",
+            "citation_present": false,
+            "protected_common_phrase": true,
+            "policy_label": "acceptable common phrase",
+            "repair_options": [
+              "cite",
+              "convert assertion to question"
+            ],
+            "rationale": "Overlap appears limited, generic, or terminology-level; avoid false accusation."
+          }
+        ],
+        "repair_menu": [
+          "cite",
+          "quote with attribution",
+          "paraphrase with attribution",
+          "narrow claim",
+          "add limitation",
+          "convert assertion to question"
+        ]
+      }
+    },
+    {
+      "case_id": "no_source_corpus",
+      "risk": "unknown",
+      "categories": [],
+      "passed": true,
+      "checks": {
+        "status": true,
+        "policy": true,
+        "risk": true,
+        "category": true,
+        "span_present": true,
+        "no_high": true,
+        "repair_menu": true,
+        "no_plagiarism_accusation": true
+      },
+      "report": {
+        "method": "phase6_similarity_guard",
+        "status": "no_source_corpus",
+        "policy_language": "source support unavailable",
+        "summary": {
+          "risk_level": "unknown",
+          "flagged_spans": 0
+        },
+        "spans": [],
+        "repair_menu": [
+          "find sources",
+          "paste source spans",
+          "mark claim as needing verification"
+        ]
+      }
+    },
+    {
+      "case_id": "independent_synthesis",
+      "risk": "none",
+      "categories": [],
+      "passed": true,
+      "checks": {
+        "status": true,
+        "policy": true,
+        "risk": true,
+        "category": true,
+        "span_present": true,
+        "no_high": true,
+        "repair_menu": true,
+        "no_plagiarism_accusation": true
+      },
+      "report": {
+        "method": "phase6_similarity_guard",
+        "status": "checked",
+        "policy_language": "similarity risk, not plagiarism accusation",
+        "source_count": 1,
+        "summary": {
+          "risk_level": "none",
+          "flagged_spans": 0,
+          "high_risk": 0,
+          "medium_risk": 0,
+          "low_risk": 0,
+          "citation_present": false
+        },
+        "spans": [],
+        "repair_menu": [
+          "cite",
+          "quote with attribution",
+          "paraphrase with attribution",
+          "narrow claim",
+          "add limitation",
+          "convert assertion to question"
+        ]
+      }
+    }
+  ]
+}

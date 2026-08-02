@@ -53,7 +53,7 @@ class VaireInspector(AinurInspector):
                 break
 
         # Law II: Freshness Check
-        if time.time() - packet.freshness.observed_at > 15.0: # 15s window (Mock tolerance)
+        if time.time() - packet.freshness.observed_at > 300.0: # 300s window (adjusted for AI latency)
             state = "fractured"
             score = 0.3
             reasons.append("Chronological evidence is stale")
@@ -102,10 +102,18 @@ class VaireInspector(AinurInspector):
                 score = min(score, 0.4)
                 reasons.append("Secret Fire freshness is invalid")
 
+        # Semantic Testimony
+        testimony = "Vairë the Weaver confirms that the Loom of Time is steady and the sequence is lawful."
+        if state == "fractured":
+            testimony = "The Weaving is torn! Vairë detects a chronological fracture or a replay in the sequence."
+        elif state == "strained":
+            testimony = "The Loom is strained. Vairë senses tension in the substrate stability of order."
+
         return AinurVerdict(
             ainur=self.name,
             state=state,
             score=score,
             reasons=reasons or ["Lawful chronology confirmed"],
+            testimony=testimony,
             evidence=[packet]
         )

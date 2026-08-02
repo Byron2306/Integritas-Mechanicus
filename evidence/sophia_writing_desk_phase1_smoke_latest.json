@@ -1,0 +1,769 @@
+{
+  "suite": "sophia_writing_desk_phase1_smoke",
+  "created_at": "2026-08-02T18:39:47Z",
+  "base_url": "http://localhost:7070",
+  "summary": {
+    "total": 50,
+    "structured": 50,
+    "source_scout_misroutes": 0,
+    "review_misroutes": 0,
+    "generic_greetings": 0,
+    "claim_type_matches": 50,
+    "errors": 0,
+    "claim_type_match_rate": 1.0,
+    "passes_phase1_gate": true
+  },
+  "rows": [
+    {
+      "case_id": 1,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 134.95,
+      "structured_present": true,
+      "annotations": 2,
+      "claim_types": [
+        "field/context claim",
+        "gap/critique claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 2,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 29.43,
+      "structured_present": true,
+      "annotations": 2,
+      "claim_types": [
+        "contribution/design claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 3,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 13.8,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 4,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 13.1,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "scope/limitation claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 5,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 20.02,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "contribution/design claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 6,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 13.0,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "field/context claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 7,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.07,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 8,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 14.96,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "mechanism/architecture claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 9,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.04,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 10,
+      "family": "abstract",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.55,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 11,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.26,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 12,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.34,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 13,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.0,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 14,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.13,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 15,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.74,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 16,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.3,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "field/context claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 17,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.8,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "contribution/design claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 18,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.57,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 19,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.53,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 20,
+      "family": "introduction",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.15,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 21,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.71,
+      "structured_present": true,
+      "annotations": 2,
+      "claim_types": [
+        "mechanism/architecture claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 22,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.37,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 23,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.42,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 24,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.02,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "contribution/design claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 25,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 11.03,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "scope/limitation claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 26,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 14.05,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 27,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 10.48,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 28,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.44,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 29,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 12.5,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "gap/critique claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 30,
+      "family": "method",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.34,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 31,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 11.53,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 32,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 9.83,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 33,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.65,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 34,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 6.24,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 35,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 5.06,
+      "structured_present": true,
+      "annotations": 2,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 36,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 6.05,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "scope/limitation claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 37,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.75,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 38,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.39,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "contribution/design claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 39,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.34,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 40,
+      "family": "discussion",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.41,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "gap/critique claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 41,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 6.34,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 42,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 8.14,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 43,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 8.01,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 44,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.61,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 45,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.12,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 46,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 4.82,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 47,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 7.35,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 48,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 4.61,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 49,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 3.65,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    },
+    {
+      "case_id": 50,
+      "family": "ambiguous",
+      "source": "writing_desk_feedback",
+      "elapsed_ms": 5.1,
+      "structured_present": true,
+      "annotations": 1,
+      "claim_types": [
+        "argument claim"
+      ],
+      "generic_greeting": false,
+      "source_scout_misroute": false,
+      "review_misroute": false,
+      "claim_type_match": true
+    }
+  ]
+}

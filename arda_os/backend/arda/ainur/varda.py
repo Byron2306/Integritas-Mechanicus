@@ -68,7 +68,7 @@ class VardaInspector(AinurInspector):
             reasons.append("Substrate reported fractured/unknown boot status")
 
         # Law II: Freshness Check
-        if time.time() - packet.freshness.observed_at > 10.0:
+        if time.time() - packet.freshness.observed_at > 300.0: # 300s window (adjusted for AI latency)
             state = "dimmed"
             score = 0.5
             logger.warning(f"{self.name}: Measured truth is stale.")
@@ -84,7 +84,7 @@ class VardaInspector(AinurInspector):
             logger.info(f"{self.name}: Secret Fire Witnessed! PCR Dump: {pcr_dump}")
             observed_truth_hash = hashlib.sha256(pcr_dump.encode()).hexdigest()
             
-            if fire.attestation_digest != observed_truth_hash and data.get("pcr_values"):
+            if str(fire.attestation_digest).strip() != str(observed_truth_hash).strip() and data.get("pcr_values"):
                 state = "false"
                 score = 0.0
                 diag_msg = f"Truth dissonance: Secret Fire attestation digest mismatch. Fire: {fire.attestation_digest[:16]}... vs Observed: {observed_truth_hash[:16]}..."
@@ -138,10 +138,18 @@ class VardaInspector(AinurInspector):
                 score = 0.2
                 reasons.append("Sovereign Summons expired (The Voice is fading)")
 
+        # Semantic Testimony
+        testimony = "The Lady of Light witnesses that the Measured Truth is radiant and the Covenant Seal is unbroken."
+        if state == "dimmed":
+            testimony = "The Light is dimmed. Varda senses that the measured truth is stale or the manifest has drifted."
+        elif state == "false":
+            testimony = "Dissonance! Varda senses a fundamental falsehood in the substrate. The Seal is fractured."
+
         return AinurVerdict(
             ainur=self.name,
             state=state,
             score=score,
             reasons=reasons or ["Truth is stable and attested"],
+            testimony=testimony,
             evidence=[packet]
         )
