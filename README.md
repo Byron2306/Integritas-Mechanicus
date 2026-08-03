@@ -1,7 +1,7 @@
 # ARDA / Integritas Mechanicus
 
 <p align="center">
-  <img src="valinor-kingdom.webp" width="1080" alt="Arda OS">
+  <img src="ARDA.jpg" width="1080" alt="Arda OS">
 </p>
 
 <p align="center">
