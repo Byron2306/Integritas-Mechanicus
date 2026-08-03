@@ -27,6 +27,10 @@ layer is wrong, compromised, or fully subverted.
 The core design claim is simple:
 
 > The AI may advise. The substrate decides.
+>
+> Copyright: North-West University, South Africa
+> Subject to AGPLv 3 with Commercial Exception
+> Inquiries for commercial license: Hannes.malan@nwu.ac.za
 
 In practical terms, this repository combines:
 
