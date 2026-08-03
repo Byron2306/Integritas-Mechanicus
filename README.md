@@ -16,6 +16,11 @@
 
 ---
 
+Copyright: North-West University, South Africa
+Subject to AGPLv 3 with Commercial Exception
+Inquiries for commercial license: Hannes.malan@nwu.ac.za
+
+
 ## What This Is
 
 ARDA is not a normal application, and it is not yet a complete Linux distribution.
@@ -28,9 +33,6 @@ The core design claim is simple:
 
 > The AI may advise. The substrate decides.
 >
-> Copyright: North-West University, South Africa
-> Subject to AGPLv 3 with Commercial Exception
-> Inquiries for commercial license: Hannes.malan@nwu.ac.za
 
 In practical terms, this repository combines:
 
