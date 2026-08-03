@@ -1,7 +1,7 @@
 # ARDA / Integritas Mechanicus
 
 <p align="center">
-  <img src="ARDA.jpg" width="480" alt="Arda OS">
+  <img src="ARDA.jpg" width="600" alt="Arda OS">
 </p>
 
 <p align="center">
