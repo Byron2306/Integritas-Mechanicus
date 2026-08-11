@@ -15,6 +15,32 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
+try:
+    from .sophia_epistemic_lineage import (
+        append_project_event_chain,
+        enrich_claim_record,
+        summarize_claim_lineage,
+    )
+except ImportError:
+    try:
+        from backend.services.sophia_epistemic_lineage import (
+            append_project_event_chain,
+            enrich_claim_record,
+            summarize_claim_lineage,
+        )
+    except ImportError:
+        try:
+            from sophia_epistemic_lineage import (
+                append_project_event_chain,
+                enrich_claim_record,
+                summarize_claim_lineage,
+            )
+        except ImportError as exc:
+            raise ImportError(
+                "Sophia Wave 2 epistemic lineage helpers are unavailable; "
+                "claim persistence is refused rather than silently downgraded."
+            ) from exc
+
 
 SCHEMA_VERSION = "sophia.project_store.v1"
 
@@ -115,6 +141,8 @@ class SophiaProjectStore:
         self.events_path.parent.mkdir(parents=True, exist_ok=True)
         with self.events_path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(event, sort_keys=True, default=str) + "\n")
+        if append_project_event_chain:
+            append_project_event_chain(self.root, event)
 
     def upsert_project(
         self,
@@ -184,6 +212,8 @@ class SophiaProjectStore:
         updated = 0
         for raw in records:
             record = dict(raw or {})
+            if enrich_claim_record:
+                record = enrich_claim_record(record, project.get("claim_ledger", []), draft_version_id)
             record_id = str(record.get("record_id") or "")
             if not record_id:
                 material = "|".join(
@@ -223,6 +253,11 @@ class SophiaProjectStore:
             "appended": appended,
             "updated": updated,
             "total_claim_records": len(project.get("claim_ledger", [])),
+            "lineage_summary": (
+                summarize_claim_lineage(project.get("claim_ledger", []))
+                if summarize_claim_lineage
+                else {}
+            ),
         }
 
     def append_intervention_record(
