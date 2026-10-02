@@ -11,6 +11,8 @@ import tempfile
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
+from backend.services.attestation_profile import AttestationProfile, resolve_attestation_profile
+
 from backend.services.boot_measurement import measure_boot_state
 from backend.services.measured_identity import MeasuredProjectionGenerationStore
 
@@ -60,9 +62,55 @@ class Phase4LiveAttestationService:
     PCR_SELECTION = "sha256:0,1,7,11"
     PCR11_BINDING_STATE_PATH = "/var/lib/arda/attestation/state/pcr11_binding_state.json"
 
-    def capture(self, output_dir: str, *, nonce: Optional[str] = None) -> Dict[str, Any]:
-        self._assert_tools()
-        self._assert_tpm_device()
+    def capture(
+        self,
+        output_dir: str,
+        *,
+        nonce: Optional[str] = None,
+        attestation_profile: AttestationProfile | str | None = None,
+    ) -> Dict[str, Any]:
+        profile = (
+            attestation_profile
+            if isinstance(attestation_profile, AttestationProfile)
+            else resolve_attestation_profile(attestation_profile)
+        )
+
+        tpm_available = (
+            os.path.exists("/dev/tpm0")
+            or os.path.exists("/dev/tpmrm0")
+        )
+
+        if profile.require_tpm:
+            self._assert_tools()
+            self._assert_tpm_device()
+        elif not tpm_available:
+            evidence_dir = os.path.abspath(output_dir)
+            os.makedirs(evidence_dir, exist_ok=True)
+            timestamp = (
+                datetime.now(timezone.utc)
+                .replace(microsecond=0)
+                .isoformat()
+                .replace("+00:00", "Z")
+            )
+            bundle = {
+                "schema_version": "arda-sovereign-attestation-lite-v1",
+                "attestation_profile": profile.name,
+                "tpm_available": False,
+                "hardware_rooted": False,
+                "software_rooted": False,
+            }
+            return {
+                "ok": True,
+                "timestamp": timestamp,
+                "evidence_dir": evidence_dir,
+                "attestation_profile": profile.name,
+                "tpm_available": False,
+                "hardware_rooted": False,
+                "software_rooted": False,
+                "bundle": bundle,
+            }
+        else:
+            self._assert_tools()
 
         evidence_dir = os.path.abspath(output_dir)
         os.makedirs(evidence_dir, exist_ok=True)

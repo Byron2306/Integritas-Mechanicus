@@ -8,6 +8,8 @@ import tempfile
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Tuple
 
+from backend.services.attestation_profile import AttestationProfile, resolve_attestation_profile
+
 from backend.services.attestation_service import get_envelope_trust_report, verify_envelope
 
 
@@ -70,8 +72,14 @@ class Phase4AttestationGate:
         require_verifier_nonce: bool = False,
         require_nonlocal_attestation_signature: bool = False,
         *,
+        attestation_profile: AttestationProfile | str | None = None,
         now: Optional[datetime] = None,
     ) -> Dict[str, Any]:
+        profile = (
+            attestation_profile
+            if isinstance(attestation_profile, AttestationProfile)
+            else resolve_attestation_profile(attestation_profile)
+        )
         current_time = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
         failures = []
         envelope_trust = get_envelope_trust_report(attestation_envelope)
@@ -132,13 +140,18 @@ class Phase4AttestationGate:
 
         local_evidence_summary = None
         if local_evidence is not None:
-            local_evidence_summary, local_failures = self._evaluate_local_evidence(
-                local_evidence,
-                pcr_baseline,
-                require_tpm_quote_verification=require_tpm_quote_verification,
-                allow_attested_only_boot=allow_attested_only_boot,
-                require_verifier_nonce=require_verifier_nonce,
-            )
+            if profile.name == "lite":
+                local_evidence_summary, local_failures = (
+                    self._evaluate_lite_local_evidence(local_evidence)
+                )
+            else:
+                local_evidence_summary, local_failures = self._evaluate_local_evidence(
+                    local_evidence,
+                    pcr_baseline,
+                    require_tpm_quote_verification=require_tpm_quote_verification,
+                    allow_attested_only_boot=allow_attested_only_boot,
+                    require_verifier_nonce=require_verifier_nonce,
+                )
             failures.extend(local_failures)
             if (
                 allow_missing_boot_measurement_for_live_proof
@@ -163,6 +176,22 @@ class Phase4AttestationGate:
             "ok": ok,
             "timestamp": current_time.isoformat(),
             "audience": self.AUDIENCE,
+            "attestation_profile": profile.name,
+            "tpm_available": bool(
+                local_evidence_summary.get("tpm_available")
+                if local_evidence_summary
+                else False
+            ),
+            "hardware_rooted": bool(
+                local_evidence_summary.get("hardware_rooted")
+                if local_evidence_summary
+                else False
+            ),
+            "software_rooted": bool(
+                local_evidence_summary.get("software_rooted")
+                if local_evidence_summary
+                else False
+            ),
             "manifest_id": manifest.get("manifest_id"),
             "manifest_digest": manifest_digest,
             "attestation_timestamp": timestamp_text,
@@ -182,6 +211,29 @@ class Phase4AttestationGate:
             "production_ready": production_ready,
             "failures": failures,
         }
+
+    def _evaluate_lite_local_evidence(
+        self,
+        local_evidence: Dict[str, Any],
+    ) -> Tuple[Dict[str, Any], list]:
+        failures = []
+
+        tpm_available = bool(local_evidence.get("tpm_available"))
+        hardware_rooted = bool(local_evidence.get("hardware_rooted"))
+        software_rooted = bool(local_evidence.get("software_rooted"))
+
+        if hardware_rooted and not tpm_available:
+            failures.append("local_evidence_hardware_root_without_tpm")
+
+        if not software_rooted:
+            failures.append("local_evidence_software_root_unverified")
+
+        return {
+            "attestation_profile": "lite",
+            "tpm_available": tpm_available,
+            "hardware_rooted": hardware_rooted,
+            "software_rooted": software_rooted,
+        }, failures
 
     def _evaluate_local_evidence(
         self,
