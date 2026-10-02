@@ -1,0 +1,9 @@
+[Plymouth Theme]
+Name=ARDA Sovereign
+Description=Telperion ceremonial boot theme for Arda OS
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/arda-sovereign
+ScriptFile=/usr/share/plymouth/themes/arda-sovereign/arda.script
+

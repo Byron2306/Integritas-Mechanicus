@@ -1,0 +1,73 @@
+wall = Image("background.png");
+seal = Image("seal.png");
+
+screen_w = Window.GetWidth();
+screen_h = Window.GetHeight();
+
+bg = Sprite(wall);
+bg.SetPosition(0, 0, -100);
+bg.SetScale(screen_w / wall.GetWidth(), screen_h / wall.GetHeight());
+
+overlay = Sprite();
+overlay.SetPosition(0, 0, -90);
+
+seal_sprite = Sprite(seal);
+seal_x = (screen_w - seal.GetWidth()) / 2;
+seal_y = (screen_h * 0.22);
+seal_sprite.SetPosition(seal_x, seal_y, 10);
+
+title = Sprite();
+title.SetPosition(screen_w * 0.08, screen_h * 0.72, 20);
+
+status = Sprite();
+status.SetPosition(screen_w * 0.08, screen_h * 0.80, 20);
+
+bar_bg = Sprite();
+bar_fg = Sprite();
+bar_x = screen_w * 0.08;
+bar_y = screen_h * 0.86;
+bar_w = screen_w * 0.32;
+bar_h = 10;
+
+fun refresh_text() {
+  title.SetImage(Image.Text("ARDA OS", 1, 1, 1));
+  status.SetImage(Image.Text("Witnessing lawful manifestation...", 0.78, 0.91, 0.95));
+}
+
+fun draw_bar(percent) {
+  bar_bg.SetImage(Image.Box(bar_w, bar_h, 0.04, 0.10, 0.16, 0.88));
+  bar_bg.SetPosition(bar_x, bar_y, 15);
+
+  if (percent < 0) {
+    percent = 0;
+  }
+  if (percent > 1) {
+    percent = 1;
+  }
+
+  fill_w = bar_w * percent;
+  if (fill_w < 2) {
+    fill_w = 2;
+  }
+  bar_fg.SetImage(Image.Box(fill_w, bar_h, 0.39, 0.90, 1.0, 0.95));
+  bar_fg.SetPosition(bar_x, bar_y, 16);
+}
+
+fun update_progress_callback(duration, progress) {
+  draw_bar(progress);
+}
+
+fun message_callback(text) {
+  status.SetImage(Image.Text(text, 0.78, 0.91, 0.95));
+}
+
+fun init_theme() {
+  refresh_text();
+  draw_bar(0.02);
+}
+
+Plymouth.SetRefreshFunction(update_progress_callback);
+Plymouth.SetMessageFunction(message_callback);
+
+init_theme();
+

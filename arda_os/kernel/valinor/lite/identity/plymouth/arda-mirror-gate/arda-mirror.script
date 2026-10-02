@@ -1,0 +1,83 @@
+wall = Image("background.png");
+gate = Image("mirror-gate.png");
+seal = Image("seal.png");
+
+screen_w = Window.GetWidth();
+screen_h = Window.GetHeight();
+
+bg = Sprite(wall);
+bg.SetPosition(0, 0, -100);
+bg.SetScale(screen_w / wall.GetWidth(), screen_h / wall.GetHeight());
+
+gate_sprite = Sprite(gate);
+gate_scale = screen_h / gate.GetHeight();
+if (gate_scale > 0.92) {
+  gate_scale = 0.92;
+}
+gate_sprite.SetScale(gate_scale, gate_scale);
+gate_x = (screen_w - (gate.GetWidth() * gate_scale)) / 2;
+gate_y = (screen_h - (gate.GetHeight() * gate_scale)) / 2 - (screen_h * 0.02);
+gate_sprite.SetPosition(gate_x, gate_y, 5);
+
+seal_sprite = Sprite(seal);
+seal_scale = 1.0;
+seal_sprite.SetScale(seal_scale, seal_scale);
+seal_x = (screen_w - (seal.GetWidth() * seal_scale)) / 2;
+seal_y = screen_h * 0.14;
+seal_sprite.SetPosition(seal_x, seal_y, 12);
+
+title = Sprite();
+title.SetPosition(screen_w * 0.36, screen_h * 0.215, 20);
+
+status = Sprite();
+status.SetPosition(screen_w * 0.31, screen_h * 0.72, 20);
+
+bar_bg = Sprite();
+bar_fg = Sprite();
+bar_w = screen_w * 0.16;
+bar_h = 8;
+bar_x = (screen_w - bar_w) / 2;
+bar_y = screen_h * 0.775;
+
+fun refresh_text() {
+  title.SetImage(Image.Text("ARDA", 0.91, 0.96, 0.98));
+  status.SetImage(Image.Text("The gate witnesses lawful manifestation", 0.78, 0.91, 0.95));
+}
+
+fun draw_bar(percent) {
+  bar_bg.SetImage(Image.Box(bar_w, bar_h, 0.03, 0.08, 0.13, 0.88));
+  bar_bg.SetPosition(bar_x, bar_y, 15);
+
+  if (percent < 0) {
+    percent = 0;
+  }
+  if (percent > 1) {
+    percent = 1;
+  }
+
+  fill_w = bar_w * percent;
+  if (fill_w < 2) {
+    fill_w = 2;
+  }
+  bar_fg.SetImage(Image.Box(fill_w, bar_h, 0.39, 0.90, 1.0, 0.95));
+  bar_fg.SetPosition(bar_x, bar_y, 16);
+}
+
+fun update_progress_callback(duration, progress) {
+  draw_bar(progress);
+}
+
+fun message_callback(text) {
+  status.SetImage(Image.Text(text, 0.78, 0.91, 0.95));
+}
+
+fun init_theme() {
+  refresh_text();
+  draw_bar(0.02);
+}
+
+Plymouth.SetRefreshFunction(update_progress_callback);
+Plymouth.SetMessageFunction(message_callback);
+
+init_theme();
+

@@ -1,0 +1,108 @@
+{
+  "assets": [
+    {
+      "path": "audio/arda-awakening.wav",
+      "role": "boot_audio",
+      "sha256": "90f0e19a8b9318ac6472caa28f85894aebaaae69113cc69a45b9e88cfa0bbc0a",
+      "status": "required"
+    },
+    {
+      "path": "grub/arda-sovereign/background.png",
+      "role": "grub_theme",
+      "sha256": "dc582395d5857640cd56c9eb0265f5601a213270887b7273091918b27a25d782",
+      "status": "required"
+    },
+    {
+      "path": "grub/arda-sovereign/crown-bar.png",
+      "role": "grub_theme",
+      "sha256": "e222c175f078d266f2d77ed97a48e9dc489748f7f13364bee8d6615d0f7eae8f",
+      "status": "required"
+    },
+    {
+      "path": "grub/arda-sovereign/seal.png",
+      "role": "grub_theme",
+      "sha256": "5d07544c52290100a0a995d8174c0fb57fc866660f58c155fa10f8af3e34dbff",
+      "status": "required"
+    },
+    {
+      "path": "grub/arda-sovereign/theme.txt",
+      "role": "grub_theme",
+      "sha256": "bca97539e20a2c40b0b5b62a325438918f14bb228809f5fe9731c505c68f4785",
+      "status": "required"
+    },
+    {
+      "path": "grub/arda-sovereign/theme.txt.phase1.bak",
+      "role": "grub_theme",
+      "sha256": "bca97539e20a2c40b0b5b62a325438918f14bb228809f5fe9731c505c68f4785",
+      "status": "optional"
+    },
+    {
+      "path": "plymouth/arda-mirror-gate/arda-mirror-gate.plymouth",
+      "role": "plymouth_mirror_gate",
+      "sha256": "2531df51c9c2822203f8c1e5e75a1eef34c70feae0174c80504a11116cb371db",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-mirror-gate/arda-mirror.plymouth",
+      "role": "plymouth_mirror_gate",
+      "sha256": "2531df51c9c2822203f8c1e5e75a1eef34c70feae0174c80504a11116cb371db",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-mirror-gate/arda-mirror.script",
+      "role": "plymouth_mirror_gate",
+      "sha256": "d182abb400aba78892fbfde1a4f6aadda519d5af1f4aff6546af77cec5301f4b",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-mirror-gate/background.png",
+      "role": "plymouth_mirror_gate",
+      "sha256": "dc582395d5857640cd56c9eb0265f5601a213270887b7273091918b27a25d782",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-mirror-gate/mirror-gate.png",
+      "role": "plymouth_mirror_gate",
+      "sha256": "d02c6a1b8481865253cd16c60871dbf53bcc6ed3cd03e10b6a25eb535a602a52",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-mirror-gate/seal.png",
+      "role": "plymouth_mirror_gate",
+      "sha256": "5d07544c52290100a0a995d8174c0fb57fc866660f58c155fa10f8af3e34dbff",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-sovereign/arda-sovereign.plymouth",
+      "role": "plymouth_sovereign",
+      "sha256": "41ab986bd900cb7b823a3dcd762065c05f4b0bf08db7cda30e8fda8ec2537637",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-sovereign/arda.plymouth",
+      "role": "plymouth_sovereign",
+      "sha256": "41ab986bd900cb7b823a3dcd762065c05f4b0bf08db7cda30e8fda8ec2537637",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-sovereign/arda.script",
+      "role": "plymouth_sovereign",
+      "sha256": "cbfa69ddcddec5dff25cbae5c882d76dca0fd74a0effb5cb0665e4399934377d",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-sovereign/background.png",
+      "role": "plymouth_sovereign",
+      "sha256": "dc582395d5857640cd56c9eb0265f5601a213270887b7273091918b27a25d782",
+      "status": "required"
+    },
+    {
+      "path": "plymouth/arda-sovereign/seal.png",
+      "role": "plymouth_sovereign",
+      "sha256": "5d07544c52290100a0a995d8174c0fb57fc866660f58c155fa10f8af3e34dbff",
+      "status": "required"
+    }
+  ],
+  "logical_role": "canonical_portable_arda_boot_identity",
+  "schema_version": "valinor-lite-identity-v1"
+}
