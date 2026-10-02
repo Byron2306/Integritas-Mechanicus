@@ -130,3 +130,47 @@ def test_every_manifest_hash_matches_payload():
         assert _sha256(asset) == entry["sha256"], (
             f"manifest hash mismatch: {relative}"
         )
+
+def test_canonical_greeter_identity_tree_exists():
+    greeter = IDENTITY_ROOT / "greeter"
+
+    assert (greeter / "gate-of-becoming.webp").is_file()
+    assert (greeter / "arda-mark.png").is_file()
+    assert (greeter / "lightdm-gtk-greeter.conf").is_file()
+
+
+def test_manifest_records_required_greeter_identity():
+    manifest = _load_manifest()
+
+    expected = {
+        "greeter/gate-of-becoming.webp": "greeter_background",
+        "greeter/arda-mark.png": "greeter_logo",
+        "greeter/lightdm-gtk-greeter.conf": "greeter_config",
+    }
+
+    records = {
+        entry["path"]: entry
+        for entry in manifest["assets"]
+        if str(entry["path"]).startswith("greeter/")
+    }
+
+    assert set(records) == set(expected)
+
+    for path, role in expected.items():
+        assert records[path]["role"] == role
+        assert records[path]["status"] == "required"
+
+
+def test_canonical_greeter_config_selects_gate_of_becoming():
+    config = (
+        IDENTITY_ROOT
+        / "greeter"
+        / "lightdm-gtk-greeter.conf"
+    ).read_text(encoding="utf-8")
+
+    assert "[greeter]" in config
+    assert (
+        "background=/usr/share/arda/greeter/"
+        "gate-of-becoming.webp"
+    ) in config
+    assert "user-background=false" in config

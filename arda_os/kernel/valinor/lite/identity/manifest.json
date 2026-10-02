@@ -7,6 +7,24 @@
       "status": "required"
     },
     {
+      "path": "greeter/arda-mark.png",
+      "role": "greeter_logo",
+      "sha256": "feae918a808472ea07582467bbce02e88a17d98a8b15ba312e32169a1f4caa11",
+      "status": "required"
+    },
+    {
+      "path": "greeter/gate-of-becoming.webp",
+      "role": "greeter_background",
+      "sha256": "f9464c290a174cae826a317d3f2b7938ff2606ea2fc112d503a8c16399ce5c56",
+      "status": "required"
+    },
+    {
+      "path": "greeter/lightdm-gtk-greeter.conf",
+      "role": "greeter_config",
+      "sha256": "4ceedfd15540ab5004c928cdb449c100d4f793d3440f3802c936a94eaf6a45af",
+      "status": "required"
+    },
+    {
       "path": "grub/arda-sovereign/background.png",
       "role": "grub_theme",
       "sha256": "dc582395d5857640cd56c9eb0265f5601a213270887b7273091918b27a25d782",
