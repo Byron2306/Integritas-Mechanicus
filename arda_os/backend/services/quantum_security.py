@@ -713,3 +713,17 @@ class QuantumSecurityService:
 
 # Global singleton
 quantum_security = QuantumSecurityService()
+
+
+def require_native_pqc() -> str:
+    """
+    Refuse sovereign operations unless a native PQC provider is active.
+    """
+    mode = getattr(quantum_security, "mode", "simulation")
+
+    if mode not in {"liboqs", "pqcrypto"}:
+        raise RuntimeError(
+            "NATIVE_PQC_REQUIRED: sovereign gauntlet refuses simulation"
+        )
+
+    return mode

@@ -62,3 +62,29 @@ def render_stage(title: str, technical: list[str], why: list[str]) -> str:
     out += ["", "WHY IT MATTERS"]
     out += [f"  {x}" for x in why]
     return "\n".join(out)
+
+
+def pqc_preflight_stage(provider: str | None, ok: bool) -> str:
+    if ok:
+        return render_stage(
+            "AULË · THE FINAL FORGER",
+            [
+                "Native post-quantum provider detected.",
+                f"PQC provider: {provider}",
+                "Simulation: REFUSED",
+            ],
+            [
+                "The authority state will only be sealed with real cryptography.",
+            ],
+        )
+
+    return render_stage(
+        "AULË WITHHOLDS THE FORGE",
+        [
+            "Native post-quantum provider unavailable.",
+            "ARDA sovereign mode refuses simulated cryptography.",
+        ],
+        [
+            "The system would rather refuse than pretend simulated crypto is production security.",
+        ],
+    )
