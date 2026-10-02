@@ -59,6 +59,43 @@ Initial enforcement is audit.
 
 The installer must preserve Windows EFI state and a Debian fallback kernel.
 
+## Login Identity
+
+On supported systems, Valinor Lite uses LightDM with
+`lightdm-gtk-greeter`.
+
+The canonical login identity is:
+
+- Gate of Becoming as the greeter background.
+- The approved ARDA mark as the canonical greeter emblem.
+- `/usr/share/arda/greeter/gate-of-becoming.webp`
+- `/usr/share/arda/greeter/arda-mark.png`
+- `/etc/lightdm/lightdm-gtk-greeter.conf`
+
+The greeter configuration is installed transactionally with the rest of
+Valinor Lite. Existing LightDM configuration and any replaced greeter
+assets participate in the same backup custody as kernel and boot identity
+state.
+
+Unsupported display-manager state is a refusal boundary. The installer
+must not silently rewrite another display manager.
+
+The installer does not restart LightDM automatically. The operator may
+inspect the installed configuration before deliberately logging out or
+rebooting:
+
+cat /etc/lightdm/lightdm-gtk-greeter.conf
+
+The expected canonical configuration selects:
+
+background=/usr/share/arda/greeter/gate-of-becoming.webp
+user-background=false
+
+Valinor Lite greeter identity must remain truthful. It may represent
+software-rooted verification and audit enforcement only when those states
+are actually verified. It must not imply TPM-backed or hardware-rooted
+trust.
+
 ## First-Boot Verification
 
 Run:
@@ -75,6 +112,12 @@ Rollback uses the exact recorded backup generation.
 It restores only recorded state, preserves Windows and unrelated fallback
 kernels, and removes empty parent directories only when backup provenance
 proves they did not exist before installation.
+
+Greeter rollback follows the same rule. A pre-existing LightDM greeter
+configuration is restored byte-for-byte. Installer-created ARDA greeter
+assets are removed when they did not exist before installation. A newly
+created parent directory is removed only when provenance records that it
+was originally absent and it is still empty.
 
 ## Idempotency
 
@@ -95,11 +138,31 @@ The simulated gauntlet verifies:
 - Valinor kernel installs.
 - ARDA identity installs.
 - Awakening WAV identity matches.
+- Gate of Becoming installs as the canonical greeter background.
+- The approved ARDA mark installs as the canonical greeter emblem.
+- LightDM greeter configuration is deterministic.
 - Software root verifies.
 - Hardware root remains unavailable.
 - Enforcement remains audit.
 - Second install is idempotent.
 - Rollback restores the original boot state.
+- Rollback restores the original LightDM configuration.
+- Installer-created greeter assets are removed during rollback.
+- Portable release packaging includes canonical greeter identity and the
+  greeter runtime module.
+
+Regression evidence captured during greeter completion:
+
+- Focused Valinor Lite regression: 106 passed.
+- Broad backend regression: 163 passed.
+- Known baseline failures: 3.
+- New failures introduced by the greeter work: 0.
+
+The known baseline failures were:
+
+- `gauntlets/e2e_threat_pipeline_test.py::test_threat_pipeline`
+- `gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony`
+- `test_harmonic_engine_cadence.py::test_score_observation_spam_attack`
 
 ## Governing Principle
 
