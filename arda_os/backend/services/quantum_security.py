@@ -727,3 +727,90 @@ def require_native_pqc() -> str:
         )
 
     return mode
+
+
+def native_pqc_self_test() -> dict:
+    """
+    Execute native ML-DSA-65 signing and ML-KEM-768 encapsulation.
+
+    Sovereign path: there is deliberately NO simulated fallback.
+    """
+    require_native_pqc()
+
+    if quantum_security.mode != "liboqs":
+        raise RuntimeError(
+            "NATIVE_PQC_REQUIRED: gauntlet requires liboqs native execution"
+        )
+
+    sig_mechs = set(oqs.get_enabled_sig_mechanisms())
+    kem_mechs = set(oqs.get_enabled_kem_mechanisms())
+
+    if "ML-DSA-65" not in sig_mechs:
+        raise RuntimeError(
+            "NATIVE_PQC_REQUIRED: ML-DSA-65 unavailable"
+        )
+
+    if "ML-KEM-768" not in kem_mechs:
+        raise RuntimeError(
+            "NATIVE_PQC_REQUIRED: ML-KEM-768 unavailable"
+        )
+
+    challenge = secrets.token_bytes(64)
+
+    # AULË: forge an ML-DSA-65 signature and verify it independently.
+    with oqs.Signature("ML-DSA-65") as signer:
+        public_key = signer.generate_keypair()
+        signature = signer.sign(challenge)
+
+    with oqs.Signature("ML-DSA-65") as verifier:
+        signature_verified = verifier.verify(
+            challenge,
+            signature,
+            public_key,
+        )
+
+    # SECRET FIRE: establish the same ML-KEM-768 secret from both sides.
+    with oqs.KeyEncapsulation("ML-KEM-768") as receiver:
+        kem_public_key = receiver.generate_keypair()
+        kem_secret_key = receiver.export_secret_key()
+
+    with oqs.KeyEncapsulation("ML-KEM-768") as sender:
+        ciphertext, sender_secret = sender.encap_secret(
+            kem_public_key
+        )
+
+    with oqs.KeyEncapsulation(
+        "ML-KEM-768",
+        kem_secret_key,
+    ) as receiver:
+        receiver_secret = receiver.decap_secret(ciphertext)
+
+    kem_verified = secrets.compare_digest(
+        sender_secret,
+        receiver_secret,
+    )
+
+    if not signature_verified:
+        raise RuntimeError(
+            "NATIVE_PQC_FAILURE: ML-DSA-65 verification failed"
+        )
+
+    if not kem_verified:
+        raise RuntimeError(
+            "NATIVE_PQC_FAILURE: ML-KEM-768 secret mismatch"
+        )
+
+    return {
+        "provider": "liboqs",
+        "signature_algorithm": "ML-DSA-65",
+        "kem_algorithm": "ML-KEM-768",
+        "signature_verified": True,
+        "kem_verified": True,
+        "challenge_sha3_256": hashlib.sha3_256(
+            challenge
+        ).hexdigest(),
+        "public_key_bytes": len(public_key),
+        "signature_bytes": len(signature),
+        "kem_public_key_bytes": len(kem_public_key),
+        "kem_ciphertext_bytes": len(ciphertext),
+    }
