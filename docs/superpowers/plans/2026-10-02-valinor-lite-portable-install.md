@@ -15,7 +15,7 @@
 - Kernel release is exactly `6.12.96-valinor`.
 - Kernel SHA-256 is `875117b4148753e407725a3d3d838d8f40db95111c88eabd329f9d229414a527`.
 - Preserved initramfs SHA-256 is `e1c9cd2c1694b28761d486a3662ec8e32803871bd7bd8de11d382824c382c7ec`.
-- Awakening WAV SHA-256 is `90f0e19a8b9318ac6472caa28f85894aebaaae69113cc69a45b9e88cfa0bbc`.
+- Awakening WAV SHA-256 is `90f0e19a8b9318ac6472caa28f85894aebaaae69113cc69a45b9e88cfa0bbc0a`.
 - First Lite release does not rebuild the kernel.
 - TPM absence must never be represented as TPM success.
 - `hardware_rooted=false` when TPM-backed evidence is unavailable.
@@ -261,7 +261,7 @@ Tests assert:
 - `arda-sovereign` GRUB identity exists;
 - both ARDA Plymouth themes exist;
 - `arda-awakening.wav` exists;
-- WAV hash is exactly `90f0e19a8b9318ac6472caa28f85894aebaaae69113cc69a45b9e88cfa0bbc`;
+- WAV hash is exactly `90f0e19a8b9318ac6472caa28f85894aebaaae69113cc69a45b9e88cfa0bbc0a`;
 - manifest contains no stock `ceratopsian`, `moonlight`, `emerald`, `homeworld`, `spacefun`, or other Debian theme payloads;
 - all manifest hashes verify.
 
