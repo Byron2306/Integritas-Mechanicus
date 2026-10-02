@@ -1,0 +1,11 @@
+{
+  "schema_version": "valinor-lite-release-v1",
+  "kernel_release": "6.12.96-valinor",
+  "kernel_artifact": "valinor-kernel-6.12.96.tar.zst",
+  "kernel_sha256": "875117b4148753e407725a3d3d838d8f40db95111c88eabd329f9d229414a527",
+  "preserved_initramfs": "initramfs-6.12.96-valinor.img",
+  "preserved_initramfs_sha256": "e1c9cd2c1694b28761d486a3662ec8e32803871bd7bd8de11d382824c382c7ec",
+  "identity_manifest": "../identity/manifest.json",
+  "supported_architecture": "x86_64",
+  "minimum_boot_free_bytes": 536870912
+}
