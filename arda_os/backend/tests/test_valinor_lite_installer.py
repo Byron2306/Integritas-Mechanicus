@@ -7,6 +7,7 @@ from kernel.valinor.lite.installer.install import (
     InstallResult,
     install_valinor_lite,
 )
+from kernel.valinor.lite.installer.greeter import GreeterDetection
 
 
 def _good_preflight() -> PreflightReport:
@@ -25,6 +26,15 @@ def _good_preflight() -> PreflightReport:
         failures=(),
     )
 
+
+
+def _good_greeter() -> GreeterDetection:
+    return GreeterDetection(
+        state="ALLOW",
+        manager="lightdm",
+        greeter="lightdm-gtk-greeter",
+        reasons=(),
+    )
 
 def _bad_preflight() -> PreflightReport:
     return PreflightReport(
@@ -109,6 +119,22 @@ def _source_tree(tmp_path: Path) -> Path:
         encoding="utf-8",
     )
 
+    greeter = identity / "greeter"
+    greeter.mkdir(parents=True)
+    (greeter / "gate-of-becoming.webp").write_bytes(
+        b"ARDA-GATE-OF-BECOMING"
+    )
+    (greeter / "arda-mark.png").write_bytes(
+        b"ARDA-MARK"
+    )
+    (greeter / "lightdm-gtk-greeter.conf").write_text(
+        "[greeter]\n"
+        "background=/usr/share/arda/greeter/"
+        "gate-of-becoming.webp\n"
+        "user-background=false\n",
+        encoding="utf-8",
+    )
+
     (identity / "audio").mkdir(parents=True)
     (
         identity
@@ -167,6 +193,7 @@ def _run(
         backup_root=backups,
         state_path=state,
         release_hashes_ok=release_hashes_ok,
+        greeter_detection=_good_greeter(),
         audio_installer=(
             (lambda src, dst: True)
             if audio_ok
@@ -197,6 +224,7 @@ def test_no_filesystem_mutation_before_successful_preflight(
         backup_root=tmp_path / "backups",
         state_path=tmp_path / "install-state.json",
         release_hashes_ok=True,
+        greeter_detection=_good_greeter(),
         audio_installer=lambda src, dst: True,
         event_sink=events.append,
     )
@@ -244,6 +272,7 @@ def test_hash_failure_performs_zero_boot_mutations(tmp_path):
         backup_root=tmp_path / "backups",
         state_path=tmp_path / "install-state.json",
         release_hashes_ok=False,
+        greeter_detection=_good_greeter(),
         audio_installer=lambda src, dst: True,
         event_sink=events.append,
     )
@@ -395,6 +424,7 @@ def test_running_installer_twice_does_not_duplicate_configuration(
         backup_root=tmp_path / "backups",
         state_path=tmp_path / "install-state.json",
         release_hashes_ok=True,
+        greeter_detection=_good_greeter(),
         audio_installer=lambda src, dst: True,
         event_sink=lambda event: None,
     )
@@ -527,3 +557,123 @@ def test_shell_entrypoint_modes_are_mutually_exclusive():
     )
 
     assert result.returncode != 0
+
+
+
+def test_greeter_identity_installs_to_deterministic_destinations(
+    tmp_path,
+):
+    result, source, target, _, _, events = _run(tmp_path)
+
+    assert result.success is True
+
+    installed_background = (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "gate-of-becoming.webp"
+    )
+    installed_logo = (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "arda-mark.png"
+    )
+    installed_config = (
+        target
+        / "etc"
+        / "lightdm"
+        / "lightdm-gtk-greeter.conf"
+    )
+
+    assert installed_background.read_bytes() == (
+        source
+        / "identity"
+        / "greeter"
+        / "gate-of-becoming.webp"
+    ).read_bytes()
+
+    assert installed_logo.read_bytes() == (
+        source
+        / "identity"
+        / "greeter"
+        / "arda-mark.png"
+    ).read_bytes()
+
+    assert (
+        "background=/usr/share/arda/greeter/"
+        "gate-of-becoming.webp"
+    ) in installed_config.read_text(encoding="utf-8")
+
+    assert "user-background=false" in installed_config.read_text(
+        encoding="utf-8"
+    )
+
+    assert "INSTALL_GREETER_IDENTITY" in events
+    assert "CONFIGURE_GREETER" in events
+    assert "VERIFY_GREETER" in events
+
+
+def test_greeter_phases_run_after_identity_before_plymouth(
+    tmp_path,
+):
+    result, _, _, _, _, events = _run(tmp_path)
+
+    assert result.success is True
+
+    expected = [
+        "INSTALL_IDENTITY",
+        "INSTALL_GREETER_IDENTITY",
+        "CONFIGURE_GREETER",
+        "VERIFY_GREETER",
+        "CONFIGURE_PLYMOUTH",
+    ]
+
+    positions = [events.index(item) for item in expected]
+
+    assert positions == sorted(positions)
+
+
+def test_unsupported_greeter_refuses_before_target_mutation(
+    tmp_path,
+):
+    source = _source_tree(tmp_path)
+    target = _target_tree(tmp_path)
+
+    before = {
+        p.relative_to(target).as_posix(): (
+            p.read_bytes() if p.is_file() else None
+        )
+        for p in target.rglob("*")
+    }
+
+    result = install_valinor_lite(
+        preflight_report=_good_preflight(),
+        source_root=source,
+        target_root=target,
+        backup_root=tmp_path / "backups",
+        state_path=tmp_path / "install-state.json",
+        release_hashes_ok=True,
+        greeter_detection=GreeterDetection(
+            state="NEEDS_YOU",
+            manager="unsupported",
+            greeter="unknown",
+            reasons=("unsupported_display_manager",),
+        ),
+        audio_installer=lambda src, dst: True,
+        event_sink=lambda event: None,
+    )
+
+    after = {
+        p.relative_to(target).as_posix(): (
+            p.read_bytes() if p.is_file() else None
+        )
+        for p in target.rglob("*")
+    }
+
+    assert result.success is False
+    assert before == after

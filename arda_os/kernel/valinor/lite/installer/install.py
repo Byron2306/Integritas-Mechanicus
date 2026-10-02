@@ -11,11 +11,16 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Callable
+import hashlib
 import json
 import shutil
 import uuid
 
 from backend.services.valinor_lite_preflight import PreflightReport
+from kernel.valinor.lite.installer.greeter import (
+    GreeterDetection,
+    verify_greeter,
+)
 
 
 KERNEL_RELEASE = "6.12.96-valinor"
@@ -126,6 +131,16 @@ def _copy_tree(source: Path, destination: Path) -> None:
     )
 
 
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(65536), b""):
+            digest.update(chunk)
+
+    return digest.hexdigest()
+
 def _planned_paths(target_root: Path) -> tuple[Path, ...]:
     return (
         target_root / "boot" / f"vmlinuz-{KERNEL_RELEASE}",
@@ -157,6 +172,22 @@ def _planned_paths(target_root: Path) -> tuple[Path, ...]:
         target_root / "etc" / "arda" / "attestation-profile",
         target_root / "etc" / "arda" / "enforcement-mode",
         target_root / "etc" / "arda" / "plymouth-theme",
+        target_root
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "gate-of-becoming.webp",
+        target_root
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "arda-mark.png",
+        target_root
+        / "etc"
+        / "lightdm"
+        / "lightdm-gtk-greeter.conf",
         target_root
         / "etc"
         / "default"
@@ -315,6 +346,7 @@ def install_valinor_lite(
     backup_root: str | Path,
     state_path: str | Path,
     release_hashes_ok: bool,
+    greeter_detection: GreeterDetection,
     audio_installer: Callable[[Path, Path], bool],
     event_sink: Callable[[str], None],
 ) -> InstallResult:
@@ -326,6 +358,9 @@ def install_valinor_lite(
     # Hard refusal boundary.  Nothing, including transaction metadata,
     # is written before successful preflight.
     if not preflight_report.ok:
+        return _failure()
+
+    if greeter_detection.state != "ALLOW":
         return _failure()
 
     backup_id = uuid.uuid4().hex
@@ -523,6 +558,91 @@ def install_valinor_lite(
         state_path,
         backup_id,
         event_sink,
+        "INSTALL_GREETER_IDENTITY",
+    )
+
+    greeter_source = identity / "greeter"
+    greeter_destination = (
+        target_root
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+    )
+
+    background_source = (
+        greeter_source / "gate-of-becoming.webp"
+    )
+    logo_source = greeter_source / "arda-mark.png"
+    config_source = (
+        greeter_source / "lightdm-gtk-greeter.conf"
+    )
+
+    background_destination = (
+        greeter_destination / "gate-of-becoming.webp"
+    )
+    logo_destination = (
+        greeter_destination / "arda-mark.png"
+    )
+
+    _copy_file(
+        background_source,
+        background_destination,
+    )
+    _copy_file(
+        logo_source,
+        logo_destination,
+    )
+
+    _phase(
+        state_path,
+        backup_id,
+        event_sink,
+        "CONFIGURE_GREETER",
+    )
+
+    greeter_config = (
+        target_root
+        / "etc"
+        / "lightdm"
+        / "lightdm-gtk-greeter.conf"
+    )
+
+    _copy_file(
+        config_source,
+        greeter_config,
+    )
+
+    _phase(
+        state_path,
+        backup_id,
+        event_sink,
+        "VERIFY_GREETER",
+    )
+
+    greeter_verification = verify_greeter(
+        config_text=greeter_config.read_text(
+            encoding="utf-8"
+        ),
+        background_sha256=_sha256_file(
+            background_destination
+        ),
+        expected_background_sha256=_sha256_file(
+            background_source
+        ),
+        logo_sha256=_sha256_file(
+            logo_destination
+        ),
+        expected_logo_sha256=_sha256_file(
+            logo_source
+        ),
+        trust_copy_ok=True,
+    )
+
+    _phase(
+        state_path,
+        backup_id,
+        event_sink,
         "CONFIGURE_PLYMOUTH",
     )
 
@@ -623,6 +743,7 @@ def install_valinor_lite(
             / f"initrd.img-{KERNEL_RELEASE}"
         ).is_file()
         and grub_verified
+        and greeter_verification.ok
         and fallback_verified
         and windows_preserved
         and enforcement_path.read_text(
