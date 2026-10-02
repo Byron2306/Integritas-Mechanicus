@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+
+import argparse
+import sys
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="install-valinor-lite",
+        description="Valinor Lite installer control surface.",
+    )
+
+    modes = parser.add_mutually_exclusive_group()
+
+    modes.add_argument(
+        "--preflight",
+        action="store_true",
+        help="inspect installation readiness without mutation",
+    )
+    modes.add_argument(
+        "--install",
+        action="store_true",
+        help="perform installation transaction",
+    )
+    modes.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="simulate installation without mutation",
+    )
+    modes.add_argument(
+        "--rollback",
+        action="store_true",
+        help="rollback using recorded installer state",
+    )
+    modes.add_argument(
+        "--verify",
+        action="store_true",
+        help="verify installed Valinor Lite state",
+    )
+
+    return parser
+
+
+def main(argv=None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+
+    if not any(
+        (
+            args.preflight,
+            args.install,
+            args.dry_run,
+            args.rollback,
+            args.verify,
+        )
+    ):
+        parser.print_help()
+        return 0
+
+    if args.preflight:
+        print("PREFLIGHT")
+        return 0
+
+    if args.dry_run:
+        print("DRY_RUN")
+        return 0
+
+    if args.install:
+        print("INSTALL")
+        return 0
+
+    if args.rollback:
+        print("ROLLBACK")
+        return 0
+
+    if args.verify:
+        print("VERIFY")
+        return 0
+
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
