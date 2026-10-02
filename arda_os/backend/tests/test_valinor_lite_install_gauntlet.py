@@ -9,6 +9,9 @@ from kernel.valinor.lite.installer.install import (
 from kernel.valinor.lite.installer.rollback import (
     rollback_valinor_lite,
 )
+from kernel.valinor.lite.installer.greeter import (
+    GreeterDetection,
+)
 
 
 def _preflight() -> PreflightReport:
@@ -29,6 +32,15 @@ def _preflight() -> PreflightReport:
         failures=(),
     )
 
+
+
+def _greeter() -> GreeterDetection:
+    return GreeterDetection(
+        state="ALLOW",
+        manager="lightdm",
+        greeter="lightdm-gtk-greeter",
+        reasons=(),
+    )
 
 def _write(
     path: Path,
@@ -108,6 +120,35 @@ def _source_tree(tmp_path: Path) -> Path:
         b"ARDA-AWAKENING",
     )
 
+    _write(
+        source
+        / "identity"
+        / "greeter"
+        / "gate-of-becoming.webp",
+        b"ARDA-GATE-OF-BECOMING",
+    )
+
+    _write(
+        source
+        / "identity"
+        / "greeter"
+        / "arda-mark.png",
+        b"ARDA-MARK",
+    )
+
+    _write(
+        source
+        / "identity"
+        / "greeter"
+        / "lightdm-gtk-greeter.conf",
+        (
+            b"[greeter]\n"
+            b"background=/usr/share/arda/greeter/"
+            b"gate-of-becoming.webp\n"
+            b"user-background=false\n"
+        ),
+    )
+
     return source
 
 
@@ -141,6 +182,14 @@ def _target_tree(tmp_path: Path) -> Path:
         b"OLD-PLYMOUTH\n",
     )
 
+    _write(
+        target
+        / "etc"
+        / "lightdm"
+        / "lightdm-gtk-greeter.conf",
+        b"OLD-LIGHTDM-GREETER\n",
+    )
+
     return target
 
 
@@ -166,6 +215,7 @@ def test_real_install_backup_restores_existing_plymouth_config(
         backup_root=backups,
         state_path=state,
         release_hashes_ok=True,
+        greeter_detection=_greeter(),
         audio_installer=lambda src, dst: True,
         event_sink=lambda event: None,
     )
@@ -324,6 +374,14 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
     windows_before = windows.read_bytes()
     fallback_before = fallback.read_bytes()
 
+    greeter_config = (
+        target
+        / "etc"
+        / "lightdm"
+        / "lightdm-gtk-greeter.conf"
+    )
+    greeter_before = greeter_config.read_bytes()
+
     original_boot_snapshot = _filesystem_snapshot(
         target / "boot"
     )
@@ -369,6 +427,7 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
         backup_root=backups,
         state_path=state,
         release_hashes_ok=True,
+        greeter_detection=_greeter(),
         audio_installer=lambda src, dst: True,
         event_sink=lambda event: None,
     )
@@ -410,6 +469,56 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
     ).read_text(
         encoding="utf-8"
     ).strip() == "audit"
+
+    # Gate of Becoming and the approved ARDA mark are part of
+    # the canonical login identity.
+    installed_background = (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "gate-of-becoming.webp"
+    )
+    installed_logo = (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "arda-mark.png"
+    )
+
+    canonical_background = (
+        source
+        / "identity"
+        / "greeter"
+        / "gate-of-becoming.webp"
+    )
+    canonical_logo = (
+        source
+        / "identity"
+        / "greeter"
+        / "arda-mark.png"
+    )
+
+    assert installed_background.read_bytes() == (
+        canonical_background.read_bytes()
+    )
+    assert installed_logo.read_bytes() == (
+        canonical_logo.read_bytes()
+    )
+
+    greeter_text = greeter_config.read_text(
+        encoding="utf-8"
+    )
+
+    assert greeter_config.read_bytes() != greeter_before
+    assert (
+        "background=/usr/share/arda/greeter/"
+        "gate-of-becoming.webp"
+    ) in greeter_text
+    assert "user-background=false" in greeter_text
 
     # ARDA identity, including the awakening WAV, must retain
     # its canonical identity.
@@ -528,6 +637,7 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
         backup_root=backups,
         state_path=state,
         release_hashes_ok=True,
+        greeter_detection=_greeter(),
         audio_installer=lambda src, dst: True,
         event_sink=lambda event: None,
     )
@@ -558,6 +668,28 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
         target
         / "boot"
         / "vmlinuz-6.12.96-valinor"
+    ).exists()
+
+    # Exact pre-install LightDM config is restored and
+    # installer-created ARDA greeter assets are removed.
+    assert greeter_config.read_bytes() == greeter_before
+
+    assert not (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "gate-of-becoming.webp"
+    ).exists()
+
+    assert not (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "arda-mark.png"
     ).exists()
 
     assert _filesystem_snapshot(
