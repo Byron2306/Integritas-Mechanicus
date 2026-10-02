@@ -156,6 +156,7 @@ def _planned_paths(target_root: Path) -> tuple[Path, ...]:
         / "arda-awakening.wav",
         target_root / "etc" / "arda" / "attestation-profile",
         target_root / "etc" / "arda" / "enforcement-mode",
+        target_root / "etc" / "arda" / "plymouth-theme",
         target_root
         / "etc"
         / "default"
@@ -189,16 +190,44 @@ def _backup_one(
 
     destination = backup_files_root / relative
 
+    destination.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
     if path.is_dir():
         shutil.copytree(path, destination)
     else:
-        destination.parent.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
         shutil.copy2(path, destination)
 
     return record
+
+
+def _missing_parent_dirs(
+    target_root: Path,
+) -> list[str]:
+    missing: set[str] = set()
+
+    for planned in _planned_paths(target_root):
+        parent = planned.parent
+
+        while parent != target_root:
+            if not parent.exists():
+                missing.add(
+                    parent.relative_to(
+                        target_root
+                    ).as_posix()
+                )
+
+            parent = parent.parent
+
+    return sorted(
+        missing,
+        key=lambda item: (
+            len(Path(item).parts),
+            item,
+        ),
+    )
 
 
 def _create_backup(
@@ -228,6 +257,11 @@ def _create_backup(
                 ),
                 "backup_id": backup_id,
                 "paths": records,
+                "originally_missing_parent_dirs": (
+                    _missing_parent_dirs(
+                        target_root
+                    )
+                ),
             },
             indent=2,
             sort_keys=True,

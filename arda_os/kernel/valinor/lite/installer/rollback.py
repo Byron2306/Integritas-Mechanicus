@@ -144,6 +144,43 @@ def _tree_fingerprint(root: Path) -> tuple:
     return tuple(records)
 
 
+def _prune_originally_missing_parents(
+    *,
+    target_root: Path,
+    relatives: list[str],
+) -> None:
+    ordered = sorted(
+        relatives,
+        key=lambda item: (
+            len(Path(item).parts),
+            item,
+        ),
+        reverse=True,
+    )
+
+    for relative in ordered:
+        target = _safe_target(
+            target_root,
+            relative,
+        )
+
+        if not target.exists():
+            continue
+
+        if not target.is_dir():
+            raise ValueError(
+                "rollback parent provenance "
+                f"is not a directory: {relative}"
+            )
+
+        try:
+            target.rmdir()
+        except OSError:
+            # Never remove a non-empty directory.
+            # It may now contain unrelated host state.
+            continue
+
+
 def rollback_valinor_lite(
     *,
     target_root: str | Path,
@@ -198,6 +235,23 @@ def rollback_valinor_lite(
     if not isinstance(records, list):
         return _failure()
 
+    originally_missing_parent_dirs = manifest.get(
+        "originally_missing_parent_dirs",
+        [],
+    )
+
+    if not isinstance(
+        originally_missing_parent_dirs,
+        list,
+    ):
+        return _failure()
+
+    if not all(
+        isinstance(item, str)
+        for item in originally_missing_parent_dirs
+    ):
+        return _failure()
+
     windows_root = (
         target_root
         / "boot"
@@ -245,6 +299,11 @@ def rollback_valinor_lite(
                 files_root=files_root,
                 record=record,
             )
+
+        _prune_originally_missing_parents(
+            target_root=target_root,
+            relatives=originally_missing_parent_dirs,
+        )
 
     except (
         OSError,
