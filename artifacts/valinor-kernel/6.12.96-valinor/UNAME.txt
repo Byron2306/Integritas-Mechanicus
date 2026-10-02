@@ -1,0 +1,1 @@
+Linux debian 6.12.96-valinor #1 SMP PREEMPT_DYNAMIC Wed Jul 29 00:33:36 CDT 2026 x86_64 GNU/Linux
