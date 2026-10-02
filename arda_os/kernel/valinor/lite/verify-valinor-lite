@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from backend.services.attestation_profile import (
+    resolve_attestation_profile,
+)
+from backend.services.valinor_lite_evidence import (
+    LiteEvidence,
+)
+from kernel.valinor.lite.verify.verify_valinor_lite import (
+    render_text_report,
+    verify_valinor_lite,
+)
+
+
+def _load_fixture(path: Path):
+    payload = json.loads(
+        path.read_text(encoding="utf-8")
+    )
+
+    profile = resolve_attestation_profile(
+        payload.get("profile")
+    )
+
+    raw = payload["evidence"]
+
+    evidence = LiteEvidence(
+        kernel_sha256=str(raw["kernel_sha256"]),
+        initramfs_sha256=str(
+            raw["initramfs_sha256"]
+        ),
+        kernel_identity_verified=bool(
+            raw["kernel_identity_verified"]
+        ),
+        initramfs_identity_verified=bool(
+            raw["initramfs_identity_verified"]
+        ),
+        bpf_lsm_available=bool(
+            raw["bpf_lsm_available"]
+        ),
+        measured_maps_available=bool(
+            raw["measured_maps_available"]
+        ),
+        pqc_native_verified=bool(
+            raw["pqc_native_verified"]
+        ),
+        secure_boot_state=str(
+            raw["secure_boot_state"]
+        ),
+        software_rooted=bool(
+            raw["software_rooted"]
+        ),
+    )
+
+    return (
+        profile,
+        evidence,
+        bool(payload.get("tpm_available")),
+        str(
+            payload.get(
+                "enforcement_mode",
+                "audit",
+            )
+        ),
+    )
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="verify-valinor-lite",
+        description=(
+            "Verify Valinor Lite first-boot trust "
+            "without mutating enforcement state."
+        ),
+    )
+
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="emit JSON report",
+    )
+
+    parser.add_argument(
+        "--evidence-file",
+        type=Path,
+        required=True,
+        help="verification evidence input",
+    )
+
+    return parser
+
+
+def main(argv=None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+
+    try:
+        (
+            profile,
+            evidence,
+            tpm_available,
+            enforcement_mode,
+        ) = _load_fixture(args.evidence_file)
+    except (
+        OSError,
+        KeyError,
+        TypeError,
+        ValueError,
+        json.JSONDecodeError,
+    ) as exc:
+        print(
+            f"verification input error: {exc}",
+            file=sys.stderr,
+        )
+        return 2
+
+    report = verify_valinor_lite(
+        profile=profile,
+        evidence=evidence,
+        tpm_available=tpm_available,
+        enforcement_mode=enforcement_mode,
+    )
+
+    if args.json:
+        print(
+            json.dumps(
+                report.to_dict(),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+    else:
+        sys.stdout.write(
+            render_text_report(report)
+        )
+
+    return 0 if report.ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
