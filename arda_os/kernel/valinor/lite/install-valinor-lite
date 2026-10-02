@@ -2,6 +2,11 @@
 
 import argparse
 import sys
+from pathlib import Path
+
+from kernel.valinor.lite.installer.rollback import (
+    rollback_valinor_lite,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -38,6 +43,19 @@ def build_parser() -> argparse.ArgumentParser:
         help="verify installed Valinor Lite state",
     )
 
+    parser.add_argument(
+        "--target-root",
+        type=Path,
+    )
+    parser.add_argument(
+        "--backup-root",
+        type=Path,
+    )
+    parser.add_argument(
+        "--state-path",
+        type=Path,
+    )
+
     return parser
 
 
@@ -69,12 +87,39 @@ def main(argv=None) -> int:
         print("INSTALL")
         return 0
 
-    if args.rollback:
-        print("ROLLBACK")
-        return 0
-
     if args.verify:
         print("VERIFY")
+        return 0
+
+    if args.rollback:
+        if not all(
+            (
+                args.target_root,
+                args.backup_root,
+                args.state_path,
+            )
+        ):
+            print(
+                "rollback requires --target-root, "
+                "--backup-root, and --state-path",
+                file=sys.stderr,
+            )
+            return 2
+
+        result = rollback_valinor_lite(
+            target_root=args.target_root,
+            backup_root=args.backup_root,
+            state_path=args.state_path,
+        )
+
+        if not result.success:
+            print("ROLLBACK_REFUSED", file=sys.stderr)
+            return 1
+
+        print(
+            "ROLLBACK_COMPLETE "
+            f"backup_id={result.restored_backup_id}"
+        )
         return 0
 
     return 1
