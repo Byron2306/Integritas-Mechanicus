@@ -466,3 +466,61 @@ def test_preserved_kernel_archive_is_not_normal_git_blob():
     )
 
     assert tracked.returncode != 0
+
+
+def test_release_carries_greeter_identity_and_runtime(tmp_path):
+    result, _ = _build(tmp_path)
+    root = _extract(
+        result.archive_path,
+        tmp_path / "extract-greeter",
+    )
+
+    assert (
+        root
+        / "identity"
+        / "greeter"
+        / "gate-of-becoming.webp"
+    ).is_file()
+
+    assert (
+        root
+        / "identity"
+        / "greeter"
+        / "arda-mark.png"
+    ).is_file()
+
+    config = (
+        root
+        / "identity"
+        / "greeter"
+        / "lightdm-gtk-greeter.conf"
+    )
+
+    assert config.is_file()
+    assert (
+        "background=/usr/share/arda/greeter/"
+        "gate-of-becoming.webp"
+    ) in config.read_text(encoding="utf-8")
+
+    assert (
+        root
+        / "profile"
+        / "python"
+        / "kernel"
+        / "valinor"
+        / "lite"
+        / "installer"
+        / "greeter.py"
+    ).is_file()
+
+
+def test_release_contains_no_host_lightdm_state(tmp_path):
+    result, _ = _build(tmp_path)
+    root = _extract(
+        result.archive_path,
+        tmp_path / "extract-no-host-lightdm",
+    )
+
+    assert not (
+        root / "etc" / "lightdm"
+    ).exists()

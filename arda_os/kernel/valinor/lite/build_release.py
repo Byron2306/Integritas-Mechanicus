@@ -144,6 +144,7 @@ def _stage_python_runtime(
         "preflight.py",
         "install.py",
         "rollback.py",
+        "greeter.py",
     ):
         _copy_file(
             repo_root
