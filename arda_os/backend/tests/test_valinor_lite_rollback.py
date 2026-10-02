@@ -383,3 +383,218 @@ def test_cli_rollback_uses_recorded_backup(tmp_path):
         target
         / "etc/default/grub.d/99-valinor-lite.cfg"
     ).read_bytes() == b"OLD-GRUB\n"
+
+
+def _make_greeter_backup(
+    tmp_path: Path,
+    *,
+    originally_existed: bool = True,
+):
+    backup_id = "greeter-backup"
+    target = tmp_path / "greeter-target"
+    backup_root = tmp_path / "greeter-backups"
+    backup_dir = backup_root / backup_id
+    files = backup_dir / "files"
+
+    target.mkdir()
+    backup_dir.mkdir(parents=True)
+
+    config_rel = "etc/lightdm/lightdm-gtk-greeter.conf"
+    background_rel = (
+        "usr/share/arda/greeter/gate-of-becoming.webp"
+    )
+    logo_rel = "usr/share/arda/greeter/arda-mark.png"
+
+    records = [
+        {
+            "path": config_rel,
+            "existed": originally_existed,
+            "kind": "file",
+        },
+        {
+            "path": background_rel,
+            "existed": originally_existed,
+            "kind": "file",
+        },
+        {
+            "path": logo_rel,
+            "existed": originally_existed,
+            "kind": "file",
+        },
+    ]
+
+    if originally_existed:
+        _write(
+            files / config_rel,
+            b"OLD-LIGHTDM-CONFIG\n",
+        )
+        _write(
+            files / background_rel,
+            b"OLD-BACKGROUND",
+        )
+        _write(
+            files / logo_rel,
+            b"OLD-LOGO",
+        )
+
+    _write(
+        target / config_rel,
+        b"[greeter]\n"
+        b"background=/usr/share/arda/greeter/"
+        b"gate-of-becoming.webp\n"
+        b"user-background=false\n",
+    )
+    _write(
+        target / background_rel,
+        b"ARDA-GATE",
+    )
+    _write(
+        target / logo_rel,
+        b"ARDA-MARK",
+    )
+
+    missing = []
+
+    if not originally_existed:
+        missing = [
+            "usr/share/arda/greeter",
+        ]
+
+    (backup_dir / "backup.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "valinor-lite-backup-v1",
+                "backup_id": backup_id,
+                "paths": records,
+                "originally_missing_parent_dirs": missing,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    state = tmp_path / "greeter-install-state.json"
+    state.write_text(
+        json.dumps(
+            {
+                "schema_version": (
+                    "valinor-lite-install-state-v1"
+                ),
+                "phase": "VERIFY_GREETER",
+                "backup_id": backup_id,
+                "profile": "lite",
+                "enforcement_mode": "audit",
+                "kernel_release": "6.12.96-valinor",
+                "committed": False,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    return (
+        target,
+        backup_root,
+        state,
+        config_rel,
+        background_rel,
+        logo_rel,
+    )
+
+
+def test_greeter_rollback_restores_exact_previous_bytes(
+    tmp_path,
+):
+    (
+        target,
+        backups,
+        state,
+        config_rel,
+        background_rel,
+        logo_rel,
+    ) = _make_greeter_backup(tmp_path)
+
+    result = rollback_valinor_lite(
+        target_root=target,
+        backup_root=backups,
+        state_path=state,
+    )
+
+    assert result.success is True
+    assert (
+        target / config_rel
+    ).read_bytes() == b"OLD-LIGHTDM-CONFIG\n"
+    assert (
+        target / background_rel
+    ).read_bytes() == b"OLD-BACKGROUND"
+    assert (
+        target / logo_rel
+    ).read_bytes() == b"OLD-LOGO"
+
+
+def test_greeter_rollback_removes_installer_created_assets(
+    tmp_path,
+):
+    (
+        target,
+        backups,
+        state,
+        config_rel,
+        background_rel,
+        logo_rel,
+    ) = _make_greeter_backup(
+        tmp_path,
+        originally_existed=False,
+    )
+
+    result = rollback_valinor_lite(
+        target_root=target,
+        backup_root=backups,
+        state_path=state,
+    )
+
+    assert result.success is True
+    assert not (target / config_rel).exists()
+    assert not (target / background_rel).exists()
+    assert not (target / logo_rel).exists()
+
+    assert not (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+    ).exists()
+
+
+def test_greeter_rollback_keeps_nonempty_new_parent(
+    tmp_path,
+):
+    (
+        target,
+        backups,
+        state,
+        _,
+        _,
+        _,
+    ) = _make_greeter_backup(
+        tmp_path,
+        originally_existed=False,
+    )
+
+    unrelated = (
+        target
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "operator-note.txt"
+    )
+    unrelated.write_bytes(b"KEEP-ME")
+
+    result = rollback_valinor_lite(
+        target_root=target,
+        backup_root=backups,
+        state_path=state,
+    )
+
+    assert result.success is True
+    assert unrelated.read_bytes() == b"KEEP-ME"
