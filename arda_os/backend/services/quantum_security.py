@@ -814,3 +814,108 @@ def native_pqc_self_test() -> dict:
         "kem_public_key_bytes": len(kem_public_key),
         "kem_ciphertext_bytes": len(ciphertext),
     }
+
+
+def generate_native_pqc_signing_key(key_id: str) -> QuantumKeyPair:
+    """
+    Generate an ML-DSA-65 keypair with liboqs only.
+
+    No simulation fallback is permitted.
+    """
+    require_native_pqc()
+
+    if quantum_security.mode != "liboqs":
+        raise RuntimeError(
+            "NATIVE_PQC_REQUIRED: native signing requires liboqs"
+        )
+
+    if "ML-DSA-65" not in oqs.get_enabled_sig_mechanisms():
+        raise RuntimeError(
+            "NATIVE_PQC_REQUIRED: ML-DSA-65 unavailable"
+        )
+
+    from datetime import timedelta
+
+    with oqs.Signature("ML-DSA-65") as signer:
+        public_key = signer.generate_keypair()
+        private_key = signer.export_secret_key()
+
+    now = datetime.now(timezone.utc)
+
+    keypair = QuantumKeyPair(
+        key_id=key_id,
+        algorithm="ML-DSA-65",
+        public_key=base64.b64encode(public_key).decode(),
+        private_key=base64.b64encode(private_key).decode(),
+        created_at=now.isoformat(),
+        expires_at=(now + timedelta(days=1)).isoformat(),
+    )
+
+    quantum_security.key_pairs[key_id] = keypair
+    return keypair
+
+
+def sign_native_pqc(
+    key_id: str,
+    payload: bytes,
+) -> QuantumSignature:
+    """
+    Sign payload with native ML-DSA-65 only.
+    """
+    require_native_pqc()
+
+    keypair = quantum_security.key_pairs.get(key_id)
+
+    if keypair is None:
+        keypair = generate_native_pqc_signing_key(key_id)
+
+    if keypair.algorithm != "ML-DSA-65":
+        raise RuntimeError(
+            "NATIVE_PQC_REQUIRED: signing key is not ML-DSA-65"
+        )
+
+    private_key = base64.b64decode(keypair.private_key)
+
+    with oqs.Signature(
+        "ML-DSA-65",
+        private_key,
+    ) as signer:
+        signature = signer.sign(payload)
+
+    import uuid
+
+    result = QuantumSignature(
+        signature_id=f"sig-{uuid.uuid4().hex[:12]}",
+        algorithm="ML-DSA-65",
+        data_hash=hashlib.sha3_256(payload).hexdigest(),
+        signature=base64.b64encode(signature).decode(),
+        signer_key_id=key_id,
+        timestamp=datetime.now(timezone.utc).isoformat(),
+    )
+
+    quantum_security.signatures[result.signature_id] = result
+    return result
+
+
+def verify_native_pqc(
+    public_key: str,
+    payload: bytes,
+    signature: str,
+) -> bool:
+    """
+    Verify a native ML-DSA-65 signature.
+
+    No simulated verification path exists here.
+    """
+    require_native_pqc()
+
+    try:
+        pk = base64.b64decode(public_key)
+        sig = base64.b64decode(signature)
+
+        with oqs.Signature("ML-DSA-65") as verifier:
+            return bool(
+                verifier.verify(payload, sig, pk)
+            )
+    except Exception:
+        return False
