@@ -129,3 +129,56 @@ def test_lite_gate_carries_truth_without_manufacturing_hardware_authority(
         or failure == "local_evidence_not_silicon_signed"
         for failure in result["failures"]
     )
+
+
+def test_lite_capture_promotes_only_verified_software_root(
+    tmp_path,
+    monkeypatch,
+):
+    from backend.services.phase4_live_attestation import (
+        Phase4LiveAttestationService,
+    )
+    from backend.services.valinor_lite_evidence import LiteEvidence
+
+    monkeypatch.setattr(
+        "backend.services.phase4_live_attestation.os.path.exists",
+        lambda path: False if path in ("/dev/tpm0", "/dev/tpmrm0") else True,
+    )
+
+    evidence = LiteEvidence(
+        kernel_sha256="a" * 64,
+        initramfs_sha256="b" * 64,
+        kernel_identity_verified=True,
+        initramfs_identity_verified=True,
+        bpf_lsm_available=True,
+        measured_maps_available=True,
+        pqc_native_verified=True,
+        secure_boot_state="disabled",
+        software_rooted=True,
+    )
+
+    service = Phase4LiveAttestationService()
+
+    result = service.capture(
+        str(tmp_path),
+        attestation_profile="lite",
+        lite_evidence_collector=lambda: evidence,
+    )
+
+    assert result["ok"] is True
+    assert result["attestation_profile"] == "lite"
+    assert result["tpm_available"] is False
+    assert result["hardware_rooted"] is False
+    assert result["software_rooted"] is True
+
+    bundle = result["bundle"]
+
+    assert bundle["software_rooted"] is True
+    assert bundle["kernel_identity_verified"] is True
+    assert bundle["initramfs_identity_verified"] is True
+    assert bundle["bpf_lsm_available"] is True
+    assert bundle["measured_maps_available"] is True
+    assert bundle["pqc_native_verified"] is True
+    assert bundle["secure_boot_state"] == "disabled"
+    assert "tpm_pcr_quote" not in bundle
+    assert "tpm_identity" not in bundle

@@ -9,7 +9,7 @@ import socket
 import subprocess
 import tempfile
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, Optional
 
 from backend.services.attestation_profile import AttestationProfile, resolve_attestation_profile
 
@@ -68,6 +68,7 @@ class Phase4LiveAttestationService:
         *,
         nonce: Optional[str] = None,
         attestation_profile: AttestationProfile | str | None = None,
+        lite_evidence_collector: Optional[Callable[[], Any]] = None,
     ) -> Dict[str, Any]:
         profile = (
             attestation_profile
@@ -92,13 +93,51 @@ class Phase4LiveAttestationService:
                 .isoformat()
                 .replace("+00:00", "Z")
             )
+
+            lite_evidence = (
+                lite_evidence_collector()
+                if lite_evidence_collector is not None
+                else None
+            )
+
+            software_rooted = bool(
+                getattr(lite_evidence, "software_rooted", False)
+            )
+
             bundle = {
                 "schema_version": "arda-sovereign-attestation-lite-v1",
                 "attestation_profile": profile.name,
                 "tpm_available": False,
                 "hardware_rooted": False,
-                "software_rooted": False,
+                "software_rooted": software_rooted,
             }
+
+            if lite_evidence is not None:
+                bundle.update(
+                    {
+                        "kernel_sha256": lite_evidence.kernel_sha256,
+                        "initramfs_sha256": lite_evidence.initramfs_sha256,
+                        "kernel_identity_verified": (
+                            lite_evidence.kernel_identity_verified
+                        ),
+                        "initramfs_identity_verified": (
+                            lite_evidence.initramfs_identity_verified
+                        ),
+                        "bpf_lsm_available": (
+                            lite_evidence.bpf_lsm_available
+                        ),
+                        "measured_maps_available": (
+                            lite_evidence.measured_maps_available
+                        ),
+                        "pqc_native_verified": (
+                            lite_evidence.pqc_native_verified
+                        ),
+                        "secure_boot_state": (
+                            lite_evidence.secure_boot_state
+                        ),
+                    }
+                )
+
             return {
                 "ok": True,
                 "timestamp": timestamp,
@@ -106,7 +145,7 @@ class Phase4LiveAttestationService:
                 "attestation_profile": profile.name,
                 "tpm_available": False,
                 "hardware_rooted": False,
-                "software_rooted": False,
+                "software_rooted": software_rooted,
                 "bundle": bundle,
             }
         else:
