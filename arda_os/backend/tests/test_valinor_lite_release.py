@@ -524,3 +524,37 @@ def test_release_contains_no_host_lightdm_state(tmp_path):
     assert not (
         root / "etc" / "lightdm"
     ).exists()
+
+
+def test_release_contains_complete_installer_runtime(
+    tmp_path,
+):
+    result, _ = _build(tmp_path)
+    root = _extract(
+        result.archive_path,
+        tmp_path / "extract-runtime",
+    )
+
+    runtime = (
+        root
+        / "profile"
+        / "python"
+    )
+
+    required = (
+        runtime
+        / "backend"
+        / "services"
+        / "quantum_security.py",
+        runtime
+        / "kernel"
+        / "valinor"
+        / "lite"
+        / "installer"
+        / "control.py",
+    )
+
+    assert all(
+        path.is_file()
+        for path in required
+    )

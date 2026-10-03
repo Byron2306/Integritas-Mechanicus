@@ -120,6 +120,7 @@ def _stage_python_runtime(
 
     for name in (
         "attestation_profile.py",
+        "quantum_security.py",
         "valinor_lite_evidence.py",
         "valinor_lite_preflight.py",
     ):
@@ -145,6 +146,7 @@ def _stage_python_runtime(
         "install.py",
         "rollback.py",
         "greeter.py",
+        "control.py",
     ):
         _copy_file(
             repo_root

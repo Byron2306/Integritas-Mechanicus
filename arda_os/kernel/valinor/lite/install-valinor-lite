@@ -1,11 +1,38 @@
 #!/usr/bin/env python3
 
 import argparse
+import json
+import os
+import platform
+import shutil
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 from kernel.valinor.lite.installer.rollback import (
     rollback_valinor_lite,
+)
+from backend.services.attestation_profile import (
+    resolve_attestation_profile,
+)
+from backend.services.valinor_lite_evidence import (
+    collect_lite_evidence,
+)
+from kernel.valinor.lite.verify.verify_valinor_lite import (
+    verify_valinor_lite,
+)
+from kernel.valinor.lite.installer.install import (
+    install_valinor_lite,
+)
+from kernel.valinor.lite.installer.greeter import (
+    detect_greeter,
+)
+from kernel.valinor.lite.installer.control import (
+    PortableReleaseError,
+    build_live_preflight_probes,
+    prepare_portable_source,
+    run_portable_preflight,
 )
 
 
@@ -48,6 +75,11 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
     )
     parser.add_argument(
+        "--release-root",
+        type=Path,
+        help="portable Valinor Lite release root",
+    )
+    parser.add_argument(
         "--backup-root",
         type=Path,
     )
@@ -57,6 +89,310 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     return parser
+
+
+
+def _extract_archive(
+    archive: Path,
+    destination: Path,
+) -> None:
+    subprocess.run(
+        [
+            "tar",
+            "--zstd",
+            "-xf",
+            str(archive),
+            "-C",
+            str(destination),
+        ],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+    )
+
+
+def _command_output(argv) -> str:
+    try:
+        completed = subprocess.run(
+            argv,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError:
+        return ""
+
+    if completed.returncode != 0:
+        return ""
+
+    return completed.stdout
+
+
+def _secure_boot_state(root: Path) -> str:
+    efivars = (
+        root
+        / "sys"
+        / "firmware"
+        / "efi"
+        / "efivars"
+    )
+
+    if not efivars.is_dir():
+        return "unknown"
+
+    matches = sorted(
+        efivars.glob("SecureBoot-*")
+    )
+
+    if not matches:
+        return "unknown"
+
+    try:
+        payload = matches[0].read_bytes()
+    except OSError:
+        return "unknown"
+
+    if len(payload) < 5:
+        return "unknown"
+
+    return "enabled" if payload[4] == 1 else "disabled"
+
+
+def _boot_free_bytes(path: Path) -> int:
+    try:
+        return int(shutil.disk_usage(path).free)
+    except OSError:
+        return 0
+
+
+def _detect_live_greeter(root: Path):
+    display_manager = (
+        root
+        / "etc"
+        / "systemd"
+        / "system"
+        / "display-manager.service"
+    )
+
+    try:
+        display_manager_target = os.readlink(
+            display_manager
+        )
+    except OSError:
+        display_manager_target = ""
+
+    xgreeter_root = (
+        root
+        / "usr"
+        / "share"
+        / "xgreeters"
+    )
+
+    if xgreeter_root.is_dir():
+        entries = tuple(
+            sorted(
+                path.name
+                for path in xgreeter_root.glob(
+                    "*.desktop"
+                )
+            )
+        )
+    else:
+        entries = ()
+
+    return detect_greeter(
+        display_manager_target=display_manager_target,
+        xgreeter_entries=entries,
+    )
+
+
+def _install_audio(
+    source: Path,
+    destination: Path,
+) -> bool:
+    try:
+        destination.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+        shutil.copy2(source, destination)
+    except OSError:
+        return False
+
+    return True
+
+
+def _generate_boot_menu(root: Path) -> bool:
+    command = shutil.which("update-grub")
+
+    if command is None:
+        fallback = Path("/usr/sbin/update-grub")
+
+        if fallback.is_file():
+            command = str(fallback)
+
+    if command is None:
+        return False
+
+    env = os.environ.copy()
+
+    # Ignored by Debian update-grub, but gives isolated
+    # acceptance generators the filesystem authority
+    # they are expected to operate on.
+    env["VALINOR_TARGET_ROOT"] = str(root)
+
+    try:
+        completed = subprocess.run(
+            [command],
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            env=env,
+        )
+    except OSError:
+        return False
+
+    if completed.returncode != 0:
+        return False
+
+    return (
+        root
+        / "boot"
+        / "grub"
+        / "grub.cfg"
+    ).is_file()
+
+
+
+def _bpf_lsm_live(root: Path) -> bool:
+    lsm_path = (
+        root
+        / "sys"
+        / "kernel"
+        / "security"
+        / "lsm"
+    )
+
+    try:
+        active = lsm_path.read_text(
+            encoding="utf-8"
+        ).strip()
+    except OSError:
+        return False
+
+    if "bpf" not in active.split(","):
+        return False
+
+    try:
+        completed = subprocess.run(
+            ["bpftool", "prog", "show"],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+    except (
+        OSError,
+        subprocess.TimeoutExpired,
+    ):
+        return False
+
+    return (
+        completed.returncode == 0
+        and "arda_sovereign_ignition"
+        in completed.stdout
+    )
+
+
+def _native_pqc_live() -> bool:
+    try:
+        from backend.services.quantum_security import (
+            native_pqc_self_test,
+        )
+
+        result = native_pqc_self_test()
+    except Exception:
+        return False
+
+    return bool(
+        result.get("signature_verified")
+        and result.get("kem_verified")
+        and result.get("provider") == "liboqs"
+        and result.get("signature_algorithm")
+        == "ML-DSA-65"
+        and result.get("kem_algorithm")
+        == "ML-KEM-768"
+    )
+
+
+def _expected_verify_hashes(
+    release_root: Path | None,
+):
+    candidates = []
+
+    if release_root is not None:
+        candidates.append(
+            release_root
+            / "manifest"
+            / "release.json"
+        )
+
+    script_root = Path(__file__).resolve().parent
+
+    candidates.extend(
+        (
+            script_root
+            / "installer"
+            / "release_manifest.json",
+            script_root
+            / "profile"
+            / "release_manifest.json",
+        )
+    )
+
+    for path in candidates:
+        if not path.is_file():
+            continue
+
+        try:
+            payload = json.loads(
+                path.read_text(
+                    encoding="utf-8"
+                )
+            )
+        except (
+            OSError,
+            json.JSONDecodeError,
+        ):
+            continue
+
+        kernel = payload.get("kernel")
+
+        if isinstance(kernel, dict):
+            image = kernel.get(
+                "image_sha256"
+            )
+            initramfs = kernel.get(
+                "initramfs_sha256"
+            )
+        else:
+            image = payload.get(
+                "kernel_sha256"
+            )
+            initramfs = payload.get(
+                "preserved_initramfs_sha256"
+            )
+
+        if image and initramfs:
+            return (
+                str(image),
+                str(initramfs),
+            )
+
+    raise RuntimeError(
+        "verification_hash_manifest_unavailable"
+    )
 
 
 def main(argv=None) -> int:
@@ -76,19 +412,399 @@ def main(argv=None) -> int:
         return 0
 
     if args.preflight:
-        print("PREFLIGHT")
+        if args.release_root is None:
+            print(
+                "preflight requires --release-root",
+                file=sys.stderr,
+            )
+            return 2
+
+        target_root = (
+            args.target_root
+            if args.target_root is not None
+            else Path("/")
+        )
+
+        probes = build_live_preflight_probes(
+            root=target_root,
+            architecture_probe=platform.machine,
+            secure_boot_probe=(
+                lambda: _secure_boot_state(
+                    target_root
+                )
+            ),
+            command_runner=_command_output,
+            boot_free_probe=_boot_free_bytes,
+        )
+
+        try:
+            with tempfile.TemporaryDirectory(
+                prefix="valinor-lite-preflight-"
+            ) as tmp:
+                report = run_portable_preflight(
+                    release_root=args.release_root,
+                    workspace=Path(tmp),
+                    probes=probes,
+                    extractor=_extract_archive,
+                )
+        except PortableReleaseError as exc:
+            print(
+                f"PREFLIGHT_REFUSED {exc}",
+                file=sys.stderr,
+            )
+            return 1
+
+        if not report.ok:
+            failures = ",".join(report.failures)
+            print(
+                "PREFLIGHT_REFUSED "
+                f"failures={failures}",
+                file=sys.stderr,
+            )
+            return 1
+
+        print(
+            "PREFLIGHT_ALLOW "
+            f"architecture={report.architecture} "
+            "profile=lite "
+            f"boot_mode={report.boot_mode} "
+            f"tpm_available={str(report.tpm_available).lower()} "
+            f"secure_boot={report.secure_boot_state}"
+        )
         return 0
 
     if args.dry_run:
-        print("DRY_RUN")
+        if args.release_root is None:
+            print(
+                "dry-run requires --release-root",
+                file=sys.stderr,
+            )
+            return 2
+
+        target_root = (
+            args.target_root
+            if args.target_root is not None
+            else Path("/")
+        )
+
+        probes = build_live_preflight_probes(
+            root=target_root,
+            architecture_probe=platform.machine,
+            secure_boot_probe=(
+                lambda: _secure_boot_state(
+                    target_root
+                )
+            ),
+            command_runner=_command_output,
+            boot_free_probe=_boot_free_bytes,
+        )
+
+        try:
+            with tempfile.TemporaryDirectory(
+                prefix="valinor-lite-dry-run-"
+            ) as tmp:
+                report = run_portable_preflight(
+                    release_root=args.release_root,
+                    workspace=Path(tmp),
+                    probes=probes,
+                    extractor=_extract_archive,
+                )
+        except PortableReleaseError as exc:
+            print(
+                f"DRY_RUN_REFUSED {exc}",
+                file=sys.stderr,
+            )
+            return 1
+
+        if not report.ok:
+            failures = ",".join(report.failures)
+            print(
+                "DRY_RUN_REFUSED "
+                f"failures={failures}",
+                file=sys.stderr,
+            )
+            return 1
+
+        print(
+            "DRY_RUN_ALLOW "
+            "install_kernel=6.12.96-valinor "
+            "profile=lite "
+            "enforcement=audit "
+            f"boot_mode={report.boot_mode} "
+            f"tpm_available={str(report.tpm_available).lower()}"
+        )
         return 0
 
     if args.install:
-        print("INSTALL")
+        if args.release_root is None:
+            print(
+                "install requires --release-root",
+                file=sys.stderr,
+            )
+            return 2
+
+        if args.backup_root is None:
+            print(
+                "install requires --backup-root",
+                file=sys.stderr,
+            )
+            return 2
+
+        if args.state_path is None:
+            print(
+                "install requires --state-path",
+                file=sys.stderr,
+            )
+            return 2
+
+        target_root = (
+            args.target_root
+            if args.target_root is not None
+            else Path("/")
+        )
+
+        if (
+            target_root == Path("/")
+            and os.geteuid() != 0
+        ):
+            print(
+                "INSTALL_REFUSED root_required",
+                file=sys.stderr,
+            )
+            return 1
+
+        probes = build_live_preflight_probes(
+            root=target_root,
+            architecture_probe=platform.machine,
+            secure_boot_probe=(
+                lambda: _secure_boot_state(
+                    target_root
+                )
+            ),
+            command_runner=_command_output,
+            boot_free_probe=_boot_free_bytes,
+        )
+
+        greeter = _detect_live_greeter(
+            target_root
+        )
+
+        if greeter.state != "ALLOW":
+            reasons = ",".join(
+                greeter.reasons
+            )
+            print(
+                "INSTALL_REFUSED "
+                f"greeter={reasons}",
+                file=sys.stderr,
+            )
+            return 1
+
+        try:
+            with tempfile.TemporaryDirectory(
+                prefix="valinor-lite-install-"
+            ) as tmp:
+                tmp_root = Path(tmp)
+
+                report = run_portable_preflight(
+                    release_root=args.release_root,
+                    workspace=(
+                        tmp_root / "preflight"
+                    ),
+                    probes=probes,
+                    extractor=_extract_archive,
+                )
+
+                if not report.ok:
+                    failures = ",".join(
+                        report.failures
+                    )
+                    print(
+                        "INSTALL_REFUSED "
+                        f"failures={failures}",
+                        file=sys.stderr,
+                    )
+                    return 1
+
+                prepared = prepare_portable_source(
+                    release_root=args.release_root,
+                    workspace=(
+                        tmp_root / "payload"
+                    ),
+                    extractor=_extract_archive,
+                )
+
+                result = install_valinor_lite(
+                    preflight_report=report,
+                    source_root=(
+                        prepared.source_root
+                    ),
+                    target_root=target_root,
+                    backup_root=args.backup_root,
+                    state_path=args.state_path,
+                    release_hashes_ok=(
+                        prepared.release_hashes_ok
+                    ),
+                    greeter_detection=greeter,
+                    audio_installer=_install_audio,
+                    boot_menu_generator=(
+                        _generate_boot_menu
+                    ),
+                    event_sink=lambda event: None,
+                )
+
+        except PortableReleaseError as exc:
+            print(
+                f"INSTALL_REFUSED {exc}",
+                file=sys.stderr,
+            )
+            return 1
+
+        if not result.success:
+            print(
+                "INSTALL_REFUSED "
+                f"backup_id={result.backup_id}",
+                file=sys.stderr,
+            )
+            return 1
+
+        print(
+            "INSTALL_COMPLETE "
+            f"profile={result.profile} "
+            f"kernel={result.installed_kernel} "
+            f"backup_id={result.backup_id}"
+        )
         return 0
 
     if args.verify:
-        print("VERIFY")
+        target_root = (
+            args.target_root
+            if args.target_root is not None
+            else Path("/")
+        )
+
+        try:
+            (
+                expected_kernel,
+                expected_initramfs,
+            ) = _expected_verify_hashes(
+                args.release_root
+            )
+        except RuntimeError as exc:
+            print(
+                f"VERIFY_REFUSED {exc}",
+                file=sys.stderr,
+            )
+            return 1
+
+        kernel_path = (
+            target_root
+            / "boot"
+            / "vmlinuz-6.12.96-valinor"
+        )
+
+        initramfs_path = (
+            target_root
+            / "boot"
+            / "initrd.img-6.12.96-valinor"
+        )
+
+        enforcement_path = (
+            target_root
+            / "etc"
+            / "arda"
+            / "enforcement-mode"
+        )
+
+        try:
+            enforcement = (
+                enforcement_path
+                .read_text(
+                    encoding="utf-8"
+                )
+                .strip()
+            )
+
+            evidence = collect_lite_evidence(
+                kernel_path=kernel_path,
+                initramfs_path=initramfs_path,
+                expected_kernel_sha256=(
+                    expected_kernel
+                ),
+                expected_initramfs_sha256=(
+                    expected_initramfs
+                ),
+                bpf_root=(
+                    target_root
+                    / "sys"
+                    / "fs"
+                    / "bpf"
+                    / "arda"
+                ),
+                bpf_lsm_probe=(
+                    lambda: _bpf_lsm_live(
+                        target_root
+                    )
+                ),
+                native_pqc_probe=(
+                    _native_pqc_live
+                ),
+                secure_boot_probe=(
+                    lambda: _secure_boot_state(
+                        target_root
+                    )
+                ),
+            )
+        except OSError as exc:
+            print(
+                f"VERIFY_REFUSED {exc}",
+                file=sys.stderr,
+            )
+            return 1
+
+        tpm_available = any(
+            (
+                target_root
+                / "dev"
+                / device
+            ).exists()
+            for device in (
+                "tpm0",
+                "tpmrm0",
+            )
+        )
+
+        report = verify_valinor_lite(
+            profile=(
+                resolve_attestation_profile(
+                    "lite"
+                )
+            ),
+            evidence=evidence,
+            tpm_available=tpm_available,
+            enforcement_mode=enforcement,
+        )
+
+        if not report.ok:
+            failures = ",".join(
+                report.failures
+            )
+            print(
+                "VERIFY_REFUSED "
+                f"failures={failures}",
+                file=sys.stderr,
+            )
+            return 1
+
+        print(
+            "VERIFY_ALLOW "
+            f"profile={report.trust_profile} "
+            f"software_root={report.software_root} "
+            f"hardware_root={report.hardware_root} "
+            f"bpf_lsm={report.bpf_lsm} "
+            f"pqc={report.pqc} "
+            f"enforcement={report.enforcement_mode}"
+        )
         return 0
 
     if args.rollback:

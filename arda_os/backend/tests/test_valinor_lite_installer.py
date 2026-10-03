@@ -199,6 +199,7 @@ def _run(
             if audio_ok
             else (lambda src, dst: False)
         ),
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=events.append,
     )
 
@@ -226,6 +227,7 @@ def test_no_filesystem_mutation_before_successful_preflight(
         release_hashes_ok=True,
         greeter_detection=_good_greeter(),
         audio_installer=lambda src, dst: True,
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=events.append,
     )
 
@@ -274,6 +276,7 @@ def test_hash_failure_performs_zero_boot_mutations(tmp_path):
         release_hashes_ok=False,
         greeter_detection=_good_greeter(),
         audio_installer=lambda src, dst: True,
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=events.append,
     )
 
@@ -426,6 +429,7 @@ def test_running_installer_twice_does_not_duplicate_configuration(
         release_hashes_ok=True,
         greeter_detection=_good_greeter(),
         audio_installer=lambda src, dst: True,
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=lambda event: None,
     )
 
@@ -665,6 +669,7 @@ def test_unsupported_greeter_refuses_before_target_mutation(
             reasons=("unsupported_display_manager",),
         ),
         audio_installer=lambda src, dst: True,
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=lambda event: None,
     )
 
@@ -677,3 +682,576 @@ def test_unsupported_greeter_refuses_before_target_mutation(
 
     assert result.success is False
     assert before == after
+
+
+def _portable_cli_release(tmp_path: Path) -> Path:
+    import hashlib
+    import json
+    import subprocess
+
+    release = tmp_path / "portable-release"
+    payload = tmp_path / "kernel-payload"
+
+    kernel = (
+        payload
+        / "boot"
+        / "vmlinuz-6.12.96-valinor"
+    )
+    initramfs = (
+        payload
+        / "boot"
+        / "initrd.img-6.12.96-valinor"
+    )
+    modules = (
+        payload
+        / "lib"
+        / "modules"
+        / "6.12.96-valinor"
+    )
+
+    kernel.parent.mkdir(parents=True)
+    modules.mkdir(parents=True)
+
+    kernel.write_bytes(b"CLI-VALINOR-KERNEL")
+    initramfs.write_bytes(b"CLI-VALINOR-INITRAMFS")
+    (modules / "modules.dep").write_bytes(b"valinor\n")
+
+    archive = (
+        release
+        / "kernel"
+        / "valinor-kernel-6.12.96.tar.zst"
+    )
+    archive.parent.mkdir(parents=True)
+
+    subprocess.run(
+        [
+            "tar",
+            "--zstd",
+            "-cf",
+            str(archive),
+            "-C",
+            str(payload),
+            ".",
+        ],
+        check=True,
+    )
+
+    identity = release / "identity"
+    identity.mkdir(parents=True)
+    (identity / "marker").write_bytes(b"ARDA")
+
+    grub = (
+        identity
+        / "grub"
+        / "arda-sovereign"
+    )
+    grub.mkdir(parents=True)
+    (grub / "theme.txt").write_bytes(
+        b"ARDA SOVEREIGN\n"
+    )
+
+    sovereign = (
+        identity
+        / "plymouth"
+        / "arda-sovereign"
+    )
+    sovereign.mkdir(parents=True)
+    (
+        sovereign / "arda-sovereign.plymouth"
+    ).write_bytes(
+        b"[Plymouth Theme]\n"
+        b"Name=ARDA Sovereign\n"
+    )
+
+    mirror = (
+        identity
+        / "plymouth"
+        / "arda-mirror-gate"
+    )
+    mirror.mkdir(parents=True)
+    (
+        mirror / "arda-mirror-gate.plymouth"
+    ).write_bytes(
+        b"[Plymouth Theme]\n"
+        b"Name=ARDA Mirror Gate\n"
+    )
+
+    audio = identity / "audio"
+    audio.mkdir()
+    (
+        audio / "arda-awakening.wav"
+    ).write_bytes(b"ARDA-AWAKENING")
+
+    greeter = identity / "greeter"
+    greeter.mkdir()
+    (
+        greeter / "gate-of-becoming.webp"
+    ).write_bytes(b"ARDA-GATE")
+    (
+        greeter / "arda-mark.png"
+    ).write_bytes(b"ARDA-MARK")
+    (
+        greeter / "lightdm-gtk-greeter.conf"
+    ).write_text(
+        "[greeter]\n"
+        "background=/usr/share/arda/greeter/"
+        "gate-of-becoming.webp\n"
+        "user-background=false\n",
+        encoding="utf-8",
+    )
+
+    manifest_dir = release / "manifest"
+    manifest_dir.mkdir(parents=True)
+
+    def sha(path):
+        return hashlib.sha256(
+            path.read_bytes()
+        ).hexdigest()
+
+    (
+        manifest_dir / "release.json"
+    ).write_text(
+        json.dumps(
+            {
+                "schema_version": (
+                    "valinor-lite-portable-release-v1"
+                ),
+                "architecture": "x86_64",
+                "profile": "lite",
+                "kernel": {
+                    "release": "6.12.96-valinor",
+                    "archive": (
+                        "kernel/"
+                        "valinor-kernel-6.12.96.tar.zst"
+                    ),
+                    "archive_sha256": sha(archive),
+                    "image_sha256": sha(kernel),
+                    "initramfs_sha256": sha(initramfs),
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    return release
+
+
+def test_cli_preflight_runs_real_portable_readiness_check(
+    tmp_path,
+):
+    import subprocess
+
+    repo_root = Path(__file__).resolve().parents[3]
+
+    entry = (
+        repo_root
+        / "arda_os"
+        / "kernel"
+        / "valinor"
+        / "lite"
+        / "install-valinor-lite"
+    )
+
+    release = _portable_cli_release(tmp_path)
+
+    host = tmp_path / "host"
+    (host / "etc").mkdir(parents=True)
+    (host / "etc" / "os-release").write_text(
+        "ID=debian\n",
+        encoding="utf-8",
+    )
+
+    (
+        host
+        / "sys"
+        / "firmware"
+        / "efi"
+    ).mkdir(parents=True)
+
+    (host / "boot").mkdir(parents=True)
+    (
+        host
+        / "boot"
+        / "vmlinuz-6.12.57+deb13-amd64"
+    ).write_bytes(b"DEBIAN-FALLBACK")
+
+    result = subprocess.run(
+        [
+            str(entry),
+            "--preflight",
+            "--release-root",
+            str(release),
+            "--target-root",
+            str(host),
+        ],
+        cwd=repo_root,
+        env={
+            "PATH": "/usr/bin:/bin",
+            "HOME": str(tmp_path),
+            "PYTHONPATH": str(repo_root / "arda_os"),
+        },
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0
+    assert "PREFLIGHT_ALLOW" in result.stdout
+    assert "architecture=x86_64" in result.stdout
+    assert "profile=lite" in result.stdout
+    assert "PREFLIGHT\n" != result.stdout
+
+
+def test_cli_dry_run_proves_readiness_without_target_mutation(
+    tmp_path,
+):
+    import subprocess
+
+    repo_root = Path(__file__).resolve().parents[3]
+
+    entry = (
+        repo_root
+        / "arda_os"
+        / "kernel"
+        / "valinor"
+        / "lite"
+        / "install-valinor-lite"
+    )
+
+    release = _portable_cli_release(tmp_path)
+
+    host = tmp_path / "host"
+    (host / "etc").mkdir(parents=True)
+    (host / "etc" / "os-release").write_text(
+        "ID=debian\n",
+        encoding="utf-8",
+    )
+
+    (
+        host
+        / "sys"
+        / "firmware"
+        / "efi"
+    ).mkdir(parents=True)
+
+    (host / "boot").mkdir(parents=True)
+    (
+        host
+        / "boot"
+        / "vmlinuz-6.12.57+deb13-amd64"
+    ).write_bytes(b"DEBIAN-FALLBACK")
+
+    before = {
+        p.relative_to(host).as_posix(): (
+            p.read_bytes() if p.is_file() else None
+        )
+        for p in host.rglob("*")
+    }
+
+    result = subprocess.run(
+        [
+            str(entry),
+            "--dry-run",
+            "--release-root",
+            str(release),
+            "--target-root",
+            str(host),
+        ],
+        cwd=repo_root,
+        env={
+            "PATH": "/usr/bin:/bin",
+            "HOME": str(tmp_path),
+            "PYTHONPATH": str(repo_root / "arda_os"),
+        },
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    after = {
+        p.relative_to(host).as_posix(): (
+            p.read_bytes() if p.is_file() else None
+        )
+        for p in host.rglob("*")
+    }
+
+    assert result.returncode == 0
+    assert before == after
+    assert "DRY_RUN_ALLOW" in result.stdout
+    assert "install_kernel=6.12.96-valinor" in result.stdout
+    assert "profile=lite" in result.stdout
+    assert "enforcement=audit" in result.stdout
+    assert "DRY_RUN\n" != result.stdout
+
+
+def test_cli_install_runs_real_transaction(
+    tmp_path,
+):
+    import subprocess
+
+    repo_root = Path(__file__).resolve().parents[3]
+
+    entry = (
+        repo_root
+        / "arda_os"
+        / "kernel"
+        / "valinor"
+        / "lite"
+        / "install-valinor-lite"
+    )
+
+    release = _portable_cli_release(tmp_path)
+
+    host = tmp_path / "host"
+
+    (host / "etc").mkdir(parents=True)
+    (host / "etc" / "os-release").write_text(
+        "ID=debian\n",
+        encoding="utf-8",
+    )
+
+    (
+        host
+        / "sys"
+        / "firmware"
+        / "efi"
+    ).mkdir(parents=True)
+
+    (host / "boot").mkdir(parents=True)
+    (
+        host
+        / "boot"
+        / "vmlinuz-6.12.57+deb13-amd64"
+    ).write_bytes(b"DEBIAN-FALLBACK")
+
+    windows = (
+        host
+        / "boot"
+        / "efi"
+        / "EFI"
+        / "Microsoft"
+        / "Boot"
+    )
+    windows.mkdir(parents=True)
+    (
+        windows / "bootmgfw.efi"
+    ).write_bytes(b"WINDOWS-EFI")
+
+    # Supported LightDM GTK host.
+    display_manager = (
+        host
+        / "etc"
+        / "systemd"
+        / "system"
+        / "display-manager.service"
+    )
+    display_manager.parent.mkdir(parents=True)
+
+    display_manager.symlink_to(
+        "/usr/lib/systemd/system/lightdm.service"
+    )
+
+    xgreeters = (
+        host
+        / "usr"
+        / "share"
+        / "xgreeters"
+    )
+    xgreeters.mkdir(parents=True)
+    (
+        xgreeters / "lightdm-gtk-greeter.desktop"
+    ).write_text(
+        "[Desktop Entry]\nName=LightDM GTK Greeter\n",
+        encoding="utf-8",
+    )
+
+    backup_root = tmp_path / "backups"
+    state_path = tmp_path / "install-state.json"
+
+    fake_bin = tmp_path / "bin"
+    fake_bin.mkdir()
+
+    fake_update_grub = fake_bin / "update-grub"
+    fake_update_grub.write_text(
+        "#!/bin/sh\n"
+        "mkdir -p \"$VALINOR_TARGET_ROOT/boot/grub\"\n"
+        "printf 'REAL-GENERATED-GRUB\\n' "
+        "> \"$VALINOR_TARGET_ROOT/boot/grub/grub.cfg\"\n"
+        "exit 0\n",
+        encoding="utf-8",
+    )
+    fake_update_grub.chmod(0o755)
+
+    result = subprocess.run(
+        [
+            str(entry),
+            "--install",
+            "--release-root",
+            str(release),
+            "--target-root",
+            str(host),
+            "--backup-root",
+            str(backup_root),
+            "--state-path",
+            str(state_path),
+        ],
+        cwd=repo_root,
+        env={
+            "PATH": f"{fake_bin}:/usr/bin:/bin",
+            "HOME": str(tmp_path),
+            "PYTHONPATH": str(repo_root / "arda_os"),
+        },
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0
+    assert "INSTALL_COMPLETE" in result.stdout
+    assert "profile=lite" in result.stdout
+
+    assert (
+        host
+        / "boot"
+        / "vmlinuz-6.12.96-valinor"
+    ).is_file()
+
+    assert (
+        host
+        / "etc"
+        / "arda"
+        / "enforcement-mode"
+    ).read_text(
+        encoding="utf-8"
+    ).strip() == "audit"
+
+    assert (
+        host
+        / "usr"
+        / "share"
+        / "arda"
+        / "greeter"
+        / "gate-of-becoming.webp"
+    ).is_file()
+
+    assert (
+        host
+        / "etc"
+        / "lightdm"
+        / "lightdm-gtk-greeter.conf"
+    ).is_file()
+
+    assert state_path.is_file()
+    assert backup_root.is_dir()
+
+    assert (
+        windows / "bootmgfw.efi"
+    ).read_bytes() == b"WINDOWS-EFI"
+
+
+def test_installer_delegates_boot_menu_generation(
+    tmp_path,
+):
+    source = _source_tree(tmp_path)
+    target = _target_tree(tmp_path)
+
+    grub_cfg = (
+        target / "boot" / "grub" / "grub.cfg"
+    )
+    grub_cfg.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+    grub_cfg.write_text(
+        "ORIGINAL-GRUB-CONFIG\n",
+        encoding="utf-8",
+    )
+
+    calls = []
+
+    def generate(root):
+        calls.append(root)
+
+        # Test double for the real bootloader generator.
+        grub_cfg.write_text(
+            "REAL-GENERATED-GRUB\n",
+            encoding="utf-8",
+        )
+        return True
+
+    result = install_valinor_lite(
+        preflight_report=_good_preflight(),
+        source_root=source,
+        target_root=target,
+        backup_root=tmp_path / "backups",
+        state_path=tmp_path / "state.json",
+        release_hashes_ok=True,
+        greeter_detection=_good_greeter(),
+        audio_installer=lambda src, dst: True,
+        boot_menu_generator=generate,
+        event_sink=lambda event: None,
+    )
+
+    assert result.success is True
+    assert calls == [target]
+
+    assert grub_cfg.read_text(
+        encoding="utf-8"
+    ) == "REAL-GENERATED-GRUB\n"
+
+    assert (
+        "# generated by Valinor Lite transaction"
+        not in grub_cfg.read_text(
+            encoding="utf-8"
+        )
+    )
+
+
+def _test_boot_menu_generator(root):
+    grub_cfg = root / "boot" / "grub" / "grub.cfg"
+    grub_cfg.parent.mkdir(parents=True, exist_ok=True)
+    grub_cfg.write_text(
+        "REAL-GENERATED-GRUB\n",
+        encoding="utf-8",
+    )
+    return True
+
+
+def test_cli_verify_is_not_placeholder(
+    tmp_path,
+):
+    import subprocess
+
+    repo_root = Path(__file__).resolve().parents[3]
+
+    entry = (
+        repo_root
+        / "arda_os"
+        / "kernel"
+        / "valinor"
+        / "lite"
+        / "install-valinor-lite"
+    )
+
+    result = subprocess.run(
+        [
+            str(entry),
+            "--verify",
+            "--target-root",
+            str(tmp_path),
+        ],
+        cwd=repo_root,
+        env={
+            "PATH": "/usr/bin:/bin",
+            "HOME": str(tmp_path),
+            "PYTHONPATH": str(repo_root / "arda_os"),
+        },
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.stdout != "VERIFY\n"
+    assert "VERIFY_" in (
+        result.stdout + result.stderr
+    )

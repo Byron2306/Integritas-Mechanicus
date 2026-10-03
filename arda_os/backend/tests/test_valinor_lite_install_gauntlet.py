@@ -217,6 +217,7 @@ def test_real_install_backup_restores_existing_plymouth_config(
         release_hashes_ok=True,
         greeter_detection=_greeter(),
         audio_installer=lambda src, dst: True,
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=lambda event: None,
     )
 
@@ -429,6 +430,7 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
         release_hashes_ok=True,
         greeter_detection=_greeter(),
         audio_installer=lambda src, dst: True,
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=lambda event: None,
     )
 
@@ -639,6 +641,7 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
         release_hashes_ok=True,
         greeter_detection=_greeter(),
         audio_installer=lambda src, dst: True,
+        boot_menu_generator=_test_boot_menu_generator,
         event_sink=lambda event: None,
     )
 
@@ -695,3 +698,13 @@ def test_complete_no_tpm_valinor_lite_simulated_host_gauntlet(
     assert _filesystem_snapshot(
         target / "boot"
     ) == original_boot_snapshot
+
+
+def _test_boot_menu_generator(root):
+    grub_cfg = root / "boot" / "grub" / "grub.cfg"
+    grub_cfg.parent.mkdir(parents=True, exist_ok=True)
+    grub_cfg.write_text(
+        "REAL-GENERATED-GRUB\n",
+        encoding="utf-8",
+    )
+    return True
