@@ -10,6 +10,7 @@ import sys
 import hashlib
 import time
 import sqlite3
+import socket
 from datetime import datetime, timezone
 from flask import Flask, render_template, jsonify, send_from_directory
 from threading import Thread
@@ -667,8 +668,28 @@ def source_view(filepath):
     return jsonify({"error": f"File not found: {filepath}"}), 404
 
 if __name__ == "__main__":
+    def _is_port_free(port: int) -> bool:
+        """Check if a localhost TCP port can be bound."""
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            try:
+                s.bind(("127.0.0.1", port))
+                return True
+            except OSError:
+                return False
+
+    requested_port = int(os.getenv("PORT", "8082"))
+    run_port = requested_port
+    if not _is_port_free(run_port):
+        for candidate in range(requested_port + 1, requested_port + 21):
+            if _is_port_free(candidate):
+                run_port = candidate
+                break
+
     print("\n  ╔══════════════════════════════════════╗")
     print("  ║  ARDA OS DESKTOP — Telperion Build   ║")
-    print("  ║  http://localhost:8080                ║")
+    print(f"  ║  http://localhost:{run_port}                ║")
+    if run_port != requested_port:
+        print(f"  ║  NOTE: :{requested_port} in use, using :{run_port}   ║")
     print("  ╚══════════════════════════════════════╝\n")
-    app.run(debug=False, port=8080)
+    app.run(debug=False, port=run_port)
