@@ -1,0 +1,59 @@
+name: Build Intel NVMe Remap 6.12.107
+
+on:
+  push:
+    branches:
+      - experiment/valinor-intel-nvme-remap-612107
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ARDA
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential gcc-14 wget ca-certificates git kmod libelf-dev
+
+      - name: Install exact Debian 13 kernel headers by extraction
+        shell: bash
+        run: |
+          set -euxo pipefail
+          BASE="https://deb.debian.org/debian-security/pool/updates/main/l/linux"
+          wget "$BASE/linux-headers-6.12.107%2Bdeb13-common_6.12.107-1_all.deb" -O /tmp/headers-common.deb
+          wget "$BASE/linux-headers-6.12.107%2Bdeb13-amd64_6.12.107-1_amd64.deb" -O /tmp/headers-amd64.deb
+          wget "$BASE/linux-kbuild-6.12.107%2Bdeb13_6.12.107-1_amd64.deb" -O /tmp/kbuild.deb
+          sudo dpkg-deb -x /tmp/headers-common.deb /
+          sudo dpkg-deb -x /tmp/headers-amd64.deb /
+          sudo dpkg-deb -x /tmp/kbuild.deb /
+          test -f /usr/src/linux-headers-6.12.107+deb13-amd64/Module.symvers
+          test -f /usr/src/linux-headers-6.12.107+deb13-common/Makefile
+
+      - name: Fetch intel-nvme-remap 0.4.19 source
+        run: |
+          git clone --depth 1 https://github.com/bprochazka-bit/intel-nvme-remap.git /tmp/intel-nvme-remap
+          git -C /tmp/intel-nvme-remap rev-parse HEAD | tee /tmp/remap-source-commit.txt
+
+      - name: Build module for installer ABI
+        shell: bash
+        run: |
+          set -euxo pipefail
+          make -C /tmp/intel-nvme-remap/src \
+            KDIR=/usr/src/linux-headers-6.12.107+deb13-amd64 \
+            CC=gcc-14
+          mkdir -p artifact
+          cp /tmp/intel-nvme-remap/src/intel_nvme_remap.ko artifact/
+          cp /tmp/remap-source-commit.txt artifact/source-commit.txt
+          modinfo artifact/intel_nvme_remap.ko | tee artifact/modinfo.txt
+          sha256sum artifact/intel_nvme_remap.ko | tee artifact/SHA256SUMS
+          grep -F "6.12.107+deb13-amd64" artifact/modinfo.txt
+
+      - name: Upload remap module
+        uses: actions/upload-artifact@v4
+        with:
+          name: valinor-intel-nvme-remap-6.12.107
+          path: artifact/
+          if-no-files-found: error
