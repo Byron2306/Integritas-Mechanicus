@@ -255,17 +255,24 @@ class OsEnforcementService:
             self._attach_read_only_status()
 
     def _attach_read_only_status(self) -> None:
-        self.is_authoritative = os.path.exists(
-            os.path.join(self.CANONICAL_PIN_ROOT, self.REQUIRED_MAPS[self.BPF_MAP_NAME]["pin_name"])
+        """Inspect BPF pins without claiming unverified kernel authority."""
+        pin_path = os.path.join(
+            self.CANONICAL_PIN_ROOT,
+            self.REQUIRED_MAPS[self.BPF_MAP_NAME]["pin_name"],
         )
+        pins_present = os.path.exists(pin_path)
+
+        # Pins can survive after the LSM link is destroyed.
+        # Until kernel program/link identity is verified, fail closed.
+        self.is_authoritative = False
         self.is_simulation = False
-        self.attach_verified = self.is_authoritative
-        self.arm_mode = "read_only_pinned_maps" if self.is_authoritative else "read_only_unpinned"
-        self.pin_path = (
-            f"{self.CANONICAL_PIN_ROOT}/harmony_map"
-            if self.is_authoritative
-            else None
+        self.attach_verified = False
+        self.arm_mode = (
+            "read_only_pinned_unverified"
+            if pins_present
+            else "read_only_unpinned"
         )
+        self.pin_path = pin_path if pins_present else None
 
     def _find_bpf_source(self) -> Optional[str]:
         potential_paths = [
