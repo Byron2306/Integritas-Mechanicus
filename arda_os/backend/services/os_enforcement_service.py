@@ -262,13 +262,17 @@ class OsEnforcementService:
         )
         pins_present = os.path.exists(pin_path)
 
-        # Pins can survive after the LSM link is destroyed.
-        # Until kernel program/link identity is verified, fail closed.
-        self.is_authoritative = False
+        # Kernel attachment evidence, not pin presence, determines authority.
+        from backend.services.arda_bpf_authority import verify_attachment
+
+        evidence = verify_attachment(self.CANONICAL_PIN_ROOT)
+        self.attach_verified = bool(evidence["verified"])
+        self.is_authoritative = self.attach_verified
         self.is_simulation = False
-        self.attach_verified = False
         self.arm_mode = (
-            "read_only_pinned_unverified"
+            "read_only_attached"
+            if self.attach_verified
+            else "read_only_pinned_unverified"
             if pins_present
             else "read_only_unpinned"
         )
@@ -371,6 +375,23 @@ class OsEnforcementService:
                 self.loader_last_error = stderr or f"loader exited with code {rc}"
                 raise RuntimeError(self.loader_last_error)
 
+            from backend.services.arda_bpf_authority import verify_attachment
+
+            evidence = None
+            for _ in range(20):
+                evidence = verify_attachment(self.CANONICAL_PIN_ROOT)
+                if evidence["verified"]:
+                    break
+                if self.loader_process.poll() is not None:
+                    break
+                time.sleep(0.1)
+
+            if not evidence or not evidence["verified"]:
+                raise RuntimeError(
+                    "Kernel attachment unverified: "
+                    + str(evidence.get("reason") if evidence else "no_evidence")
+                )
+
             self.is_authoritative = True
             self.is_simulation = False
             self.attach_verified = True
@@ -414,6 +435,19 @@ class OsEnforcementService:
             logger.warning(f"RING-0: Pinning failed (non-critical in development): {error}")
 
     def get_status(self) -> Dict[str, Any]:
+        # Refresh the live kernel evidence on every status request.
+        # A cached loader success cannot survive a detached LSM link.
+        from backend.services.arda_bpf_authority import verify_attachment
+
+        attachment = verify_attachment(self.CANONICAL_PIN_ROOT)
+        self.attach_verified = bool(attachment["verified"])
+        self.is_authoritative = self.attach_verified
+        if not self.attach_verified and self.arm_mode in (
+            "ring0_loader",
+            "read_only_attached",
+        ):
+            self.arm_mode = "attachment_unverified"
+
         live_enforcement_mode = self._get_live_enforcement_mode()
         loader_status = self.get_loader_status()
         map_status = self.get_required_map_status()

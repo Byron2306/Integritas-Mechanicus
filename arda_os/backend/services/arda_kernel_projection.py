@@ -349,8 +349,8 @@ class BpftoolPinnedProjectionSink:
         root = os.path.realpath(pin_root)
         if not root.startswith("/sys/fs/bpf/"):
             raise KernelProjectionError("BPF pin root must be beneath /sys/fs/bpf")
-        self._generation_map = os.path.join(root, "arda_verity_generation_map")
-        self._active_map = os.path.join(root, "arda_active_generation_map")
+        self._generation_map = os.path.join(root, "verity_identity_map")
+        self._active_map = os.path.join(root, "active_generation_map")
         self._bpftool = bpftool
         self._staged: dict[int, VerifiedKernelProjectionV1] = {}
 
