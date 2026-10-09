@@ -1,7 +1,7 @@
 # Valinor hardware-rooted proof provisioning design
 
 Date: 2026-10-09
-Status: design approved in conversation; written specification awaiting review.
+Status: written specification approved by Byron on 2026-10-09.
 
 ## Intent and current evidence
 
