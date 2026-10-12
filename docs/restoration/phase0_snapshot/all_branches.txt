@@ -1,0 +1,13 @@
++ agent/r10-143-phase-a-acceptance
++ feat/valinor-proof-provisioning
+* fix/covenant-spine-restoration
+  main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/arda-os-desktop
+  remotes/origin/experiment/valinor-intel-nvme-remap-612107
+  remotes/origin/main
+  remotes/origin/phone-sophia-wave2-test
+  remotes/origin/rescue/arda-clean-pre-purge-2026-10-03
+  remotes/origin/revert-1-arda-os-desktop
+  remotes/origin/sophia-knowedge-merger-v13-20260609
+  remotes/origin/valinor-sophia-wave2-reconcile

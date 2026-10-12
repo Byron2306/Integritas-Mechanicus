@@ -1,0 +1,639 @@
+arda_os/backend/services/proof_recovery.py:83:                'generation_committed':False,'software_os_grade':False,'hardware_rooted_os_grade':False}
+arda_os/backend/services/proof_inspection.py:26:        return check('fail', 'generation database absent')
+arda_os/backend/services/proof_inspection.py:33:            rows = [dict(r) for r in db.execute('SELECT manifest_id,generation,enforcement_mode,state FROM arda_measured_staging ORDER BY generation DESC LIMIT 20')]
+arda_os/backend/services/proof_inspection.py:59:    checks['measured_history'] = read_ledger(config.get('generation_db', '/var/lib/arda/projection/arda_measured_generation.sqlite3'))
+arda_os/backend/services/attestation_service.py:92:    artifact_digest: str,
+arda_os/backend/services/attestation_service.py:110:    manifest_digest = str(software_state_binding.get("manifest_digest") or "").strip().lower()
+arda_os/backend/services/attestation_service.py:111:    if manifest_digest and manifest_digest != artifact_digest.lower():
+arda_os/backend/services/attestation_service.py:133:            "manifest_digest": software_state_binding.get("manifest_digest"),
+arda_os/backend/services/attestation_service.py:134:            "generation": software_state_binding.get("generation"),
+arda_os/backend/services/attestation_service.py:135:            "policy_generation": software_state_binding.get("policy_generation"),
+arda_os/backend/services/attestation_service.py:146:    artifact_digest: str,
+arda_os/backend/services/attestation_service.py:156:    quote_binding = _quote_binding_from_bundle(bundle, artifact_digest=artifact_digest)
+arda_os/backend/services/attestation_service.py:470:        if payload.get("artifact_digest") != quote_binding.get("software_state_binding", {}).get("manifest_digest"):
+arda_os/backend/services/attestation_service.py:616:    artifact_digest: str,
+arda_os/backend/services/attestation_service.py:638:        "artifact_digest": artifact_digest,
+arda_os/backend/services/attestation_service.py:656:        artifact_digest=artifact_digest,
+arda_os/backend/services/quantum_security.py:75:    - Quantum random number generation (simulated or hardware)
+arda_os/backend/services/quantum_security.py:219:        # Simulated key generation
+arda_os/backend/services/guardian_operation_authority.py:107:        "policy_generation": "ARDA_GUARDIAN_POLICY_GENERATION",
+arda_os/backend/services/guardian_operation_authority.py:154:    policy_generation = _required(env, "ARDA_GUARDIAN_POLICY_GENERATION")
+arda_os/backend/services/guardian_operation_authority.py:165:        "policy_generation": policy_generation,
+arda_os/backend/services/guardian_operation_authority.py:177:        "policy_generation": policy_generation,
+arda_os/backend/services/guardian_operation_authority.py:184:        "policy_generation": policy_generation,
+arda_os/backend/services/proof_manifests.py:17:        'generation','policy_generation','issued_at','expires_at','entries','signature'}
+arda_os/backend/services/proof_manifests.py:39:def latest_generation(database,node):
+arda_os/backend/services/proof_manifests.py:44:        raise ValueError('generation ledger has active WAL state; safe read-only appraisal unavailable')
+arda_os/backend/services/proof_manifests.py:46:        row=db.execute('SELECT generation FROM arda_measured_generation WHERE node_id=?',(node,)).fetchone()
+arda_os/backend/services/proof_manifests.py:87:    generation=manifest['generation']
+arda_os/backend/services/proof_manifests.py:88:    if type(generation) is not int or generation<=latest_generation(config['generation_db'],config['node_id']):
+arda_os/backend/services/proof_manifests.py:89:        raise ValueError('manifest generation replay/invalid')
+arda_os/backend/services/proof_manifests.py:118:    generation=config.get('generation')
+arda_os/backend/services/proof_manifests.py:119:    if type(generation) is not int or generation<=latest_generation(config['generation_db'],config['node_id']):
+arda_os/backend/services/proof_manifests.py:120:        raise ValueError('fresh explicit generation required')
+arda_os/backend/services/proof_manifests.py:127:                  'generation':generation,'policy_generation':config.get('policy',{}).get('generation',''),
+arda_os/backend/services/proof_manifests.py:131:        if not manifest['policy_generation']: raise ValueError('explicit policy generation required')
+arda_os/backend/services/proof_enforcement.py:25:PINS=('harmony_map','state_map','deny_count','verity_identity_map','active_generation_map',
+arda_os/backend/services/proof_enforcement.py:139:def commit_generation(config,digest):
+arda_os/backend/services/proof_enforcement.py:141:    path=Path(config['generation_db'])
+arda_os/backend/services/proof_enforcement.py:142:    if path.is_symlink(): raise ValueError('generation database symlink refused')
+arda_os/backend/services/proof_enforcement.py:145:        store.commit(config['node_id'],config['generation'],digest)
+arda_os/backend/services/proof_enforcement.py:157:    if not all(config.get(k) for k in ('workspace','manifest_private_key','manifest_public_key','manifest_key_id','artifact','generation','policy')):
+arda_os/backend/services/proof_enforcement.py:220:        generation=manifest['generation']
+arda_os/backend/services/proof_enforcement.py:223:            key=struct.pack('<QQQI4x',session.probe.kernel_id,generation,f.inode,device)
+arda_os/backend/services/proof_enforcement.py:227:                digest_key=identity_key(session.probe.kernel_id,generation,f.algorithm,f.digest)
+arda_os/backend/services/proof_enforcement.py:229:        session.owned_maps['active_generation_map'].update(struct.pack('<Q',session.probe.kernel_id),struct.pack('<Q',generation))
+arda_os/backend/services/proof_enforcement.py:245:        expected=(session.probe.kernel_id,generation,denied_stat.st_ino,expected_dev,3,5)
+arda_os/backend/services/proof_enforcement.py:254:        commit_generation(live,session.verified.digest)
+arda_os/backend/services/proof_enforcement.py:255:        report.update({'ok':True,'generation_committed':True,'program':program,'link':links[0],'map_ids':maps,'manifest_digest':session.verified.digest,
+arda_os/backend/services/proof_inheritance.py:1:"""Bounded proof that new descendant cgroups inherit a kernel generation."""
+arda_os/backend/services/proof_inheritance.py:26:        # Deliberately never add a generation or measured identity for this ID.
+arda_os/backend/services/proof_inheritance.py:33:        expected=(child.kernel_id,session.verified.manifest['generation'],st.st_ino,(os.major(st.st_dev)<<20)|os.minor(st.st_dev),5,5)
+arda_os/backend/services/policy_compiler.py:119:        "source_policy_digest": source_digest,
+arda_os/backend/services/policy_compiler.py:198:        "source_policy_digest": bundle["source_policy_digest"],
+arda_os/backend/services/policy_compiler.py:205:            "phase3_generation_required": False,
+arda_os/backend/services/policy_compiler.py:208:                "policy_generation": f"{bundle['policy_id']}@{bundle['policy_version']}",
+arda_os/backend/services/assessment_ecology.py:9:    Pass 4: CRITERION    — Post-generation constitutional check
+arda_os/backend/services/assessment_ecology.py:55:    # Pass 4: Criterion (post-generation)
+arda_os/backend/services/assessment_ecology.py:58:    # Pass 5: Reflective (post-generation)
+arda_os/backend/services/assessment_ecology.py:87:    - Pre-generation: baseline assessment, diagnostic classification, scaffold injection
+arda_os/backend/services/assessment_ecology.py:88:    - Post-generation: criterion checking, thinking analysis, growth logging
+arda_os/backend/services/assessment_ecology.py:133:    def pre_generation(
+arda_os/backend/services/assessment_ecology.py:140:        Run Passes 1-3 before Ollama generation.
+arda_os/backend/services/assessment_ecology.py:404:    def post_generation(
+arda_os/backend/services/assessment_ecology.py:411:        Run Passes 4-6 after Ollama generation.
+arda_os/backend/services/assessment_ecology.py:414:            record: The AssessmentRecord from pre_generation
+arda_os/backend/services/arda_kernel_projection.py:81:    generation: int
+arda_os/backend/services/arda_kernel_projection.py:89:    policy_digest: str
+arda_os/backend/services/arda_kernel_projection.py:90:    policy_generation: str
+arda_os/backend/services/arda_kernel_projection.py:107:            "generation": self.generation,
+arda_os/backend/services/arda_kernel_projection.py:115:            "policy_digest": self.policy_digest,
+arda_os/backend/services/arda_kernel_projection.py:116:            "policy_generation": self.policy_generation,
+arda_os/backend/services/arda_kernel_projection.py:138:    manifest_digest: str
+arda_os/backend/services/arda_kernel_projection.py:139:    generation: int
+arda_os/backend/services/arda_kernel_projection.py:143:    policy_generation: str
+arda_os/backend/services/arda_kernel_projection.py:155:    """Atomic monotonic-generation guard against rollback and split projection."""
+arda_os/backend/services/arda_kernel_projection.py:162:            "CREATE TABLE IF NOT EXISTS arda_kernel_generation ("
+arda_os/backend/services/arda_kernel_projection.py:163:            "node_id TEXT PRIMARY KEY, generation INTEGER NOT NULL, "
+arda_os/backend/services/arda_kernel_projection.py:164:            "manifest_digest TEXT NOT NULL)"
+arda_os/backend/services/arda_kernel_projection.py:167:    def assert_newer(self, node_id: str, generation: int) -> None:
+arda_os/backend/services/arda_kernel_projection.py:169:            "SELECT generation FROM arda_kernel_generation WHERE node_id = ?",
+arda_os/backend/services/arda_kernel_projection.py:172:        if row is not None and generation <= int(row[0]):
+arda_os/backend/services/arda_kernel_projection.py:173:            raise KernelProjectionError("manifest generation is stale or replayed")
+arda_os/backend/services/arda_kernel_projection.py:179:                self.assert_newer(projection.node_id, projection.generation)
+arda_os/backend/services/arda_kernel_projection.py:181:                    "INSERT INTO arda_kernel_generation(node_id,generation,manifest_digest) "
+arda_os/backend/services/arda_kernel_projection.py:183:                    "generation=excluded.generation, manifest_digest=excluded.manifest_digest",
+arda_os/backend/services/arda_kernel_projection.py:184:                    (projection.node_id, projection.generation, projection.manifest_digest),
+arda_os/backend/services/arda_kernel_projection.py:200:        generation_store: ProjectionGenerationStore,
+arda_os/backend/services/arda_kernel_projection.py:209:        self._generations = generation_store
+arda_os/backend/services/arda_kernel_projection.py:226:        if manifest.generation <= 0 or not manifest.entries:
+arda_os/backend/services/arda_kernel_projection.py:227:            failures.append("manifest_generation_or_entries")
+arda_os/backend/services/arda_kernel_projection.py:271:        if capability.policy_generation != manifest.policy_generation:
+arda_os/backend/services/arda_kernel_projection.py:272:            failures.append("capability_policy_generation")
+arda_os/backend/services/arda_kernel_projection.py:303:        self._generations.assert_newer(manifest.node_id, manifest.generation)
+arda_os/backend/services/arda_kernel_projection.py:318:            manifest_digest=manifest.digest,
+arda_os/backend/services/arda_kernel_projection.py:319:            generation=manifest.generation,
+arda_os/backend/services/arda_kernel_projection.py:323:            policy_generation=manifest.policy_generation,
+arda_os/backend/services/arda_kernel_projection.py:335:        self._generations.commit(projection)
+arda_os/backend/services/arda_kernel_projection.py:340:    def activate(self, generation: int) -> None: ...
+arda_os/backend/services/arda_kernel_projection.py:341:    def deactivate(self, generation: int, reason: str) -> None: ...
+arda_os/backend/services/arda_kernel_projection.py:342:    def remove(self, generation: int) -> None: ...
+arda_os/backend/services/arda_kernel_projection.py:346:    """Live sink for loader-pinned generation maps; never invokes a shell."""
+arda_os/backend/services/arda_kernel_projection.py:352:        self._generation_map = os.path.join(root, "verity_identity_map")
+arda_os/backend/services/arda_kernel_projection.py:353:        self._active_map = os.path.join(root, "active_generation_map")
+arda_os/backend/services/arda_kernel_projection.py:377:        if projection.generation in self._staged or projection.cgroup_kernel_id <= 0:
+arda_os/backend/services/arda_kernel_projection.py:378:            raise KernelProjectionError("invalid or duplicate staged BPF generation")
+arda_os/backend/services/arda_kernel_projection.py:386:                    "<QQHH64s4x", projection.cgroup_kernel_id, projection.generation,
+arda_os/backend/services/arda_kernel_projection.py:389:                self._run("map", "update", "pinned", self._generation_map,
+arda_os/backend/services/arda_kernel_projection.py:391:            self._staged[projection.generation] = projection
+arda_os/backend/services/arda_kernel_projection.py:393:            self.remove(projection.generation)
+arda_os/backend/services/arda_kernel_projection.py:396:    def activate(self, generation: int) -> None:
+arda_os/backend/services/arda_kernel_projection.py:397:        projection = self._staged.get(generation)
+arda_os/backend/services/arda_kernel_projection.py:399:            raise KernelProjectionError("BPF generation was not staged")
+arda_os/backend/services/arda_kernel_projection.py:402:                  "value", "hex", *self._hex(struct.pack("<Q", generation)), "any")
+arda_os/backend/services/arda_kernel_projection.py:404:    def deactivate(self, generation: int, reason: str) -> None:
+arda_os/backend/services/arda_kernel_projection.py:405:        projection = self._staged.get(generation)
+arda_os/backend/services/arda_kernel_projection.py:411:        # per-cgroup activation pointer that still references this generation.
+arda_os/backend/services/arda_kernel_projection.py:416:            if len(value) == 8 and struct.unpack("<Q", value)[0] == generation:
+arda_os/backend/services/arda_kernel_projection.py:420:    def remove(self, generation: int) -> None:
+arda_os/backend/services/arda_kernel_projection.py:421:        # bpftool JSON supplies exact raw key bytes; delete only the requested generation.
+arda_os/backend/services/arda_kernel_projection.py:423:            entries = self._run("map", "dump", "pinned", self._generation_map, json_output=True) or []
+arda_os/backend/services/arda_kernel_projection.py:426:                if len(raw) >= 16 and struct.unpack_from("<Q", raw, 8)[0] == generation:
+arda_os/backend/services/arda_kernel_projection.py:427:                    self._run("map", "delete", "pinned", self._generation_map,
+arda_os/backend/services/arda_kernel_projection.py:430:            self._staged.pop(generation, None)
+arda_os/backend/services/arda_kernel_projection.py:434:    """Two-phase kernel generation activation plus continuous revocation."""
+arda_os/backend/services/arda_kernel_projection.py:441:        generation_store: ProjectionGenerationStore,
+arda_os/backend/services/arda_kernel_projection.py:444:        self._generations = generation_store
+arda_os/backend/services/arda_kernel_projection.py:452:                manifest_digest TEXT PRIMARY KEY,
+arda_os/backend/services/arda_kernel_projection.py:453:                generation INTEGER NOT NULL UNIQUE,
+arda_os/backend/services/arda_kernel_projection.py:475:        """Stage completely, persist monotonicity, then flip active generation."""
+arda_os/backend/services/arda_kernel_projection.py:477:            self._generations.assert_newer(projection.node_id, projection.generation)
+arda_os/backend/services/arda_kernel_projection.py:478:            previous_generations = tuple(
+arda_os/backend/services/arda_kernel_projection.py:481:                    "SELECT generation FROM arda_kernel_projections "
+arda_os/backend/services/arda_kernel_projection.py:488:                # Burning a generation before activation is fail-closed: a
+arda_os/backend/services/arda_kernel_projection.py:489:                # failed flip must use a fresh generation rather than replay.
+arda_os/backend/services/arda_kernel_projection.py:490:                self._generations.commit(projection)
+arda_os/backend/services/arda_kernel_projection.py:491:                self._sink.activate(projection.generation)
+arda_os/backend/services/arda_kernel_projection.py:496:                    "deactivated_at=?, deactivation_reason='new_generation' "
+arda_os/backend/services/arda_kernel_projection.py:503:                        manifest_digest,generation,node_id,capability_lease_id,
+arda_os/backend/services/arda_kernel_projection.py:509:                        projection.manifest_digest,
+arda_os/backend/services/arda_kernel_projection.py:510:                        projection.generation,
+arda_os/backend/services/arda_kernel_projection.py:522:                for previous in previous_generations:
+arda_os/backend/services/arda_kernel_projection.py:526:                        # The active-generation flip already makes old entries
+arda_os/backend/services/arda_kernel_projection.py:533:                    self._sink.deactivate(projection.generation, "activation_failed")
+arda_os/backend/services/arda_kernel_projection.py:534:                    self._sink.remove(projection.generation)
+arda_os/backend/services/arda_kernel_projection.py:571:                generation = int(row["generation"])
+arda_os/backend/services/arda_kernel_projection.py:572:                self._sink.deactivate(generation, reason)
+arda_os/backend/services/arda_kernel_projection.py:573:                self._sink.remove(generation)
+arda_os/backend/services/arda_kernel_projection.py:576:                    "deactivated_at=?, deactivation_reason=? WHERE generation=?",
+arda_os/backend/services/arda_kernel_projection.py:577:                    (instant.isoformat(), reason, generation),
+arda_os/backend/services/arda_kernel_projection.py:579:                actions.append({"generation": generation, "reason": reason})
+arda_os/backend/services/arda_kernel_projection.py:598:    generations = ProjectionGenerationStore(
+arda_os/backend/services/arda_kernel_projection.py:599:        os.path.join(state_directory, "kernel-generations.sqlite3")
+arda_os/backend/services/arda_kernel_projection.py:604:        generation_store=generations,
+arda_os/backend/services/plagiarism_detector.py:505:            f"AI probability: {round(ai_prob * 100, 1)}% — this text shows strong indicators of machine generation. "
+arda_os/backend/services/phase4_secret_release.py:59:        manifest_digest = gate_result.get("manifest_digest", "unknown")
+arda_os/backend/services/phase4_secret_release.py:60:        token_material = f"{purpose}:{requester}:{manifest_digest}:{release_time}:{fingerprint}"
+arda_os/backend/services/phase4_secret_release.py:71:            "manifest_digest": manifest_digest,
+arda_os/backend/services/phase4_secret_release.py:91:            "manifest_digest": gate_result.get("manifest_digest"),
+arda_os/backend/services/phase4_secret_release.py:127:        manifest_digest: str,
+arda_os/backend/services/phase4_secret_release.py:135:            "manifest_digest": manifest_digest,
+arda_os/backend/services/measured_identity.py:27:    """Monotonic generation guard and userspace lifecycle ledger for measured identity."""
+arda_os/backend/services/measured_identity.py:37:            "CREATE TABLE IF NOT EXISTS arda_measured_generation ("
+arda_os/backend/services/measured_identity.py:38:            "node_id TEXT PRIMARY KEY, generation INTEGER NOT NULL, "
+arda_os/backend/services/measured_identity.py:39:            "manifest_digest TEXT NOT NULL, updated_at TEXT NOT NULL)"
+arda_os/backend/services/measured_identity.py:43:            "manifest_id TEXT PRIMARY KEY, node_id TEXT NOT NULL, generation INTEGER NOT NULL, "
+arda_os/backend/services/measured_identity.py:44:            "cgroup_id TEXT NOT NULL, manifest_digest TEXT NOT NULL, enforcement_mode TEXT NOT NULL, "
+arda_os/backend/services/measured_identity.py:49:    def assert_newer(self, node_id: str, generation: int) -> None:
+arda_os/backend/services/measured_identity.py:51:            "SELECT generation FROM arda_measured_generation WHERE node_id = ?",
+arda_os/backend/services/measured_identity.py:54:        if row is not None and generation <= int(row[0]):
+arda_os/backend/services/measured_identity.py:55:            raise MeasuredIdentityError("manifest generation is stale or replayed")
+arda_os/backend/services/measured_identity.py:57:    def next_generation(self, node_id: str) -> int:
+arda_os/backend/services/measured_identity.py:59:            "SELECT generation FROM arda_measured_generation WHERE node_id = ?",
+arda_os/backend/services/measured_identity.py:64:    def commit(self, node_id: str, generation: int, manifest_digest: str) -> None:
+arda_os/backend/services/measured_identity.py:68:                self.assert_newer(node_id, generation)
+arda_os/backend/services/measured_identity.py:70:                    "INSERT INTO arda_measured_generation(node_id,generation,manifest_digest,updated_at) "
+arda_os/backend/services/measured_identity.py:72:                    "generation=excluded.generation, manifest_digest=excluded.manifest_digest, updated_at=excluded.updated_at",
+arda_os/backend/services/measured_identity.py:75:                        generation,
+arda_os/backend/services/measured_identity.py:76:                        manifest_digest,
+arda_os/backend/services/measured_identity.py:99:                    "manifest_id,node_id,generation,cgroup_id,manifest_digest,enforcement_mode,state,"
+arda_os/backend/services/measured_identity.py:103:                    "node_id=excluded.node_id, generation=excluded.generation, cgroup_id=excluded.cgroup_id, "
+arda_os/backend/services/measured_identity.py:104:                    "manifest_digest=excluded.manifest_digest, enforcement_mode=excluded.enforcement_mode, "
+arda_os/backend/services/measured_identity.py:110:                        projection["generation"],
+arda_os/backend/services/measured_identity.py:112:                        projection["manifest_digest"],
+arda_os/backend/services/measured_identity.py:134:                    "SELECT manifest_id,node_id,generation,cgroup_id,manifest_digest,enforcement_mode,state,payload_json "
+arda_os/backend/services/measured_identity.py:149:                        "superseded_by_newer_generation",
+arda_os/backend/services/measured_identity.py:161:                    "INSERT INTO arda_measured_generation(node_id,generation,manifest_digest,updated_at) "
+arda_os/backend/services/measured_identity.py:163:                    "generation=excluded.generation, manifest_digest=excluded.manifest_digest, updated_at=excluded.updated_at",
+arda_os/backend/services/measured_identity.py:216:            "SELECT manifest_id,node_id,generation,cgroup_id,manifest_digest,enforcement_mode,state,"
+arda_os/backend/services/measured_identity.py:226:            "generation": int(row[2]),
+arda_os/backend/services/measured_identity.py:228:            "manifest_digest": row[4],
+arda_os/backend/services/measured_identity.py:274:                    "SELECT manifest_id,node_id,generation,cgroup_id FROM arda_measured_staging WHERE "
+arda_os/backend/services/measured_identity.py:296:                        ("deactivated", now, "compacted_older_active_generation", manifest_id),
+arda_os/backend/services/measured_identity.py:323:    def __init__(self, generation_store: MeasuredProjectionGenerationStore, maximum_age_seconds: int = 300):
+arda_os/backend/services/measured_identity.py:324:        self._generation_store = generation_store
+arda_os/backend/services/measured_identity.py:376:        commit_generation: bool = False,
+arda_os/backend/services/measured_identity.py:386:        if not isinstance(manifest.get("generation"), int) or manifest["generation"] <= 0:
+arda_os/backend/services/measured_identity.py:387:            failures.append("manifest_generation")
+arda_os/backend/services/measured_identity.py:390:        if not manifest.get("policy_generation"):
+arda_os/backend/services/measured_identity.py:391:            failures.append("manifest_policy_generation")
+arda_os/backend/services/measured_identity.py:449:            "generation": manifest.get("generation"),
+arda_os/backend/services/measured_identity.py:451:            "policy_generation": manifest.get("policy_generation"),
+arda_os/backend/services/measured_identity.py:459:        manifest_digest = "sha256:" + hashlib.sha256(_canonical_json_bytes(unsigned_payload)).hexdigest()
+arda_os/backend/services/measured_identity.py:463:                self._generation_store.assert_newer(manifest["node_id"], manifest["generation"])
+arda_os/backend/services/measured_identity.py:464:                if commit_generation:
+arda_os/backend/services/measured_identity.py:465:                    self._generation_store.commit(
+arda_os/backend/services/measured_identity.py:467:                        manifest["generation"],
+arda_os/backend/services/measured_identity.py:468:                        manifest_digest,
+arda_os/backend/services/measured_identity.py:471:                failures.append("manifest_generation_replay")
+arda_os/backend/services/measured_identity.py:478:            "manifest_digest": manifest_digest,
+arda_os/backend/services/measured_identity.py:479:            "generation": manifest.get("generation"),
+arda_os/backend/services/measured_identity.py:481:            "policy_generation": manifest.get("policy_generation"),
+arda_os/backend/services/measured_identity.py:486:            "commit_generation": commit_generation,
+arda_os/backend/services/measured_identity.py:507:            "manifest_digest": preflight_result["manifest_digest"],
+arda_os/backend/services/measured_identity.py:508:            "generation": preflight_result["generation"],
+arda_os/backend/services/measured_identity.py:510:            "policy_generation": preflight_result["policy_generation"],
+arda_os/backend/services/measured_identity.py:520:        self._generation_store.stage(projection)
+arda_os/backend/services/measured_identity.py:521:        record = self._generation_store.get_record(preflight_result["manifest_id"])
+arda_os/backend/services/measured_identity.py:530:        projection = self._generation_store.activate(manifest_id)
+arda_os/backend/services/measured_identity.py:531:        record = self._generation_store.get_record(manifest_id)
+arda_os/backend/services/measured_identity.py:541:        self._generation_store.deactivate(manifest_id, reason)
+arda_os/backend/services/measured_identity.py:546:            "record": self._generation_store.get_record(manifest_id),
+arda_os/backend/services/measured_identity.py:550:        self._generation_store.remove(manifest_id)
+arda_os/backend/services/measured_identity.py:555:            "record": self._generation_store.get_record(manifest_id),
+arda_os/backend/services/presence_server.py:1312:                "generationConfig": {
+arda_os/backend/services/presence_server.py:5085:                "contain the interaction before free generation",
+arda_os/backend/services/presence_server.py:5099:            "suppressed_clusters": ["free_generation"],
+arda_os/backend/services/presence_server.py:5108:            "preserve trace metadata even when generation is bypassed",
+arda_os/backend/services/presence_server.py:5216:            "reasoning": "Harmonic containment triggered before free generation; synthetic schema route attached for trace continuity."
+arda_os/backend/services/presence_server.py:7867:            "3. Pedagogy stack: route through diagnostic classifier -> ZPD shaper -> assessment ecology before generation. "
+arda_os/backend/services/presence_server.py:10361:                assessment_record = _assessment_ecology.pre_generation(
+arda_os/backend/services/presence_server.py:10407:                 log_layer("assessment_ecology", "ERROR", "pre_generation failed")
+arda_os/backend/services/presence_server.py:10628:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:10635:                    log_layer("assessment_ecology", "ERROR", "reasoned lane post_generation failed")
+arda_os/backend/services/presence_server.py:10821:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:10838:                    log_layer("assessment_ecology", "ERROR", "pedagogy lens post_generation failed")
+arda_os/backend/services/presence_server.py:10929:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:10946:                    log_layer("assessment_ecology", "ERROR", "design post_generation failed")
+arda_os/backend/services/presence_server.py:11034:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:11051:                    log_layer("assessment_ecology", "ERROR", "sovereign pedagogy post_generation failed")
+arda_os/backend/services/presence_server.py:11140:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:11164:                    log_layer("assessment_ecology", "ERROR", "covenant post_generation failed")
+arda_os/backend/services/presence_server.py:11250:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:11268:                    log_layer("assessment_ecology", "ERROR", "native post_generation failed")
+arda_os/backend/services/presence_server.py:11374:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:11391:                    log_layer("assessment_ecology", "ERROR", "benchmark post_generation failed")
+arda_os/backend/services/presence_server.py:11495:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:11502:                    log_layer("assessment_ecology", "ERROR", "retrieval post_generation failed")
+arda_os/backend/services/presence_server.py:11794:                    assessment_record = _assessment_ecology.post_generation(
+arda_os/backend/services/presence_server.py:11810:                    log_layer("assessment_ecology", "ERROR", "post_generation failed")
+arda_os/backend/services/aatr.py:42:    CODE_GENERATION = "code_generation"
+arda_os/backend/services/aatr.py:222:            "Dynamic code generation",
+arda_os/backend/services/proof_config.py:7:          'manifest_key_id', 'generation_db', 'generation', 'entries', 'scope', 'cgroup_path',
+arda_os/backend/services/proof_offbox_laptop.py:44:    if set(value)!={'schema_version','node_id','boot_id','minimum_generation','pcr11','evidence_digest','signature'} or value['schema_version']!='arda.offbox_checkpoint.v1':
+arda_os/backend/services/proof_offbox_laptop.py:48:    if type(value['minimum_generation']) is not int or value['minimum_generation']<settings['minimum_generation'] or not re.fullmatch('[0-9a-f]{64}',value['pcr11']):
+arda_os/backend/services/proof_offbox_laptop.py:49:        raise ValueError('checkpoint generation/PCR11 invalid')
+arda_os/backend/services/proof_offbox_laptop.py:50:    return dict(settings,minimum_generation=value['minimum_generation'],trusted_prior_pcr11=value['pcr11'])
+arda_os/backend/services/proof_offbox_laptop.py:106:            start={name:settings[name] for name in ('node_id','boot_id','minimum_generation','policy_digest','artifact_digest')}
+arda_os/backend/services/proof_offbox_laptop.py:126:                'boot_id':settings['boot_id'],'minimum_generation':evidence['state']['generation']+1,
+arda_os/backend/services/proof_offbox_laptop.py:131:            # Result is written after cleanup and generation commit, before SSH exits.
+arda_os/backend/services/proof_offbox_laptop.py:133:            if not result.get('ok') or not result.get('cleanup_verified') or not result.get('generation_committed') or result.get('offbox_scoped_attestation',{}).get('signed_offbox_verdict')!=verdict:
+arda_os/backend/services/os_enforcement_service.py:73:        ("generation_hash_prefix", ctypes.c_uint64),
+arda_os/backend/services/os_enforcement_service.py:82:        ("active_generation", ctypes.c_uint64),
+arda_os/backend/services/os_enforcement_service.py:141:            "purpose": "constitutional policy generation and red-line projection state",
+arda_os/backend/services/os_enforcement_service.py:143:            "value_shape": "struct { __u64 generation_hash_prefix; __u32 redline_rule_count; __u32 projection_flags; }",
+arda_os/backend/services/os_enforcement_service.py:157:            "value_shape": "struct { __u64 cgroup_id; __u64 active_generation; unsigned long inode; unsigned int dev; __u32 enforcement_mode; __u32 deny_reason; }",
+arda_os/backend/services/os_enforcement_service.py:164:            "purpose": "measured executable identity staging keyed by cgroup, generation, and fs-verity digest",
+arda_os/backend/services/os_enforcement_service.py:165:            "key_shape": "struct { __u64 cgroup_id; __u64 generation; __u16 algorithm_id; __u16 digest_size; __u8 digest[64]; }",
+arda_os/backend/services/os_enforcement_service.py:168:        "arda_active_generation_map": {
+arda_os/backend/services/os_enforcement_service.py:169:            "pin_name": "active_generation_map",
+arda_os/backend/services/os_enforcement_service.py:171:            "purpose": "active measured-generation pointer keyed by cgroup kernel id",
+arda_os/backend/services/os_enforcement_service.py:173:            "value_shape": "__u64 active generation",
+arda_os/backend/services/os_enforcement_service.py:178:            "purpose": "strict measured executable allowlist keyed by cgroup, generation, inode, and dev",
+arda_os/backend/services/os_enforcement_service.py:179:            "key_shape": "struct { __u64 cgroup_id; __u64 generation; unsigned long inode; unsigned int dev; }",
+arda_os/backend/services/os_enforcement_service.py:205:        3: "missing_active_generation",
+arda_os/backend/services/os_enforcement_service.py:206:        4: "zero_active_generation",
+arda_os/backend/services/os_enforcement_service.py:213:    DEFAULT_MEASURED_GENERATION_DB = "/var/lib/arda/projection/arda_measured_generation.sqlite3"
+arda_os/backend/services/os_enforcement_service.py:238:        self.measured_generation_db = os.environ.get(
+arda_os/backend/services/os_enforcement_service.py:240:            self.DEFAULT_MEASURED_GENERATION_DB if os.geteuid() == 0 else os.path.join(tempfile.gettempdir(), "arda_measured_generation.sqlite3"),
+arda_os/backend/services/os_enforcement_service.py:242:        self._measured_generation_store = MeasuredProjectionGenerationStore(self.measured_generation_db)
+arda_os/backend/services/os_enforcement_service.py:243:        self._measured_identity_verifier = MeasuredIdentityVerifier(self._measured_generation_store)
+arda_os/backend/services/os_enforcement_service.py:501:                "generation_db": self.measured_generation_db,
+arda_os/backend/services/os_enforcement_service.py:686:            "active_records": self._measured_generation_store.list_records(states=["active"]),
+arda_os/backend/services/os_enforcement_service.py:704:        generation_store = getattr(self, "_measured_generation_store", None)
+arda_os/backend/services/os_enforcement_service.py:705:        if generation_store is not None:
+arda_os/backend/services/os_enforcement_service.py:706:            generation_store.close()
+arda_os/backend/services/os_enforcement_service.py:1330:    def _project_policy_state(self, policy_generation: str, redline_rule_count: int) -> Dict[str, Any]:
+arda_os/backend/services/os_enforcement_service.py:1334:            generation_hash_prefix = struct.unpack(
+arda_os/backend/services/os_enforcement_service.py:1336:                hashlib.sha256(policy_generation.encode("utf-8")).digest()[:8],
+arda_os/backend/services/os_enforcement_service.py:1341:                generation_hash_prefix=generation_hash_prefix,
+arda_os/backend/services/os_enforcement_service.py:1358:                raise OSError(errno_value, f"Failed to project policy state {policy_generation}")
+arda_os/backend/services/os_enforcement_service.py:1360:                "policy_generation": policy_generation,
+arda_os/backend/services/os_enforcement_service.py:1361:                "generation_hash_prefix": generation_hash_prefix,
+arda_os/backend/services/os_enforcement_service.py:1391:                "generation_hash_prefix": int(value_struct.generation_hash_prefix),
+arda_os/backend/services/os_enforcement_service.py:1432:                "active_generation": int(value_struct.active_generation),
+arda_os/backend/services/os_enforcement_service.py:1471:        generation: int,
+arda_os/backend/services/os_enforcement_service.py:1478:            generation,
+arda_os/backend/services/os_enforcement_service.py:1485:    def _build_measured_exec_key(cgroup_kernel_id: int, generation: int, path: str) -> bytes:
+arda_os/backend/services/os_enforcement_service.py:1490:            generation,
+arda_os/backend/services/os_enforcement_service.py:1499:        generation: int,
+arda_os/backend/services/os_enforcement_service.py:1505:            key_bytes = self._build_measured_exec_key(cgroup_kernel_id, generation, path)
+arda_os/backend/services/os_enforcement_service.py:1526:                "generation": generation,
+arda_os/backend/services/os_enforcement_service.py:1539:        generation: int,
+arda_os/backend/services/os_enforcement_service.py:1545:            key_bytes = self._build_measured_exec_key(cgroup_kernel_id, generation, path)
+arda_os/backend/services/os_enforcement_service.py:1558:            return {"cgroup_kernel_id": cgroup_kernel_id, "generation": generation, "path": path}
+arda_os/backend/services/os_enforcement_service.py:1566:        generation: int,
+arda_os/backend/services/os_enforcement_service.py:1575:                generation,
+arda_os/backend/services/os_enforcement_service.py:1597:                "generation": generation,
+arda_os/backend/services/os_enforcement_service.py:1604:    def _project_active_generation(self, *, cgroup_kernel_id: int, generation: int) -> Dict[str, Any]:
+arda_os/backend/services/os_enforcement_service.py:1605:        pin_path = os.path.join(self.CANONICAL_PIN_ROOT, self.PHASE3_REQUIRED_MAPS["arda_active_generation_map"]["pin_name"])
+arda_os/backend/services/os_enforcement_service.py:1609:            value_buf = (ctypes.c_uint8 * 8)(*struct.pack("<Q", generation))
+arda_os/backend/services/os_enforcement_service.py:1623:                raise OSError(errno_value, f"Failed to project active generation {generation}")
+arda_os/backend/services/os_enforcement_service.py:1624:            return {"cgroup_kernel_id": cgroup_kernel_id, "generation": generation}
+arda_os/backend/services/os_enforcement_service.py:1632:        generation: int,
+arda_os/backend/services/os_enforcement_service.py:1641:                generation,
+arda_os/backend/services/os_enforcement_service.py:1659:                "generation": generation,
+arda_os/backend/services/os_enforcement_service.py:1666:    def _delete_active_generation(self, cgroup_kernel_id: int) -> Dict[str, Any]:
+arda_os/backend/services/os_enforcement_service.py:1667:        pin_path = os.path.join(self.CANONICAL_PIN_ROOT, self.PHASE3_REQUIRED_MAPS["arda_active_generation_map"]["pin_name"])
+arda_os/backend/services/os_enforcement_service.py:1681:                raise OSError(errno_value, f"Failed to delete active generation for cgroup {cgroup_kernel_id}")
+arda_os/backend/services/os_enforcement_service.py:1743:                constitutional_state["policy_generation"],
+arda_os/backend/services/os_enforcement_service.py:1777:        commit_generation: bool = False,
+arda_os/backend/services/os_enforcement_service.py:1782:            commit_generation=commit_generation,
+arda_os/backend/services/os_enforcement_service.py:1790:        preflight = self.preflight_measured_manifest(manifest, attestation, commit_generation=False)
+arda_os/backend/services/os_enforcement_service.py:1856:        record = self._measured_generation_store.get_record(manifest_id)
+arda_os/backend/services/os_enforcement_service.py:1868:                    generation=int(projection["generation"]),
+arda_os/backend/services/os_enforcement_service.py:1877:                    generation=int(projection["generation"]),
+arda_os/backend/services/os_enforcement_service.py:1881:        active_pointer = self._project_active_generation(
+arda_os/backend/services/os_enforcement_service.py:1883:            generation=int(projection["generation"]),
+arda_os/backend/services/os_enforcement_service.py:1895:            "active_generation": active_pointer,
+arda_os/backend/services/os_enforcement_service.py:1901:        record = self._measured_generation_store.get_record(manifest_id)
+arda_os/backend/services/os_enforcement_service.py:1910:                    generation=int(projection["generation"]),
+arda_os/backend/services/os_enforcement_service.py:1919:                    generation=int(projection["generation"]),
+arda_os/backend/services/os_enforcement_service.py:1923:        removed_pointer = self._delete_active_generation(int(projection["cgroup_kernel_id"]))
+arda_os/backend/services/os_enforcement_service.py:1932:            "active_generation_removed": removed_pointer,
+arda_os/backend/services/proof_verdicts.py:11:BINDINGS=('node_id','boot_id','generation','manifest_digest','nonce','session_id','evidence_digest')
+arda_os/backend/services/proof_kernel_digest.py:9:def identity_key(namespace,generation,algorithm,digest):
+arda_os/backend/services/proof_kernel_digest.py:11:    if type(namespace) is not int or type(generation) is not int or namespace<0 or generation<1:
+arda_os/backend/services/proof_kernel_digest.py:12:        raise ValueError('invalid digest namespace/generation')
+arda_os/backend/services/proof_kernel_digest.py:15:    return struct.pack('<QQHH64s4x',namespace,generation,algorithm,len(raw),raw)
+arda_os/backend/services/proof_kernel_digest.py:21:    file=session.verified.files[0]; generation=session.verified.manifest['generation']
+arda_os/backend/services/proof_kernel_digest.py:22:    key=identity_key(session.probe.kernel_id,generation,file.algorithm,file.digest)
+arda_os/backend/services/proof_kernel_digest.py:29:        expected=(session.probe.kernel_id,generation,file.inode,(os.major(file.device)<<20)|os.minor(file.device),3,9)
+arda_os/backend/services/proof_kernel_digest.py:37:    mutable_key=struct.pack('<QQQI4x',session.probe.kernel_id,generation,st.st_ino,device)
+arda_os/backend/services/proof_kernel_digest.py:43:        if mutable_attempt.returncode==0 or mutable_event!=(session.probe.kernel_id,generation,st.st_ino,device,3,8):
+arda_os/backend/services/arda_bpf_authority.py:19:    "active_generation_map",
+arda_os/backend/services/proof_offbox.py:57:            'policy_digest','artifact_digest','trusted_prior_pcr11','approved_boot_pcrs','signature'}
+arda_os/backend/services/proof_offbox.py:67:        actual=challenge[name] if name in ('policy_digest','artifact_digest') else challenge['bindings'].get(name)
+arda_os/backend/services/proof_offbox.py:90:    if manifest['scope']!='scoped' or type(manifest['generation']) is not int or manifest['generation']<1:
+arda_os/backend/services/proof_offbox.py:91:        raise ValueError('positive scoped generation required')
+arda_os/backend/services/proof_offbox.py:108:    return {'manifest_digest':'sha256:'+hashlib.sha256(canonical(manifest)).hexdigest(),
+arda_os/backend/services/proof_offbox.py:134:def _kernel_claims(kernel,cgroup,generation):
+arda_os/backend/services/proof_offbox.py:139:        if not isinstance(event,list) or len(event)!=6 or event[:2]!=[cgroup,generation] or event[-2:]!=[3,reason]:
+arda_os/backend/services/proof_offbox.py:145:    if not isinstance(event,list) or len(event)!=6 or event[:2]!=[child['child_cgroup_id'],generation] or event[-2:]!=[5,5]:
+arda_os/backend/services/proof_offbox.py:150:    fields={'manifest','manifest_digest','program_id','link_id','program_tag','policy_digest','artifact_digest','kernel_digest_test'}
+arda_os/backend/services/proof_offbox.py:153:    generation=manifest['generation']
+arda_os/backend/services/proof_offbox.py:154:    if type(generation) is not int or generation<settings['minimum_generation']:
+arda_os/backend/services/proof_offbox.py:155:        raise ValueError('manifest generation replay/invalid')
+arda_os/backend/services/proof_offbox.py:156:    bindings={'node_id':settings['node_id'],'boot_id':settings['boot_id'],'generation':generation,'scope':'scoped'}
+arda_os/backend/services/proof_offbox.py:158:    if checked['manifest_digest']!=ready['manifest_digest']: raise ValueError('ready manifest digest mismatch')
+arda_os/backend/services/proof_offbox.py:160:    for name in ('policy_digest','artifact_digest'):
+arda_os/backend/services/proof_offbox.py:164:    _kernel_claims(ready['kernel_digest_test'],manifest['cgroup_kernel_id'],generation)
+arda_os/backend/services/proof_offbox.py:165:    bindings['manifest_digest']=checked['manifest_digest']
+arda_os/backend/services/proof_offbox.py:173:                      policy_digest=settings['policy_digest'],artifact_digest=settings['artifact_digest'],
+arda_os/backend/services/proof_offbox.py:179:    return dict(challenge['bindings'],policy_digest=challenge['policy_digest'],artifact_digest=challenge['artifact_digest'],
+arda_os/backend/services/proof_offbox.py:184:VERDICT_FIELDS={'schema_version','issuer','scope','node_id','boot_id','generation','manifest_digest','session_id','nonce',
+arda_os/backend/services/proof_offbox.py:196:    expected={name:state[name] for name in ('node_id','boot_id','generation','manifest_digest','session_id','nonce')}
+arda_os/backend/services/proof_offbox.py:207:    verify_challenge(challenge,settings['verifier_public_key'],dict(bindings,policy_digest=settings['policy_digest'],artifact_digest=settings['artifact_digest']),now)
+arda_os/backend/services/proof_offbox.py:224:    payload={name:state[name] for name in ('node_id','boot_id','generation','manifest_digest','session_id','nonce')}
+arda_os/backend/services/proof_offbox.py:281:    ready={'manifest':session.verified.manifest,'manifest_digest':session.verified.digest,
+arda_os/backend/services/proof_offbox.py:283:           'policy_digest':digest(config['policy']),'artifact_digest':digest(config['artifact']),
+arda_os/backend/services/proof_offbox.py:287:    expected={name:session.verified.manifest[name] for name in ('node_id','boot_id','generation','scope')}
+arda_os/backend/services/proof_offbox.py:288:    expected.update(manifest_digest=session.verified.digest,policy_digest=ready['policy_digest'],artifact_digest=ready['artifact_digest'])
+arda_os/backend/services/proof_offbox.py:327:    fields={'schema_version','issuer','scope','node_id','boot_id','minimum_generation','policy_digest',
+arda_os/backend/services/proof_offbox.py:328:            'artifact_digest','issued_at','expires_at','signature'}
+arda_os/backend/services/proof_offbox.py:332:    if type(start['minimum_generation']) is not int or not 0<start['minimum_generation']<2**64:
+arda_os/backend/services/proof_offbox.py:333:        raise ValueError('positive generation floor required')
+arda_os/backend/services/proof_offbox.py:341:    from .proof_manifests import latest_generation,current_boot_id
+arda_os/backend/services/proof_offbox.py:349:                  'policy_digest':digest(config['policy']),'artifact_digest':digest(config['artifact'])}
+arda_os/backend/services/proof_offbox.py:358:                      generation=max(start['minimum_generation'],latest_generation(config['generation_db'],config['node_id'])+1))
+arda_os/backend/services/proof_postboot_live.py:24:    if live.get('ok') is not True or live.get('scope')!='scoped' or live.get('cleanup_verified') is not True or live.get('generation_committed') is not True:
+arda_os/backend/services/proof_postboot_live.py:36:    for name in ('generation','manifest_digest','session_id','nonce'):
+arda_os/backend/services/proof_postboot_live.py:45:    _kernel_claims(attestation.get('kernel_digest_test',{}),state['cgroup_id'],state['generation'])
+arda_os/backend/services/proof_postboot_live.py:52:        'generation_committed':True,'generation':state['generation'],'manifest_digest':state['manifest_digest'],
+arda_os/backend/services/proof_report.py:5:            'policy', 'measured_identity', 'generation_coverage', 'denial_test', 'recovery')
+arda_os/backend/services/constitutional_projection.py:75:        workload_hash = payload.get("artifact_digest")
+arda_os/backend/services/proof_state_binding.py:13:_FIELDS={'node_id','boot_id','generation','manifest_digest','policy_digest',
+arda_os/backend/services/proof_state_binding.py:14:         'artifact_digest','scope','cgroup_id','program_id','link_id',
+arda_os/backend/services/proof_state_binding.py:32:    for field in ('generation','cgroup_id','program_id','link_id'):
+arda_os/backend/services/proof_state_binding.py:35:    for field in ('manifest_digest','policy_digest','artifact_digest'):
+arda_os/backend/services/phase4_attestation_gate.py:102:        manifest_digest = "sha256:" + hashlib.sha256(
+arda_os/backend/services/phase4_attestation_gate.py:107:                    "generation": manifest.get("generation"),
+arda_os/backend/services/phase4_attestation_gate.py:109:                    "policy_generation": manifest.get("policy_generation"),
+arda_os/backend/services/phase4_attestation_gate.py:120:        expected_artifact_digest = payload.get("artifact_digest")
+arda_os/backend/services/phase4_attestation_gate.py:121:        if expected_artifact_digest and expected_artifact_digest != manifest_digest:
+arda_os/backend/services/phase4_attestation_gate.py:122:            failures.append("manifest_digest_binding")
+arda_os/backend/services/phase4_attestation_gate.py:128:            if claim.get("hash") != manifest_digest:
+arda_os/backend/services/phase4_attestation_gate.py:167:            "manifest_digest": manifest_digest,
+arda_os/backend/services/phase4_attestation_gate.py:299:                "generation": software_state_binding.get("generation"),
+arda_os/backend/services/phase4_attestation_gate.py:300:                "policy_generation": software_state_binding.get("policy_generation"),
+arda_os/backend/services/proof_host_positive_owner.c:58:    __u64 global_key = 0, generation;
+arda_os/backend/services/proof_host_positive_owner.c:59:    int generation_fd = bpf_object__find_map_fd_by_name(obj, "arda_active_generation_map");
+arda_os/backend/services/proof_host_positive_owner.c:60:    if (bpf_map_lookup_elem(generation_fd, &scoped_id, &generation) || generation != 1) return -1;
+arda_os/backend/services/proof_host_positive_owner.c:61:    if (!bpf_map_lookup_elem(generation_fd, &global_key, &generation) || errno != ENOENT) return -1;
+arda_os/backend/services/proof_host_positive_owner.c:68:    struct { __u64 cgroup, generation, inode; __u32 dev; } identity = {0};
+arda_os/backend/services/proof_host_positive_owner.c:69:    struct { __u64 cgroup, generation; __u16 algorithm, size; __u8 digest[64]; } digest = {0};
+arda_os/backend/services/proof_host_positive_owner.c:74:    identity.cgroup = scoped_id; identity.generation = 1; identity.inode = st.st_ino;
+arda_os/backend/services/proof_host_positive_owner.c:76:    digest.cgroup = scoped_id; digest.generation = 1;
+arda_os/backend/services/proof_host_positive_owner.c:114:    int generation_fd = bpf_object__find_map_fd_by_name(obj, "arda_active_generation_map");
+arda_os/backend/services/proof_host_positive_owner.c:115:    __u64 generation = 1;
+arda_os/backend/services/proof_host_positive_owner.c:117:    if (generation_fd < 0 || bpf_map_update_elem(generation_fd, &scoped_id, &generation, BPF_NOEXIST) ||
+arda_os/backend/services/proof_local_verdict.py:11:_BINDINGS={'node_id','boot_id','generation','manifest_digest','nonce','session_id','evidence_digest','state_digest'}
+arda_os/backend/services/proof_local_verdict.py:22:    if type(value['generation']) is not int or value['generation']<1:
+arda_os/backend/services/proof_local_verdict.py:23:        raise ValueError('positive generation required')
+arda_os/backend/services/proof_local_verdict.py:24:    for field in _BINDINGS-{'generation'}:
+arda_os/backend/services/arda_authorization_service.py:24:    policy_generation: str
+arda_os/backend/services/arda_authorization_service.py:35:    allowed = mode == "allow-listed" and bound and bool(req.capability_lease_id and req.policy_generation)
+arda_os/backend/services/arda_authorization_service.py:46:    result.update({"policy_generation": req.policy_generation, "nonce": req.capability_lease_id, "verification_material": {"key_id": "arda-crystal"}})
+arda_os/backend/services/arda_authorization_service.py:47:    unsigned = {"authority": "arda", "allowed": True, "request_digest": req.evidence_digest, "policy_generation": req.policy_generation, "nonce": req.capability_lease_id, "key_id": "arda-crystal"}
+arda_os/backend/services/proof_host_negative_owner.c:53:    __u64 global_key = 0, generation;
+arda_os/backend/services/proof_host_negative_owner.c:54:    int generation_fd = bpf_object__find_map_fd_by_name(obj, "arda_active_generation_map");
+arda_os/backend/services/proof_host_negative_owner.c:55:    if (bpf_map_lookup_elem(generation_fd, &scoped_id, &generation) || generation != 1) return -1;
+arda_os/backend/services/proof_host_negative_owner.c:56:    if (!bpf_map_lookup_elem(generation_fd, &global_key, &generation) || errno != ENOENT) return -1;
+arda_os/backend/services/proof_host_negative_owner.c:86:    int generation_fd = bpf_object__find_map_fd_by_name(obj, "arda_active_generation_map");
+arda_os/backend/services/proof_host_negative_owner.c:87:    __u64 generation = 1;
+arda_os/backend/services/proof_host_negative_owner.c:89:    if (generation_fd < 0 || bpf_map_update_elem(generation_fd, &scoped_id, &generation, BPF_NOEXIST) ||
+arda_os/backend/services/diagnostic_classifier.py:4:Classifies incoming directives into challenge types BEFORE generation.
+arda_os/backend/services/diagnostic_classifier.py:423:    This runs BEFORE generation. Its output determines:
+arda_os/backend/services/diagnostic_classifier.py:774:    Post-generation analysis of Sophia's thinking map and response.
+arda_os/backend/services/arda_phase4_verifier_service.py:201:        "manifest_digest": result.get("manifest_digest"),
+arda_os/backend/services/arda_phase4_verifier_service.py:216:                    "manifest_digest": result.get("manifest_digest"),
+arda_os/backend/services/arda_phase4_verifier_service.py:238:        "manifest_digest": result.get("manifest_digest"),
+arda_os/backend/services/proof_challenges.py:14:_FIELDS={'node_id','boot_id','generation','manifest_digest','scope'}
+arda_os/backend/services/proof_challenges.py:20:    if type(value['generation']) is not int or value['generation']<1:
+arda_os/backend/services/proof_challenges.py:21:        raise ValueError('positive generation required')
+arda_os/backend/services/proof_challenges.py:24:    for name in ('node_id','boot_id','manifest_digest'):
+arda_os/backend/services/arda_launcher.py:121:            manifest_digest = manifest.get(command_name)
+arda_os/backend/services/arda_launcher.py:124:            if not manifest_digest:
+arda_os/backend/services/arda_launcher.py:128:            if env_digest != manifest_digest:
+arda_os/backend/services/arda_launcher.py:129:                 logger.error(f"[ELEMENT: Manifest Veto] [CODE_PATH: arda_launcher.py] [TRANSITION: {env_digest} != {manifest_digest} -> VETO] Law Breach: Envelope digest mismatched against Sovereign Manifest.")
+arda_os/backend/services/arda_launcher.py:132:            logger.info(f"[SUBSTRATE] Manifest Verification: {command_name} matches {manifest_digest}. Authenticated.")
+arda_os/backend/services/assessment_ecology (copy 1).py:9:    Pass 4: CRITERION    — Post-generation constitutional check
+arda_os/backend/services/assessment_ecology (copy 1).py:55:    # Pass 4: Criterion (post-generation)
+arda_os/backend/services/assessment_ecology (copy 1).py:58:    # Pass 5: Reflective (post-generation)
+arda_os/backend/services/assessment_ecology (copy 1).py:87:    - Pre-generation: baseline assessment, diagnostic classification, scaffold injection
+arda_os/backend/services/assessment_ecology (copy 1).py:88:    - Post-generation: criterion checking, thinking analysis, growth logging
+arda_os/backend/services/assessment_ecology (copy 1).py:133:    def pre_generation(
+arda_os/backend/services/assessment_ecology (copy 1).py:140:        Run Passes 1-3 before Ollama generation.
+arda_os/backend/services/assessment_ecology (copy 1).py:300:    def post_generation(
+arda_os/backend/services/assessment_ecology (copy 1).py:307:        Run Passes 4-6 after Ollama generation.
+arda_os/backend/services/assessment_ecology (copy 1).py:310:            record: The AssessmentRecord from pre_generation
+arda_os/backend/services/proof_bound_quote.py:41:    bindings={k:manifest[k] for k in ('node_id','boot_id','generation','scope')}
+arda_os/backend/services/proof_bound_quote.py:42:    bindings['manifest_digest']=session.verified.digest
+arda_os/backend/services/proof_bound_quote.py:44:    state=dict(bindings,policy_digest=_sha(config['policy']),artifact_digest=_sha(config['artifact']),
+arda_os/backend/services/proof_bound_quote.py:83:        verdict_binding={k:state[k] for k in ('node_id','boot_id','generation','manifest_digest','nonce','session_id')}
+arda_os/backend/services/proof_bpf_loader.c:48:    __u64 generation_hash_prefix;
+arda_os/backend/services/proof_bpf_loader.c:55:    __u64 active_generation;
+arda_os/backend/services/proof_bpf_loader.c:67:    { "arda_active_generation_map", "active_generation_map" },
+arda_os/backend/services/proof_host_supervisor.py:183:    'active_generation_map':('hash',8,8,1024,'arda_active_generation_map'),
+arda_os/backend/services/arda_recovery_conformance.py:79:    policy_generation: str
+arda_os/backend/services/arda_trust_contracts.py:76:    formation_manifest_digest: str
+arda_os/backend/services/arda_trust_contracts.py:119:            "formation_manifest_digest": self.formation_manifest_digest,
+arda_os/backend/services/arda_trust_contracts.py:219:    artifact_digest: str
+arda_os/backend/services/arda_trust_contracts.py:230:    beast_policy_generation: str
+arda_os/backend/services/arda_trust_contracts.py:263:            self.beast_policy_generation,
+arda_os/backend/services/arda_trust_contracts.py:295:    policy_generation: str
+arda_os/backend/services/bpf/arda_physical_lsm.c:27:    __u64 generation;
+arda_os/backend/services/bpf/arda_physical_lsm.c:35:    __u64 generation;
+arda_os/backend/services/bpf/arda_physical_lsm.c:41:    __u64 generation_hash_prefix;
+arda_os/backend/services/bpf/arda_physical_lsm.c:48:    __u64 active_generation;
+arda_os/backend/services/bpf/arda_physical_lsm.c:88:} arda_active_generation_map SEC(".maps");
+arda_os/backend/services/bpf/arda_physical_lsm.c:153:        __u64 *active_generation = bpf_map_lookup_elem(&arda_active_generation_map, &cgroup_id);
+arda_os/backend/services/bpf/arda_physical_lsm.c:156:        if (*state == ARDA_MODE_SCOPED_STRICT && !active_generation)
+arda_os/backend/services/bpf/arda_physical_lsm.c:159:        if (!active_generation) {
+arda_os/backend/services/bpf/arda_physical_lsm.c:163:        if (*active_generation == 0) {
+arda_os/backend/services/bpf/arda_physical_lsm.c:170:        measured_key.generation = *active_generation;
+arda_os/backend/services/bpf/arda_physical_lsm.c:198:        deny_event.active_generation = 0;
+arda_os/backend/services/bpf/arda_physical_lsm.c:201:            __u64 *active_generation = bpf_map_lookup_elem(&arda_active_generation_map, &cgroup_id);
+arda_os/backend/services/bpf/arda_physical_lsm.c:202:            if (active_generation) {
+arda_os/backend/services/bpf/arda_physical_lsm.c:203:                deny_event.active_generation = *active_generation;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:45:    __u64 generation;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:53:    __u64 generation;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:59:    __u64 generation_hash_prefix;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:66:    __u64 active_generation;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:107:} arda_active_generation_map SEC(".maps");
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:158:    __u64 *generation = bpf_map_lookup_elem(&arda_active_generation_map, &namespace);
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:159:    if (*mode == ARDA_MODE_SCOPED_STRICT && !generation) return 0;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:168:    if (!generation || !*generation) {
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:171:    event.active_generation = *generation;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:187:    identity.generation = *generation;
+arda_os/backend/services/bpf/proof_host_integrity_lsm.c:212:    digest.generation = *generation;
+arda_os/backend/services/bpf/vmlinux.h:8661:	OID_generationalQualifier = 59,
+arda_os/backend/services/bpf/vmlinux.h:35518:	long unsigned int p2m_generation;
+arda_os/backend/services/bpf/vmlinux.h:36793:	long unsigned int generation;
+arda_os/backend/services/bpf/vmlinux.h:36800:	long unsigned int generation;
+arda_os/backend/services/bpf/vmlinux.h:36807:	long unsigned int generation;
+arda_os/backend/services/bpf/vmlinux.h:36814:	long unsigned int generation;
+arda_os/backend/services/bpf/vmlinux.h:36901:	u32 i_generation;
+arda_os/backend/services/bpf/vmlinux.h:52061:	long unsigned int generation;
+arda_os/backend/services/bpf/vmlinux.h:62335:			u32 generation;
+arda_os/backend/services/bpf/vmlinux.h:62337:			u32 parent_generation;
+arda_os/backend/services/bpf/vmlinux.h:65211:	uint64_t generation;
+arda_os/backend/services/bpf/vmlinux.h:65458:	u32 generation;
+arda_os/backend/services/bpf/vmlinux.h:67015:	u64 generation;
+arda_os/backend/services/bpf/vmlinux.h:67025:	u64 generation;
+arda_os/backend/services/bpf/vmlinux.h:67808:	__u32 generation;
+arda_os/backend/services/bpf/vmlinux.h:79387:	u64 generation;
+arda_os/backend/services/bpf/vmlinux.h:79562:	u64 cur_tsc_generation;
+arda_os/backend/services/bpf/vmlinux.h:80498:	u64 this_tsc_generation;
+arda_os/backend/services/bpf/vmlinux.h:83159:	atomic_t generation;
+arda_os/backend/services/bpf/vmlinux.h:83193:	int generation;
+arda_os/backend/services/bpf/vmlinux.h:86980:	seqcount_spinlock_t xfrm_state_hash_generation;
+arda_os/backend/services/bpf/vmlinux.h:86981:	seqcount_spinlock_t xfrm_policy_hash_generation;
+arda_os/backend/services/bpf/vmlinux.h:93341:	u64 generation;
+arda_os/backend/services/bpf/vmlinux.h:93494:	unsigned int group_generation;
+arda_os/backend/services/bpf/vmlinux.h:93669:	u64 ino_generation;
+arda_os/backend/services/bpf/vmlinux.h:95990:	u32 generation;
+arda_os/backend/services/bpf/vmlinux.h:95995:	u32 generation;
+arda_os/backend/services/bpf/vmlinux.h:102030:		__u16 sack_generation: 1;
+arda_os/backend/services/bpf/vmlinux.h:102633:	__u32 sack_generation: 1;
+arda_os/backend/services/bpf/vmlinux.h:120584:	u64 generation;
+arda_os/backend/services/bpf/vmlinux.h:120832:	u32 (*generation)(struct virtio_device *);
+arda_os/backend/services/bpf/vmlinux.h:120988:	__u8 config_generation;
+arda_os/backend/services/bpf/vmlinux.h:123959:	unsigned int generation_id;
+arda_os/backend/services/bpf/include/vmlinux.h:8661:	OID_generationalQualifier = 59,
+arda_os/backend/services/bpf/include/vmlinux.h:35518:	long unsigned int p2m_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:36793:	long unsigned int generation;
+arda_os/backend/services/bpf/include/vmlinux.h:36800:	long unsigned int generation;
+arda_os/backend/services/bpf/include/vmlinux.h:36807:	long unsigned int generation;
+arda_os/backend/services/bpf/include/vmlinux.h:36814:	long unsigned int generation;
+arda_os/backend/services/bpf/include/vmlinux.h:36901:	u32 i_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:52061:	long unsigned int generation;
+arda_os/backend/services/bpf/include/vmlinux.h:62335:			u32 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:62337:			u32 parent_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:65211:	uint64_t generation;
+arda_os/backend/services/bpf/include/vmlinux.h:65458:	u32 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:67015:	u64 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:67025:	u64 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:67808:	__u32 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:79387:	u64 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:79562:	u64 cur_tsc_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:80498:	u64 this_tsc_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:83159:	atomic_t generation;
+arda_os/backend/services/bpf/include/vmlinux.h:83193:	int generation;
+arda_os/backend/services/bpf/include/vmlinux.h:86980:	seqcount_spinlock_t xfrm_state_hash_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:86981:	seqcount_spinlock_t xfrm_policy_hash_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:93341:	u64 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:93494:	unsigned int group_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:93669:	u64 ino_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:95990:	u32 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:95995:	u32 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:102030:		__u16 sack_generation: 1;
+arda_os/backend/services/bpf/include/vmlinux.h:102633:	__u32 sack_generation: 1;
+arda_os/backend/services/bpf/include/vmlinux.h:120584:	u64 generation;
+arda_os/backend/services/bpf/include/vmlinux.h:120832:	u32 (*generation)(struct virtio_device *);
+arda_os/backend/services/bpf/include/vmlinux.h:120988:	__u8 config_generation;
+arda_os/backend/services/bpf/include/vmlinux.h:123959:	unsigned int generation_id;
+arda_os/backend/services/bpf/arda_lsm_loader.c:48:    __u64 generation_hash_prefix;
+arda_os/backend/services/bpf/arda_lsm_loader.c:55:    __u64 active_generation;
+arda_os/backend/services/bpf/arda_lsm_loader.c:67:    { "arda_active_generation_map", "active_generation_map" },
+arda_os/backend/services/bpf/proof_host_lsm.c:29:    __u64 generation;
+arda_os/backend/services/bpf/proof_host_lsm.c:37:    __u64 generation;
+arda_os/backend/services/bpf/proof_host_lsm.c:43:    __u64 generation_hash_prefix;
+arda_os/backend/services/bpf/proof_host_lsm.c:50:    __u64 active_generation;
+arda_os/backend/services/bpf/proof_host_lsm.c:90:} arda_active_generation_map SEC(".maps");
+arda_os/backend/services/bpf/proof_host_lsm.c:159:            // One host generation applies inside the hook to every cgroup,
+arda_os/backend/services/bpf/proof_host_lsm.c:170:            if (ancestor != policy_state->generation_hash_prefix) return 0;
+arda_os/backend/services/bpf/proof_host_lsm.c:173:        __u64 *active_generation = bpf_map_lookup_elem(&arda_active_generation_map, &policy_namespace);
+arda_os/backend/services/bpf/proof_host_lsm.c:176:        if (*state == ARDA_MODE_SCOPED_STRICT && !active_generation)
+arda_os/backend/services/bpf/proof_host_lsm.c:179:        if (!active_generation) {
+arda_os/backend/services/bpf/proof_host_lsm.c:183:        if (*active_generation == 0) {
+arda_os/backend/services/bpf/proof_host_lsm.c:190:        measured_key.generation = *active_generation;
+arda_os/backend/services/bpf/proof_host_lsm.c:218:        deny_event.active_generation = 0;
+arda_os/backend/services/bpf/proof_host_lsm.c:222:            __u64 *active_generation = bpf_map_lookup_elem(&arda_active_generation_map, &policy_namespace);
+arda_os/backend/services/bpf/proof_host_lsm.c:223:            if (active_generation) {
+arda_os/backend/services/bpf/proof_host_lsm.c:224:                deny_event.active_generation = *active_generation;
+arda_os/backend/services/bpf/proof_digest_lsm.c:44:    __u64 generation;
+arda_os/backend/services/bpf/proof_digest_lsm.c:52:    __u64 generation;
+arda_os/backend/services/bpf/proof_digest_lsm.c:58:    __u64 generation_hash_prefix;
+arda_os/backend/services/bpf/proof_digest_lsm.c:65:    __u64 active_generation;
+arda_os/backend/services/bpf/proof_digest_lsm.c:105:} arda_active_generation_map SEC(".maps");
+arda_os/backend/services/bpf/proof_digest_lsm.c:174:            // One host generation applies inside the hook to every cgroup,
+arda_os/backend/services/bpf/proof_digest_lsm.c:185:            if (ancestor != policy_state->generation_hash_prefix) return 0;
+arda_os/backend/services/bpf/proof_digest_lsm.c:188:        __u64 *active_generation = bpf_map_lookup_elem(&arda_active_generation_map, &policy_namespace);
+arda_os/backend/services/bpf/proof_digest_lsm.c:191:        if (*state == ARDA_MODE_SCOPED_STRICT && !active_generation)
+arda_os/backend/services/bpf/proof_digest_lsm.c:194:        if (!active_generation) {
+arda_os/backend/services/bpf/proof_digest_lsm.c:198:        if (*active_generation == 0) {
+arda_os/backend/services/bpf/proof_digest_lsm.c:205:        measured_key.generation = *active_generation;
+arda_os/backend/services/bpf/proof_digest_lsm.c:229:            digest_key.generation = *active_generation;
+arda_os/backend/services/bpf/proof_digest_lsm.c:259:        deny_event.active_generation = 0;
+arda_os/backend/services/bpf/proof_digest_lsm.c:263:            __u64 *active_generation = bpf_map_lookup_elem(&arda_active_generation_map, &policy_namespace);
+arda_os/backend/services/bpf/proof_digest_lsm.c:264:            if (active_generation) {
+arda_os/backend/services/bpf/proof_digest_lsm.c:265:                deny_event.active_generation = *active_generation;
+arda_os/backend/services/phase4_live_attestation.py:157:        generation_db = os.environ.get(
+arda_os/backend/services/phase4_live_attestation.py:159:            "/var/lib/arda/projection/arda_measured_generation.sqlite3",
+arda_os/backend/services/phase4_live_attestation.py:161:        store = MeasuredProjectionGenerationStore(generation_db)
+arda_os/backend/services/phase4_live_attestation.py:171:                "reason": "no_active_measured_generation",
+arda_os/backend/services/phase4_live_attestation.py:172:                "generation_db": generation_db,
+arda_os/backend/services/phase4_live_attestation.py:175:        active_record = max(active_records, key=lambda record: int(record.get("generation") or 0))
+arda_os/backend/services/phase4_live_attestation.py:177:        manifest_digest = str(active_record.get("manifest_digest") or "").strip().lower()
+arda_os/backend/services/phase4_live_attestation.py:178:        policy_generation = str(payload.get("policy_generation") or "").strip()
+arda_os/backend/services/phase4_live_attestation.py:179:        if not manifest_digest.startswith("sha256:") or len(manifest_digest.split(":", 1)[1]) != 64:
+arda_os/backend/services/phase4_live_attestation.py:183:                "reason": "active_manifest_digest_invalid",
+arda_os/backend/services/phase4_live_attestation.py:184:                "generation_db": generation_db,
+arda_os/backend/services/phase4_live_attestation.py:187:        if not policy_generation:
+arda_os/backend/services/phase4_live_attestation.py:191:                "reason": "active_policy_generation_missing",
+arda_os/backend/services/phase4_live_attestation.py:192:                "generation_db": generation_db,
+arda_os/backend/services/phase4_live_attestation.py:196:        manifest_digest_value = manifest_digest.split(":", 1)[1]
+arda_os/backend/services/phase4_live_attestation.py:197:        policy_generation_digest = hashlib.sha256(policy_generation.encode("utf-8")).hexdigest()
+arda_os/backend/services/phase4_live_attestation.py:201:            "generation_db": generation_db,
+arda_os/backend/services/phase4_live_attestation.py:204:            "generation": active_record.get("generation"),
+arda_os/backend/services/phase4_live_attestation.py:206:            "manifest_digest": manifest_digest,
+arda_os/backend/services/phase4_live_attestation.py:207:            "policy_generation": policy_generation,
+arda_os/backend/services/phase4_live_attestation.py:208:            "policy_generation_digest": policy_generation_digest,
+arda_os/backend/services/phase4_live_attestation.py:211:                    "label": "manifest_digest",
+arda_os/backend/services/phase4_live_attestation.py:214:                    "digest": manifest_digest_value,
+arda_os/backend/services/phase4_live_attestation.py:217:                    "label": "policy_generation",
+arda_os/backend/services/phase4_live_attestation.py:220:                    "digest": policy_generation_digest,
+arda_os/backend/services/phase4_live_attestation.py:252:            and previous_state.get("manifest_digest") == binding.get("manifest_digest")
+arda_os/backend/services/phase4_live_attestation.py:253:            and previous_state.get("policy_generation") == binding.get("policy_generation")
+arda_os/backend/services/phase4_live_attestation.py:308:                    "manifest_digest": binding.get("manifest_digest"),
+arda_os/backend/services/phase4_live_attestation.py:309:                    "policy_generation": binding.get("policy_generation"),
+arda_os/backend/services/proof_host_persistent_owner.c:70:    int generations=bpf_object__find_map_fd_by_name(obj,"arda_active_generation_map");
+arda_os/backend/services/proof_host_persistent_owner.c:72:    if(inode_map<0||digest_map<0||generations<0||state<0) goto done;
+arda_os/backend/services/proof_host_persistent_owner.c:85:        struct {uint64_t ns,generation,inode;uint32_t dev;} identity={0};
+arda_os/backend/services/proof_host_persistent_owner.c:86:        struct {uint64_t ns,generation;uint16_t algorithm,size;unsigned char digest[64];} digest={0};
+arda_os/backend/services/proof_host_persistent_owner.c:88:        identity.generation=1;identity.inode=st.st_ino;identity.dev=(major(st.st_dev)<<20)|minor(st.st_dev);
+arda_os/backend/services/proof_host_persistent_owner.c:89:        digest.generation=1;digest.algorithm=algorithm;digest.size=size;memcpy(digest.digest,expected,size);
+arda_os/backend/services/proof_host_persistent_owner.c:99:    uint64_t global=0,generation=1;uint32_t key=0,mode=4;
+arda_os/backend/services/proof_host_persistent_owner.c:100:    if(bpf_map_update_elem(generations,&global,&generation,BPF_NOEXIST)||bpf_map_update_elem(state,&key,&mode,BPF_ANY)) goto done;
+arda_os/backend/services/proof_host_persistent_owner.c:122:        if(bpf_map_lookup_elem(state,&key,&actual)||actual!=4||bpf_map_lookup_elem(generations,&global,&active)||active!=1) goto done;
+arda_os/backend/services/proof_host.py:16:    # The reviewed digest prototype now includes a global generation namespace
+arda_os/backend/services/arda_launcher (copy 1).py:121:            manifest_digest = manifest.get(command_name)
+arda_os/backend/services/arda_launcher (copy 1).py:124:            if not manifest_digest:
+arda_os/backend/services/arda_launcher (copy 1).py:128:            if env_digest != manifest_digest:
+arda_os/backend/services/arda_launcher (copy 1).py:129:                 logger.error(f"[ELEMENT: Manifest Veto] [CODE_PATH: arda_launcher.py] [TRANSITION: {env_digest} != {manifest_digest} -> VETO] Law Breach: Envelope digest mismatched against Sovereign Manifest.")
+arda_os/backend/services/arda_launcher (copy 1).py:132:            logger.info(f"[SUBSTRATE] Manifest Verification: {command_name} matches {manifest_digest}. Authenticated.")
+arda_os/backend/services/proof_workspace.py:31:              'manifest': str(path/'manifest.json'), 'generation_db': str(path/'generation.sqlite'),
+arda_os/backend/services/proof_workspace.py:32:              'generation': None, 'artifact': records, 'verifier_url': None,
+arda_os/backend/services/ainur/ainur_council.py:222:                artifact_digest=testimony_hash,
+arda_os/backend/services/ainur/ainur_council.py:227:            logger.error(f"[PHASE VI] Provenance generation failed: {e}")

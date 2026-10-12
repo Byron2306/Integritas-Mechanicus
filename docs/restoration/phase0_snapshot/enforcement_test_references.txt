@@ -1,0 +1,66 @@
+arda_os/backend/tests/test_proof_host_positive.py:44:    def fail(*a,**k):raise OSError('fsverity unavailable')
+arda_os/backend/tests/test_proof_host_kernel_build.py:31:    assert source.exists(),'multi-hook audit loader missing'
+arda_os/backend/tests/test_proof_host_kernel_build.py:42:    assert report['audit_only'] is True
+arda_os/backend/tests/test_proof_host_kernel_build.py:47:def test_mprotect_never_passes_untrusted_vma_file_to_fsverity_kfunc(tmp_path):
+arda_os/backend/tests/test_proof_host_kernel_build.py:55:    assert 'bpf_get_fsverity_digest' not in section
+arda_os/backend/tests/test_proof_host_coverage.py:50:    assert report['files'][0]['fsverity_status']=='unavailable'
+arda_os/backend/tests/test_proof_host_coverage.py:57:    result=api().coverage_summary({'files':[{'fsverity_status':'unavailable'}], 'errors':[]},
+arda_os/backend/tests/test_proof_host_coverage.py:86:       {'path':'/usr/bin/python3.13','kind':'elf','content_sha256':'a'*64,'fsverity_status':'unavailable'},
+arda_os/backend/tests/test_proof_host_coverage.py:87:       {'path':'/opt/app/main.py','kind':'script','content_sha256':'b'*64,'fsverity_status':'unavailable'},
+arda_os/backend/tests/test_proof_host_coverage.py:88:       {'path':'/usr/bin/true','kind':'elf','content_sha256':'c'*64,'fsverity_status':'unavailable'}]},
+arda_os/backend/tests/test_proof_host_coverage.py:110:    assert report['files'][0]['fsverity_status']=='unavailable'
+arda_os/backend/tests/test_proof_host_candidate_audit.py:5:def api(): return importlib.import_module('backend.services.proof_host_candidate_audit')
+arda_os/backend/tests/test_proof_host_candidate_audit.py:19:    assert result['scope']=='host-hook-audit-acceptance'
+arda_os/backend/tests/test_proof_host_candidate_audit.py:42:    result=mod.run({'owner':{},'object':{}},tmp_path/'audit')
+arda_os/backend/tests/test_proof_host_candidate_audit.py:58:    result=mod.run({'owner':{},'object':{}},tmp_path/'audit')
+arda_os/backend/tests/test_proof_host_candidate_audit.py:82:    result=mod.run({'owner':{},'object':{}},tmp_path/'audit')
+arda_os/backend/tests/test_proof_host_candidate_audit.py:84:    assert (tmp_path/'audit/report.json').exists()
+arda_os/backend/tests/test_proof_host_inventory.py:26:    assert result[0]['fsverity_status']=='unavailable'
+arda_os/backend/tests/test_proof_state_binding.py:16:                cgroup_id=14360, program_id=103, link_id=5, enforcement_mode=3,
+arda_os/backend/tests/test_proof_state_binding.py:55:@pytest.mark.parametrize('change',[{'generation':True},{'scope':'host','enforcement_mode':3},
+arda_os/backend/tests/test_proof_state_binding.py:56:                                   {'scope':'scoped','enforcement_mode':2},{'nonce':'short'}])
+arda_os/backend/tests/test_proof_postboot_live.py:15:    state={'node_id':'debian','boot_id':'boot','generation':8,'manifest_digest':'sha256:'+'a'*64,'policy_digest':'sha256:'+'b'*64,'artifact_digest':'sha256:'+'c'*64,'scope':'scoped','cgroup_id':10,'program_id':20,'link_id':30,'enforcement_mode':3,'session_id':'session','nonce':'d'*64}
+arda_os/backend/tests/test_proof_offbox.py:136:        'cgroup_id':123,'program_id':100,'link_id':10,'enforcement_mode':3,
+arda_os/backend/tests/test_proof_offbox.py:247:    session=SimpleNamespace(kernel_digest=True,enforcement_mode=3,revalidate=revalidate,
+arda_os/backend/tests/test_proof_inspection.py:39:        db.execute('CREATE TABLE arda_measured_staging(manifest_id TEXT,generation INTEGER,enforcement_mode TEXT,state TEXT)')
+arda_os/backend/tests/test_proof_inspection.py:40:        db.execute("INSERT INTO arda_measured_staging VALUES('m1',7,'fsverity_strict','active')")
+arda_os/backend/tests/test_proof_inspection.py:62:        db.execute('CREATE TABLE arda_measured_staging(manifest_id TEXT,generation INTEGER,enforcement_mode TEXT,state TEXT)')
+arda_os/backend/tests/gauntlets/e2e_chorus_gauntlet.py:41:        self.boot_truth_audit = MockCollection()
+arda_os/backend/tests/gauntlets/e2e_chorus_gauntlet.py:48:        self.governance_epoch_audit = MockCollection()
+arda_os/backend/tests/gauntlets/e2e_constitutional_gauntlet.py:18:        record_constitutional_audit=lambda *args, **kwargs: None
+arda_os/backend/tests/gauntlets/e2e_constitutional_gauntlet.py:268:    async def mock_audit_async(*args, **kwargs): return None
+arda_os/backend/tests/gauntlets/e2e_constitutional_gauntlet.py:269:    executor._record_execution_audit = mock_audit_async
+arda_os/backend/tests/gauntlets/e2e_constitutional_gauntlet.py:270:    executor._emit_execution_completion_event = mock_audit_async
+arda_os/backend/tests/gauntlets/e2e_constitutional_gauntlet.py:271:    executor.finalize_harmonic_state = mock_audit_async
+arda_os/backend/tests/gauntlets/e2e_constitutional_gauntlet.py:272:    executor.finalize_chorus_state = mock_audit_async
+arda_os/backend/tests/gauntlets/e2e_patent_validation_stress_test.py:10:# Project root assumed to be in sys.path via run_sovereign_audit.py
+arda_os/backend/tests/gauntlets/e2e_threat_pipeline_test.py:868:        # Timeline and audit availability
+arda_os/backend/tests/gauntlets/e2e_threat_pipeline_test.py:879:        audit_resp = self._request(
+arda_os/backend/tests/gauntlets/e2e_threat_pipeline_test.py:880:            "audit_recent",
+arda_os/backend/tests/gauntlets/e2e_threat_pipeline_test.py:882:            "/audit/recent?limit=25",
+arda_os/backend/tests/gauntlets/e2e_threat_pipeline_test.py:887:            audit_data = audit_resp.json()
+arda_os/backend/tests/gauntlets/e2e_threat_pipeline_test.py:888:            self.artifacts["audit_recent_count"] = len(audit_data) if isinstance(audit_data, list) else 0
+arda_os/backend/tests/gauntlets/e2e_threat_pipeline_test.py:890:            self.artifacts["audit_recent_count"] = 0
+arda_os/backend/tests/gauntlets/e2e_formation_gauntlet.py:46:        self.boot_truth_audit = MockCollection()
+arda_os/backend/tests/gauntlets/e2e_formation_gauntlet.py:53:        self.governance_epoch_audit = MockCollection()
+arda_os/backend/tests/gauntlets/test_secret_fire_gauntlet.py:10:# Project root assumed to be in sys.path via run_sovereign_audit.py
+arda_os/backend/tests/gauntlets/test_secret_fire_gauntlet.py:141:        # In the real audit, the 'missing fire' test usually means 'what happens when truth is withheld'.
+arda_os/backend/tests/gauntlets/test_tulkas_enforcement.py:6:# Project root assumed to be in sys.path via run_sovereign_audit.py
+arda_os/backend/tests/test_governance_token_enforcement.py:122:    token_broker.token_admin_audit_log.clear()
+arda_os/backend/tests/test_governance_token_enforcement.py:123:    tamper_evident_telemetry.audit_chain.clear()
+arda_os/backend/tests/test_governance_token_enforcement.py:125:    tamper_evident_telemetry.current_audit_hash = tamper_evident_telemetry.genesis_audit_hash
+arda_os/backend/tests/test_governance_token_enforcement.py:131:    token_broker.token_admin_audit_log.clear()
+arda_os/backend/tests/test_governance_token_enforcement.py:132:    tamper_evident_telemetry.audit_chain.clear()
+arda_os/backend/tests/test_governance_token_enforcement.py:134:    tamper_evident_telemetry.current_audit_hash = tamper_evident_telemetry.genesis_audit_hash
+arda_os/backend/tests/test_governance_token_enforcement.py:220:    assert len(tamper_evident_telemetry.audit_chain) >= 1
+arda_os/backend/tests/test_governance_token_enforcement.py:221:    latest_audit = tamper_evident_telemetry.audit_chain[-1]
+arda_os/backend/tests/test_governance_token_enforcement.py:222:    assert latest_audit.governance_decision_id == "decision-issue"
+arda_os/backend/tests/test_governance_token_enforcement.py:223:    assert latest_audit.governance_queue_id == "queue-issue"
+arda_os/backend/tests/test_governance_token_enforcement.py:224:    assert latest_audit.execution_id == token_id
+arda_os/backend/tests/test_governance_token_enforcement.py:278:    latest_audit = tamper_evident_telemetry.audit_chain[-1]
+arda_os/backend/tests/test_governance_token_enforcement.py:279:    assert latest_audit.governance_decision_id == "decision-revoke"
+arda_os/backend/tests/test_governance_token_enforcement.py:280:    assert latest_audit.governance_queue_id == "queue-revoke"
+arda_os/backend/tests/test_governance_token_enforcement.py:281:    assert latest_audit.execution_id == issued.token_id
+arda_os/backend/tests/test_proof_file_measurement.py:36:        result=subprocess.run(['fsverity','enable',str(path)],capture_output=True,text=True)
+arda_os/backend/tests/test_proof_file_measurement.py:40:            output=subprocess.check_output(['fsverity','measure',str(path)],text=True)
+arda_os/backend/tests/test_proof_manifests.py:80:        result=subprocess.run(['fsverity','enable',str(path)],capture_output=True,text=True)

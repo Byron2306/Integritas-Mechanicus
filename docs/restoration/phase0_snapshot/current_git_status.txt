@@ -1,0 +1,70 @@
+ M arda_os/backend/services/bpf/arda_lsm_loader.c
+ M arda_os/backend/services/bpf/arda_physical_lsm.c
+ A arda_os/backend/services/bpf/proof_digest_lsm.c
+ A arda_os/backend/services/bpf/proof_host_lsm.c
+ M arda_os/backend/services/os_enforcement_service.py
+ A arda_os/backend/services/proof_attestation.py
+ A arda_os/backend/services/proof_boot.py
+ A arda_os/backend/services/proof_bound_quote.py
+ A arda_os/backend/services/proof_bpf_loader.c
+ A arda_os/backend/services/proof_cgroups.py
+ A arda_os/backend/services/proof_challenges.py
+ A arda_os/backend/services/proof_cli.py
+ A arda_os/backend/services/proof_combined.py
+ A arda_os/backend/services/proof_config.py
+ A arda_os/backend/services/proof_enforcement.py
+ A arda_os/backend/services/proof_file_measurement.py
+ A arda_os/backend/services/proof_host.py
+ A arda_os/backend/services/proof_host_inventory.py
+ A arda_os/backend/services/proof_inheritance.py
+ A arda_os/backend/services/proof_inspection.py
+ A arda_os/backend/services/proof_kernel_digest.py
+ A arda_os/backend/services/proof_local_verdict.py
+ A arda_os/backend/services/proof_manifests.py
+ A arda_os/backend/services/proof_recovery.py
+ A arda_os/backend/services/proof_replay.py
+ A arda_os/backend/services/proof_report.py
+ A arda_os/backend/services/proof_resources.py
+ A arda_os/backend/services/proof_state_binding.py
+ A arda_os/backend/services/proof_verdicts.py
+ A arda_os/backend/services/proof_workspace.py
+ A arda_os/backend/tests/test_proof_attestation.py
+ A arda_os/backend/tests/test_proof_boot.py
+ A arda_os/backend/tests/test_proof_bound_quote.py
+ A arda_os/backend/tests/test_proof_cgroups.py
+ A arda_os/backend/tests/test_proof_challenges.py
+ A arda_os/backend/tests/test_proof_cli.py
+ A arda_os/backend/tests/test_proof_combined.py
+ A arda_os/backend/tests/test_proof_enforcement.py
+ A arda_os/backend/tests/test_proof_file_measurement.py
+ A arda_os/backend/tests/test_proof_host.py
+ A arda_os/backend/tests/test_proof_host_inventory.py
+ A arda_os/backend/tests/test_proof_inheritance.py
+ A arda_os/backend/tests/test_proof_inspection.py
+ A arda_os/backend/tests/test_proof_kernel_digest.py
+ A arda_os/backend/tests/test_proof_local_verdict.py
+ A arda_os/backend/tests/test_proof_manifests.py
+ A arda_os/backend/tests/test_proof_recovery.py
+ A arda_os/backend/tests/test_proof_state_binding.py
+ A arda_os/backend/tests/test_proof_verdicts.py
+ A arda_os/backend/tests/test_proof_workspace.py
+ A arda_os/bin/arda
+ A arda_os/bin/build_arda_proof_bpf.sh
+ A arda_os/requirements-proof.txt
+?? .superpowers/
+?? arda_sovereign_proof_v4.1_20260401/
+?? docs/ARDA_ORIGINAL_TRUST_CHAIN_RECONCILIATION_2026-10-10.md
+?? docs/ARDA_PQ_SIMULATION_PROBE_2026-10-10.json
+?? docs/VALINOR_6.12.111_PROOF_RECOVERY.md
+?? docs/VALINOR_CONTROLLED_REBOOT_2026-10-10.md
+?? docs/VALINOR_KERNEL_INITRD_CHAIN_DESIGN_2026-10-10.md
+?? docs/VALINOR_LAPTOP_ENROLLMENT_2026-10-10.md
+?? docs/VALINOR_LOCAL_TRUST_APPRAISAL_2026-10-10.md
+?? docs/VALINOR_OFFBOX_SCOPED_PROOF_2026-10-10.md
+?? docs/VALINOR_POSTBOOT_RESULT_2026-10-10.md
+?? docs/VALINOR_PROOF_IMPLEMENTATION_STATUS_2026-10-09.md
+?? docs/VALINOR_REMOTE_TRUST_RECOVERY_2026-10-10.md
+?? docs/VALINOR_WHOLE_HOST_ENROLLMENT_2026-10-10.md
+?? docs/restoration/
+?? docs/superpowers/plans/2026-10-10-ainulindale-covenant.md
+?? docs/superpowers/specs/2026-10-10-ainulindale-covenant-design.md

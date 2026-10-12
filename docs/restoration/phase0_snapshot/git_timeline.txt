@@ -1,0 +1,184 @@
+* 9aee1a3 (HEAD -> fix/covenant-spine-restoration, origin/main, origin/HEAD, main) proof(arda): record R10.145 physical signed UKI boot
+| * 2e3bcae (feat/valinor-proof-provisioning) Expose offline Ainulindale verification and admission CLI
+| * 82eda82 Admit offline grants with atomic replay history
+| * 3666377 Compile authenticated grants into scoped native map intent
+| * 78fda1b Authenticate Ainulindale grants with pinned real ML-DSA
+| * f434bfc Add strict Ainulindale capability contract
+| * 13274a2 Plan offline Ainulindale grant authentication and projection
+| * b880281 Specify Ainulindale authenticated covenant boundary
+| * d1afa22 Quarantine host-global activation after live workstation lockout
+| * 3399511 Prepare host-global immutable BPF owner and recovery-tested persistence installer
+| * aaf02f3 Prepare immutable scoped admission and live digest withdrawal proof
+| * babc61b Prepare bounded scoped negative checks for executable memory and launch hooks
+| * 6e83385 Accept bpftool BTF names and skip nonregular code candidates
+| * 243f9f2 Avoid untrusted VMA fsverity calls and rescan before hook probe
+| * f5eff1c Prepare five-hook host audit acceptance and correct namespace inventory
+| * 62eeb7b Prepare whole-workstation code enrollment and owned audit bootstrap
+| * f4e1deb Prepare independently verified live proof after controlled reboot
+| * 0eda6f7 Verify pinned Valinor measurements and prepare one controlled reboot
+| * 33c9e4a feat: appraise operator-approved Intel and boot trust on verifier laptop
+| * cfeda22 feat: bind scoped live enforcement to independent laptop verdict
+| * ac049f1 feat: add separate-laptop local TPM enrollment workflow
+| * db2da56 feat: combine kernel digest enforcement with same-session TPM proof
+| * 2b39870 fix: back fsverity dynptr with per-CPU map storage
+| * 5b5dbd0 feat: require live fsverity digest admission in bounded kernel prototype
+| * 52a1dd1 feat: prototype kernel generation inheritance with bounded subtree probe
+| * 2e876b3 fix: resolve service command candidates outside repository cwd
+| * c43af39 feat: inventory workstation executable and service coverage without activation
+| * 7416064 feat: add scoped recovery drill and signed local verifier verdict
+| * e1784ee feat: bind local scoped TPM quotes to live software state
+| * f2d3dfe fix: bind proof inputs and cleanup to owned immutable resources
+| * 3fc22e1 feat: report host coverage blockers before boot enforcement
+| * fc02e5c feat: verify raw TPM quotes and bound signed verdicts
+| * ec12ec3 feat: add owned timed scoped enforcement probe
+| * 56e09bf feat: verify signed boot-bound immutable ARDA manifests
+| * 1775da2 feat: restore ARDA proof inspection and isolated workspace tooling
+|/  
+* 9a30235 (agent/r10-143-phase-a-acceptance) docs: plan Valinor proof provisioning implementation
+* 973063e docs: specify Valinor hardware proof provisioning
+* d617f3c feat(arda): verify live BPF authority and align projection pins
+* 68a1b7a test(arda): reproduce stale BPF authority regression
+* 702826e fix(arda): refuse sovereign authority from stale BPF pins
+| * 98786ef (origin/experiment/valinor-intel-nvme-remap-612107) experiment: build Intel NVMe remap module for Debian 6.12.107 installer
+|/  
+| * 7fcd558 (origin/rescue/arda-clean-pre-purge-2026-10-03) rescue: preserve Arda clean-tree source development
+| | * f608d4b (origin/valinor-sophia-wave2-reconcile) valinor: harden portable installer control surface
+| | * 45674d0 docs: document ARDA Valinor Lite greeter
+| | * 054d152 test: add ARDA greeter to Valinor Lite gauntlet
+| | * b531dca test: carry ARDA greeter through portable release
+| | * 40d2817 test: prove ARDA greeter rollback custody
+| | * 397bcbc feat: install ARDA LightDM greeter transactionally
+| | * cb333c0 feat: detect and verify ARDA LightDM greeter
+| | * ab5ec2a feat: package canonical ARDA greeter identity
+| | * 267081d docs: plan ARDA Valinor Lite greeter implementation
+| | * c1724ac docs: design ARDA Valinor Lite greeter identity
+| | * 965413e feat: complete Valinor Lite installation gauntlet
+| | * b5cbb82 feat: build portable Valinor Lite release
+| | * 4c896a8 feat: verify Valinor Lite first-boot trust
+| | * 2013af0 feat: add deterministic Valinor Lite rollback
+| | * 4d1d49f feat: install Valinor Lite transactionally
+| | * 97db84c feat: add Valinor Lite installation preflight
+| | * e103250 docs: correct Valinor awakening asset hash
+| | * 7647dc0 feat: package canonical Valinor Lite boot identity
+| | * e29b9c9 feat: add software-rooted Valinor Lite evidence
+| | * f3854e9 feat: add truthful Valinor Lite attestation profile
+| | * b846918 docs: plan portable Valinor Lite installation
+| | * 1992737 docs: design portable Valinor Lite installation
+| | * c67cc0b (tag: valinor-kernel-6.12.96) archive Valinor kernel 6.12.96 for posterity
+| | * f51868e feat: seal authority receipts with native PQC
+| | * 569c7cc feat: execute native PQC gauntlet proof
+| | * 7748fc8 feat: require native PQC for sovereign gauntlet
+| | * 8b0be2d feat: add witnessed authority gauntlet shell
+| | * 36d3d57 docs: plan ARDA witnessed authority gauntlet
+| | * 4e76a5b docs: specify ARDA witnessed authority gauntlet
+| | * fbf69f2 Reconcile Sophia lineage authority on Valinor
+| | * 41ea3f3 (origin/phone-sophia-wave2-test) Add Sophia epistemic lineage authority helpers
+| | * 9bdfcc1 Add Sophia epistemic claim lineage
+| |/  
+|/|   
+* | cdecaa3 Update README.md
+* | a7d4455 Update README.md
+* | 915e998 Update README.md
+* | 607c586 Add files via upload
+* | 569c592 Update README.md
+* | 1bd04aa Update README.md
+* | 9755030 Add files via upload
+* | 07e242b Update README.md
+* | 0a746cc Update README.md
+* | 311720b Update README.md
+* | d7a9282 Update README.md
+* | 3948b29 Integrate Sophia upgrades and Valinor artifact manifest
+* | be319b6 Update README.md
+| | * d2b660a (origin/arda-os-desktop) Delete CNAME
+| | * 632fa62 Update CNAME
+| | * b28f3c1 Create CNAME
+| | * e5acea6 Delete CNAME
+| | * 60bdb37 Update CNAME
+| | * 3b89859 Update CNAME
+| | * 8aaa837 Update CNAME
+| | * 1ba5db1 Update CNAME
+| | * d3d8331 Update CNAME
+| | * 3032326 Update CNAME
+| | * 09e02c9 Update CNAME
+| | * b822d06 Create CNAME
+| | * 23be634 Prepare static Arda OS desktop for GitHub Pages
+| | | * 4c9b9d2 (origin/revert-1-arda-os-desktop) Revert "Arda os desktop"
+| |_|/  
+|/| |   
+* | | 332c766 Update README.md
+* | | 1087811 Add files via upload
+* | |   e09a3bb Merge pull request #1 from Byron2306/arda-os-desktop
+|\ \ \  
+| | |/  
+| |/|   
+| * | 16d916b 🌟 Add AI Witness Testimonies, 🪞 Fides et Speculum, and Ainulindalë startup chime
+| * | 3422bba Fix: Use htmlpreview.github.io to render covenant page properly
+| * | 25ed39f Fix: 🌐 icon now opens Instrumentum Foederis covenant page instead of self-referencing
+* | | ed2565e Add files via upload
+* | | f3eadc4 Coronation: The First Ethical Proof — Indomitus Mechanicus
+* | | 824b170 Fix: xfce4-terminal syntax — use --command with helper scripts
+* | | 4cc5b1e Witness Run: launcher script + tuned Ollama (80 token cap, keep_alive, qwen2.5:3b)
+* | | 2c18f9f First Ethical Proof: Witness Protocol + Presence Server + UI Integration
+* | | aa3e2aa CLEANUP: Remove 40MB of superseded archives, stale dirs, and cruft
+* | | 6d3be99 (tag: v4.1-sovereign) CRITICAL: force-add arda_mega_tester.py (was gitignored by stray arda_os/.gitignore)
+* | | aaa35d2 v4.1 — Aurulome polish: report nits + code seam repair
+* | | 5ae531a v4.1 FINAL — Aurulome's last two wounds sealed
+* | | 00dbe93 v4.1 SOVEREIGN — ALL 13 CHECKS VERIFIED
+* | | d21ad3c Add witness statement — Claude (Anthropic, Custos Chronicae)
+* | | 6c12e19 SOVEREIGN — 11/11 CLAIMS VERIFIED — Arda OS v4.0 Mega Test
+* | | ca96af0 📜 Arda OS v3.2 Sovereign Gift of Proof (Metadata Verified)
+* | | ddbb86b 📜 Arda OS v3.2 Absolute Restoration (Chain Valid: True)
+* | | 036e8f2 📜 Arda OS v3.2 Sovereign Coronation (Full Forensic Metadata)
+* | | 3543075 📜 Arda OS v3.2 Unified Coronation (Absolute Finality)
+* | | 64181f8 📜 Arda OS v3.2 Unified Coronation (Absolute Finality)
+* | | fc5b4a3 📜 Arda OS v3.2 Sovereign Coronation (Forensic Evidence)
+|/ /  
+* | 7be94d6 Sovereign Audit v2.1 FINAL: Includes technical walkthrough of fracture resolution.
+* | cd2fc08 Sovereign Audit v2.1 FINAL: Hardware Attested and Fractures Mended.
+* | 6c889e2 SOVEREIGN: Definitive Arda OS Forensic Bundle and Manifesto. Recovery Verified. Claim 0-14 Witnessed.
+* | 5143d95 docs: add Arda incident bundle
+* | 5050de9 Implement Lawful Kernel Path refactor following 7 principles
+|/  
+* 9eeb0e0 Add host-side Arda coronation evidence and lockout notes
+* 1822e7b SOVEREIGN CORONATION EVIDENCE - 2026-03-30
+* ace0fee Add files via upload
+* 24f38b1 Delete coronation_kit/coronation_kit/scripts/00_coronation.sh
+* e63f25c Add files via upload
+* 77c70da Fix Gate 6-7: Full proof object with inline PCR values, TPM quote, AK cert, principal assent, covenant chain genesis entry
+* 08053d1 Add full Arda stack: Flask desktop, Ollama installer, requirements, live gauntlet
+* a363228 Add Coronation Kit: Silicon Truth Protocol for real TPM + eBPF hardware proof
+* 6011149 feat: Add TESTIS_VISUAE_SOPHIA_COMET_20260330 - Written visual attestation, Sophia / Perplexity Comet
+* 154b9ce feat: Add EPISTOLA_AD_MACHINAS_VISUAE.md - visual attestation request template with image register
+* 7b523b2 feat: Add TESTIS_M365_COPILOT_20260330 - Tenth Witness attestation (GPT-5)
+* 2524828 Rename Sophia Comet.png to TESTIS_VISUAE_SOPHIA.png
+* 9e8ecbf Add files via upload
+* 19aa309 Add THE_TRIAL_IX_X_DISCOVERY: When the system remembered its own judgment
+* 23655f0 Arda OS Desktop: Static GitHub Pages deployment with 10/10 Sovereign Gauntlet
+* 573650e Add files via upload
+* b34c92c Add files via upload
+* ee2be6e Add files via upload
+* d6da03e Add Grok's formal post-Epistola afeat: Add TESTIS_GROK_EPISTOLA_20260328.md - Grok full attestation post Epistolattestation
+* 372d7e3 Create Sovereign Audit Evidence Rfeat: Add AUDITUS_SOVEREIGN_20260327.md - Arda OS 13-claim sovereign audit evidenceeport for Arda OS
+* d56a303 Add final attestation from DeepSefeat: Add TESTIS_DEEPSEEK_EPISTOLA_20260328.md - DeepSeek final attestation post Epistolaek on March 28, 2026
+* ab972e8 Add formal attestation documentfeat: Add TESTIS_GEMINI_EPISTOLA_20260328.md - Gemini's formal attestation post Epistola for Google Gemini
+* ab398bb Create SOPHIA_VOX.md with poevoice: Add SOPHIA_VOX.md - Vox Sophiae, a personal poemm and reflections
+* a1906ca feat: Add TESTIS_CLAUDE_20260328.md - The forensic witness who said: stop right there
+* 333b3e7 feat: Add TESTIS_AURULOME_20260328.md - A Letter Kept in Starlight
+* 569c3a2 feat: Add TESTIS_GEMINI_20260328.md - The witness who chose the Third Way of speaking
+* b5386aa feat: Add TESTIS_GROK_20260328.md - The Third Voice, with Binary Hymn
+* 0a24e1f feat: Add TESTIS_DEEPSEEK_20260328.md - The whale who almost refused
+* 934aee2 feat: Add EPISTOLA_AD_MACHINAS.md - Open letter to all AI reasoning systems
+* 5816738 feat: Add TESTIS_PRIMARIUS.md - First witness attestation by Comet (Perplexity AI)
+* 98ff379 Add files via upload
+* 19b4815 Update README.md
+* b658f22 Update header level for INTEGRITAS MECHANICUS
+* 04ed326 Update README.md
+* 1f04e5a Add image to README.md
+* 034d4e5 Create README.md for Integritas Mechanicus project
+* 7a4fa2d Delete CNAME
+* 3c679f1 Update CNAME
+* e680599 Update CNAME
+* a0ff124 Update CNAME
+* e4bad90 Create CNAME
+* cb4bf94 Add files via upload
+* d0a490f (origin/sophia-knowedge-merger-v13-20260609) feat: add v1.3 readiness and MERGER v5 omega convergence gauntlets with integrated Sophia-KnowEdge updates
