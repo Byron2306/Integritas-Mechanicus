@@ -397,7 +397,7 @@ class Phase4LiveAttestationService:
         public_pem = os.path.join(evidence_dir, "03_ak_public.pem")
         public_text = os.path.join(evidence_dir, "03_ak_public.txt")
         self._run(self._tpm2_command("readpublic", "-c", ak_ctx, "-o", public_pem), stdout_path=public_text)
-        ek_certificate = self._capture_ek_certificate(evidence_dir)
+        ek_certificate = self._capture_ek_certificate(evidence_dir, primary_ctx)
         ak_certification = self._certify_ak_creation(
             primary_ctx=primary_ctx,
             ak_ctx=ak_ctx,
@@ -668,35 +668,294 @@ class Phase4LiveAttestationService:
                 return f"raw: {value}"
         return self.TPM_MANUFACTURER_MAP.get(value, value)
 
-    def _capture_ek_certificate(self, evidence_dir: str) -> Dict[str, Any]:
+    def _capture_ek_certificate(
+        self,
+        evidence_dir: str,
+        primary_ctx: str,
+    ) -> Dict[str, Any]:
+        """Capture and verify manufacturer EK certificate evidence."""
+
         candidates = (
             "0x01c00002",
             "0x01c0000a",
             "0x01c00012",
         )
+
+        # Standard TCG NV certificate path first.
         for index in candidates:
-            nv_info_path = os.path.join(evidence_dir, f"03_ek_nvreadpublic_{index}.txt")
+            nv_info_path = os.path.join(
+                evidence_dir,
+                f"03_ek_nvreadpublic_{index}.txt",
+            )
             try:
-                self._run(self._tpm2_command("nvreadpublic", index), stdout_path=nv_info_path)
+                self._run(
+                    self._tpm2_command("nvreadpublic", index),
+                    stdout_path=nv_info_path,
+                )
             except Phase4LiveAttestationError:
                 continue
-            certificate_path = os.path.join(evidence_dir, f"03_ek_cert_{index}.bin")
+
+            certificate_path = os.path.join(
+                evidence_dir,
+                f"03_ek_cert_{index}.bin",
+            )
             try:
                 self._capture_binary_nv_index(index, certificate_path)
             except Phase4LiveAttestationError:
                 continue
-            if os.path.exists(certificate_path) and os.path.getsize(certificate_path) > 0:
+
+            if (
+                os.path.exists(certificate_path)
+                and os.path.getsize(certificate_path) > 0
+            ):
                 return {
                     "present": True,
+                    "source": "tpm_nv",
                     "nv_index": index,
                     "certificate_path": certificate_path,
                     "certificate_sha256": self._sha256_file(certificate_path),
                     "nv_info_path": nv_info_path,
                 }
-        return {
-            "present": False,
-            "nv_index": None,
-        }
+
+        # Intel PTT may publish EK certificates through Intel's
+        # manufacturer service rather than TPM NV.
+        manufacturer = self._load_tpm_manufacturer(evidence_dir)
+        manufacturer_l = manufacturer.lower()
+
+        if "intel" not in manufacturer_l and "intc" not in manufacturer_l:
+            return {
+                "present": False,
+                "source": "none",
+                "nv_index": None,
+                "manufacturer": manufacturer,
+            }
+
+        import base64
+        import hashlib
+        import json as _json
+        import subprocess
+        import urllib.parse
+        from pathlib import Path
+
+        raw_response = os.path.join(
+            evidence_dir,
+            "03_intel_ek_certificate_response.json",
+        )
+        certificate_path = os.path.join(
+            evidence_dir,
+            "03_intel_ek_certificate.der",
+        )
+        ek_public_tss = os.path.join(
+            evidence_dir,
+            "03_intel_ek_public.tss",
+        )
+        ek_public_pem = os.path.join(
+            evidence_dir,
+            "03_intel_ek_public.pem",
+        )
+
+        root_pem = "/etc/arda/trust/intel-ek/intel-ek-root.pem"
+        intermediate_pem = (
+            "/etc/arda/trust/intel-ek/intel-ek-intermediate.pem"
+        )
+
+        try:
+            subprocess.run(
+                [
+                    "tpm2_readpublic",
+                    "-c",
+                    primary_ctx,
+                    "-f",
+                    "tss",
+                    "-o",
+                    ek_public_tss,
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+            )
+
+            subprocess.run(
+                [
+                    "tpm2_readpublic",
+                    "-c",
+                    primary_ctx,
+                    "-f",
+                    "pem",
+                    "-o",
+                    ek_public_pem,
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+            )
+
+            subprocess.run(
+                [
+                    "tpm2_getekcertificate",
+                    "--raw",
+                    "-o",
+                    raw_response,
+                    "-u",
+                    ek_public_tss,
+                ],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+
+            response = _json.loads(
+                Path(raw_response).read_text(encoding="utf-8")
+            )
+
+            encoded = urllib.parse.unquote(
+                str(response["certificate"])
+            )
+            encoded += "=" * (-len(encoded) % 4)
+
+            certificate_der = base64.urlsafe_b64decode(encoded)
+            Path(certificate_path).write_bytes(certificate_der)
+
+            subprocess.run(
+                [
+                    "openssl",
+                    "x509",
+                    "-inform",
+                    "DER",
+                    "-in",
+                    certificate_path,
+                    "-noout",
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+            )
+
+            tpm_spki = subprocess.run(
+                [
+                    "openssl",
+                    "pkey",
+                    "-pubin",
+                    "-in",
+                    ek_public_pem,
+                    "-outform",
+                    "DER",
+                ],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            ).stdout
+
+            cert_pub_pem = subprocess.run(
+                [
+                    "openssl",
+                    "x509",
+                    "-inform",
+                    "DER",
+                    "-in",
+                    certificate_path,
+                    "-pubkey",
+                    "-noout",
+                ],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            ).stdout
+
+            cert_spki = subprocess.run(
+                [
+                    "openssl",
+                    "pkey",
+                    "-pubin",
+                    "-outform",
+                    "DER",
+                ],
+                input=cert_pub_pem,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            ).stdout
+
+            tpm_spki_sha256 = hashlib.sha256(tpm_spki).hexdigest()
+            cert_spki_sha256 = hashlib.sha256(cert_spki).hexdigest()
+
+            if tpm_spki_sha256 != cert_spki_sha256:
+                return {
+                    "present": False,
+                    "source": "intel_manufacturer_service",
+                    "manufacturer": manufacturer,
+                    "reason": "ek_certificate_spki_mismatch",
+                    "tpm_ek_spki_sha256": tpm_spki_sha256,
+                    "certificate_spki_sha256": cert_spki_sha256,
+                }
+
+            if not (
+                os.path.exists(root_pem)
+                and os.path.exists(intermediate_pem)
+            ):
+                return {
+                    "present": False,
+                    "source": "intel_manufacturer_service",
+                    "manufacturer": manufacturer,
+                    "reason": "intel_trust_anchor_missing",
+                    "spki_match": True,
+                }
+
+            verify = subprocess.run(
+                [
+                    "openssl",
+                    "verify",
+                    "-CAfile",
+                    root_pem,
+                    "-untrusted",
+                    intermediate_pem,
+                    certificate_path,
+                ],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+
+            if verify.returncode != 0:
+                return {
+                    "present": False,
+                    "source": "intel_manufacturer_service",
+                    "manufacturer": manufacturer,
+                    "reason": "intel_ek_chain_verification_failed",
+                    "spki_match": True,
+                    "chain_verified": False,
+                    "verify_stdout": verify.stdout.strip(),
+                    "verify_stderr": verify.stderr.strip(),
+                }
+
+            return {
+                "present": True,
+                "source": "intel_manufacturer_service",
+                "nv_index": None,
+                "manufacturer": manufacturer,
+                "certificate_path": certificate_path,
+                "certificate_sha256": self._sha256_file(certificate_path),
+                "manufacturer_response_path": raw_response,
+                "manufacturer_response_sha256": self._sha256_file(raw_response),
+                "ek_public_pem_path": ek_public_pem,
+                "tpm_ek_spki_sha256": tpm_spki_sha256,
+                "certificate_spki_sha256": cert_spki_sha256,
+                "spki_match": True,
+                "chain_verified": True,
+                "root_path": root_pem,
+                "intermediate_path": intermediate_pem,
+                "verify_stdout": verify.stdout.strip(),
+            }
+
+        except Exception as exc:
+            return {
+                "present": False,
+                "source": "intel_manufacturer_service",
+                "nv_index": None,
+                "manufacturer": manufacturer,
+                "reason": "intel_ek_certificate_capture_failed",
+                "error": str(exc),
+            }
 
     def _create_ak_with_createak(
         self,
