@@ -1,0 +1,11 @@
+[Unit]
+Description=ARDA post-boot hardware-rooted grade
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/arda-grade
+
+[Install]
+WantedBy=multi-user.target

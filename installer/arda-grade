@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${ARDA_REPO:-/usr/lib/arda/src}"
+PY="${ARDA_PYTHON:-$REPO/.venv/bin/python}"
+VERDICT="${ARDA_VERDICT:-/var/lib/arda/verifier/latest-verdict.json}"
+PUB="${ARDA_VERIFIER_PUBLIC_KEY:-/etc/arda/verifier/verifier-key.pub.pem}"
+KEY_ID="${ARDA_VERIFIER_KEY_ID:-arda-gen1-restoration-verifier}"
+
+[[ -x "$PY" ]] || { echo "REFUSE: python runtime not found: $PY" >&2; exit 1; }
+
+cd "$REPO"
+
+PYTHONPATH="$REPO/arda_os" "$PY" - <<PY
+import json
+from pathlib import Path
+from backend.services.valinor_os_grade_live import inspect_live_valinor_os_grade
+
+r = inspect_live_valinor_os_grade(
+    verdict_path=Path("$VERDICT"),
+    verifier_public_key=Path("$PUB"),
+    verifier_key_id="$KEY_ID",
+)
+print(json.dumps(r, indent=2, sort_keys=True))
+raise SystemExit(0 if r.get("ok") is True and r.get("hardware_rooted_os_grade") is True else 1)
+PY

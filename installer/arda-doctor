@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+FAIL=0
+
+check_cmd() {
+  if command -v "$1" >/dev/null 2>&1; then
+    printf 'PASS  %-28s %s\n' "$1" "$(command -v "$1")"
+  else
+    printf 'FAIL  %-28s missing\n' "$1"
+    FAIL=1
+  fi
+}
+
+check_file() {
+  if [[ -s "$1" ]]; then
+    printf 'PASS  %-28s %s\n' "$(basename "$1")" "$1"
+  else
+    printf 'FAIL  %-28s %s\n' "$(basename "$1")" "$1"
+    FAIL=1
+  fi
+}
+
+echo "=== ARDA INSTALLER DOCTOR ==="
+
+for cmd in \
+  python3 \
+  openssl \
+  bpftool \
+  mokutil \
+  systemd-run \
+  tpm2 \
+  tpm2_getcap \
+  tpm2_pcrread \
+  tpm2_pcrextend \
+  tpm2_createek \
+  tpm2_createak \
+  tpm2_readpublic \
+  tpm2_quote \
+  tpm2_checkquote \
+  tpm2_getekcertificate \
+  fsverity
+do
+  check_cmd "$cmd"
+done
+
+echo
+echo "=== HARDWARE ==="
+
+if [[ -e /dev/tpmrm0 || -e /dev/tpm0 ]]; then
+  echo "PASS  TPM device                   present"
+else
+  echo "FAIL  TPM device                   absent"
+  FAIL=1
+fi
+
+echo
+echo "=== BOOT ==="
+
+if uname -r | grep -q valinor; then
+  echo "PASS  Valinor kernel               $(uname -r)"
+else
+  echo "FAIL  Valinor kernel               $(uname -r)"
+  FAIL=1
+fi
+
+mokutil --sb-state 2>/dev/null || {
+  echo "FAIL  Secure Boot state unavailable"
+  FAIL=1
+}
+
+if [[ -r /sys/kernel/security/lockdown ]]; then
+  printf 'INFO  lockdown                     %s\n' \
+    "$(cat /sys/kernel/security/lockdown)"
+else
+  echo "FAIL  lockdown                     unavailable"
+  FAIL=1
+fi
+
+echo
+echo "=== PORTABLE TRUST ==="
+
+check_file /etc/arda/trust/intel-ek/intel-ek-root.pem
+check_file /etc/arda/trust/intel-ek/intel-ek-intermediate.pem
+check_file /etc/arda/verifier/verifier-key.pub.pem
+
+echo
+
+if [[ "$FAIL" -eq 0 ]]; then
+  echo "ARDA_DOCTOR: PASS"
+else
+  echo "ARDA_DOCTOR: REFUSE"
+fi
+
+exit "$FAIL"

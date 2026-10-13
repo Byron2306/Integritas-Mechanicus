@@ -1,0 +1,497 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${ARDA_REPO:-/usr/lib/arda/src}"
+
+DRY_RUN=0
+
+if [[ "${1:-}" == "--dry-run" ]]; then
+  DRY_RUN=1
+fi
+
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  echo "=== ARDA ENROLLMENT DRY RUN ==="
+  echo "Repository: $REPO"
+  echo
+
+  "$REPO/installer/arda-doctor"
+
+  echo
+  echo "Planned enrollment:"
+  echo "  00 PRE-FLIGHT"
+  echo "  10 RING0"
+  echo "  20 POLICY"
+  echo "  30 MEASURED IDENTITY"
+  echo "  40 HARDWARE ATTESTATION + PCR11 BINDING"
+  echo "  50 INITIAL PCR BASELINE"
+  echo "  60 SIGNED VERIFIER VERDICT"
+  echo "  70 HARDWARE-ROOTED OS GRADE"
+
+  echo
+  echo "DRY_RUN: PASS"
+  echo "No BPF, PCR, TPM identity, generation DB, or verifier state modified."
+  exit 0
+fi
+
+STATE="/var/lib/arda/enrollment"
+mkdir -p "$STATE"
+
+step() {
+  printf '\n=== %s ===\n' "$1"
+}
+
+receipt() {
+  local name="$1"
+  local status="$2"
+  local detail="${3:-}"
+  python3 - "$STATE/$name.json" "$name" "$status" "$detail" <<'PY'
+import json, sys, datetime, pathlib
+path, name, status, detail = sys.argv[1:]
+payload = {
+    "schema": "arda.enrollment.receipt.v1",
+    "step": name,
+    "status": status,
+    "detail": detail,
+    "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+}
+pathlib.Path(path).write_text(json.dumps(payload, indent=2) + "\n")
+PY
+}
+
+refuse() {
+  receipt "$1" "REFUSE" "${2:-}"
+  echo "REFUSE: ${2:-$1}" >&2
+  exit 1
+}
+
+[[ $EUID -eq 0 ]] || { echo "REFUSE: run as root" >&2; exit 1; }
+
+step "00 PRE-FLIGHT"
+if "$REPO/installer/arda-preflight"; then
+  receipt "00_preflight" "PASS"
+else
+  refuse "00_preflight" "hardware/boot preflight failed"
+fi
+
+step "10 RING0"
+[[ -x "$REPO/arda_os/backend/services/bpf/arda_lsm_loader" ]] || refuse "10_ring0" "loader missing"
+[[ -f "$REPO/arda_os/backend/services/bpf/arda_physical_lsm.o" ]] || refuse "10_ring0" "BPF object missing"
+
+mkdir -p /sys/fs/bpf/arda
+if ! bpftool map show pinned /sys/fs/bpf/arda/policy_state_map >/dev/null 2>&1; then
+  systemd-run \
+    --unit=arda-ring0-enrollment \
+    --property=Type=simple \
+    --property=Restart=no \
+    --collect \
+    "$REPO/arda_os/backend/services/bpf/arda_lsm_loader" \
+    "$REPO/arda_os/backend/services/bpf/arda_physical_lsm.o" \
+    --pin-root /sys/fs/bpf/arda \
+    --enforcement-mode audit
+  sleep 2
+fi
+bpftool map show pinned /sys/fs/bpf/arda/policy_state_map >/dev/null 2>&1 || refuse "10_ring0" "Ring0 authoritative maps absent"
+receipt "10_ring0" "PASS"
+
+step "20 POLICY"
+[[ -f /etc/arda/policy/active_projection_plan.json ]] || refuse "20_policy" "active projection plan missing"
+PY="${ARDA_PYTHON:-$REPO/.venv/bin/python}"
+PYTHONPATH="$REPO/arda_os" "$PY" - <<'PY' || exit 20
+import json
+from pathlib import Path
+from backend.services.os_enforcement_service import OsEnforcementService
+
+plan = json.loads(Path("/etc/arda/policy/active_projection_plan.json").read_text())
+targets = plan["targets"]
+constitutional = targets["constitutional_state"]
+
+service = OsEnforcementService(arm=False)
+try:
+    result = service.project_pinned_policy(
+        harmonic_paths=targets["harmony_allow_paths"],
+        enforcement_mode="audit",
+        constitutional_state=constitutional,
+        seed_running_processes=False,
+        verify_native_denial_after=False,
+    )
+    print(json.dumps(result, indent=2, sort_keys=True))
+finally:
+    service.shutdown()
+PY
+if [[ $? -ne 0 ]]; then refuse "20_policy" "constitutional projection failed"; fi
+receipt "20_policy" "PASS"
+
+step "30 MEASURED IDENTITY"
+
+PROJECTION_DIR="/var/lib/arda/projection"
+GEN_DB="$PROJECTION_DIR/arda_measured_generation.sqlite3"
+mkdir -p "$PROJECTION_DIR"
+
+NEXT_GENERATION="$(
+  python3 - "$GEN_DB" <<'PYGEN'
+import os
+import sqlite3
+import sys
+
+db = sys.argv[1]
+
+if not os.path.exists(db):
+    print(1)
+    raise SystemExit(0)
+
+con = sqlite3.connect(db)
+try:
+    row = con.execute(
+        "SELECT MAX(generation) FROM arda_measured_generation"
+    ).fetchone()
+    current = int(row[0] or 0)
+finally:
+    con.close()
+
+print(current + 1)
+PYGEN
+)"
+
+MANIFEST="$PROJECTION_DIR/measured-critical-v${NEXT_GENERATION}.json"
+
+echo "Target-local generation: $NEXT_GENERATION"
+echo "Manifest: $MANIFEST"
+
+if ! env \
+  ARDA_SOVEREIGN_MODE=1 \
+  PYTHONPATH="$REPO/arda_os" \
+  "$PY" \
+  "$REPO/arda_os/bin/arda_build_measured_manifest.py" \
+    --profile critical-host \
+    --policy-generation ARDA-POLICY-V1@1.1.0 \
+    --generation "$NEXT_GENERATION" \
+    --output "$MANIFEST"
+then
+  refuse "30_measured_identity" "fresh manifest build failed"
+fi
+
+[[ -s "$MANIFEST" ]] || refuse "30_measured_identity" "manifest not created"
+
+MANIFEST_ID="$(
+  python3 - "$MANIFEST" <<'PYMID'
+import json
+import sys
+
+x = json.load(open(sys.argv[1]))
+mid = x.get("manifest_id")
+
+if not mid:
+    raise SystemExit("manifest_id missing")
+
+print(mid)
+PYMID
+)"
+
+echo "Fresh manifest ID: $MANIFEST_ID"
+
+if ! env \
+  ARDA_SOVEREIGN_MODE=1 \
+  PYTHONPATH="$REPO/arda_os" \
+  ARDA_INSTALL_MANIFEST="$MANIFEST" \
+  ARDA_INSTALL_MANIFEST_ID="$MANIFEST_ID" \
+  "$PY" - <<'PYMEASURED'
+import json
+import os
+
+from backend.services.os_enforcement_service import OsEnforcementService
+
+manifest_path = os.environ["ARDA_INSTALL_MANIFEST"]
+manifest_id = os.environ["ARDA_INSTALL_MANIFEST_ID"]
+
+with open(manifest_path, "r", encoding="utf-8") as handle:
+    manifest = json.load(handle)
+
+service = OsEnforcementService(arm=False)
+
+try:
+    status = service.get_status()
+
+    if not status.get("is_authoritative"):
+        raise RuntimeError("Ring0 is not authoritative")
+
+    phase3 = service.get_phase3_map_status()
+
+    if not phase3.get("all_required_present"):
+        raise RuntimeError("Phase3 measured map contract incomplete")
+
+    staged = service.stage_measured_manifest(manifest)
+
+    activated = service.activate_staged_measured_manifest(manifest_id)
+
+    projected = service.project_staged_measured_manifest(manifest_id)
+
+    final_status = service.get_status()
+
+    payload = {
+        "ok": True,
+        "manifest_id": manifest_id,
+        "manifest_path": manifest_path,
+        "generation": manifest.get("generation"),
+        "policy_generation": manifest.get("policy_generation"),
+        "stage": staged,
+        "activate": activated,
+        "project": projected,
+        "phase3": service.get_phase3_map_status(),
+        "authoritative": final_status.get("is_authoritative"),
+        "enforcement_mode": final_status.get("enforcement_mode"),
+    }
+
+    print(json.dumps(payload, indent=2, sort_keys=True))
+
+finally:
+    service.shutdown()
+PYMEASURED
+then
+  refuse "30_measured_identity" "stage/activate/project failed"
+fi
+
+receipt \
+  "30_measured_identity" \
+  "PASS" \
+  "manifest=$MANIFEST_ID generation=$NEXT_GENERATION"
+
+echo "$MANIFEST" > "$STATE/active_manifest_path"
+echo "$MANIFEST_ID" > "$STATE/active_manifest_id"
+echo "$NEXT_GENERATION" > "$STATE/active_generation"
+
+echo "MEASURED IDENTITY: PASS"
+
+step "40 HARDWARE ATTESTATION + PCR11 BINDING"
+
+if ! env \
+  ARDA_REPO="$REPO" \
+  ARDA_PYTHON="$PY" \
+  ARDA_ATTESTATION_DIR="/var/lib/arda/attestation/latest" \
+  "$REPO/installer/arda-attest"
+then
+  refuse "40_hardware_attestation" "Phase4 capture / PCR11 binding / EK verification failed"
+fi
+
+IDENTITY="/var/lib/arda/attestation/latest/03_tpm_identity.json"
+BUNDLE="/var/lib/arda/attestation/latest/07_sovereign_attestation.json"
+
+[[ -s "$IDENTITY" ]] || refuse "40_hardware_attestation" "TPM identity missing"
+[[ -s "$BUNDLE" ]] || refuse "40_hardware_attestation" "attestation bundle missing"
+
+python3 - "$IDENTITY" <<'PYIDENTITY' || exit 40
+import json
+import sys
+
+x = json.load(open(sys.argv[1]))
+cert = x.get("ek_certificate") or {}
+
+checks = {
+    "ek_certificate_present": x.get("ek_certificate_present") is True,
+    "ak_certified_by_ek": x.get("ak_certified_by_ek") is True,
+    "manufacturer_chain": (
+        cert.get("source") == "tpm_nv"
+        or cert.get("chain_verified") is True
+    ),
+    "ek_spki_bound": (
+        cert.get("source") == "tpm_nv"
+        or cert.get("spki_match") is True
+    ),
+}
+
+print(json.dumps({
+    "manufacturer": x.get("manufacturer"),
+    "identity_chain_mode": x.get("identity_chain_mode"),
+    "checks": checks,
+}, indent=2, sort_keys=True))
+
+if not all(checks.values()):
+    raise SystemExit(1)
+PYIDENTITY
+
+if [[ $? -ne 0 ]]; then
+  refuse "40_hardware_attestation" "manufacturer-rooted TPM identity failed"
+fi
+
+receipt "40_hardware_attestation" "PASS" "manufacturer-rooted TPM evidence captured"
+
+
+step "50 INITIAL PCR BASELINE"
+
+BASELINE_DIR="/var/lib/arda/attestation/baselines"
+BASELINE="$BASELINE_DIR/approved-pcr-baseline.json"
+mkdir -p "$BASELINE_DIR"
+
+if [[ ! -s "$BASELINE" ]]; then
+  NODE_ID="$(cat /etc/machine-id 2>/dev/null || hostname)"
+
+  if ! env \
+    ARDA_SOVEREIGN_MODE=1 \
+    PYTHONPATH="$REPO/arda_os" \
+    "$PY" \
+    "$REPO/arda_os/bin/arda_generate_pcr_baseline.py" \
+      --evidence-bundle "$BUNDLE" \
+      --output "$BASELINE" \
+      --baseline-name "arda-enrollment-${NODE_ID}"
+  then
+    refuse "50_pcr_baseline" "initial PCR baseline generation failed"
+  fi
+fi
+
+[[ -s "$BASELINE" ]] || refuse "50_pcr_baseline" "PCR baseline absent"
+
+receipt "50_pcr_baseline" "PASS" "baseline=$BASELINE"
+
+
+step "60 SIGNED VERIFIER VERDICT"
+
+VERIFIER_URL="${ARDA_VERIFIER_URL:-}"
+
+if [[ -z "$VERIFIER_URL" && -r /etc/arda/attested-host.env ]]; then
+  VERIFIER_URL="$(
+    python3 - <<'PYURL'
+from pathlib import Path
+
+p = Path("/etc/arda/attested-host.env")
+
+for raw in p.read_text().splitlines():
+    line = raw.strip()
+
+    if not line or line.startswith("#") or "=" not in line:
+        continue
+
+    key, value = line.split("=", 1)
+
+    if key.strip() == "ARDA_VERIFIER_URL":
+        print(value.strip().strip('"').strip("'"))
+        break
+PYURL
+  )"
+fi
+
+[[ -n "$VERIFIER_URL" ]] || \
+  refuse "60_verifier" "ARDA_VERIFIER_URL is not configured"
+
+VERIFIER_PUBLIC_KEY="${ARDA_VERIFIER_PUBLIC_KEY:-/etc/arda/verifier/verifier-key.pub.pem}"
+VERIFIER_KEY_ID="${ARDA_VERIFIER_KEY_ID:-arda-phase4-verifier}"
+
+[[ -s "$VERIFIER_PUBLIC_KEY" ]] || \
+  refuse "60_verifier" "verifier public key missing: $VERIFIER_PUBLIC_KEY"
+
+MANIFEST_PATH="$(cat "$STATE/active_manifest_path")"
+VERDICT="/var/lib/arda/verifier/latest-verdict.json"
+
+mkdir -p /var/lib/arda/verifier
+
+if ! env \
+  ARDA_SOVEREIGN_MODE=1 \
+  ARDA_VERIFIER_URL="$VERIFIER_URL" \
+  ARDA_VERIFIER_PUBLIC_KEY="$VERIFIER_PUBLIC_KEY" \
+  ARDA_VERIFIER_KEY_ID="$VERIFIER_KEY_ID" \
+  PYTHONPATH="$REPO/arda_os" \
+  ARDA_INSTALL_MANIFEST="$MANIFEST_PATH" \
+  ARDA_INSTALL_BUNDLE="$BUNDLE" \
+  ARDA_INSTALL_BASELINE="$BASELINE" \
+  ARDA_INSTALL_VERDICT="$VERDICT" \
+  "$PY" - <<'PYVERIFY'
+import json
+import os
+from pathlib import Path
+
+from kernel.valinor.scripts.post_boot_valinor_gate import (
+    _post_to_verifier,
+    _refresh_attestation_envelope,
+    _signed_verdict_ready,
+)
+
+manifest = Path(os.environ["ARDA_INSTALL_MANIFEST"])
+bundle = os.environ["ARDA_INSTALL_BUNDLE"]
+baseline = os.environ["ARDA_INSTALL_BASELINE"]
+verdict_path = Path(os.environ["ARDA_INSTALL_VERDICT"])
+verifier_url = os.environ["ARDA_VERIFIER_URL"]
+
+_refresh_attestation_envelope(manifest, bundle)
+
+result = _post_to_verifier(
+    verifier_url,
+    manifest_path=manifest,
+    evidence_bundle_path=bundle,
+    pcr_baseline_path=baseline,
+    require_verifier_nonce=False,
+    require_tpm_quote_verification=True,
+)
+
+if not _signed_verdict_ready(result):
+    print(json.dumps(result, indent=2, sort_keys=True))
+    raise RuntimeError("verifier response is not signed/ready")
+
+verdict_path.write_text(
+    json.dumps(result, indent=2, sort_keys=True) + "\n",
+    encoding="utf-8",
+)
+
+print(json.dumps({
+    "ok": True,
+    "verifier_url": verifier_url,
+    "verdict_path": str(verdict_path),
+    "signed_verdict_ready": True,
+}, indent=2, sort_keys=True))
+PYVERIFY
+then
+  refuse "60_verifier" "signed verifier verdict failed"
+fi
+
+receipt "60_verifier" "PASS" "verdict=$VERDICT"
+
+
+step "70 HARDWARE-ROOTED OS GRADE"
+
+if ! env \
+  ARDA_REPO="$REPO" \
+  ARDA_PYTHON="$PY" \
+  ARDA_VERDICT="$VERDICT" \
+  ARDA_VERIFIER_PUBLIC_KEY="$VERIFIER_PUBLIC_KEY" \
+  ARDA_VERIFIER_KEY_ID="$VERIFIER_KEY_ID" \
+  "$REPO/installer/arda-grade" \
+  | tee "$STATE/70_grade-output.json"
+then
+  refuse "70_grade" "hardware-rooted OS-grade not achieved"
+fi
+
+python3 - "$STATE/70_grade-output.json" <<'PYGRADE' || exit 70
+import json
+import sys
+
+x = json.load(open(sys.argv[1]))
+
+required = {
+    "ok": x.get("ok") is True,
+    "software_os_grade": x.get("software_os_grade") is True,
+    "hardware_rooted_os_grade": x.get("hardware_rooted_os_grade") is True,
+    "failures_empty": x.get("failures") == [],
+}
+
+print(json.dumps(required, indent=2, sort_keys=True))
+
+if not all(required.values()):
+    raise SystemExit(1)
+PYGRADE
+
+if [[ $? -ne 0 ]]; then
+  refuse "70_grade" "final grade JSON failed invariant checks"
+fi
+
+receipt "70_grade" "PASS" "hardware-rooted OS-grade production milestone"
+
+
+echo
+echo "===================================================="
+echo "        ARDA ENROLLMENT COMPLETE"
+echo "===================================================="
+echo "Ring0 authoritative             PASS"
+echo "Constitutional projection       PASS"
+echo "Measured identity               PASS"
+echo "PCR11 software binding          PASS"
+echo "Manufacturer-rooted TPM         PASS"
+echo "Signed verifier verdict         PASS"
+echo "Hardware-rooted OS-grade        PASS"
+echo "===================================================="
