@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh ARDA Hardware-Rooted Verdict
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=15s
+Persistent=true
+Unit=arda-valinor-postboot.service
+
+[Install]
+WantedBy=timers.target

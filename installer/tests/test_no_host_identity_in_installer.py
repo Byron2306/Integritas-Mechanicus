@@ -48,3 +48,26 @@ def test_verifier_key_is_public_only():
 
     assert "PUBLIC KEY" in text
     assert "PRIVATE KEY" not in text
+
+
+def test_no_restoration_verifier_identity_in_portable_installer():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+
+    portable_files = [
+        root / "systemd" / "arda-valinor-postboot.service",
+        root / "systemd" / "arda-valinor-postboot.timer",
+        root / "attested-host.env.example",
+    ]
+
+    forbidden = (
+        "arda-gen1-restoration-verifier",
+        "arda-phase4-loopback-restoration",
+        "ARDA_VERIFIER_PRIVATE_KEY",
+    )
+
+    for path in portable_files:
+        text = path.read_text()
+        for token in forbidden:
+            assert token not in text, f"{path} leaks restoration identity: {token}"

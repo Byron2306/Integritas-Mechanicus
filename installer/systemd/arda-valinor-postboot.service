@@ -1,0 +1,11 @@
+[Unit]
+Description=ARDA Valinor Fresh Hardware Attestation
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/usr/lib/arda/src
+EnvironmentFile=-/etc/arda/attested-host.env
+Environment=PYTHONPATH=/usr/lib/arda/src/arda_os
+ExecStart=/usr/bin/python3 /usr/lib/arda/src/arda_os/kernel/valinor/scripts/post_boot_valinor_gate.py --require-arda-gate --json
