@@ -1,0 +1,39 @@
+{
+  "active_generation": 1,
+  "active_manifest_id": "measured-f4ee16b9f441c02c",
+  "boundary": "hardware-rooted OS-grade production milestone",
+  "failures": [],
+  "hardware_checks": {
+    "efi_lockdown": true,
+    "manufacturer_rooted_tpm": true,
+    "remote_verifier_signed_fresh": true,
+    "required_pcrs_present": true,
+    "secure_boot_enabled": true,
+    "setup_mode_disabled": true,
+    "signed_verdict_green": true,
+    "signed_verdict_present": true,
+    "software_os_grade": true,
+    "software_state_bound": true,
+    "tpm_quote_verified": true,
+    "valinor_kernel": true
+  },
+  "hardware_rooted_os_grade": true,
+  "ok": true,
+  "remote_verifier_signed_fresh": true,
+  "signed_verdict_green": true,
+  "signed_verdict_present": true,
+  "software_checks": {
+    "active_measured_identity": true,
+    "authoritative_maps_present": true,
+    "bpf_authoritative": true,
+    "constitutional_redlines_present": true,
+    "fsverity_strict": true,
+    "policy_projection_non_empty": true
+  },
+  "software_os_grade": true,
+  "verdict_age_seconds": 8.586037,
+  "verdict_path": "/var/lib/arda/verifier/latest-verdict.json",
+  "verifier_public_key": "/etc/arda/verifier/verifier-key.pub.pem",
+  "verifier_signature_error": null,
+  "verifier_signature_verified": true
+}

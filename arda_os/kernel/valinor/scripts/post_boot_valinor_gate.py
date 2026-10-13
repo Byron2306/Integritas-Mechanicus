@@ -951,9 +951,27 @@ def main() -> int:
                     attestation_context["harmonized_toolchain_paths"] = harmonized_paths
                     harmonize_result = None
                     if harmonized_paths:
+                        projection = _read_json(DEFAULT_PROJECTION_PLAN) or {}
+                        constitutional_state = (
+                            projection.get("targets", {})
+                            .get("constitutional_state")
+                            or {}
+                        )
+
+                        if not constitutional_state.get("policy_generation"):
+                            raise RuntimeError(
+                                "active projection plan missing constitutional policy_generation"
+                            )
+
+                        if int(constitutional_state.get("redline_rule_count") or 0) <= 0:
+                            raise RuntimeError(
+                                "active projection plan has no constitutional redlines"
+                            )
+
                         harmonize_result = service.project_pinned_policy(
                             harmonic_paths=harmonized_paths,
                             enforcement_mode=service.enforcement_mode,
+                            constitutional_state=constitutional_state,
                         )
                     attestation_context["harmonize_result"] = harmonize_result
                     measured_toolchain_result = _project_measured_exec_toolchain(

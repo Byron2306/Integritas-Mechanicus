@@ -1,0 +1,19 @@
+[Unit]
+Description=ARDA Gen1 Restoration Verifier
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/Integritas-Mechanicus
+Environment=PYTHONPATH=/home/byron/Integritas-Mechanicus/arda_os
+Environment=ARDA_VERIFIER_PRIVATE_KEY=/etc/arda/verifier/private/verifier-key.pem
+Environment=ARDA_VERIFIER_PUBLIC_KEY=/etc/arda/verifier/verifier-key.pub.pem
+Environment=ARDA_VERIFIER_KEY_ID=arda-gen1-restoration-verifier
+Environment=ARDA_VERIFIER_ID=arda-phase4-loopback-restoration
+ExecStart=/home/byron/Integritas-Mechanicus/.venv/bin/python -m uvicorn backend.services.arda_phase4_verifier_service:app --host 127.0.0.1 --port 8094
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

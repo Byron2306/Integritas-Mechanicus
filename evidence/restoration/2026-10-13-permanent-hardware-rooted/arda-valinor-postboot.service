@@ -1,0 +1,12 @@
+[Unit]
+Description=ARDA Valinor Fresh Hardware Attestation
+After=network-online.target arda-gen1-restoration-verifier.service
+Wants=network-online.target
+Requires=arda-gen1-restoration-verifier.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/byron/Integritas-Mechanicus
+EnvironmentFile=-/etc/arda/attested-host.env
+Environment=PYTHONPATH=/home/byron/Integritas-Mechanicus/arda_os
+ExecStart=/home/byron/Integritas-Mechanicus/.venv/bin/python /home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/scripts/post_boot_valinor_gate.py --require-arda-gate --json
