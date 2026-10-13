@@ -5,7 +5,7 @@ REPO="${ARDA_REPO:-/usr/lib/arda/src}"
 PY="${ARDA_PYTHON:-$REPO/.venv/bin/python}"
 VERDICT="${ARDA_VERDICT:-/var/lib/arda/verifier/latest-verdict.json}"
 PUB="${ARDA_VERIFIER_PUBLIC_KEY:-/etc/arda/verifier/verifier-key.pub.pem}"
-KEY_ID="${ARDA_VERIFIER_KEY_ID:-arda-gen1-restoration-verifier}"
+KEY_ID="${ARDA_VERIFIER_KEY_ID:-arda-phase4-verifier}"
 
 [[ -x "$PY" ]] || { echo "REFUSE: python runtime not found: $PY" >&2; exit 1; }
 
