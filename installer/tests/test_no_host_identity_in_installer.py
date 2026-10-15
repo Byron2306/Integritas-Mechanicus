@@ -71,3 +71,51 @@ def test_no_restoration_verifier_identity_in_portable_installer():
         text = path.read_text()
         for token in forbidden:
             assert token not in text, f"{path} leaks restoration identity: {token}"
+
+
+def test_portable_refresh_units_are_shipped_without_private_signer():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+
+    service = (
+        root / "systemd" / "arda-valinor-postboot.service"
+    ).read_text()
+
+    timer = (
+        root / "systemd" / "arda-valinor-postboot.timer"
+    ).read_text()
+
+    env = (
+        root / "attested-host.env.example"
+    ).read_text()
+
+    combined = service + timer + env
+
+    assert "ARDA_VERIFIER_PRIVATE_KEY" not in combined
+    assert "arda-gen1-restoration-verifier" not in combined
+    assert "arda-phase4-loopback-restoration" not in combined
+
+    assert "OnUnitActiveSec=5min" in timer
+    assert "arda-valinor-postboot.service" in timer
+
+
+def test_enrollment_arms_refresh_only_after_grade():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    enroll = (root / "arda-enroll").read_text()
+
+    grade = enroll.index(
+        'receipt "70_grade" "PASS"'
+    )
+
+    continuous = enroll.index(
+        'step "80 CONTINUOUS HARDWARE-ROOTED PROOF"'
+    )
+
+    enable_timer = enroll.index(
+        "systemctl enable --now arda-valinor-postboot.timer"
+    )
+
+    assert grade < continuous < enable_timer

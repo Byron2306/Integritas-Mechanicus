@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(git rev-parse --show-toplevel)"
-VERSION="${ARDA_PACKAGE_VERSION:-0.1.0}"
+VERSION="${ARDA_PACKAGE_VERSION:-0.1.4}"
 ARCH="${ARDA_PACKAGE_ARCH:-amd64}"
 
 BUILD="$ROOT/build/arda-valinor-deb"
@@ -156,6 +156,18 @@ install -m 0644 \
 install -m 0644 \
   "$TMP_TREE/installer/systemd/arda-postboot-grade.service" \
   "$PKG/lib/systemd/system/arda-postboot-grade.service"
+
+install -m 0644 \
+  "$TMP_TREE/installer/systemd/arda-valinor-postboot.service" \
+  "$PKG/lib/systemd/system/arda-valinor-postboot.service"
+
+install -m 0644 \
+  "$TMP_TREE/installer/systemd/arda-valinor-postboot.timer" \
+  "$PKG/lib/systemd/system/arda-valinor-postboot.timer"
+
+install -m 0644 \
+  "$TMP_TREE/installer/attested-host.env.example" \
+  "$PKG/etc/arda/attested-host.env.example"
 
 cat > "$PKG/DEBIAN/postinst" <<'POSTINST'
 #!/bin/sh

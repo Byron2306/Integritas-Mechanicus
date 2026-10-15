@@ -483,6 +483,65 @@ fi
 receipt "70_grade" "PASS" "hardware-rooted OS-grade production milestone"
 
 
+step "80 CONTINUOUS HARDWARE-ROOTED PROOF"
+
+install -d -m 0755 /etc/arda
+
+ENV_TMP="$(mktemp)"
+cat > "$ENV_TMP" <<EOF
+# ARDA attested-host verifier configuration.
+# Generated only after successful hardware-rooted enrollment.
+# Verifier private signing material MUST NOT exist on this host.
+
+ARDA_VERIFIER_URL=$VERIFIER_URL
+ARDA_VERIFIER_PUBLIC_KEY=$VERIFIER_PUBLIC_KEY
+ARDA_VERIFIER_KEY_ID=$VERIFIER_KEY_ID
+
+ARDA_POSTBOOT_USE_LOOPBACK_VERIFIER=0
+ARDA_POSTBOOT_REQUIRE_VERIFIER=1
+ARDA_POSTBOOT_PROMOTE_STRICT=0
+ARDA_SOVEREIGN_MODE=1
+EOF
+
+install -m 0644 "$ENV_TMP" /etc/arda/attested-host.env
+rm -f "$ENV_TMP"
+
+if [[ ! -f /lib/systemd/system/arda-valinor-postboot.service ]]; then
+  [[ -f "$REPO/installer/systemd/arda-valinor-postboot.service" ]] || \
+    refuse "80_continuous_proof" "postboot service definition missing"
+
+  install -m 0644 \
+    "$REPO/installer/systemd/arda-valinor-postboot.service" \
+    /etc/systemd/system/arda-valinor-postboot.service
+fi
+
+if [[ ! -f /lib/systemd/system/arda-valinor-postboot.timer ]]; then
+  [[ -f "$REPO/installer/systemd/arda-valinor-postboot.timer" ]] || \
+    refuse "80_continuous_proof" "postboot timer definition missing"
+
+  install -m 0644 \
+    "$REPO/installer/systemd/arda-valinor-postboot.timer" \
+    /etc/systemd/system/arda-valinor-postboot.timer
+fi
+
+if ! systemctl daemon-reload; then
+  refuse "80_continuous_proof" "systemd daemon-reload failed"
+fi
+
+if ! systemctl enable --now arda-valinor-postboot.timer; then
+  refuse "80_continuous_proof" "continuous proof timer activation failed"
+fi
+
+if ! systemctl is-enabled --quiet arda-valinor-postboot.timer; then
+  refuse "80_continuous_proof" "continuous proof timer is not enabled"
+fi
+
+receipt \
+  "80_continuous_proof" \
+  "PASS" \
+  "five-minute fresh-proof renewal enabled"
+
+
 echo
 echo "===================================================="
 echo "        ARDA ENROLLMENT COMPLETE"
@@ -494,4 +553,5 @@ echo "PCR11 software binding          PASS"
 echo "Manufacturer-rooted TPM         PASS"
 echo "Signed verifier verdict         PASS"
 echo "Hardware-rooted OS-grade        PASS"
+echo "Continuous proof refresh        PASS"
 echo "===================================================="
