@@ -1,0 +1,98 @@
+{
+  "compiler": {
+    "name": "arda_policy_compiler",
+    "version": "phase5-slice1"
+  },
+  "integrity": {
+    "authenticated_signature": false,
+    "bundle_digest_bound_by_projection_plan": true,
+    "mode": "package-measured",
+    "note": "Portable artifact integrity is provided by package provenance, measured identity, fs-verity, and projection-plan digest binding."
+  },
+  "policy_id": "ARDA-POLICY-V1",
+  "policy_version": "1.1.0",
+  "projections": {
+    "command_allow_index": {
+      "check_health": {
+        "command": "check_health",
+        "effect": "ALLOW",
+        "lanes": [
+          "Shire"
+        ],
+        "principals": [
+          "Magos_Indomitus"
+        ]
+      }
+    },
+    "lane_bindings": {
+      "Shire": [
+        "check_health"
+      ]
+    },
+    "principal_bindings": {
+      "Magos_Indomitus": [
+        "check_health"
+      ]
+    },
+    "redline_rules": [
+      {
+        "command": "__arda_constitutional_dissonance__",
+        "effect": "DENY",
+        "lane": null,
+        "principal": null,
+        "reason": "fractured or dissonant constitutional state",
+        "rule_id": "constitutional-dissonance"
+      },
+      {
+        "command": "__arda_constitutional_veto__",
+        "effect": "DENY",
+        "lane": null,
+        "principal": null,
+        "reason": "explicit veto or fallen constitutional state",
+        "rule_id": "constitutional-veto"
+      },
+      {
+        "command": "__arda_constitutional_withheld__",
+        "effect": "DENY",
+        "lane": null,
+        "principal": null,
+        "reason": "withheld or muted constitutional authority",
+        "rule_id": "constitutional-withheld"
+      },
+      {
+        "command": "__arda_covenant_unlawful__",
+        "effect": "DENY",
+        "lane": null,
+        "principal": null,
+        "reason": "handoff covenant not lawful",
+        "rule_id": "covenant-unlawful"
+      },
+      {
+        "command": "__arda_formation_unlawful__",
+        "effect": "DENY",
+        "lane": null,
+        "principal": null,
+        "reason": "formation truth not lawful",
+        "rule_id": "formation-unlawful"
+      },
+      {
+        "command": "__arda_privilege_unauthorized__",
+        "effect": "DENY",
+        "lane": null,
+        "principal": null,
+        "reason": "unauthorized privilege manifestation",
+        "rule_id": "privilege-unauthorized"
+      },
+      {
+        "command": "__arda_quorum_fractured__",
+        "effect": "DENY",
+        "lane": null,
+        "principal": null,
+        "reason": "quorum fractured or vetoed",
+        "rule_id": "quorum-fractured"
+      }
+    ]
+  },
+  "schema_version": "arda.policy_bundle.v1",
+  "source_policy_digest": "sha256:fb8f1ccc4edbb236245c80288d028411ca2389aafdc213c27876f7f10ff5623d"
+}

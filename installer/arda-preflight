@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+fail() { echo "REFUSE: $*" >&2; exit 1; }
+pass() { echo "PASS: $*"; }
+
+[[ $EUID -eq 0 ]] || fail "run as root"
+command -v python3 >/dev/null || fail "python3 missing"
+command -v bpftool >/dev/null || fail "bpftool missing"
+command -v tpm2_getcap >/dev/null || fail "tpm2-tools missing"
+command -v openssl >/dev/null || fail "openssl missing"
+
+[[ -e /dev/tpm0 || -e /dev/tpmrm0 ]] || fail "TPM 2.0 device missing"
+
+kernel="$(uname -r)"
+[[ "$kernel" == *valinor* ]] || fail "not booted into Valinor kernel: $kernel"
+pass "Valinor kernel $kernel"
+
+sb="$(mokutil --sb-state 2>/dev/null || true)"
+grep -qi "SecureBoot enabled" <<<"$sb" || fail "Secure Boot not enabled"
+pass "Secure Boot enabled"
+
+if [[ -r /sys/kernel/security/lockdown ]]; then
+  lockdown="$(cat /sys/kernel/security/lockdown)"
+  grep -Eq '\[(integrity|confidentiality)\]' <<<"$lockdown" || fail "kernel lockdown not active"
+  pass "kernel lockdown active: $lockdown"
+else
+  fail "lockdown state unavailable"
+fi
+
+mkdir -p /sys/fs/bpf
+mountpoint -q /sys/fs/bpf || mount -t bpf bpf /sys/fs/bpf
+pass "bpffs available"
+
+echo
+echo "PREFLIGHT: PASS"

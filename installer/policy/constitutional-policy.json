@@ -1,0 +1,65 @@
+{
+  "policy_id": "ARDA-POLICY-V1",
+  "version": "1.1.0",
+  "status": "SOVEREIGN",
+  "restoration": {
+    "schema": "arda.restoration.constitutional_policy.v1",
+    "original_rule_bodies_recovered": false,
+    "historical_redline_rule_count": 7,
+    "basis": [
+      "July30 frozen runtime recorded redline_rule_count=7",
+      "surviving constitutional_projection state semantics",
+      "surviving Ainur sovereign/genesis governance semantics",
+      "surviving kernel policy lawful/quorum/restricted semantics"
+    ]
+  },
+  "rules": [
+    {
+      "command": "check_health",
+      "principal": "Magos_Indomitus",
+      "lane": "Shire",
+      "verdict": "ALLOW",
+      "allowed_digests": [
+        "sha256:d545f44810237730e20037a34654f5c9e2b1979fb3d37330e20037a34654f5c9"
+      ]
+    }
+  ],
+  "redline_rules": [
+    {
+      "rule_id": "constitutional-veto",
+      "command": "__arda_constitutional_veto__",
+      "reason": "explicit veto or fallen constitutional state"
+    },
+    {
+      "rule_id": "constitutional-dissonance",
+      "command": "__arda_constitutional_dissonance__",
+      "reason": "fractured or dissonant constitutional state"
+    },
+    {
+      "rule_id": "constitutional-withheld",
+      "command": "__arda_constitutional_withheld__",
+      "reason": "withheld or muted constitutional authority"
+    },
+    {
+      "rule_id": "covenant-unlawful",
+      "command": "__arda_covenant_unlawful__",
+      "reason": "handoff covenant not lawful"
+    },
+    {
+      "rule_id": "formation-unlawful",
+      "command": "__arda_formation_unlawful__",
+      "reason": "formation truth not lawful"
+    },
+    {
+      "rule_id": "quorum-fractured",
+      "command": "__arda_quorum_fractured__",
+      "reason": "quorum fractured or vetoed"
+    },
+    {
+      "rule_id": "privilege-unauthorized",
+      "command": "__arda_privilege_unauthorized__",
+      "reason": "unauthorized privilege manifestation"
+    }
+  ],
+  "signature": "RESTORATION_RECOMPILE_REQUIRED"
+}

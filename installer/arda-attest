@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${ARDA_REPO:-/usr/lib/arda/src}"
+PY="${ARDA_PYTHON:-$REPO/.venv/bin/python}"
+OUT="${ARDA_ATTESTATION_DIR:-/var/lib/arda/attestation/latest}"
+
+[[ -x "$PY" ]] || { echo "REFUSE: python runtime not found: $PY" >&2; exit 1; }
+
+mkdir -p "$OUT"
+cd "$REPO"
+
+PYTHONPATH="$REPO/arda_os" "$PY" - <<PY
+import json
+from backend.services.phase4_live_attestation import Phase4LiveAttestationService
+
+service = Phase4LiveAttestationService()
+result = service.capture("$OUT")
+
+identity = result.get("bundle", {}).get("tpm_identity", {})
+summary = {
+    "ok": result.get("ok"),
+    "bundle_path": result.get("bundle_path"),
+    "quote_verification": result.get("quote_verification"),
+    "software_state_binding": result.get("bundle", {}).get("software_state_binding"),
+    "tpm_identity": identity,
+}
+print(json.dumps(summary, indent=2, sort_keys=True))
+
+cert = identity.get("ek_certificate", {})
+required = [
+    result.get("ok") is True,
+    identity.get("ek_certificate_present") is True,
+    identity.get("ak_certified_by_ek") is True,
+    cert.get("spki_match") is True,
+    cert.get("chain_verified") is True,
+]
+raise SystemExit(0 if all(required) else 1)
+PY

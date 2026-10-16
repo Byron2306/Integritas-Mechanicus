@@ -1,0 +1,1405 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${ARDA_REPO:-/usr/lib/arda/src}"
+
+DRY_RUN=0
+RESUME=0
+
+case "${1:-}" in
+  "")
+    ;;
+  --dry-run)
+    DRY_RUN=1
+    ;;
+  --resume)
+    RESUME=1
+    ;;
+  *)
+    echo "REFUSE: unknown arda-enroll argument: ${1:-}" >&2
+    exit 2
+    ;;
+esac
+
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  echo "=== ARDA ENROLLMENT DRY RUN ==="
+  echo "Repository: $REPO"
+  echo
+
+  "$REPO/installer/arda-doctor"
+
+  echo
+  echo "Planned enrollment:"
+  echo "  00 PRE-FLIGHT"
+  echo "  10 RING0"
+  echo "  20 POLICY"
+  echo "  30 MEASURED IDENTITY"
+  echo "  40 HARDWARE ATTESTATION + PCR11 BINDING"
+  echo "  50 INITIAL PCR BASELINE"
+  echo "  60 SIGNED VERIFIER VERDICT"
+  echo "  70 HARDWARE-ROOTED OS GRADE"
+  echo "  75 PERSISTENT RING0 HANDOFF"
+  echo "  80 CONTINUOUS HARDWARE-ROOTED PROOF"
+
+  echo
+  echo "DRY_RUN: PASS"
+  echo "No BPF, PCR, TPM identity, generation DB, or verifier state modified."
+  exit 0
+fi
+
+STATE="/var/lib/arda/enrollment"
+mkdir -p "$STATE"
+
+step() {
+  printf '\n=== %s ===\n' "$1"
+}
+
+receipt() {
+  local name="$1"
+  local status="$2"
+  local detail="${3:-}"
+  python3 - "$STATE/$name.json" "$name" "$status" "$detail" <<'PY'
+import json, sys, datetime, pathlib
+path, name, status, detail = sys.argv[1:]
+payload = {
+    "schema": "arda.enrollment.receipt.v1",
+    "step": name,
+    "status": status,
+    "detail": detail,
+    "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+}
+pathlib.Path(path).write_text(json.dumps(payload, indent=2) + "\n")
+PY
+}
+
+refuse() {
+  receipt "$1" "REFUSE" "${2:-}"
+  echo "REFUSE: ${2:-$1}" >&2
+  exit 1
+}
+
+[[ $EUID -eq 0 ]] || { echo "REFUSE: run as root" >&2; exit 1; }
+
+if [[ "$RESUME" -eq 0 ]]; then
+
+step "00 PRE-FLIGHT"
+if "$REPO/installer/arda-preflight"; then
+  receipt "00_preflight" "PASS"
+else
+  refuse "00_preflight" "hardware/boot preflight failed"
+fi
+
+step "10 RING0"
+[[ -x "$REPO/arda_os/backend/services/bpf/arda_lsm_loader" ]] || refuse "10_ring0" "loader missing"
+[[ -f "$REPO/arda_os/backend/services/bpf/arda_physical_lsm.o" ]] || refuse "10_ring0" "BPF object missing"
+
+mkdir -p /sys/fs/bpf/arda
+PY="${ARDA_PYTHON:-$(command -v python3)}"
+
+verify_live_ring0() {
+  PYTHONPATH="$REPO/arda_os" "$PY" - <<'PYAUTH'
+import json
+from backend.services.arda_bpf_authority import verify_attachment
+
+evidence = verify_attachment("/sys/fs/bpf/arda")
+print(json.dumps(evidence, indent=2, sort_keys=True))
+
+if evidence.get("verified") is not True:
+    raise SystemExit(1)
+PYAUTH
+}
+
+RING0_BOOTSTRAPPED=0
+
+if ! verify_live_ring0; then
+  echo "INFO: no verified live Ring0 attachment; starting bounded enrollment bootstrap"
+
+  systemctl stop arda-ring0-enrollment.service >/dev/null 2>&1 || true
+  systemctl reset-failed arda-ring0-enrollment.service >/dev/null 2>&1 || true
+
+  systemd-run \
+    --unit=arda-ring0-enrollment \
+    --property=Type=simple \
+    --property=Restart=no \
+    --collect \
+    "$REPO/arda_os/backend/services/bpf/arda_lsm_loader" \
+    "$REPO/arda_os/backend/services/bpf/arda_physical_lsm.o" \
+    --pin-root /sys/fs/bpf/arda \
+    --enforcement-mode audit
+
+  sleep 2
+  RING0_BOOTSTRAPPED=1
+fi
+
+bpftool map show pinned /sys/fs/bpf/arda/policy_state_map >/dev/null 2>&1 || \
+  refuse "10_ring0" "Ring0 authoritative maps absent"
+
+verify_live_ring0 || \
+  refuse "10_ring0" "live Ring0 attachment could not be independently verified"
+
+if [[ "$RING0_BOOTSTRAPPED" -eq 1 ]]; then
+  receipt "10_ring0" "PASS" "verified enrollment bootstrap attachment"
+else
+  receipt "10_ring0" "PASS" "verified existing live attachment"
+fi
+
+step "20 POLICY"
+
+POLICY_SOURCE="/etc/arda/policy/constitutional-policy.json"
+POLICY_BUNDLE="/etc/arda/policy/active_bundle.json"
+POLICY_PLAN="/etc/arda/policy/active_projection_plan.json"
+
+[[ -f "$POLICY_SOURCE" ]] || refuse "20_policy" "constitutional policy missing"
+[[ -f "$POLICY_BUNDLE" ]] || refuse "20_policy" "active policy bundle missing"
+[[ -f "$POLICY_PLAN" ]] || refuse "20_policy" "active projection plan missing"
+
+python3 - "$POLICY_SOURCE" "$POLICY_BUNDLE" "$POLICY_PLAN" <<'PYPOLICYPAIR' || \
+  refuse "20_policy" "policy source/bundle/projection binding invalid"
+import hashlib
+import json
+import sys
+
+source_path, bundle_path, plan_path = sys.argv[1:]
+
+with open(source_path, encoding="utf-8") as handle:
+    source = json.load(handle)
+
+with open(bundle_path, encoding="utf-8") as handle:
+    bundle = json.load(handle)
+
+with open(plan_path, encoding="utf-8") as handle:
+    plan = json.load(handle)
+
+
+def digest(value):
+    raw = json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
+    return "sha256:" + hashlib.sha256(raw).hexdigest()
+
+
+source_digest = digest(source)
+bundle_digest = digest(bundle)
+
+bundle_redlines = (
+    bundle.get("projections", {}).get("redline_rules", [])
+)
+plan_redlines = (
+    plan.get("targets", {}).get("redline_rules", [])
+)
+
+checks = {
+    "policy_id": (
+        source.get("policy_id")
+        == bundle.get("policy_id")
+        == plan.get("policy_id")
+    ),
+    "policy_version": (
+        source.get("version")
+        == bundle.get("policy_version")
+        == plan.get("policy_version")
+    ),
+    "source_digest_bundle": (
+        bundle.get("source_policy_digest") == source_digest
+    ),
+    "source_digest_plan": (
+        plan.get("source_policy_digest") == source_digest
+    ),
+    "bundle_digest_plan": (
+        plan.get("bundle_digest") == bundle_digest
+    ),
+    "seven_bundle_redlines": len(bundle_redlines) == 7,
+    "seven_plan_redlines": len(plan_redlines) == 7,
+    "same_redlines": bundle_redlines == plan_redlines,
+    "portable_integrity_mode": (
+        bundle.get("integrity", {}).get("mode")
+        == "package-measured"
+    ),
+    "no_claimed_authenticated_signature": (
+        bundle.get("integrity", {}).get(
+            "authenticated_signature"
+        ) is False
+    ),
+}
+
+print(json.dumps({
+    "checks": checks,
+    "source_policy_digest": source_digest,
+    "bundle_digest": bundle_digest,
+    "policy_generation": (
+        f"{bundle.get('policy_id')}@"
+        f"{bundle.get('policy_version')}"
+    ),
+    "redline_rule_count": len(bundle_redlines),
+}, indent=2, sort_keys=True))
+
+if not all(checks.values()):
+    raise SystemExit(1)
+PYPOLICYPAIR
+
+PY="${ARDA_PYTHON:-$REPO/.venv/bin/python}"
+PYTHONPATH="$REPO/arda_os" "$PY" - <<'PY' || exit 20
+import json
+from pathlib import Path
+from backend.services.os_enforcement_service import OsEnforcementService
+
+plan = json.loads(Path("/etc/arda/policy/active_projection_plan.json").read_text())
+targets = plan["targets"]
+constitutional = targets["constitutional_state"]
+
+service = OsEnforcementService(arm=False)
+try:
+    result = service.project_pinned_policy(
+        harmonic_paths=targets["harmony_allow_paths"],
+        enforcement_mode="audit",
+        constitutional_state=constitutional,
+        seed_running_processes=False,
+        verify_native_denial_after=False,
+    )
+    print(json.dumps(result, indent=2, sort_keys=True))
+finally:
+    service.shutdown()
+PY
+if [[ $? -ne 0 ]]; then refuse "20_policy" "constitutional projection failed"; fi
+receipt "20_policy" "PASS"
+
+step "30 MEASURED IDENTITY"
+
+PROJECTION_DIR="/var/lib/arda/projection"
+GEN_DB="$PROJECTION_DIR/arda_measured_generation.sqlite3"
+mkdir -p "$PROJECTION_DIR"
+
+NEXT_GENERATION="$(
+  python3 - "$GEN_DB" <<'PYGEN'
+import os
+import sqlite3
+import sys
+
+db = sys.argv[1]
+
+if not os.path.exists(db):
+    print(1)
+    raise SystemExit(0)
+
+con = sqlite3.connect(db)
+try:
+    row = con.execute(
+        "SELECT MAX(generation) FROM arda_measured_generation"
+    ).fetchone()
+    current = int(row[0] or 0)
+finally:
+    con.close()
+
+print(current + 1)
+PYGEN
+)"
+
+MANIFEST="$PROJECTION_DIR/measured-critical-v${NEXT_GENERATION}.json"
+
+echo "Target-local generation: $NEXT_GENERATION"
+echo "Manifest: $MANIFEST"
+
+if ! env \
+  ARDA_SOVEREIGN_MODE=1 \
+  PYTHONPATH="$REPO/arda_os" \
+  "$PY" \
+  "$REPO/arda_os/bin/arda_build_measured_manifest.py" \
+    --profile critical-host \
+    --policy-generation ARDA-POLICY-V1@1.1.0 \
+    --generation "$NEXT_GENERATION" \
+    --output "$MANIFEST"
+then
+  refuse "30_measured_identity" "fresh manifest build failed"
+fi
+
+[[ -s "$MANIFEST" ]] || refuse "30_measured_identity" "manifest not created"
+
+MANIFEST_ID="$(
+  python3 - "$MANIFEST" <<'PYMID'
+import json
+import sys
+
+x = json.load(open(sys.argv[1]))
+mid = x.get("manifest_id")
+
+if not mid:
+    raise SystemExit("manifest_id missing")
+
+print(mid)
+PYMID
+)"
+
+echo "Fresh manifest ID: $MANIFEST_ID"
+
+if ! env \
+  ARDA_SOVEREIGN_MODE=1 \
+  PYTHONPATH="$REPO/arda_os" \
+  ARDA_INSTALL_MANIFEST="$MANIFEST" \
+  ARDA_INSTALL_MANIFEST_ID="$MANIFEST_ID" \
+  "$PY" - <<'PYMEASURED'
+import json
+import os
+
+from backend.services.os_enforcement_service import OsEnforcementService
+
+manifest_path = os.environ["ARDA_INSTALL_MANIFEST"]
+manifest_id = os.environ["ARDA_INSTALL_MANIFEST_ID"]
+
+with open(manifest_path, "r", encoding="utf-8") as handle:
+    manifest = json.load(handle)
+
+service = OsEnforcementService(arm=False)
+
+try:
+    status = service.get_status()
+
+    if not status.get("is_authoritative"):
+        raise RuntimeError("Ring0 is not authoritative")
+
+    phase3 = service.get_phase3_map_status()
+
+    if not phase3.get("all_required_present"):
+        raise RuntimeError("Phase3 measured map contract incomplete")
+
+    staged = service.stage_measured_manifest(manifest)
+
+    activated = service.activate_staged_measured_manifest(manifest_id)
+
+    projected = service.project_staged_measured_manifest(manifest_id)
+
+    final_status = service.get_status()
+
+    payload = {
+        "ok": True,
+        "manifest_id": manifest_id,
+        "manifest_path": manifest_path,
+        "generation": manifest.get("generation"),
+        "policy_generation": manifest.get("policy_generation"),
+        "stage": staged,
+        "activate": activated,
+        "project": projected,
+        "phase3": service.get_phase3_map_status(),
+        "authoritative": final_status.get("is_authoritative"),
+        "enforcement_mode": final_status.get("enforcement_mode"),
+    }
+
+    print(json.dumps(payload, indent=2, sort_keys=True))
+
+finally:
+    service.shutdown()
+PYMEASURED
+then
+  refuse "30_measured_identity" "stage/activate/project failed"
+fi
+
+receipt \
+  "30_measured_identity" \
+  "PASS" \
+  "manifest=$MANIFEST_ID generation=$NEXT_GENERATION"
+
+echo "$MANIFEST" > "$STATE/active_manifest_path"
+echo "$MANIFEST_ID" > "$STATE/active_manifest_id"
+echo "$NEXT_GENERATION" > "$STATE/active_generation"
+
+echo "MEASURED IDENTITY: PASS"
+
+step "40 HARDWARE ATTESTATION + PCR11 BINDING"
+
+if ! env \
+  ARDA_REPO="$REPO" \
+  ARDA_PYTHON="$PY" \
+  ARDA_ATTESTATION_DIR="/var/lib/arda/attestation/latest" \
+  "/usr/bin/arda-attest"
+then
+  refuse "40_hardware_attestation" "Phase4 capture / PCR11 binding / EK verification failed"
+fi
+
+IDENTITY="/var/lib/arda/attestation/latest/03_tpm_identity.json"
+BUNDLE="/var/lib/arda/attestation/latest/07_sovereign_attestation.json"
+
+[[ -s "$IDENTITY" ]] || refuse "40_hardware_attestation" "TPM identity missing"
+[[ -s "$BUNDLE" ]] || refuse "40_hardware_attestation" "attestation bundle missing"
+
+python3 - "$IDENTITY" <<'PYIDENTITY' || exit 40
+import json
+import sys
+
+x = json.load(open(sys.argv[1]))
+cert = x.get("ek_certificate") or {}
+
+checks = {
+    "ek_certificate_present": x.get("ek_certificate_present") is True,
+    "ak_certified_by_ek": x.get("ak_certified_by_ek") is True,
+    "manufacturer_chain": (
+        cert.get("chain_verified") is True
+    ),
+    "ek_spki_bound": (
+        cert.get("spki_match") is True
+    ),
+}
+
+print(json.dumps({
+    "manufacturer": x.get("manufacturer"),
+    "identity_chain_mode": x.get("identity_chain_mode"),
+    "checks": checks,
+}, indent=2, sort_keys=True))
+
+if not all(checks.values()):
+    raise SystemExit(1)
+PYIDENTITY
+
+if [[ $? -ne 0 ]]; then
+  refuse "40_hardware_attestation" "manufacturer-rooted TPM identity failed"
+fi
+
+receipt "40_hardware_attestation" "PASS" "manufacturer-rooted TPM evidence captured"
+
+
+step "50 INITIAL PCR BASELINE"
+
+BASELINE_DIR="/var/lib/arda/attestation/baselines"
+BASELINE="$BASELINE_DIR/approved-pcr-baseline.json"
+mkdir -p "$BASELINE_DIR"
+
+BASELINE_CURRENT=0
+
+if [[ -s "$BASELINE" ]]; then
+  if python3 - "$BASELINE" "$BUNDLE" <<'PYBASELINECHECK'
+import json
+import sys
+
+baseline_path, bundle_path = sys.argv[1:]
+
+with open(baseline_path, encoding="utf-8") as handle:
+    baseline = json.load(handle)
+
+with open(bundle_path, encoding="utf-8") as handle:
+    bundle = json.load(handle)
+
+approved = baseline.get("approved_boot") or {}
+binding = bundle.get("software_state_binding") or {}
+quote = bundle.get("tpm_pcr_quote") or {}
+
+baseline_pcrs = baseline.get("pcrs") or {}
+current_pcrs = quote.get("pcr_values") or {}
+
+checks = {
+    "generation": approved.get("generation") == binding.get("generation"),
+    "manifest_id": approved.get("manifest_id") == binding.get("manifest_id"),
+    "policy_generation": (
+        approved.get("policy_generation") == binding.get("policy_generation")
+    ),
+    "manufacturer_rooted": approved.get("manufacturer_rooted") is True,
+    "pcr_0": baseline_pcrs.get("0") == current_pcrs.get("0"),
+    "pcr_1": baseline_pcrs.get("1") == current_pcrs.get("1"),
+    "pcr_7": baseline_pcrs.get("7") == current_pcrs.get("7"),
+    "pcr_11": baseline_pcrs.get("11") == current_pcrs.get("11"),
+}
+
+print(json.dumps({
+    "baseline_generation": approved.get("generation"),
+    "current_generation": binding.get("generation"),
+    "baseline_manifest_id": approved.get("manifest_id"),
+    "current_manifest_id": binding.get("manifest_id"),
+    "checks": checks,
+}, indent=2, sort_keys=True))
+
+if not all(checks.values()):
+    raise SystemExit(1)
+PYBASELINECHECK
+  then
+    BASELINE_CURRENT=1
+  fi
+fi
+
+if [[ "$BASELINE_CURRENT" -ne 1 ]]; then
+  if [[ -s "$BASELINE" ]]; then
+    python3 - "$BASELINE" "$BASELINE_DIR" <<'PYBASELINEARCHIVE'
+import json
+import pathlib
+import sys
+from datetime import datetime, timezone
+
+baseline_path = pathlib.Path(sys.argv[1])
+baseline_dir = pathlib.Path(sys.argv[2])
+
+payload = json.loads(baseline_path.read_text(encoding="utf-8"))
+approved = payload.get("approved_boot") or {}
+
+generation = approved.get("generation", "unknown")
+manifest = str(approved.get("manifest_id") or "unknown").replace("/", "_")
+stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+history = baseline_dir / "history"
+history.mkdir(parents=True, exist_ok=True)
+
+destination = history / (
+    f"approved-pcr-baseline-g{generation}-{manifest}-{stamp}.json"
+)
+
+destination.write_text(
+    baseline_path.read_text(encoding="utf-8"),
+    encoding="utf-8",
+)
+
+print(f"Archived stale PCR baseline: {destination}")
+PYBASELINEARCHIVE
+  fi
+
+  NODE_ID="$(cat /etc/machine-id 2>/dev/null || hostname)"
+
+  if ! env \
+    ARDA_SOVEREIGN_MODE=1 \
+    PYTHONPATH="$REPO/arda_os" \
+    "$PY" \
+    "$REPO/arda_os/bin/arda_generate_pcr_baseline.py" \
+      --evidence-bundle "$BUNDLE" \
+      --output "$BASELINE" \
+      --baseline-name "arda-enrollment-${NODE_ID}"
+  then
+    refuse "50_pcr_baseline" "PCR baseline generation failed"
+  fi
+fi
+
+[[ -s "$BASELINE" ]] || refuse "50_pcr_baseline" "PCR baseline absent"
+
+receipt "50_pcr_baseline" "PASS" "baseline=$BASELINE"
+
+else
+
+  step "RESUME VALIDATION"
+
+  # A resume is not a new enrollment. It must consume exactly the
+  # generation already committed by Steps 00..50.
+  PY="${ARDA_PYTHON:-$(command -v python3)}"
+  PROJECTION_DIR="/var/lib/arda/projection"
+  GEN_DB="$PROJECTION_DIR/arda_measured_generation.sqlite3"
+
+  IDENTITY="/var/lib/arda/attestation/latest/03_tpm_identity.json"
+  BUNDLE="/var/lib/arda/attestation/latest/07_sovereign_attestation.json"
+
+  BASELINE_DIR="/var/lib/arda/attestation/baselines"
+  BASELINE="$BASELINE_DIR/approved-pcr-baseline.json"
+
+  [[ -s "$STATE/active_manifest_path" ]] || \
+    refuse "resume_validation" "active manifest path state missing"
+
+  [[ -s "$STATE/active_manifest_id" ]] || \
+    refuse "resume_validation" "active manifest id state missing"
+
+  [[ -s "$STATE/active_generation" ]] || \
+    refuse "resume_validation" "active generation state missing"
+
+  MANIFEST_PATH="$(cat "$STATE/active_manifest_path")"
+  MANIFEST="$MANIFEST_PATH"
+  MANIFEST_ID="$(cat "$STATE/active_manifest_id")"
+  NEXT_GENERATION="$(cat "$STATE/active_generation")"
+
+  [[ "$NEXT_GENERATION" =~ ^[1-9][0-9]*$ ]] || \
+    refuse "resume_validation" "persisted generation is invalid"
+
+  [[ -s "$MANIFEST_PATH" ]] || \
+    refuse "resume_validation" "persisted active manifest missing"
+
+  [[ -s "$IDENTITY" ]] || \
+    refuse "resume_validation" "persisted TPM identity missing"
+
+  [[ -s "$BUNDLE" ]] || \
+    refuse "resume_validation" "persisted attestation bundle missing"
+
+  [[ -s "$BASELINE" ]] || \
+    refuse "resume_validation" "persisted PCR baseline missing"
+
+  # Verify the immutable transaction frontier, durable GenN truth,
+  # PCR11 binding, stale-verdict status and ownership of the
+  # transient enrollment Ring0 authority.
+  if ! python3 - \
+    "$STATE" \
+    "$GEN_DB" \
+    "$MANIFEST_PATH" \
+    "$MANIFEST_ID" \
+    "$NEXT_GENERATION" \
+    "$BUNDLE" \
+    "$BASELINE" <<'PYRESUME'
+import json
+import os
+import re
+import sqlite3
+import subprocess
+import sys
+from pathlib import Path
+
+(
+    state_raw,
+    db_raw,
+    manifest_raw,
+    expected_manifest_id,
+    expected_generation_raw,
+    bundle_raw,
+    baseline_raw,
+) = sys.argv[1:]
+
+state = Path(state_raw)
+db_path = Path(db_raw)
+manifest_path = Path(manifest_raw)
+bundle_path = Path(bundle_raw)
+baseline_path = Path(baseline_raw)
+
+expected_generation = int(expected_generation_raw)
+
+checks = {}
+details = {}
+
+
+def load(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+# --------------------------------------------------------
+# Receipt frontier
+# --------------------------------------------------------
+
+required_receipts = (
+    "00_preflight",
+    "10_ring0",
+    "20_policy",
+    "30_measured_identity",
+    "40_hardware_attestation",
+    "50_pcr_baseline",
+)
+
+for name in required_receipts:
+    path = state / f"{name}.json"
+
+    try:
+        payload = load(path)
+        ok = (
+            payload.get("status") == "PASS"
+            and payload.get("step") == name
+        )
+    except Exception:
+        payload = None
+        ok = False
+
+    checks[f"receipt_{name}"] = ok
+
+for name in (
+    "60_verifier",
+    "70_grade",
+    "75_ring0_handoff",
+    "80_continuous_proof",
+):
+    checks[f"receipt_{name}_absent"] = not (
+        state / f"{name}.json"
+    ).exists()
+
+
+# --------------------------------------------------------
+# Manifest identity
+# --------------------------------------------------------
+
+manifest = load(manifest_path)
+
+checks["manifest_id"] = (
+    manifest.get("manifest_id") == expected_manifest_id
+)
+
+checks["manifest_generation"] = (
+    int(manifest.get("generation") or 0) == expected_generation
+)
+
+details["manifest_id"] = manifest.get("manifest_id")
+details["manifest_generation"] = manifest.get("generation")
+
+
+# --------------------------------------------------------
+# Generation database
+# --------------------------------------------------------
+
+con = sqlite3.connect(db_path)
+
+try:
+    row = con.execute(
+        """
+        SELECT node_id, generation, manifest_digest
+        FROM arda_measured_generation
+        ORDER BY generation DESC
+        LIMIT 1
+        """
+    ).fetchone()
+finally:
+    con.close()
+
+checks["generation_db_present"] = row is not None
+checks["generation_db_generation"] = bool(
+    row and int(row[1]) == expected_generation
+)
+
+details["generation_db"] = {
+    "node_id": row[0] if row else None,
+    "generation": row[1] if row else None,
+    "manifest_digest": row[2] if row else None,
+}
+
+
+# --------------------------------------------------------
+# Baseline + evidence binding
+# --------------------------------------------------------
+
+baseline = load(baseline_path)
+approved = baseline.get("approved_boot") or {}
+
+checks["baseline_generation"] = (
+    int(approved.get("generation") or 0)
+    == expected_generation
+)
+
+checks["baseline_manifest"] = (
+    approved.get("manifest_id") == expected_manifest_id
+)
+
+checks["baseline_manufacturer_rooted"] = (
+    approved.get("manufacturer_rooted") is True
+)
+
+bundle = load(bundle_path)
+binding = bundle.get("software_state_binding") or {}
+
+checks["bundle_generation"] = (
+    int(binding.get("generation") or 0)
+    == expected_generation
+)
+
+checks["bundle_manifest"] = (
+    binding.get("manifest_id") == expected_manifest_id
+)
+
+
+# --------------------------------------------------------
+# Live PCR11 == committed GenN baseline
+# --------------------------------------------------------
+
+proc = subprocess.run(
+    ["/usr/bin/tpm2_pcrread", "sha256:11"],
+    capture_output=True,
+    text=True,
+    check=False,
+)
+
+match = re.search(
+    r"11:\s*0x([0-9A-Fa-f]+)",
+    proc.stdout,
+)
+
+current_pcr11 = (
+    match.group(1).lower()
+    if match
+    else None
+)
+
+baseline_pcr11 = str(
+    (baseline.get("pcrs") or {}).get("11") or ""
+).lower()
+
+checks["pcr11_read"] = (
+    proc.returncode == 0 and current_pcr11 is not None
+)
+
+checks["pcr11_matches_baseline"] = (
+    bool(current_pcr11)
+    and current_pcr11 == baseline_pcr11
+)
+
+details["pcr11_current"] = current_pcr11
+details["pcr11_baseline"] = baseline_pcr11
+
+
+# --------------------------------------------------------
+# Old verdict must not masquerade as completed Step 60.
+# --------------------------------------------------------
+
+verdict_path = Path(
+    "/var/lib/arda/verifier/latest-verdict.json"
+)
+
+if verdict_path.is_file():
+    verdict = load(verdict_path)
+    signed = verdict.get("signed_verdict") or {}
+
+    details["existing_verdict_manifest"] = (
+        signed.get("manifest_id")
+    )
+
+    checks["no_unreceipted_current_verdict"] = (
+        signed.get("manifest_id")
+        != expected_manifest_id
+    )
+else:
+    details["existing_verdict_manifest"] = None
+    checks["no_unreceipted_current_verdict"] = True
+
+
+# --------------------------------------------------------
+# Continuous proof MUST remain dormant until Step 80.
+# --------------------------------------------------------
+
+def systemctl(*args):
+    return subprocess.run(
+        ["/usr/bin/systemctl", *args],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+
+timer_active = systemctl(
+    "is-active",
+    "arda-valinor-postboot.timer",
+)
+
+timer_enabled = systemctl(
+    "is-enabled",
+    "arda-valinor-postboot.timer",
+)
+
+checks["continuous_timer_inactive"] = (
+    timer_active.stdout.strip() != "active"
+)
+
+checks["continuous_timer_disabled"] = (
+    timer_enabled.stdout.strip() != "enabled"
+)
+
+
+# --------------------------------------------------------
+# Enrollment bootstrap ownership
+# --------------------------------------------------------
+
+transient_active = systemctl(
+    "is-active",
+    "arda-ring0-enrollment.service",
+)
+
+persistent_active = systemctl(
+    "is-active",
+    "arda-ring0.service",
+)
+
+checks["bootstrap_unit_active"] = (
+    transient_active.stdout.strip() == "active"
+)
+
+checks["persistent_ring0_not_active"] = (
+    persistent_active.stdout.strip() != "active"
+)
+
+show = systemctl(
+    "show",
+    "arda-ring0-enrollment.service",
+    "--property=MainPID",
+    "--property=ControlGroup",
+    "--property=ExecStart",
+)
+
+show_text = show.stdout
+
+checks["bootstrap_loader_identity"] = (
+    "arda_lsm_loader" in show_text
+    and "--pin-root /sys/fs/bpf/arda" in show_text
+)
+
+checks["bootstrap_audit_origin"] = (
+    "--enforcement-mode audit" in show_text
+)
+
+control_group = None
+
+for line in show_text.splitlines():
+    if line.startswith("ControlGroup="):
+        control_group = line.split("=", 1)[1].strip()
+        break
+
+checks["bootstrap_control_group"] = bool(control_group)
+
+cgroup_kernel_id = None
+
+if control_group:
+    cgroup_path = Path("/sys/fs/cgroup") / control_group.lstrip("/")
+
+    try:
+        cgroup_kernel_id = cgroup_path.stat().st_ino
+    except OSError:
+        cgroup_kernel_id = None
+
+checks["bootstrap_cgroup_kernel_id"] = (
+    cgroup_kernel_id is not None
+)
+
+details["bootstrap_cgroup_kernel_id"] = (
+    cgroup_kernel_id
+)
+
+
+# --------------------------------------------------------
+# Live cgroup -> GenN binding in Ring0 map
+# --------------------------------------------------------
+
+bpftool = subprocess.run(
+    [
+        "/usr/sbin/bpftool",
+        "-j",
+        "map",
+        "dump",
+        "pinned",
+        "/sys/fs/bpf/arda/active_generation_map",
+    ],
+    capture_output=True,
+    text=True,
+    check=False,
+)
+
+generation_bound = False
+active_generation_entries = []
+
+if bpftool.returncode == 0:
+    try:
+        active_generation_entries = json.loads(
+            bpftool.stdout
+        )
+
+        for entry in active_generation_entries:
+            key = entry.get("key")
+            value = entry.get("value")
+
+            if (
+                cgroup_kernel_id is not None
+                and int(key) == int(cgroup_kernel_id)
+                and int(value) == expected_generation
+            ):
+                generation_bound = True
+                break
+    except Exception:
+        pass
+
+checks["bootstrap_cgroup_bound_to_generation"] = (
+    generation_bound
+)
+
+
+payload = {
+    "ok": all(checks.values()),
+    "expected_generation": expected_generation,
+    "expected_manifest_id": expected_manifest_id,
+    "checks": checks,
+    "details": details,
+}
+
+print(json.dumps(payload, indent=2, sort_keys=True))
+
+if not payload["ok"]:
+    raise SystemExit(1)
+PYRESUME
+
+  then
+    refuse \
+      "resume_validation" \
+      "committed enrollment transaction failed resume invariants"
+  fi
+
+  # The validator has independently proven that the live authority is
+  # still the enrollment bootstrap and that its cgroup is bound to GenN.
+  RING0_BOOTSTRAPPED=1
+
+  verify_live_ring0() {
+    PYTHONPATH="$REPO/arda_os" "$PY" - <<'PYAUTH'
+import json
+from backend.services.arda_bpf_authority import verify_attachment
+
+evidence = verify_attachment("/sys/fs/bpf/arda")
+print(json.dumps(evidence, indent=2, sort_keys=True))
+
+if evidence.get("verified") is not True:
+    raise SystemExit(1)
+PYAUTH
+  }
+
+  verify_live_ring0 || \
+    refuse \
+      "resume_validation" \
+      "live enrollment Ring0 attachment no longer verifies"
+
+  echo
+  echo "RESUME VALIDATION: PASS"
+  echo "generation=$NEXT_GENERATION"
+  echo "manifest=$MANIFEST_ID"
+  echo "continuing from Step 60 without minting a new generation"
+
+fi
+
+
+step "60 SIGNED VERIFIER VERDICT"
+
+VERIFIER_URL="${ARDA_VERIFIER_URL:-}"
+
+if [[ -z "$VERIFIER_URL" && -r /etc/arda/attested-host.env ]]; then
+  VERIFIER_URL="$(
+    python3 - <<'PYURL'
+from pathlib import Path
+
+p = Path("/etc/arda/attested-host.env")
+
+for raw in p.read_text().splitlines():
+    line = raw.strip()
+
+    if not line or line.startswith("#") or "=" not in line:
+        continue
+
+    key, value = line.split("=", 1)
+
+    if key.strip() == "ARDA_VERIFIER_URL":
+        print(value.strip().strip('"').strip("'"))
+        break
+PYURL
+  )"
+fi
+
+[[ -n "$VERIFIER_URL" ]] || \
+  refuse "60_verifier" "ARDA_VERIFIER_URL is not configured"
+
+ATT_HOST_ENV="${ARDA_ATTESTED_HOST_ENV:-/etc/arda/attested-host.env}"
+
+attested_host_value() {
+  local key="$1"
+
+  [[ -r "$ATT_HOST_ENV" ]] || return 0
+
+  python3 - "$ATT_HOST_ENV" "$key" <<'PYCONFIG'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+wanted = sys.argv[2]
+
+for raw in path.read_text(encoding="utf-8").splitlines():
+    line = raw.strip()
+
+    if not line or line.startswith("#") or "=" not in line:
+        continue
+
+    key, value = line.split("=", 1)
+
+    if key.strip() == wanted:
+        print(value.strip().strip('"').strip("'"))
+        break
+PYCONFIG
+}
+
+CONFIG_VERIFIER_PUBLIC_KEY="$(attested_host_value ARDA_VERIFIER_PUBLIC_KEY)"
+CONFIG_VERIFIER_KEY_ID="$(attested_host_value ARDA_VERIFIER_KEY_ID)"
+
+VERIFIER_PUBLIC_KEY="${ARDA_VERIFIER_PUBLIC_KEY:-${CONFIG_VERIFIER_PUBLIC_KEY:-/etc/arda/verifier/verifier-key.pub.pem}}"
+
+VERIFIER_KEY_ID="${ARDA_VERIFIER_KEY_ID:-${CONFIG_VERIFIER_KEY_ID:-arda-phase4-verifier}}"
+
+[[ -s "$VERIFIER_PUBLIC_KEY" ]] || \
+  refuse "60_verifier" "verifier public key missing: $VERIFIER_PUBLIC_KEY"
+
+MANIFEST_PATH="$(cat "$STATE/active_manifest_path")"
+VERDICT="/var/lib/arda/verifier/latest-verdict.json"
+
+mkdir -p /var/lib/arda/verifier
+
+if ! env \
+  ARDA_SOVEREIGN_MODE=1 \
+  ARDA_VERIFIER_URL="$VERIFIER_URL" \
+  ARDA_VERIFIER_PUBLIC_KEY="$VERIFIER_PUBLIC_KEY" \
+  ARDA_VERIFIER_KEY_ID="$VERIFIER_KEY_ID" \
+  PYTHONPATH="$REPO/arda_os" \
+  ARDA_INSTALL_MANIFEST="$MANIFEST_PATH" \
+  ARDA_INSTALL_BUNDLE="$BUNDLE" \
+  ARDA_INSTALL_BASELINE="$BASELINE" \
+  ARDA_INSTALL_VERDICT="$VERDICT" \
+  "$PY" - <<'PYVERIFY'
+import json
+import os
+from pathlib import Path
+
+from kernel.valinor.scripts.post_boot_valinor_gate import (
+    _post_to_verifier,
+    _refresh_attestation_envelope,
+    _signed_verdict_ready,
+)
+
+manifest = Path(os.environ["ARDA_INSTALL_MANIFEST"])
+bundle = os.environ["ARDA_INSTALL_BUNDLE"]
+baseline = os.environ["ARDA_INSTALL_BASELINE"]
+verdict_path = Path(os.environ["ARDA_INSTALL_VERDICT"])
+verifier_url = os.environ["ARDA_VERIFIER_URL"]
+
+_refresh_attestation_envelope(manifest, bundle)
+
+result = _post_to_verifier(
+    verifier_url,
+    manifest_path=manifest,
+    evidence_bundle_path=bundle,
+    pcr_baseline_path=baseline,
+    require_verifier_nonce=False,
+    require_tpm_quote_verification=True,
+)
+
+if not _signed_verdict_ready(result):
+    print(json.dumps(result, indent=2, sort_keys=True))
+    raise RuntimeError("verifier response is not signed/ready")
+
+verdict_path.write_text(
+    json.dumps(result, indent=2, sort_keys=True) + "\n",
+    encoding="utf-8",
+)
+
+print(json.dumps({
+    "ok": True,
+    "verifier_url": verifier_url,
+    "verdict_path": str(verdict_path),
+    "signed_verdict_ready": True,
+}, indent=2, sort_keys=True))
+PYVERIFY
+then
+  refuse "60_verifier" "signed verifier verdict failed"
+fi
+
+receipt "60_verifier" "PASS" "verdict=$VERDICT"
+
+
+step "70 HARDWARE-ROOTED OS GRADE"
+
+if ! env \
+  ARDA_REPO="$REPO" \
+  ARDA_PYTHON="$PY" \
+  ARDA_VERDICT="$VERDICT" \
+  ARDA_VERIFIER_PUBLIC_KEY="$VERIFIER_PUBLIC_KEY" \
+  ARDA_VERIFIER_KEY_ID="$VERIFIER_KEY_ID" \
+  "/usr/bin/arda-grade" \
+  | tee "$STATE/70_grade-output.json"
+then
+  refuse "70_grade" "hardware-rooted OS-grade not achieved"
+fi
+
+python3 - "$STATE/70_grade-output.json" <<'PYGRADE' || exit 70
+import json
+import sys
+
+x = json.load(open(sys.argv[1]))
+
+required = {
+    "ok": x.get("ok") is True,
+    "software_os_grade": x.get("software_os_grade") is True,
+    "hardware_rooted_os_grade": x.get("hardware_rooted_os_grade") is True,
+    "failures_empty": x.get("failures") == [],
+}
+
+print(json.dumps(required, indent=2, sort_keys=True))
+
+if not all(required.values()):
+    raise SystemExit(1)
+PYGRADE
+
+if [[ $? -ne 0 ]]; then
+  refuse "70_grade" "final grade JSON failed invariant checks"
+fi
+
+receipt "70_grade" "PASS" "hardware-rooted OS-grade production milestone"
+
+
+step "75 PERSISTENT RING0 HANDOFF"
+
+RING0_PIN_ROOT="/sys/fs/bpf/arda"
+RING0_RESTORE_RECEIPT="/run/arda/ring0-restore.json"
+
+verify_restore_receipt() {
+  python3 - \
+    "$RING0_RESTORE_RECEIPT" \
+    "$NEXT_GENERATION" \
+    "$MANIFEST_ID" <<'PYHANDOFF'
+import json
+import sys
+from pathlib import Path
+
+receipt_path = Path(sys.argv[1])
+expected_generation = int(sys.argv[2])
+expected_manifest = sys.argv[3]
+
+if not receipt_path.is_file():
+    raise SystemExit("restore receipt missing")
+
+x = json.loads(receipt_path.read_text())
+
+checks = {
+    "ok": x.get("ok") is True,
+    "generation": int(x.get("generation") or 0) == expected_generation,
+    "manifest_id": x.get("manifest_id") == expected_manifest,
+    "enforcement_mode": x.get("enforcement_mode") == "scoped_strict",
+    "redlines": int(x.get("redline_rule_count") or 0) > 0,
+    "measured_exec": int(x.get("measured_exec_count") or 0) > 0,
+    "verity_identity": int(x.get("verity_identity_count") or 0) > 0,
+}
+
+print(json.dumps(checks, indent=2, sort_keys=True))
+
+if not all(checks.values()):
+    raise SystemExit(1)
+PYHANDOFF
+}
+
+if [[ "$RING0_BOOTSTRAPPED" -eq 1 ]]; then
+  echo "INFO: transferring Ring0 ownership from enrollment bootstrap to persistent service"
+
+  verify_live_ring0 || \
+    refuse "75_ring0_handoff" \
+      "bootstrap attachment lost before persistent handoff"
+
+  if ! systemctl stop arda-ring0-enrollment.service; then
+    refuse "75_ring0_handoff" \
+      "failed to stop enrollment bootstrap loader"
+  fi
+
+  # The loader destroys its link on SIGTERM, but bpffs pins survive the
+  # process. This namespace belongs exclusively to ARDA Ring0 and must be
+  # cleared before the persistent loader creates the fresh runtime maps
+  # that restore_ring0_boot_state.py will populate from durable GenN state.
+  if [[ -d "$RING0_PIN_ROOT" ]]; then
+    rm -f "$RING0_PIN_ROOT"/*
+  fi
+
+  if find "$RING0_PIN_ROOT" -mindepth 1 -maxdepth 1 -print -quit 2>/dev/null |
+      grep -q .; then
+    refuse "75_ring0_handoff" \
+      "Ring0 bpffs namespace did not clear after bootstrap release"
+  fi
+
+  systemctl reset-failed \
+    arda-ring0.service \
+    arda-ring0-verify.service \
+    >/dev/null 2>&1 || true
+
+  rm -f /run/arda/ring0-ready /run/arda/ring0-restore.json
+
+  if ! systemctl start arda-ring0.service; then
+    refuse "75_ring0_handoff" \
+      "persistent Ring0 service failed to assume authority"
+  fi
+
+  if ! systemctl start arda-ring0-verify.service; then
+    refuse "75_ring0_handoff" \
+      "persistent Ring0 verifier failed"
+  fi
+else
+  # If Step 10 found an existing verified attachment, enrollment must not
+  # silently bless an unknown owner. Persistent Ring0 must already own it.
+  if ! systemctl is-active --quiet arda-ring0.service; then
+    refuse "75_ring0_handoff" \
+      "verified Ring0 attachment is not owned by persistent service"
+  fi
+
+  if ! systemctl start arda-ring0-verify.service; then
+    refuse "75_ring0_handoff" \
+      "persistent Ring0 verifier failed"
+  fi
+fi
+
+systemctl is-active --quiet arda-ring0.service || \
+  refuse "75_ring0_handoff" \
+    "persistent Ring0 service is not active"
+
+systemctl is-active --quiet arda-ring0-verify.service || \
+  refuse "75_ring0_handoff" \
+    "persistent Ring0 verifier is not active"
+
+verify_live_ring0 || \
+  refuse "75_ring0_handoff" \
+    "persistent Ring0 live attachment failed independent verification"
+
+verify_restore_receipt || \
+  refuse "75_ring0_handoff" \
+    "persistent Ring0 restored state does not match enrolled generation"
+
+receipt \
+  "75_ring0_handoff" \
+  "PASS" \
+  "persistent Ring0 owns verified generation=$NEXT_GENERATION manifest=$MANIFEST_ID"
+
+
+step "80 CONTINUOUS HARDWARE-ROOTED PROOF"
+
+install -d -m 0755 /etc/arda
+
+ENV_TMP="$(mktemp)"
+cat > "$ENV_TMP" <<EOF
+# ARDA attested-host verifier configuration.
+# Generated only after successful hardware-rooted enrollment.
+# Verifier private signing material MUST NOT exist on this host.
+
+ARDA_VERIFIER_URL=$VERIFIER_URL
+ARDA_VERIFIER_PUBLIC_KEY=$VERIFIER_PUBLIC_KEY
+ARDA_VERIFIER_KEY_ID=$VERIFIER_KEY_ID
+
+ARDA_POSTBOOT_USE_LOOPBACK_VERIFIER=0
+ARDA_POSTBOOT_REQUIRE_VERIFIER=1
+ARDA_POSTBOOT_PROMOTE_STRICT=0
+ARDA_SOVEREIGN_MODE=1
+EOF
+
+install -m 0644 "$ENV_TMP" /etc/arda/attested-host.env
+rm -f "$ENV_TMP"
+
+if [[ ! -f /lib/systemd/system/arda-valinor-postboot.service ]]; then
+  [[ -f "$REPO/installer/systemd/arda-valinor-postboot.service" ]] || \
+    refuse "80_continuous_proof" "postboot service definition missing"
+
+  install -m 0644 \
+    "$REPO/installer/systemd/arda-valinor-postboot.service" \
+    /etc/systemd/system/arda-valinor-postboot.service
+fi
+
+if [[ ! -f /lib/systemd/system/arda-valinor-postboot.timer ]]; then
+  [[ -f "$REPO/installer/systemd/arda-valinor-postboot.timer" ]] || \
+    refuse "80_continuous_proof" "postboot timer definition missing"
+
+  install -m 0644 \
+    "$REPO/installer/systemd/arda-valinor-postboot.timer" \
+    /etc/systemd/system/arda-valinor-postboot.timer
+fi
+
+if ! systemctl daemon-reload; then
+  refuse "80_continuous_proof" "systemd daemon-reload failed"
+fi
+
+if ! systemctl enable --now arda-valinor-postboot.timer; then
+  refuse "80_continuous_proof" "continuous proof timer activation failed"
+fi
+
+if ! systemctl is-enabled --quiet arda-valinor-postboot.timer; then
+  refuse "80_continuous_proof" "continuous proof timer is not enabled"
+fi
+
+receipt \
+  "80_continuous_proof" \
+  "PASS" \
+  "five-minute fresh-proof renewal enabled"
+
+
+echo
+echo "===================================================="
+echo "        ARDA ENROLLMENT COMPLETE"
+echo "===================================================="
+echo "Ring0 authoritative             PASS"
+echo "Constitutional projection       PASS"
+echo "Measured identity               PASS"
+echo "PCR11 software binding          PASS"
+echo "Manufacturer-rooted TPM         PASS"
+echo "Signed verifier verdict         PASS"
+echo "Hardware-rooted OS-grade        PASS"
+echo "Continuous proof refresh        PASS"
+echo "===================================================="

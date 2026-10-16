@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${ARDA_REPO:-/usr/lib/arda/src}"
+VERDICT="${ARDA_VERDICT:-/var/lib/arda/verifier/latest-verdict.json}"
+ATTESTED_HOST_ENV="${ARDA_ATTESTED_HOST_ENV:-/etc/arda/attested-host.env}"
+
+config_value() {
+  local key="$1"
+  [[ -r "$ATTESTED_HOST_ENV" ]] || return 0
+  sed -n "s/^${key}=//p" "$ATTESTED_HOST_ENV" | tail -n 1
+}
+
+CONFIG_PUB="$(config_value ARDA_VERIFIER_PUBLIC_KEY)"
+CONFIG_KEY_ID="$(config_value ARDA_VERIFIER_KEY_ID)"
+
+PUB="${ARDA_VERIFIER_PUBLIC_KEY:-${CONFIG_PUB:-/etc/arda/verifier/verifier-key.pub.pem}}"
+KEY_ID="${ARDA_VERIFIER_KEY_ID:-${CONFIG_KEY_ID:-arda-phase4-verifier}}"
+
+if [[ -n "${ARDA_PYTHON:-}" ]]; then
+  PY="$ARDA_PYTHON"
+elif [[ -x "$REPO/.venv/bin/python" ]]; then
+  PY="$REPO/.venv/bin/python"
+elif [[ -x /usr/bin/python3 ]]; then
+  PY="/usr/bin/python3"
+else
+  echo "REFUSE: no usable python runtime found" >&2
+  exit 1
+fi
+
+[[ -x "$PY" ]] || {
+  echo "REFUSE: python runtime not found: $PY" >&2
+  exit 1
+}
+
+[[ -d "$REPO" ]] || {
+  echo "REFUSE: ARDA repository/runtime root not found: $REPO" >&2
+  exit 1
+}
+
+cd "$REPO"
+
+PYTHONPATH="$REPO/arda_os" "$PY" - <<PY
+import json
+from pathlib import Path
+from backend.services.valinor_os_grade_live import inspect_live_valinor_os_grade
+
+r = inspect_live_valinor_os_grade(
+    verdict_path=Path("$VERDICT"),
+    verifier_public_key=Path("$PUB"),
+    verifier_key_id="$KEY_ID",
+)
+print(json.dumps(r, indent=2, sort_keys=True))
+raise SystemExit(0 if r.get("ok") is True and r.get("hardware_rooted_os_grade") is True else 1)
+PY

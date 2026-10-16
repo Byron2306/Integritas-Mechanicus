@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SRC="${ARDA_SOURCE:-$(pwd)}"
+DEST="${ARDA_INSTALL_ROOT:-/usr/lib/arda/src}"
+
+[[ $EUID -eq 0 ]] || { echo "REFUSE: run as root" >&2; exit 1; }
+[[ -d "$SRC/arda_os" ]] || { echo "REFUSE: run from Integritas-Mechanicus repo or set ARDA_SOURCE" >&2; exit 1; }
+
+echo "Installing ARDA runtime from: $SRC"
+echo "Destination: $DEST"
+
+install -d -m 0755   /usr/lib/arda   /etc/arda   /etc/arda/policy   /etc/arda/trust/intel-ek   /etc/arda/verifier   /var/lib/arda/enrollment
+
+# Source install. rsync excludes host identity/evidence by construction.
+mkdir -p "$DEST"
+rsync -a --delete \
+  --exclude '.git/' \
+  --exclude '.venv/' \
+  --exclude 'build/' \
+  "$SRC/" "$DEST/"
+
+install -m 0755 "$DEST/installer/arda-preflight" /usr/bin/arda-preflight
+install -m 0755 "$DEST/installer/arda-enroll" /usr/bin/arda-enroll
+install -m 0755 "$DEST/installer/arda-attest" /usr/bin/arda-attest
+install -m 0755 "$DEST/installer/arda-grade" /usr/bin/arda-grade
+install -m 0755 "$DEST/installer/arda-doctor" /usr/bin/arda-doctor
+
+# Trust/policy are portable authority material, not machine identity.
+if [[ -f "$SRC/installer/trust/intel-ek-root.pem" ]]; then
+  install -m 0644 "$SRC/installer/trust/intel-ek-root.pem" /etc/arda/trust/intel-ek/intel-ek-root.pem
+fi
+if [[ -f "$SRC/installer/trust/intel-ek-intermediate.pem" ]]; then
+  install -m 0644 "$SRC/installer/trust/intel-ek-intermediate.pem" /etc/arda/trust/intel-ek/intel-ek-intermediate.pem
+fi
+
+# Verifier trust is operator/verifier provisioned.
+# Installation machinery must never assign or overwrite verifier identity.
+if [[ -f /etc/arda/verifier/verifier-key.pub.pem ]]; then
+  echo "PRESERVE: existing verifier public key"
+else
+  echo "NOTICE: verifier public key not provisioned"
+fi
+if [[ -f "$SRC/installer/policy/constitutional-policy.json" ]]; then
+  install -m 0644 "$SRC/installer/policy/constitutional-policy.json" /etc/arda/policy/constitutional-policy.json
+fi
+if [[ -f "$SRC/installer/policy/active_bundle.json" ]]; then
+  install -m 0644 "$SRC/installer/policy/active_bundle.json" /etc/arda/policy/active_bundle.json
+fi
+if [[ -f "$SRC/installer/policy/active_projection_plan.json" ]]; then
+  install -m 0644 "$SRC/installer/policy/active_projection_plan.json" /etc/arda/policy/active_projection_plan.json
+fi
+
+cat <<'EOF'
+
+INSTALL: PASS
+
+Next:
+  1. boot the target into Valinor
+  2. run: sudo arda-preflight
+  3. run: sudo arda-enroll
+
+IMPORTANT:
+  No /var/lib/arda/projection database, PCR state, quotes, EK/AK contexts,
+  machine-id, boot-id, leaf EK certificate, or signed verdict was migrated.
+EOF
