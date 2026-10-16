@@ -1,0 +1,10 @@
+{
+  "vault_id": "ARDA-SOVEREIGN-KEY-VAULT-v1.0",
+  "owner": "BYRON-SOVEREIGN",
+  "keys": {
+    "ipc_encryption_key": "sha256:7f... (Encrypted)",
+    "heartbeat_signing_key": "sha256:d8... (Encrypted)",
+    "pqc_ml_dsa_private_ref": "sealed_in_tpm_pcr_11"
+  },
+  "status": "LOCKED_AND_SOVEREIGN"
+}

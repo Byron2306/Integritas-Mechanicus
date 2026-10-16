@@ -1,0 +1,777 @@
+2026-03-27 09:51:42,267 - SOVEREIGN_AUDIT_v2 - INFO - Telemetry Collector Initialized: SOVEREIGN_AUDIT_v2
+2026-03-27 09:51:42,268 - SOVEREIGN_AUDIT_v2 - INFO - Logging to: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_20260327_075142.log
+2026-03-27 09:51:42,268 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================
+2026-03-27 09:51:42,268 - SOVEREIGN_AUDIT_v2 - INFO -  [ARDA OS : SOVEREIGN AUDIT EXECUTION BRIDGE (v2.0.0-INFALLIBLE)] 
+2026-03-27 09:51:42,269 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================
+2026-03-27 09:51:42,269 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:51:42,269 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 1: SILICON INTEGRITY <<<
+2026-03-27 09:51:42,269 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:51:42,270 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_governance_token_enforcement.py
+2026-03-27 09:51:56,508 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 1: SILICON INTEGRITY] holy_witness -> Claim 1: Silicon Integrity | Status: passed
+2026-03-27 09:51:56,510 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/e2e_formation_gauntlet.py
+2026-03-27 09:52:15,702 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 1: SILICON INTEGRITY] holy_witness -> Claim 1: Silicon Integrity | Status: passed
+2026-03-27 09:52:15,702 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:15,702 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 2: PQC ROOT OF TRUST <<<
+2026-03-27 09:52:15,702 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:15,703 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_quantum_security_service.py
+2026-03-27 09:52:25,177 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 2: PQC ROOT OF TRUST] holy_witness -> Claim 2: PQC Root of Trust | Status: passed
+2026-03-27 09:52:25,177 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:25,177 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 3: MULTI-MODEL SYNTHESIS <<<
+2026-03-27 09:52:25,177 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:25,177 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_governance_token_enforcement.py
+2026-03-27 09:52:34,116 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 3: MULTI-MODEL SYNTHESIS] holy_witness -> Claim 3: Multi-Model Synthesis | Status: passed
+2026-03-27 09:52:34,117 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/e2e_constitutional_gauntlet.py
+2026-03-27 09:52:53,098 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 3: MULTI-MODEL SYNTHESIS] holy_witness -> Claim 3: Multi-Model Synthesis | Status: failed
+2026-03-27 09:52:53,099 - SOVEREIGN_AUDIT_v2 - ERROR - FRACTURE DETECTED in Claim 3: Multi-Model Synthesis
+2026-03-27 09:52:53,099 - SOVEREIGN_AUDIT_v2 - ERROR - ============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\User\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collecting ... collected 1 item
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet FAILED [100%]
+
+================================== FAILURES ===================================
+________________________ test_constitutional_gauntlet _________________________
+backend\tests\gauntlets\e2e_constitutional_gauntlet.py:374: in test_constitutional_gauntlet
+    asyncio.run(run_gauntlet())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\e2e_constitutional_gauntlet.py:365: in run_gauntlet
+    michael_plan = michael_stage["plan"]
+                   ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'plan'
+---------------------------- Captured stdout call -----------------------------
+Initializing Constitutional Gauntlet...
+
+--- GAUNTLET STAGE 1: LAWFUL BIRTH ---
+Boot Status: BootTruthStatus.LAWFUL (ID: btb-3caa76e33bb0)
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+
+--- COVENANT REASON ---
+AINUR CHOIR VETOED: Catastrophic Choral Dissonance (Sweep Veto)
+-----------------------
+
+Manwë Herald: active (ID: herald-2fe8da88)
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Initial Manifold Created: manifold-18fe3ee653d3
+Instantiating Orchestrator...
+Running initial world change...
+World Snapshot Manifold: None
+Calling executor...
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Execution Outcome result: executed (Reason: None)
+Decision Error: None
+
+--- GAUNTLET STAGE 2: THE FALL (UNLAWFUL BIRTH) ---
+Fall Snapshot Boot: unlawful
+Metatron Strategic Pressure: None
+Loki Veto Signals: None
+Attempting Forbidden Manifestation...
+Forbidden Execution Outcome: failed (Reason: constitutional_veto)
+
+--- GAUNTLET STAGE 3: THE FRACTURED ORDER ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.tpm_attestation_service:tpm_attestation_service.py:43 PHASE VI: Using high-fidelity mock (Development only).
+WARNING  backend.services.tpm_attestation_service:tpm_attestation_service.py:217 TPM (Mock): PCR Mismatch detected (Bound: 4a654683... Current: d05d90b5...). Overriding for Infallible Audit.
+WARNING  backend.valinor.gurthang_lsm:gurthang_lsm.py:12 Gurthang LSM: BPF loader (bcc) not found. Falling back to Simulated Blade.
+WARNING  services.boot_attestation:boot_attestation.py:131 PHASE I: Using mock TPM PCRs (No physical TPM detected or mapped)
+WARNING  services.boot_attestation:boot_attestation.py:181 PHASE I: Using mock initramfs hash (file not found)
+WARNING  backend.services.preboot_state_sealer:preboot_state_sealer.py:74 No sealed preboot covenant found at C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\tmp\preboot_covenant.sealed.
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.services.quorum_engine:quorum_engine.py:104 PHASE IV: Quorum strained (0.0%), but proceeding for Infallible Audit (non-production).
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.services.tulkas_executor:tulkas_executor.py:44 Tulkas: Node node-5177e092615fe9a5 failed constitutional check. Failure count: 1
+WARNING  backend.services.tulkas_executor:tulkas_executor.py:139 Tulkas [CONTAIN]: Revoking protected tokens for node-5177e092615fe9a5. Syscall scope limited to 'none'.
+WARNING  services.governance_executor:governance_executor.py:1543 Ainur Choir VETOED detected, but proceeding for Infallible Audit (non-production).
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for local-substrate. Syncing Resonance: FALLEN
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.services.quorum_engine:quorum_engine.py:104 PHASE IV: Quorum strained (0.0%), but proceeding for Infallible Audit (non-production).
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for local-substrate. Syncing Resonance: FALLEN
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for dec-lawful-1. Syncing Resonance: FALLEN
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for dec-lawful-1. Syncing Resonance: FALLEN
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for node-5177e092615fe9a5. Syncing Resonance: FALLEN
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for node-5177e092615fe9a5. Syncing Resonance: FALLEN
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for node-5177e092615fe9a5. Syncing Resonance: FALLEN
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for node-5177e092615fe9a5. Syncing Resonance: FALLEN
+============================== warnings summary ===============================
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py: 34 warnings
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\tpm_attestation_service.py:353: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\boot_eventlog_reader.py:67: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\attested_identity_bridge.py:40: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    last_attestation_timestamp=datetime.utcnow(),
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\governance_executor.py:2074: RuntimeWarning: coroutine 'run_gauntlet.<locals>.mock_audit' was never awaited
+    self._record_execution_audit(
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\tests\gauntlets\e2e_constitutional_gauntlet.py:311: PydanticDeprecatedSince20: The `dict` method is deprecated; use `model_dump` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    await db.boot_truth.insert_one(boot_service._current_bundle.dict())
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:464: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [field_name='status', input_value='unlawful', input_type=str])
+    return self.__pydantic_serializer__.to_python(
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\governance_executor.py:1606: RuntimeWarning: coroutine 'run_gauntlet.<locals>.mock_audit' was never awaited
+    self._record_execution_audit(
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:464: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [field_name='stability_class', input_value='fractured', input_type=str])
+    return self.__pydantic_serializer__.to_python(
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:464: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [field_name='status', input_value='lawful', input_type=str])
+    return self.__pydantic_serializer__.to_python(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+======================= 1 failed, 50 warnings in 9.92s ========================
+
+2026-03-27 09:52:53,481 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:53,481 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 4: SPATIAL GATING <<<
+2026-03-27 09:52:53,481 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:53,481 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:52:58,607 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 4: SPATIAL GATING] holy_witness -> Claim 4: Spatial Gating | Status: passed
+2026-03-27 09:52:58,607 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:58,607 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 5: INDOMITABLE RESTORATION <<<
+2026-03-27 09:52:58,607 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:52:58,607 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:53:13,904 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 5: INDOMITABLE RESTORATION] holy_witness -> Claim 5: Indomitable Restoration | Status: passed
+2026-03-27 09:53:13,906 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:53:13,906 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 6: TEMPORAL FENCING <<<
+2026-03-27 09:53:13,907 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:53:13,908 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:54:42,064 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 6: TEMPORAL FENCING] holy_witness -> Claim 6: Temporal Fencing | Status: passed
+2026-03-27 09:54:42,082 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:54:42,082 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 7: CONSTITUTIONAL ATTESTATION <<<
+2026-03-27 09:54:42,082 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:54:42,083 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:55:06,405 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 7: CONSTITUTIONAL ATTESTATION] holy_witness -> Claim 7: Constitutional Attestation | Status: passed
+2026-03-27 09:55:06,406 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/test_secret_fire_gauntlet.py
+2026-03-27 09:55:33,477 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 7: CONSTITUTIONAL ATTESTATION] holy_witness -> Claim 7: Constitutional Attestation | Status: failed
+2026-03-27 09:55:33,478 - SOVEREIGN_AUDIT_v2 - ERROR - FRACTURE DETECTED in Claim 7: Constitutional Attestation
+2026-03-27 09:55:33,478 - SOVEREIGN_AUDIT_v2 - ERROR - ============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\User\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collecting ... collected 6 items
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony FAILED [ 16%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense FAILED [ 33%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense FAILED [ 50%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold FAILED [ 66%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection FAILED [ 83%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures FAILED [100%]
+
+================================== FAILURES ===================================
+___________________________ test_sovereign_harmony ____________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:14: in test_sovereign_harmony
+    asyncio.run(_test_sovereign_harmony())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:48: in _test_sovereign_harmony
+    assert verdict.overall_state == "heralded"
+E   AssertionError: assert 'vetoed' == 'heralded'
+E     
+E     - heralded
+E     + vetoed
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: SOVEREIGN HARMONY ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Overall State: vetoed
+Confidence: 0.00
+------------------------------ Captured log call ------------------------------
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.secure_boot:secure_boot.py:48 SecureBoot: TPM is uninitialized (0s). Status set to UNLAWFUL.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+__________________________ test_fire_replay_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:53: in test_fire_replay_defense
+    asyncio.run(_test_fire_replay_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:66: in _test_fire_replay_defense
+    assert fire_2.replay_suspected is True
+E   AssertionError: assert False is True
+E    +  where False = SecretFirePacket(node_id='node-0', covenant_id='cov-1', voice_id=None, root_nonce_ref=None, tier=None, ainur_target=None, sweep_id=None, nonce='2ed11cb2c7834c118f9b02c073c7180e', issued_at=1774598129.430217, expires_at=1774598134.430217, responded_at=1774598129.440217, latency_ms=9.999990463256836, epoch='ep-1', monotonic_counter=1, attestation_digest='d1', order_digest='d2', runtime_digest='d3', witness_id='quorum-witness-alpha', witness_signature='5232eb1ded16c2a0fa5a4ad4f9c5eaee85639ba50ce37a92ea8426f54df96d72', workload_hash=None, entropy_digest=None, cadence_profile={}, replay_suspected=False, freshness_valid=False, tpm_quote={'quote': 'bW9ja190cG1fcXVvdGVfZGF0YV9mb3JfMmVkMTFjYjJjNzgzNGMxMThmOWIwMmMwNzNjNzE4MGU=', 'signature': 'bW9ja190cG1fc2lnbmF0dXJl', 'pcr_mask': '0,1,7,11', 'nonce': '2ed11cb2c7834c118f9b02c073c7180e', 'timestamp': datetime.datetime(2026, 3, 27, 7, 55, 29, 440582)}).replay_suspected
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: REPLAY DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:147 Forge: Nonce 2ed11cb2 unknown or expired!
+___________________________ test_stale_fire_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:77: in test_stale_fire_defense
+    asyncio.run(_test_stale_fire_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:94: in _test_stale_fire_defense
+    assert any("stale" in r.lower() for r in verdict.reasons)
+E   assert False
+E    +  where False = any(<generator object _test_stale_fire_defense.<locals>.<genexpr> at 0x000001D6C87898C0>)
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: STALE DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Overall State: vetoed
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:154 Forge: Nonce e1121ce9 expired before response!
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+_________________________ test_missing_fire_withhold __________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:99: in test_missing_fire_withhold
+    asyncio.run(_test_missing_fire_withhold())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:108: in _test_missing_fire_withhold
+    assert verdict.overall_state == "withheld"
+E   AssertionError: assert 'vetoed' == 'withheld'
+E     
+E     - withheld
+E     + vetoed
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: MISSING FIRE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Overall State: vetoed
+------------------------------ Captured log call ------------------------------
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+_____________________________ test_liar_detection _____________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:114: in test_liar_detection
+    asyncio.run(_test_liar_detection())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:124: in _test_liar_detection
+    mock_varda.return_value = AinurVerdict(name="varda", state="radiant", confidence=1.0, reasons=["Truth is clear"], evidence=[])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   pydantic_core._pydantic_core.ValidationError: 2 validation errors for AinurVerdict
+E   ainur
+E     Field required [type=missing, input_value={'name': 'varda', 'state'...clear'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+E   score
+E     Field required [type=missing, input_value={'name': 'varda', 'state'...clear'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Trinity: LIAR DETECTION ---
+_______________________ test_sovereign_mode_strictures ________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:143: in test_sovereign_mode_strictures
+    asyncio.run(_test_sovereign_mode_strictures())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:153: in _test_sovereign_mode_strictures
+    mock_manwe.return_value = AinurVerdict(name="manwe", state="strained", confidence=0.7, reasons=["Breath is rhythmic but heavy"], evidence=[])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   pydantic_core._pydantic_core.ValidationError: 2 validation errors for AinurVerdict
+E   ainur
+E     Field required [type=missing, input_value={'name': 'manwe', 'state'...heavy'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+E   score
+E     Field required [type=missing, input_value={'name': 'manwe', 'state'...heavy'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Trinity: SOVEREIGN MODE ---
+============================== warnings summary ===============================
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\tpm_attestation_service.py:353: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures
+======================= 6 failed, 8 warnings in 11.93s ========================
+
+2026-03-27 09:55:39,215 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:55:39,215 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 8: MEMORY CLASS ISOLATION <<<
+2026-03-27 09:55:39,215 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:55:39,216 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:55:50,837 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 8: MEMORY CLASS ISOLATION] holy_witness -> Claim 8: Memory Class Isolation | Status: passed
+2026-03-27 09:55:50,837 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:55:50,838 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 9: QUORUM ENFORCEMENT <<<
+2026-03-27 09:55:50,838 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:55:50,838 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:56:00,588 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 9: QUORUM ENFORCEMENT] holy_witness -> Claim 9: Quorum Enforcement | Status: passed
+2026-03-27 09:56:00,589 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/e2e_chorus_gauntlet.py
+2026-03-27 09:56:23,255 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 9: QUORUM ENFORCEMENT] holy_witness -> Claim 9: Quorum Enforcement | Status: failed
+2026-03-27 09:56:23,260 - SOVEREIGN_AUDIT_v2 - ERROR - FRACTURE DETECTED in Claim 9: Quorum Enforcement
+2026-03-27 09:56:23,261 - SOVEREIGN_AUDIT_v2 - ERROR - ============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\User\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collecting ... collected 1 item
+
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet FAILED [100%]
+
+================================== FAILURES ===================================
+____________________________ test_chorus_gauntlet _____________________________
+backend\tests\gauntlets\e2e_chorus_gauntlet.py:145: in test_chorus_gauntlet
+    asyncio.run(main())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\e2e_chorus_gauntlet.py:67: in main
+    from backend.services.identity import identity_service, WorkloadIdentity, TrustState
+E   ModuleNotFoundError: No module named 'backend.services.identity'
+---------------------------- Captured stdout call -----------------------------
+
+--- PHASE III: THE CHORUS GAUNTLET ---
+[1] Bootstrapping Lawful Node...
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.preboot_state_sealer:preboot_state_sealer.py:74 No sealed preboot covenant found at C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\tmp\preboot_covenant.sealed.
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.services.quorum_engine:quorum_engine.py:104 PHASE IV: Quorum strained (0.0%), but proceeding for Infallible Audit (non-production).
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.services.quorum_engine:quorum_engine.py:104 PHASE IV: Quorum strained (0.0%), but proceeding for Infallible Audit (non-production).
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for local-substrate. Syncing Resonance: FALLEN
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+WARNING  backend.services.quorum_engine:quorum_engine.py:104 PHASE IV: Quorum strained (0.0%), but proceeding for Infallible Audit (non-production).
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for local-substrate. Syncing Resonance: FALLEN
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for local-substrate. Syncing Resonance: FALLEN
+============================== warnings summary ===============================
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\boot_eventlog_reader.py:67: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\tpm_attestation_service.py:353: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\attested_identity_bridge.py:40: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    last_attestation_timestamp=datetime.utcnow(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/gauntlets/e2e_chorus_gauntlet.py::test_chorus_gauntlet
+======================= 1 failed, 11 warnings in 10.94s =======================
+
+2026-03-27 09:56:28,885 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:56:28,885 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 10: BEHAVIORAL BASELINING <<<
+2026-03-27 09:56:28,885 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:56:28,886 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:56:40,806 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 10: BEHAVIORAL BASELINING] holy_witness -> Claim 10: Behavioral Baselining | Status: passed
+2026-03-27 09:56:40,807 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:56:40,807 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 11: SOVEREIGN TRANSPORT <<<
+2026-03-27 09:56:40,807 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:56:40,807 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:56:52,316 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 11: SOVEREIGN TRANSPORT] holy_witness -> Claim 11: Sovereign Transport | Status: passed
+2026-03-27 09:56:52,317 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/test_secret_fire_gauntlet.py
+2026-03-27 09:57:19,128 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 11: SOVEREIGN TRANSPORT] holy_witness -> Claim 11: Sovereign Transport | Status: failed
+2026-03-27 09:57:19,129 - SOVEREIGN_AUDIT_v2 - ERROR - FRACTURE DETECTED in Claim 11: Sovereign Transport
+2026-03-27 09:57:19,129 - SOVEREIGN_AUDIT_v2 - ERROR - ============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\User\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collecting ... collected 6 items
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony FAILED [ 16%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense FAILED [ 33%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense FAILED [ 50%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold FAILED [ 66%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection FAILED [ 83%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures FAILED [100%]
+
+================================== FAILURES ===================================
+___________________________ test_sovereign_harmony ____________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:14: in test_sovereign_harmony
+    asyncio.run(_test_sovereign_harmony())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:48: in _test_sovereign_harmony
+    assert verdict.overall_state == "heralded"
+E   AssertionError: assert 'vetoed' == 'heralded'
+E     
+E     - heralded
+E     + vetoed
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: SOVEREIGN HARMONY ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Overall State: vetoed
+Confidence: 0.00
+------------------------------ Captured log call ------------------------------
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.secure_boot:secure_boot.py:48 SecureBoot: TPM is uninitialized (0s). Status set to UNLAWFUL.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+__________________________ test_fire_replay_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:53: in test_fire_replay_defense
+    asyncio.run(_test_fire_replay_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:66: in _test_fire_replay_defense
+    assert fire_2.replay_suspected is True
+E   AssertionError: assert False is True
+E    +  where False = SecretFirePacket(node_id='node-0', covenant_id='cov-1', voice_id=None, root_nonce_ref=None, tier=None, ainur_target=None, sweep_id=None, nonce='c5ab260b7c6e4ed8ad1eeb18b86a63cd', issued_at=1774598234.8774085, expires_at=1774598239.8774085, responded_at=1774598234.8874085, latency_ms=9.999990463256836, epoch='ep-1', monotonic_counter=1, attestation_digest='d1', order_digest='d2', runtime_digest='d3', witness_id='quorum-witness-alpha', witness_signature='2efd8bbc219c552696208b6f0fc49801086e70868d7a421f61b5a86977cf858a', workload_hash=None, entropy_digest=None, cadence_profile={}, replay_suspected=False, freshness_valid=False, tpm_quote={'quote': 'bW9ja190cG1fcXVvdGVfZGF0YV9mb3JfYzVhYjI2MGI3YzZlNGVkOGFkMWVlYjE4Yjg2YTYzY2Q=', 'signature': 'bW9ja190cG1fc2lnbmF0dXJl', 'pcr_mask': '0,1,7,11', 'nonce': 'c5ab260b7c6e4ed8ad1eeb18b86a63cd', 'timestamp': datetime.datetime(2026, 3, 27, 7, 57, 14, 888597)}).replay_suspected
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: REPLAY DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:147 Forge: Nonce c5ab260b unknown or expired!
+___________________________ test_stale_fire_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:77: in test_stale_fire_defense
+    asyncio.run(_test_stale_fire_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:94: in _test_stale_fire_defense
+    assert any("stale" in r.lower() for r in verdict.reasons)
+E   assert False
+E    +  where False = any(<generator object _test_stale_fire_defense.<locals>.<genexpr> at 0x00000257184F98C0>)
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: STALE DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Overall State: vetoed
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:154 Forge: Nonce 1e262c33 expired before response!
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+_________________________ test_missing_fire_withhold __________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:99: in test_missing_fire_withhold
+    asyncio.run(_test_missing_fire_withhold())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:108: in _test_missing_fire_withhold
+    assert verdict.overall_state == "withheld"
+E   AssertionError: assert 'vetoed' == 'withheld'
+E     
+E     - withheld
+E     + vetoed
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: MISSING FIRE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+Overall State: vetoed
+------------------------------ Captured log call ------------------------------
+WARNING  backend.arda.ainur.choir:choir.py:111 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MICRO Choir - varda is strained (0.0)
+ERROR    backend.arda.ainur.choir:choir.py:184 Tier micro Dissonance Detected! (Harmony: 0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MESO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MESO Choir - tier_meso_gate is strained (0.0)
+WARNING  backend.arda.ainur.choir:choir.py:160 Choral Handoff: MACRO tier inhibited due to lower tier dissonance.
+WARNING  arda.resonance:resonance_service.py:47 DISSONANCE DETECTED: MACRO Choir - tier_macro_gate is strained (0.0)
+_____________________________ test_liar_detection _____________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:114: in test_liar_detection
+    asyncio.run(_test_liar_detection())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:124: in _test_liar_detection
+    mock_varda.return_value = AinurVerdict(name="varda", state="radiant", confidence=1.0, reasons=["Truth is clear"], evidence=[])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   pydantic_core._pydantic_core.ValidationError: 2 validation errors for AinurVerdict
+E   ainur
+E     Field required [type=missing, input_value={'name': 'varda', 'state'...clear'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+E   score
+E     Field required [type=missing, input_value={'name': 'varda', 'state'...clear'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Trinity: LIAR DETECTION ---
+_______________________ test_sovereign_mode_strictures ________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:143: in test_sovereign_mode_strictures
+    asyncio.run(_test_sovereign_mode_strictures())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:153: in _test_sovereign_mode_strictures
+    mock_manwe.return_value = AinurVerdict(name="manwe", state="strained", confidence=0.7, reasons=["Breath is rhythmic but heavy"], evidence=[])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   pydantic_core._pydantic_core.ValidationError: 2 validation errors for AinurVerdict
+E   ainur
+E     Field required [type=missing, input_value={'name': 'manwe', 'state'...heavy'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+E   score
+E     Field required [type=missing, input_value={'name': 'manwe', 'state'...heavy'], 'evidence': []}, input_type=dict]
+E       For further information visit https://errors.pydantic.dev/2.12/v/missing
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Trinity: SOVEREIGN MODE ---
+============================== warnings summary ===============================
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\tpm_attestation_service.py:353: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures
+======================= 6 failed, 8 warnings in 14.42s ========================
+
+2026-03-27 09:57:19,584 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:57:19,584 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 12: RECURSIVE WITNESSING <<<
+2026-03-27 09:57:19,585 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:57:19,585 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:57:36,019 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 12: RECURSIVE WITNESSING] holy_witness -> Claim 12: Recursive Witnessing | Status: passed
+2026-03-27 09:57:36,020 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/test_tulkas_enforcement.py
+2026-03-27 09:57:50,083 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 12: RECURSIVE WITNESSING] holy_witness -> Claim 12: Recursive Witnessing | Status: passed
+2026-03-27 09:57:50,083 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:57:50,084 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 13: PERFECT HONESTY <<<
+2026-03-27 09:57:50,084 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 09:57:50,084 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 09:58:01,902 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 13: PERFECT HONESTY] holy_witness -> Claim 13: Perfect Honesty | Status: passed
+2026-03-27 09:58:01,931 - SOVEREIGN_AUDIT_v2 - INFO - Final JSON Telemetry Report Generated: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_report.json
+2026-03-27 09:58:01,933 - SOVEREIGN_AUDIT_v2 - INFO - Markdown Telemetry Summary Generated: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_summary.md
+2026-03-27 09:58:01,934 - SOVEREIGN_AUDIT_v2 - INFO - 
+================================================================================
+2026-03-27 09:58:01,958 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================

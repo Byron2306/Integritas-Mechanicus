@@ -1,0 +1,18 @@
+[Unit]
+Description=ARDA Valinor early boot audit reset
+Documentation=file:/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/README.md
+DefaultDependencies=no
+After=local-fs.target systemd-modules-load.service
+Before=sysinit.target systemd-user-sessions.service plymouth-quit.service plymouth-quit-wait.service getty-pre.target getty@tty1.service getty.target lightdm.service display-manager.service graphical.target multi-user.target
+ConditionPathExists=/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/scripts/force_boot_audit_mode.py
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/byron/Integritas-Mechanicus
+Environment=ARDA_SOVEREIGN_MODE=1
+Environment=ARDA_ENFORCEMENT_MODE=audit
+ExecStart=/usr/bin/python3 /home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/scripts/force_boot_audit_mode.py
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target

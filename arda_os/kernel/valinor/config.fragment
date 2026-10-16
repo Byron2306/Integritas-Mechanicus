@@ -1,0 +1,49 @@
+# Valinor required kernel feature contract.
+#
+# This fragment is intentionally conservative: it requires the kernel features
+# ARDA already depends on for BPF LSM, measured identity, TPM attestation,
+# EFI/Secure Boot visibility, and future IMA/EVM/fs-verity hardening.
+
+CONFIG_BPF=y
+CONFIG_BPF_SYSCALL=y
+CONFIG_BPF_LSM=y
+CONFIG_BPF_JIT=y
+CONFIG_DEBUG_INFO_BTF=y
+CONFIG_SECURITY=y
+CONFIG_SECURITYFS=y
+CONFIG_SECURITY_LOCKDOWN_LSM=y
+CONFIG_LSM="lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm"
+CONFIG_EFI=y
+CONFIG_EFIVAR_FS=y
+CONFIG_EFI_VARS_PSTORE=y
+# Keep EFI runtime services available so mokutil/efivars work on HP firmware.
+# CONFIG_EFI_DISABLE_RUNTIME is not set
+CONFIG_EFI_RUNTIME_MAP=y
+CONFIG_EFI_RUNTIME_WRAPPERS=y
+CONFIG_EFI_ESRT=y
+CONFIG_FB_EFI=y
+CONFIG_FS_VERITY=y
+CONFIG_FS_VERITY_BUILTIN_SIGNATURES=y
+CONFIG_IMA=y
+CONFIG_EVM=y
+CONFIG_TCG_TPM=y
+CONFIG_TCG_TIS=y
+CONFIG_TCG_CRB=y
+CONFIG_AUDIT=y
+CONFIG_AUDITSYSCALL=y
+
+# HP ProBook G10 / Intel graphics boot viability.
+# Without i915 this laptop reaches userspace without /dev/dri and LightDM fails.
+# Workstation Valinor profile: i915 is not selectable in this upstream tree
+# while CONFIG_PREEMPT_RT is enabled.
+# Keep the laptop/desktop kernel preemptible, but not full RT.
+# CONFIG_PREEMPT_RT is not set
+CONFIG_PREEMPT_DYNAMIC=y
+CONFIG_PREEMPT=y
+CONFIG_DRM_I915=m
+CONFIG_DRM_I915_FORCE_PROBE=""
+CONFIG_DRM_I915_CAPTURE_ERROR=y
+CONFIG_DRM_I915_COMPRESS_ERROR=y
+CONFIG_DRM_I915_PXP=y
+CONFIG_DRM_SIMPLEDRM=m
+CONFIG_FRAMEBUFFER_CONSOLE=y

@@ -1,0 +1,17 @@
+[Unit]
+Description=Arda Sovereign Law Enforcement (BPF Guard)
+DefaultDependencies=no
+After=local-fs.target
+Before=sysinit.target
+
+[Service]
+Type=simple
+# Ensure the Arda control plane starts in early boot
+ExecStart=/usr/bin/python3 c:/Users/User/source/repos/Metatron-triune-outbound-gate/backend/services/os_enforcement_service.py
+Restart=always
+# Crucial: This service must run with CAP_SYS_ADMIN and CAP_BPF
+CapabilityBoundingSet=CAP_SYS_ADMIN CAP_BPF CAP_DAC_OVERRIDE
+AmbientCapabilities=CAP_SYS_ADMIN CAP_BPF CAP_DAC_OVERRIDE
+
+[Install]
+WantedBy=sysinit.target

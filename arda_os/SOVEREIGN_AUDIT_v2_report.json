@@ -1,0 +1,294 @@
+{
+  "campaign": "SOVEREIGN_AUDIT_v2",
+  "start_time": "2026-03-27T21:26:16.971484+00:00",
+  "end_time": "2026-03-27T21:27:26.769226+00:00",
+  "duration_seconds": 69.797742,
+  "total_events": 19,
+  "events": [
+    {
+      "timestamp": "2026-03-27T21:26:21.858770+00:00",
+      "phase": "CLAIM 1: SILICON INTEGRITY",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 1: Silicon Integrity",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_governance_token_enforcement.py",
+        "exit_code": 0,
+        "summary": "============================== 3 passed in 1.26s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:28.559270+00:00",
+      "phase": "CLAIM 1: SILICON INTEGRITY",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 1: Silicon Integrity",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/gauntlets/e2e_formation_gauntlet.py",
+        "exit_code": 0,
+        "summary": "======================= 1 passed, 27 warnings in 4.10s ========================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:31.898489+00:00",
+      "phase": "CLAIM 2: PQC ROOT OF TRUST",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 2: PQC Root of Trust",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_quantum_security_service.py",
+        "exit_code": 0,
+        "summary": "============================== 3 passed in 0.76s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:35.367996+00:00",
+      "phase": "CLAIM 3: MULTI-MODEL SYNTHESIS",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 3: Multi-Model Synthesis",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_governance_token_enforcement.py",
+        "exit_code": 0,
+        "summary": "============================== 3 passed in 0.86s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:43.441652+00:00",
+      "phase": "CLAIM 3: MULTI-MODEL SYNTHESIS",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 3: Multi-Model Synthesis",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/gauntlets/e2e_constitutional_gauntlet.py",
+        "exit_code": 0,
+        "summary": "======================= 1 passed, 48 warnings in 4.87s ========================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:46.546821+00:00",
+      "phase": "CLAIM 4: SPATIAL GATING",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 4: Spatial Gating",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.37s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:49.772596+00:00",
+      "phase": "CLAIM 5: INDOMITABLE RESTORATION",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 5: Indomitable Restoration",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.43s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:52.698400+00:00",
+      "phase": "CLAIM 6: TEMPORAL FENCING",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 6: Temporal Fencing",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.43s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:56.389493+00:00",
+      "phase": "CLAIM 7: CONSTITUTIONAL ATTESTATION",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 7: Constitutional Attestation",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.39s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:26:59.921463+00:00",
+      "phase": "CLAIM 7: CONSTITUTIONAL ATTESTATION",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 7: Constitutional Attestation",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/gauntlets/test_secret_fire_gauntlet.py",
+        "exit_code": 0,
+        "summary": "======================= 6 passed, 14 warnings in 0.99s ========================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:02.559907+00:00",
+      "phase": "CLAIM 8: MEMORY CLASS ISOLATION",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 8: Memory Class Isolation",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.35s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:05.159128+00:00",
+      "phase": "CLAIM 9: QUORUM ENFORCEMENT",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 9: Quorum Enforcement",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.35s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:09.764770+00:00",
+      "phase": "CLAIM 9: QUORUM ENFORCEMENT",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 9: Quorum Enforcement",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/gauntlets/e2e_chorus_gauntlet.py",
+        "exit_code": 0,
+        "summary": "======================= 1 passed, 12 warnings in 2.23s ========================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:12.331195+00:00",
+      "phase": "CLAIM 10: BEHAVIORAL BASELINING",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 10: Behavioral Baselining",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.36s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:15.142015+00:00",
+      "phase": "CLAIM 11: SOVEREIGN TRANSPORT",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 11: Sovereign Transport",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.42s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:18.458409+00:00",
+      "phase": "CLAIM 11: SOVEREIGN TRANSPORT",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 11: Sovereign Transport",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/gauntlets/test_secret_fire_gauntlet.py",
+        "exit_code": 0,
+        "summary": "======================= 6 passed, 14 warnings in 0.95s ========================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:21.097135+00:00",
+      "phase": "CLAIM 12: RECURSIVE WITNESSING",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 12: Recursive Witnessing",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.37s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:24.207598+00:00",
+      "phase": "CLAIM 12: RECURSIVE WITNESSING",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 12: Recursive Witnessing",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/gauntlets/test_tulkas_enforcement.py",
+        "exit_code": 0,
+        "summary": "============================== 2 passed in 0.81s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    },
+    {
+      "timestamp": "2026-03-27T21:27:26.768930+00:00",
+      "phase": "CLAIM 13: PERFECT HONESTY",
+      "event_type": "claim_verification",
+      "actor": "holy_witness",
+      "action_type": "Claim 13: Perfect Honesty",
+      "impact_level": "critical",
+      "status": "passed",
+      "details": {
+        "test_path": "backend/tests/test_advanced_services.py",
+        "exit_code": 0,
+        "summary": "============================= 20 passed in 0.35s ==============================",
+        "transparency_trace": "Infallible"
+      }
+    }
+  ]
+}

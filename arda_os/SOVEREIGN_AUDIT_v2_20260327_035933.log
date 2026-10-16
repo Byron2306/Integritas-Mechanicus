@@ -1,0 +1,76 @@
+2026-03-27 05:59:33,916 - SOVEREIGN_AUDIT_v2 - INFO - Telemetry Collector Initialized: SOVEREIGN_AUDIT_v2
+2026-03-27 05:59:33,916 - SOVEREIGN_AUDIT_v2 - INFO - Logging to: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_20260327_035933.log
+2026-03-27 05:59:33,916 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================
+2026-03-27 05:59:33,917 - SOVEREIGN_AUDIT_v2 - INFO -  [ARDA OS : SOVEREIGN AUDIT EXECUTION BRIDGE (v2.0.0-INFALLIBLE)] 
+2026-03-27 05:59:33,917 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================
+2026-03-27 05:59:33,917 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 05:59:33,917 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 1: SILICON INTEGRITY <<<
+2026-03-27 05:59:33,917 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 05:59:33,918 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_governance_token_enforcement.py
+2026-03-27 05:59:48,942 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 1: SILICON INTEGRITY] holy_witness -> Claim 1: Silicon Integrity | Status: passed
+2026-03-27 05:59:48,943 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 05:59:48,943 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 2: PQC ROOT OF TRUST <<<
+2026-03-27 05:59:48,943 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 05:59:48,943 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_quantum_security_service.py
+2026-03-27 05:59:59,146 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 2: PQC ROOT OF TRUST] holy_witness -> Claim 2: PQC Root of Trust | Status: passed
+2026-03-27 05:59:59,146 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 05:59:59,146 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 3: MULTI-MODEL SYNTHESIS <<<
+2026-03-27 05:59:59,147 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 05:59:59,147 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_governance_token_enforcement.py
+2026-03-27 06:00:13,961 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 3: MULTI-MODEL SYNTHESIS] holy_witness -> Claim 3: Multi-Model Synthesis | Status: passed
+2026-03-27 06:00:13,962 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:13,962 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 4: SPATIAL GATING <<<
+2026-03-27 06:00:13,962 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:13,962 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:00:26,999 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 4: SPATIAL GATING] holy_witness -> Claim 4: Spatial Gating | Status: passed
+2026-03-27 06:00:27,002 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:27,003 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 5: INDOMITABLE RESTORATION <<<
+2026-03-27 06:00:27,006 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:27,007 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:00:38,048 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 5: INDOMITABLE RESTORATION] holy_witness -> Claim 5: Indomitable Restoration | Status: passed
+2026-03-27 06:00:38,049 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:38,049 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 6: TEMPORAL FENCING <<<
+2026-03-27 06:00:38,049 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:38,049 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:00:51,177 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 6: TEMPORAL FENCING] holy_witness -> Claim 6: Temporal Fencing | Status: passed
+2026-03-27 06:00:51,178 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:51,178 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 7: CONSTITUTIONAL ATTESTATION <<<
+2026-03-27 06:00:51,178 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:00:51,178 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:01:00,263 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 7: CONSTITUTIONAL ATTESTATION] holy_witness -> Claim 7: Constitutional Attestation | Status: passed
+2026-03-27 06:01:00,264 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:00,264 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 8: MEMORY CLASS ISOLATION <<<
+2026-03-27 06:01:00,264 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:00,264 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:01:10,481 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 8: MEMORY CLASS ISOLATION] holy_witness -> Claim 8: Memory Class Isolation | Status: passed
+2026-03-27 06:01:10,481 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:10,481 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 9: QUORUM ENFORCEMENT <<<
+2026-03-27 06:01:10,481 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:10,481 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:01:17,630 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 9: QUORUM ENFORCEMENT] holy_witness -> Claim 9: Quorum Enforcement | Status: passed
+2026-03-27 06:01:17,631 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:17,631 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 10: BEHAVIORAL BASELINING <<<
+2026-03-27 06:01:17,631 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:17,631 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:01:25,156 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 10: BEHAVIORAL BASELINING] holy_witness -> Claim 10: Behavioral Baselining | Status: passed
+2026-03-27 06:01:25,157 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:25,157 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 11: SOVEREIGN TRANSPORT <<<
+2026-03-27 06:01:25,157 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:25,157 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:01:32,937 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 11: SOVEREIGN TRANSPORT] holy_witness -> Claim 11: Sovereign Transport | Status: passed
+2026-03-27 06:01:32,937 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:32,937 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 12: RECURSIVE WITNESSING <<<
+2026-03-27 06:01:32,938 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:32,938 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:01:41,329 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 12: RECURSIVE WITNESSING] holy_witness -> Claim 12: Recursive Witnessing | Status: passed
+2026-03-27 06:01:41,329 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:41,330 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 13: PERFECT HONESTY <<<
+2026-03-27 06:01:41,330 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 06:01:41,330 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 06:01:47,790 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 13: PERFECT HONESTY] holy_witness -> Claim 13: Perfect Honesty | Status: passed
+2026-03-27 06:01:47,841 - SOVEREIGN_AUDIT_v2 - INFO - Final JSON Telemetry Report Generated: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_report.json
+2026-03-27 06:01:47,845 - SOVEREIGN_AUDIT_v2 - INFO - Markdown Telemetry Summary Generated: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_summary.md
+2026-03-27 06:01:47,846 - SOVEREIGN_AUDIT_v2 - INFO - 
+================================================================================
+2026-03-27 06:01:48,661 - SOVEREIGN_AUDIT_v2 - INFO -    The Machine is Absolute. The Law is Silicon. Arda is Sovereign.
+2026-03-27 06:01:48,662 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================

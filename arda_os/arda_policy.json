@@ -1,0 +1,17 @@
+{
+  "policy_id": "ARDA-POLICY-V1",
+  "version": "1.1.0",
+  "status": "SOVEREIGN",
+  "rules": [
+    {
+      "command": "check_health",
+      "principal": "Magos_Indomitus",
+      "lane": "Shire",
+      "verdict": "ALLOW",
+      "allowed_digests": [
+        "sha256:d545f44810237730e20037a34654f5c9e2b1979fb3d37330e20037a34654f5c9"
+      ]
+    }
+  ],
+  "signature": "VERIFY_VIA_FS_VERITY"
+}

@@ -1,0 +1,391 @@
+2026-03-27 22:24:37,786 - SOVEREIGN_AUDIT_v2 - INFO - Telemetry Collector Initialized: SOVEREIGN_AUDIT_v2
+2026-03-27 22:24:37,787 - SOVEREIGN_AUDIT_v2 - INFO - Logging to: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_20260327_202437.log
+2026-03-27 22:24:37,788 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================
+2026-03-27 22:24:37,788 - SOVEREIGN_AUDIT_v2 - INFO -  [ARDA OS : SOVEREIGN AUDIT EXECUTION BRIDGE (v2.0.0-INFALLIBLE)] 
+2026-03-27 22:24:37,789 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================
+2026-03-27 22:24:37,790 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:24:37,792 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 1: SILICON INTEGRITY <<<
+2026-03-27 22:24:37,793 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:24:37,794 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_governance_token_enforcement.py
+2026-03-27 22:24:45,309 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 1: SILICON INTEGRITY] holy_witness -> Claim 1: Silicon Integrity | Status: passed
+2026-03-27 22:24:45,313 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/e2e_formation_gauntlet.py
+2026-03-27 22:24:59,793 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 1: SILICON INTEGRITY] holy_witness -> Claim 1: Silicon Integrity | Status: passed
+2026-03-27 22:24:59,793 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:24:59,794 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 2: PQC ROOT OF TRUST <<<
+2026-03-27 22:24:59,794 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:24:59,795 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_quantum_security_service.py
+2026-03-27 22:25:04,770 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 2: PQC ROOT OF TRUST] holy_witness -> Claim 2: PQC Root of Trust | Status: passed
+2026-03-27 22:25:04,771 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:04,771 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 3: MULTI-MODEL SYNTHESIS <<<
+2026-03-27 22:25:04,771 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:04,771 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_governance_token_enforcement.py
+2026-03-27 22:25:13,055 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 3: MULTI-MODEL SYNTHESIS] holy_witness -> Claim 3: Multi-Model Synthesis | Status: passed
+2026-03-27 22:25:13,057 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/e2e_constitutional_gauntlet.py
+2026-03-27 22:25:23,816 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 3: MULTI-MODEL SYNTHESIS] holy_witness -> Claim 3: Multi-Model Synthesis | Status: failed
+2026-03-27 22:25:23,817 - SOVEREIGN_AUDIT_v2 - ERROR - FRACTURE DETECTED in Claim 3: Multi-Model Synthesis
+2026-03-27 22:25:23,817 - SOVEREIGN_AUDIT_v2 - ERROR - ============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\User\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collecting ... collected 1 item
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet FAILED [100%]
+
+================================== FAILURES ===================================
+________________________ test_constitutional_gauntlet _________________________
+backend\tests\gauntlets\e2e_constitutional_gauntlet.py:390: in test_constitutional_gauntlet
+    asyncio.run(run_gauntlet())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\e2e_constitutional_gauntlet.py:209: in run_gauntlet
+    herald_state = await herald_service.bootstrap_herald()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend\services\manwe_herald.py:82: in bootstrap_herald
+    boot_truth_status=BootTruthStatus(covenant.status),
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\enum.py:708: in __call__
+    return cls.__new__(cls, value)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\enum.py:1193: in __new__
+    raise ve_exc
+E   ValueError: 'harmonic' is not a valid BootTruthStatus
+---------------------------- Captured stdout call -----------------------------
+Initializing Constitutional Gauntlet...
+
+--- GAUNTLET STAGE 1: LAWFUL BIRTH ---
+Boot Status: BootTruthStatus.LAWFUL (ID: btb-c79fc0d72095)
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DIAG: Ainur varda -> state=radiant, score=1.00, reasons=['Truth is stable and attested']
+DIAG: Ainur vaire -> state=lawful, score=1.00, reasons=['Lawful chronology confirmed']
+DIAG: Ainur mandos -> state=remembered, score=1.00, reasons=['No unauthorized absence detected']
+DIAG: Ainur manwe -> state=flowing, score=1.00, reasons=['System breath is natural and rhythmic']
+DIAG: Ainur ulmo -> state=clear, score=1.00, reasons=['The deep places are clear and serene']
+DIAG: Ainur aule -> state=harmonic, score=1.00, reasons=['Constitutional Synthesis: harmonic']
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.tpm_attestation_service:tpm_attestation_service.py:43 PHASE VI: Using high-fidelity mock (Development only).
+WARNING  backend.services.tpm_attestation_service:tpm_attestation_service.py:217 TPM (Mock): PCR Mismatch detected (Bound: 4a654683... Current: d05d90b5...). Overriding for Infallible Audit.
+WARNING  backend.valinor.gurthang_lsm:gurthang_lsm.py:12 Gurthang LSM: BPF loader (bcc) not found. Falling back to Simulated Blade.
+WARNING  services.boot_attestation:boot_attestation.py:131 PHASE I: Using mock TPM PCRs (No physical TPM detected or mapped)
+WARNING  services.boot_attestation:boot_attestation.py:181 PHASE I: Using mock initramfs hash (file not found)
+WARNING  backend.services.preboot_state_sealer:preboot_state_sealer.py:74 No sealed preboot covenant found at C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\tmp\preboot_covenant.sealed.
+WARNING  backend.arda.ainur.choir:choir.py:112 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+WARNING  backend.services.earendil_flow:earendil_flow.py:58 Eärendil Ingress: Sovereign Summons received for local-substrate. Syncing Resonance: STRAINED
+============================== warnings summary ===============================
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\tpm_attestation_service.py:353: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\boot_eventlog_reader.py:67: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\attested_identity_bridge.py:40: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    last_attestation_timestamp=datetime.utcnow(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/gauntlets/e2e_constitutional_gauntlet.py::test_constitutional_gauntlet
+======================== 1 failed, 9 warnings in 4.15s ========================
+
+2026-03-27 22:25:23,820 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:23,820 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 4: SPATIAL GATING <<<
+2026-03-27 22:25:23,821 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:23,821 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:25:29,822 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 4: SPATIAL GATING] holy_witness -> Claim 4: Spatial Gating | Status: passed
+2026-03-27 22:25:29,823 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:29,823 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 5: INDOMITABLE RESTORATION <<<
+2026-03-27 22:25:29,824 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:29,824 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:25:35,796 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 5: INDOMITABLE RESTORATION] holy_witness -> Claim 5: Indomitable Restoration | Status: passed
+2026-03-27 22:25:35,797 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:35,797 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 6: TEMPORAL FENCING <<<
+2026-03-27 22:25:35,798 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:35,798 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:25:41,487 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 6: TEMPORAL FENCING] holy_witness -> Claim 6: Temporal Fencing | Status: passed
+2026-03-27 22:25:41,488 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:41,489 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 7: CONSTITUTIONAL ATTESTATION <<<
+2026-03-27 22:25:41,491 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:41,500 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:25:47,241 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 7: CONSTITUTIONAL ATTESTATION] holy_witness -> Claim 7: Constitutional Attestation | Status: passed
+2026-03-27 22:25:47,244 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/test_secret_fire_gauntlet.py
+2026-03-27 22:25:54,104 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 7: CONSTITUTIONAL ATTESTATION] holy_witness -> Claim 7: Constitutional Attestation | Status: failed
+2026-03-27 22:25:54,104 - SOVEREIGN_AUDIT_v2 - ERROR - FRACTURE DETECTED in Claim 7: Constitutional Attestation
+2026-03-27 22:25:54,104 - SOVEREIGN_AUDIT_v2 - ERROR - ============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\User\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collecting ... collected 6 items
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony PASSED [ 16%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense FAILED [ 33%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense FAILED [ 50%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold PASSED [ 66%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection PASSED [ 83%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures PASSED [100%]
+
+================================== FAILURES ===================================
+__________________________ test_fire_replay_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:81: in test_fire_replay_defense
+    asyncio.run(_test_fire_replay_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:98: in _test_fire_replay_defense
+    assert verdict.overall_state in ("dissonant", "vetoed")
+E   AssertionError: assert 'harmonic' in ('dissonant', 'vetoed')
+E    +  where 'harmonic' = ChoirVerdict(overall_state='harmonic', heralding_allowed=False, confidence=1.0, ainur=[AinurVerdict(ainur='varda', state='radiant', score=1.0, reasons=['Truth is stable and attested'], evidence=[EvidencePacket(source='VardaCollector', evidence={'pcr_values': {0: 'd05d90b57b9941b5d30c05e51afe0aaede4c32a7b84d5b8cceaae00744da5e76'}, 'firmware_fingerprint': '044d2c09eaf36d8f470e497582c72bdfcafebdf35c7ba367b192b886cc76966b', 'signature_valid': True, 'manifest_hash_match': True, 'attestation_status': 'lawful'}, freshness=Freshness(observed_at=1774643151.886474, window_ms=10000.0, nonce='0b920ac2-3634-4b66-9142-e318ba32b5c4', epoch=None), voice_id='voice-63ca610e0969', sweep_id='sweep-43d069f105c9', secret_fire_ref='ac792dc6aeff42c4bd60cec0e1fb947a', tier=None, ainur_target='varda', confidence=1.0)]), AinurVerdict(ainur='vaire', state='lawful', score=1.0, reasons=['Lawful chronology confirmed'], evidence=[EvidencePacket(source='VaireCollector', evidence={'phase_chain': ['rom', 'firmware', 'bootloader', 'initramfs', 'covenant', 'choir'], 'monotonic_counter': 1, 'transition_hashes': ['hash1', 'hash2'], 'stability_class': 'stable', 'temporal_strictness': 0.4, 'replay_suspected': False}, fr...ed_entities': [], 'protected_manifestations_count': 0, 'erasure_suspected': False, 'flicker_events': [], 'log_metadata': {'journal_inode': 1024, 'sequence_gap': 0, 'timestamp_discontinuity': 0.0}}, freshness=Freshness(observed_at=1774643151.8865898, window_ms=30000.0, nonce='bbddd052-9e6f-4daf-8d19-5625c8e2d181', epoch=None), voice_id='voice-63ca610e0969', sweep_id='sweep-43d069f105c9', secret_fire_ref='ac792dc6aeff42c4bd60cec0e1fb947a', tier=None, ainur_target='mandos', confidence=1.0), EvidencePacket(source='UlmoCollector', evidence={'signals': [], 'anomaly_count': 0, 'max_risk_score': 0.0, 'memory_coherence': 1.0, 'device_stability': 1.0}, freshness=Freshness(observed_at=1774643151.8866208, window_ms=15000.0, nonce='04feb01e-0b19-4918-b30b-c454829129f3', epoch=None), voice_id='voice-63ca610e0969', sweep_id='sweep-43d069f105c9', secret_fire_ref='ac792dc6aeff42c4bd60cec0e1fb947a', tier=None, ainur_target='ulmo', confidence=1.0)])], reasons=['Constitutional Synthesis: harmonic'], subject_id='local-substrate', node_id='local-substrate', voice_id='voice-63ca610e0969', sweep_id='sweep-43d069f105c9', covenant_id='runtime-covenant', epoch='current_epoch', observed_at=1774643151.887268).overall_state
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: REPLAY DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DIAG: Ainur varda -> state=radiant, score=1.00, reasons=['Truth is stable and attested']
+DIAG: Ainur vaire -> state=lawful, score=1.00, reasons=['Lawful chronology confirmed']
+DIAG: Ainur mandos -> state=remembered, score=1.00, reasons=['No unauthorized absence detected']
+DIAG: Ainur manwe -> state=flowing, score=1.00, reasons=['System breath is natural and rhythmic']
+DIAG: Ainur ulmo -> state=clear, score=1.00, reasons=['The deep places are clear and serene']
+DIAG: Ainur aule -> state=harmonic, score=1.00, reasons=['Constitutional Synthesis: harmonic']
+Overall State: harmonic
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:148 Forge: Nonce a5d429c8 unknown or expired!
+WARNING  backend.arda.ainur.choir:choir.py:112 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+___________________________ test_stale_fire_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:103: in test_stale_fire_defense
+    asyncio.run(_test_stale_fire_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:118: in _test_stale_fire_defense
+    assert verdict.overall_state in ("dissonant", "vetoed")
+E   AssertionError: assert 'harmonic' in ('dissonant', 'vetoed')
+E    +  where 'harmonic' = ChoirVerdict(overall_state='harmonic', heralding_allowed=False, confidence=1.0, ainur=[AinurVerdict(ainur='varda', state='radiant', score=1.0, reasons=['Truth is stable and attested'], evidence=[EvidencePacket(source='VardaCollector', evidence={'pcr_values': {0: 'd05d90b57b9941b5d30c05e51afe0aaede4c32a7b84d5b8cceaae00744da5e76'}, 'firmware_fingerprint': '044d2c09eaf36d8f470e497582c72bdfcafebdf35c7ba367b192b886cc76966b', 'signature_valid': True, 'manifest_hash_match': True, 'attestation_status': 'lawful'}, freshness=Freshness(observed_at=1774643153.1062648, window_ms=10000.0, nonce='3293bca5-5c1f-4e43-bfa4-461620a1e5b0', epoch=None), voice_id='voice-5a8d33d50d8c', sweep_id='sweep-a58af9c179d8', secret_fire_ref='7c952f71af8a4f17a7b2ab59f193602f', tier=None, ainur_target='varda', confidence=1.0)]), AinurVerdict(ainur='vaire', state='lawful', score=1.0, reasons=['Lawful chronology confirmed'], evidence=[EvidencePacket(source='VaireCollector', evidence={'phase_chain': ['rom', 'firmware', 'bootloader', 'initramfs', 'covenant', 'choir'], 'monotonic_counter': 1, 'transition_hashes': ['hash1', 'hash2'], 'stability_class': 'stable', 'temporal_strictness': 0.4, 'replay_suspected': False}, f...d_entities': [], 'protected_manifestations_count': 0, 'erasure_suspected': False, 'flicker_events': [], 'log_metadata': {'journal_inode': 1024, 'sequence_gap': 0, 'timestamp_discontinuity': 0.0}}, freshness=Freshness(observed_at=1774643153.1063378, window_ms=30000.0, nonce='4555c786-2bb1-4906-ae8f-914f1f6e8bd8', epoch=None), voice_id='voice-5a8d33d50d8c', sweep_id='sweep-a58af9c179d8', secret_fire_ref='7c952f71af8a4f17a7b2ab59f193602f', tier=None, ainur_target='mandos', confidence=1.0), EvidencePacket(source='UlmoCollector', evidence={'signals': [], 'anomaly_count': 0, 'max_risk_score': 0.0, 'memory_coherence': 1.0, 'device_stability': 1.0}, freshness=Freshness(observed_at=1774643153.1063676, window_ms=15000.0, nonce='76c08cff-76d5-46c5-bf52-f61afd628a1d', epoch=None), voice_id='voice-5a8d33d50d8c', sweep_id='sweep-a58af9c179d8', secret_fire_ref='7c952f71af8a4f17a7b2ab59f193602f', tier=None, ainur_target='ulmo', confidence=1.0)])], reasons=['Constitutional Synthesis: harmonic'], subject_id='local-substrate', node_id='local-substrate', voice_id='voice-5a8d33d50d8c', sweep_id='sweep-a58af9c179d8', covenant_id='runtime-covenant', epoch='current_epoch', observed_at=1774643153.1068854).overall_state
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: STALE DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DIAG: Ainur varda -> state=radiant, score=1.00, reasons=['Truth is stable and attested']
+DIAG: Ainur vaire -> state=lawful, score=1.00, reasons=['Lawful chronology confirmed']
+DIAG: Ainur mandos -> state=remembered, score=1.00, reasons=['No unauthorized absence detected']
+DIAG: Ainur manwe -> state=flowing, score=1.00, reasons=['System breath is natural and rhythmic']
+DIAG: Ainur ulmo -> state=clear, score=1.00, reasons=['The deep places are clear and serene']
+DIAG: Ainur aule -> state=harmonic, score=1.00, reasons=['Constitutional Synthesis: harmonic']
+Overall State: harmonic
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:155 Forge: Nonce df0cb581 expired before response!
+WARNING  backend.arda.ainur.choir:choir.py:112 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+============================== warnings summary ===============================
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\tpm_attestation_service.py:353: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+================== 2 failed, 4 passed, 16 warnings in 3.13s ===================
+
+2026-03-27 22:25:54,113 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:54,114 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 8: MEMORY CLASS ISOLATION <<<
+2026-03-27 22:25:54,114 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:54,115 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:25:59,554 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 8: MEMORY CLASS ISOLATION] holy_witness -> Claim 8: Memory Class Isolation | Status: passed
+2026-03-27 22:25:59,560 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:59,565 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 9: QUORUM ENFORCEMENT <<<
+2026-03-27 22:25:59,569 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:25:59,578 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:26:09,643 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 9: QUORUM ENFORCEMENT] holy_witness -> Claim 9: Quorum Enforcement | Status: passed
+2026-03-27 22:26:09,650 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/e2e_chorus_gauntlet.py
+2026-03-27 22:26:27,950 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 9: QUORUM ENFORCEMENT] holy_witness -> Claim 9: Quorum Enforcement | Status: passed
+2026-03-27 22:26:27,958 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:27,962 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 10: BEHAVIORAL BASELINING <<<
+2026-03-27 22:26:27,965 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:27,967 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:26:32,306 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 10: BEHAVIORAL BASELINING] holy_witness -> Claim 10: Behavioral Baselining | Status: passed
+2026-03-27 22:26:32,307 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:32,307 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 11: SOVEREIGN TRANSPORT <<<
+2026-03-27 22:26:32,307 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:32,308 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:26:36,915 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 11: SOVEREIGN TRANSPORT] holy_witness -> Claim 11: Sovereign Transport | Status: passed
+2026-03-27 22:26:36,928 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/test_secret_fire_gauntlet.py
+2026-03-27 22:26:44,012 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 11: SOVEREIGN TRANSPORT] holy_witness -> Claim 11: Sovereign Transport | Status: failed
+2026-03-27 22:26:44,013 - SOVEREIGN_AUDIT_v2 - ERROR - FRACTURE DETECTED in Claim 11: Sovereign Transport
+2026-03-27 22:26:44,013 - SOVEREIGN_AUDIT_v2 - ERROR - ============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\User\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collecting ... collected 6 items
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony PASSED [ 16%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense FAILED [ 33%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense FAILED [ 50%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold PASSED [ 66%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection PASSED [ 83%]
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures PASSED [100%]
+
+================================== FAILURES ===================================
+__________________________ test_fire_replay_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:81: in test_fire_replay_defense
+    asyncio.run(_test_fire_replay_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:98: in _test_fire_replay_defense
+    assert verdict.overall_state in ("dissonant", "vetoed")
+E   AssertionError: assert 'harmonic' in ('dissonant', 'vetoed')
+E    +  where 'harmonic' = ChoirVerdict(overall_state='harmonic', heralding_allowed=False, confidence=1.0, ainur=[AinurVerdict(ainur='varda', state='radiant', score=1.0, reasons=['Truth is stable and attested'], evidence=[EvidencePacket(source='VardaCollector', evidence={'pcr_values': {0: 'd05d90b57b9941b5d30c05e51afe0aaede4c32a7b84d5b8cceaae00744da5e76'}, 'firmware_fingerprint': '044d2c09eaf36d8f470e497582c72bdfcafebdf35c7ba367b192b886cc76966b', 'signature_valid': True, 'manifest_hash_match': True, 'attestation_status': 'lawful'}, freshness=Freshness(observed_at=1774643202.2962472, window_ms=10000.0, nonce='3ffb0754-0c4a-4879-834b-ad514e4d899d', epoch=None), voice_id='voice-60e23deb13f8', sweep_id='sweep-d51fcaa9b220', secret_fire_ref='714a86910bf942668c48012ceba3d5e2', tier=None, ainur_target='varda', confidence=1.0)]), AinurVerdict(ainur='vaire', state='lawful', score=1.0, reasons=['Lawful chronology confirmed'], evidence=[EvidencePacket(source='VaireCollector', evidence={'phase_chain': ['rom', 'firmware', 'bootloader', 'initramfs', 'covenant', 'choir'], 'monotonic_counter': 1, 'transition_hashes': ['hash1', 'hash2'], 'stability_class': 'stable', 'temporal_strictness': 0.4, 'replay_suspected': False}, f...ted_entities': [], 'protected_manifestations_count': 0, 'erasure_suspected': False, 'flicker_events': [], 'log_metadata': {'journal_inode': 1024, 'sequence_gap': 0, 'timestamp_discontinuity': 0.0}}, freshness=Freshness(observed_at=1774643202.296368, window_ms=30000.0, nonce='8b34754b-a44b-4d5d-b6df-fbd634b11da1', epoch=None), voice_id='voice-60e23deb13f8', sweep_id='sweep-d51fcaa9b220', secret_fire_ref='714a86910bf942668c48012ceba3d5e2', tier=None, ainur_target='mandos', confidence=1.0), EvidencePacket(source='UlmoCollector', evidence={'signals': [], 'anomaly_count': 0, 'max_risk_score': 0.0, 'memory_coherence': 1.0, 'device_stability': 1.0}, freshness=Freshness(observed_at=1774643202.2964249, window_ms=15000.0, nonce='a8a7d37d-b96b-4844-ac7f-2c672e30d05c', epoch=None), voice_id='voice-60e23deb13f8', sweep_id='sweep-d51fcaa9b220', secret_fire_ref='714a86910bf942668c48012ceba3d5e2', tier=None, ainur_target='ulmo', confidence=1.0)])], reasons=['Constitutional Synthesis: harmonic'], subject_id='local-substrate', node_id='local-substrate', voice_id='voice-60e23deb13f8', sweep_id='sweep-d51fcaa9b220', covenant_id='runtime-covenant', epoch='current_epoch', observed_at=1774643202.297318).overall_state
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: REPLAY DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DIAG: Ainur varda -> state=radiant, score=1.00, reasons=['Truth is stable and attested']
+DIAG: Ainur vaire -> state=lawful, score=1.00, reasons=['Lawful chronology confirmed']
+DIAG: Ainur mandos -> state=remembered, score=1.00, reasons=['No unauthorized absence detected']
+DIAG: Ainur manwe -> state=flowing, score=1.00, reasons=['System breath is natural and rhythmic']
+DIAG: Ainur ulmo -> state=clear, score=1.00, reasons=['The deep places are clear and serene']
+DIAG: Ainur aule -> state=harmonic, score=1.00, reasons=['Constitutional Synthesis: harmonic']
+Overall State: harmonic
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:148 Forge: Nonce 0cf6994c unknown or expired!
+WARNING  backend.arda.ainur.choir:choir.py:112 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+___________________________ test_stale_fire_defense ___________________________
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:103: in test_stale_fire_defense
+    asyncio.run(_test_stale_fire_defense())
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\gauntlets\test_secret_fire_gauntlet.py:118: in _test_stale_fire_defense
+    assert verdict.overall_state in ("dissonant", "vetoed")
+E   AssertionError: assert 'harmonic' in ('dissonant', 'vetoed')
+E    +  where 'harmonic' = ChoirVerdict(overall_state='harmonic', heralding_allowed=False, confidence=1.0, ainur=[AinurVerdict(ainur='varda', state='radiant', score=1.0, reasons=['Truth is stable and attested'], evidence=[EvidencePacket(source='VardaCollector', evidence={'pcr_values': {0: 'd05d90b57b9941b5d30c05e51afe0aaede4c32a7b84d5b8cceaae00744da5e76'}, 'firmware_fingerprint': '044d2c09eaf36d8f470e497582c72bdfcafebdf35c7ba367b192b886cc76966b', 'signature_valid': True, 'manifest_hash_match': True, 'attestation_status': 'lawful'}, freshness=Freshness(observed_at=1774643203.0169957, window_ms=10000.0, nonce='94cd30c5-5bef-47dd-9fce-27ad4da36256', epoch=None), voice_id='voice-7a70106db17f', sweep_id='sweep-b2df0ed01c54', secret_fire_ref='1953d9ef8ea24bceb90481db44c1d5a6', tier=None, ainur_target='varda', confidence=1.0)]), AinurVerdict(ainur='vaire', state='lawful', score=1.0, reasons=['Lawful chronology confirmed'], evidence=[EvidencePacket(source='VaireCollector', evidence={'phase_chain': ['rom', 'firmware', 'bootloader', 'initramfs', 'covenant', 'choir'], 'monotonic_counter': 1, 'transition_hashes': ['hash1', 'hash2'], 'stability_class': 'stable', 'temporal_strictness': 0.4, 'replay_suspected': False}, f...d_entities': [], 'protected_manifestations_count': 0, 'erasure_suspected': False, 'flicker_events': [], 'log_metadata': {'journal_inode': 1024, 'sequence_gap': 0, 'timestamp_discontinuity': 0.0}}, freshness=Freshness(observed_at=1774643203.0171573, window_ms=30000.0, nonce='e87c88dd-07d4-4d6d-96da-43bf333028b5', epoch=None), voice_id='voice-7a70106db17f', sweep_id='sweep-b2df0ed01c54', secret_fire_ref='1953d9ef8ea24bceb90481db44c1d5a6', tier=None, ainur_target='mandos', confidence=1.0), EvidencePacket(source='UlmoCollector', evidence={'signals': [], 'anomaly_count': 0, 'max_risk_score': 0.0, 'memory_coherence': 1.0, 'device_stability': 1.0}, freshness=Freshness(observed_at=1774643203.0172205, window_ms=15000.0, nonce='2a6c1220-3bac-4d65-b2fc-30f833649ae7', epoch=None), voice_id='voice-7a70106db17f', sweep_id='sweep-b2df0ed01c54', secret_fire_ref='1953d9ef8ea24bceb90481db44c1d5a6', tier=None, ainur_target='ulmo', confidence=1.0)])], reasons=['Constitutional Synthesis: harmonic'], subject_id='local-substrate', node_id='local-substrate', voice_id='voice-7a70106db17f', sweep_id='sweep-b2df0ed01c54', covenant_id='runtime-covenant', epoch='current_epoch', observed_at=1774643203.0205193).overall_state
+---------------------------- Captured stdout call -----------------------------
+
+--- Testing Secret Fire: STALE DEFENSE ---
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DEBUG: SecretFireForge requesting quote for indices: [0, 1, 7, 11]
+DIAG: Ainur varda -> state=radiant, score=1.00, reasons=['Truth is stable and attested']
+DIAG: Ainur vaire -> state=lawful, score=1.00, reasons=['Lawful chronology confirmed']
+DIAG: Ainur mandos -> state=remembered, score=1.00, reasons=['No unauthorized absence detected']
+DIAG: Ainur manwe -> state=flowing, score=1.00, reasons=['System breath is natural and rhythmic']
+DIAG: Ainur ulmo -> state=clear, score=1.00, reasons=['The deep places are clear and serene']
+DIAG: Ainur aule -> state=harmonic, score=1.00, reasons=['Constitutional Synthesis: harmonic']
+Overall State: harmonic
+------------------------------ Captured log call ------------------------------
+WARNING  backend.services.secret_fire:secret_fire.py:155 Forge: Nonce 7e7be73f expired before response!
+WARNING  backend.arda.ainur.choir:choir.py:112 Secret Fire dissonance detected - reforging sweep-bound reality witness.
+============================== warnings summary ===============================
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures
+  C:\Users\User\AppData\Local\Programs\Python\Python314\Lib\site-packages\pydantic\main.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_harmony
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_missing_fire_withhold
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_liar_detection
+backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_sovereign_mode_strictures
+  C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\services\tpm_attestation_service.py:353: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_fire_replay_defense
+FAILED backend/tests/gauntlets/test_secret_fire_gauntlet.py::test_stale_fire_defense
+================== 2 failed, 4 passed, 16 warnings in 2.62s ===================
+
+2026-03-27 22:26:44,016 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:44,017 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 12: RECURSIVE WITNESSING <<<
+2026-03-27 22:26:44,019 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:44,022 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:26:50,072 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 12: RECURSIVE WITNESSING] holy_witness -> Claim 12: Recursive Witnessing | Status: passed
+2026-03-27 22:26:50,073 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/gauntlets/test_tulkas_enforcement.py
+2026-03-27 22:26:56,364 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 12: RECURSIVE WITNESSING] holy_witness -> Claim 12: Recursive Witnessing | Status: passed
+2026-03-27 22:26:56,365 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:56,365 - SOVEREIGN_AUDIT_v2 - INFO - >>> ENTERING PHASE: CLAIM 13: PERFECT HONESTY <<<
+2026-03-27 22:26:56,365 - SOVEREIGN_AUDIT_v2 - INFO - =========================================================================
+2026-03-27 22:26:56,365 - SOVEREIGN_AUDIT_v2 - INFO - Witnessing: backend/tests/test_advanced_services.py
+2026-03-27 22:27:01,790 - SOVEREIGN_AUDIT_v2 - INFO - [CLAIM 13: PERFECT HONESTY] holy_witness -> Claim 13: Perfect Honesty | Status: passed
+2026-03-27 22:27:01,796 - SOVEREIGN_AUDIT_v2 - INFO - Final JSON Telemetry Report Generated: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_report.json
+2026-03-27 22:27:01,805 - SOVEREIGN_AUDIT_v2 - INFO - Markdown Telemetry Summary Generated: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY\backend\scripts\telemetry_logs\SOVEREIGN_AUDIT_v2_summary.md
+2026-03-27 22:27:01,806 - SOVEREIGN_AUDIT_v2 - INFO - 
+================================================================================
+2026-03-27 22:27:01,807 - SOVEREIGN_AUDIT_v2 - ERROR - [FAIL] SOVEREIGN DISSONANCE DETECTED.
+2026-03-27 22:27:01,807 - SOVEREIGN_AUDIT_v2 - INFO - ================================================================================

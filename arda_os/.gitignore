@@ -1,0 +1,8 @@
+# Created by pytest automatically.
+*
+
+# Required tracked ARDA measured-identity CLI.
+# arda_os/* is broadly ignored, so explicitly retain this source file.
+!bin/
+bin/*
+!bin/arda_build_measured_manifest.py

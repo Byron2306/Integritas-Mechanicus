@@ -1,0 +1,17 @@
+[Unit]
+Description=Verify ARDA Ring-0 live kernel attachment
+Requires=arda-ring0.service
+After=arda-ring0.service
+Before=arda-valinor-postboot.service
+ConditionKernelCommandLine=!arda.recovery=1
+
+[Service]
+Type=oneshot
+Environment=PYTHONPATH=/usr/lib/arda/src/arda_os
+ExecStart=/usr/bin/python3 /usr/lib/arda/src/arda_os/kernel/valinor/scripts/verify_ring0_attachment.py --require-restored-state
+RemainAfterExit=yes
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

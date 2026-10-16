@@ -1,0 +1,11 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0
+rootdir: C:\Users\User\source\repos\Metatron-triune-outbound-gate\ARDA_OS_v1_80_UNIVERSAL_SANCTITY
+plugins: anyio-4.11.0, hypothesis-6.151.9, langsmith-0.6.6
+collected 26 items
+
+backend\tests\test_quantum_security_service.py ...                       [ 11%]
+backend\tests\test_governance_token_enforcement.py ...                   [ 23%]
+backend\tests\test_advanced_services.py ....................             [100%]
+
+============================= 26 passed in 1.18s ==============================
