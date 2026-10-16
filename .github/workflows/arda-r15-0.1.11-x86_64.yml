@@ -1,0 +1,178 @@
+name: ARDA R15 0.1.11 x86_64 package forge
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - reconstruction/r15-0.1.11-candidate-20261016
+    paths:
+      - ".github/workflows/arda-r15-0.1.11-x86_64.yml"
+      - "arda_os/**"
+      - "installer/**"
+      - "packaging/**"
+
+permissions:
+  contents: read
+
+jobs:
+  forge:
+    name: Test, build, and audit 0.1.11
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@v4
+        with:
+          ref: reconstruction/r15-0.1.11-candidate-20261016
+          fetch-depth: 1
+
+      - name: Record source identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "=== SOURCE ==="
+            git status --short --branch
+            git rev-parse HEAD
+            git log -5 --oneline
+            echo
+            echo "=== HOST ==="
+            uname -a
+            dpkg --print-architecture
+          } | tee arda-r15-source-identity.log
+
+      - name: Install native forge dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            clang \
+            llvm \
+            libbpf-dev \
+            libelf-dev \
+            zlib1g-dev \
+            bpftool \
+            build-essential \
+            dpkg-dev \
+            python3-pytest \
+            rsync
+          clang --version
+          python3 -m pytest --version
+          test -f /usr/include/bpf/bpf_helpers.h
+
+      - name: Full installer regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pytest -q installer/tests \
+            2>&1 | tee arda-r15-0.1.11-full-installer-regression.log
+
+      - name: Verify committed build closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            arda_os/bin/build_arda_proof_bpf.sh
+            arda_os/backend/services/bpf/arda_physical_lsm.c
+            arda_os/backend/services/bpf/arda_lsm_loader.c
+            arda_os/backend/services/bpf/vmlinux.h
+            arda_os/backend/services/measured_identity.py
+            arda_os/backend/services/measured_policy_profiles.py
+            arda_os/bin/arda_build_measured_manifest.py
+            installer/arda-enroll
+            packaging/build-arda-valinor-deb.sh
+          )
+          for f in "${required[@]}"; do
+            git cat-file -e "HEAD:$f"
+            echo "HEAD PRESENT $f"
+          done | tee arda-r15-build-closure.log
+
+      - name: Build amd64 package from committed HEAD
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build/arda-valinor-deb build/bpf-runtime
+          ARDA_PACKAGE_VERSION=0.1.11 \
+          ARDA_PACKAGE_ARCH=amd64 \
+            bash packaging/build-arda-valinor-deb.sh \
+            2>&1 | tee arda-r15-0.1.11-package-build.log
+
+      - name: Audit package
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEB="build/arda-valinor_0.1.11_amd64.deb"
+          test -s "$DEB"
+
+          {
+            echo "=== PACKAGE IDENTITY ==="
+            echo "FILE=$DEB"
+            echo "SHA256=$(sha256sum "$DEB" | awk '{print $1}')"
+            echo "VERSION=$(dpkg-deb -f "$DEB" Version)"
+            echo "ARCHITECTURE=$(dpkg-deb -f "$DEB" Architecture)"
+            echo
+            echo "=== REQUIRED PAYLOAD ==="
+          } | tee arda-r15-0.1.11-package-audit.log
+
+          test "$(dpkg-deb -f "$DEB" Version)" = "0.1.11"
+          test "$(dpkg-deb -f "$DEB" Architecture)" = "amd64"
+
+          payload="$(dpkg-deb -c "$DEB")"
+          required_paths=(
+            "./usr/bin/arda-enroll"
+            "./usr/bin/arda-grade"
+            "./usr/lib/arda/src/arda_os/backend/services/bpf/arda_physical_lsm.o"
+            "./usr/lib/arda/src/arda_os/backend/services/bpf/arda_lsm_loader"
+            "./usr/lib/arda/src/arda_os/backend/services/measured_policy_profiles.py"
+            "./lib/systemd/system/arda-ring0.service"
+            "./lib/systemd/system/arda-ring0-verify.service"
+            "./lib/systemd/system/arda-valinor-postboot.service"
+            "./lib/systemd/system/arda-valinor-postboot.timer"
+          )
+
+          for p in "${required_paths[@]}"; do
+            printf '%s\n' "$payload" | grep -F " $p" >/dev/null
+            echo "PRESENT $p" | tee -a arda-r15-0.1.11-package-audit.log
+          done
+
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          dpkg-deb -x "$DEB" "$tmp/root"
+          dpkg-deb -e "$DEB" "$tmp/control"
+
+          bash -n "$tmp/root/usr/bin/arda-enroll"
+
+          if find "$tmp/root" -type f \
+            \( -iname '*.ctx' -o -iname '*.priv' -o -iname '*private*.pem' -o -iname '*private*.key' \) \
+            -print | grep -q .; then
+            echo "REFUSE: private/identity material present in package" | tee -a arda-r15-0.1.11-package-audit.log
+            exit 1
+          fi
+
+          if grep -RIl \
+            --exclude='*.pyc' --exclude='*.so' --exclude='*.o' --exclude='*.bin' \
+            -- '-----BEGIN .*PRIVATE KEY-----' "$tmp/root" 2>/dev/null | grep -q .; then
+            echo "REFUSE: PEM private key material present in package" | tee -a arda-r15-0.1.11-package-audit.log
+            exit 1
+          fi
+
+          echo "PACKAGE_AUDIT: PASS" | tee -a arda-r15-0.1.11-package-audit.log
+          sha256sum "$DEB" | tee arda-r15-0.1.11-package.sha256
+
+      - name: Upload proof bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arda-r15-0.1.11-x86_64-forge
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            arda-r15-source-identity.log
+            arda-r15-build-closure.log
+            arda-r15-0.1.11-full-installer-regression.log
+            arda-r15-0.1.11-package-build.log
+            arda-r15-0.1.11-package-audit.log
+            arda-r15-0.1.11-package.sha256
+            build/arda-valinor_0.1.11_amd64.deb
